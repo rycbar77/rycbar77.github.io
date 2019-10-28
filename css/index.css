@@ -225,6 +225,8 @@ img:not([src]) {
   color: #90a4ae;
   font-size: 14px;
   line-height: 20px;
+  counter-reset: line;
+  white-space: pre-wrap;
 }
 figure.highlight {
   position: relative;
@@ -274,6 +276,15 @@ blockquote {
 .article-container .highlight .line::selection {
   background: rgba(128,203,196,0.251);
   color: #90a4ae;
+}
+.article-container .highlight .line:before {
+  display: inline-block;
+  padding: 0 0.3rem 0 0;
+  min-width: 1.6rem;
+  color: #cfd8dc;
+  content: counter(line);
+  counter-increment: line;
+  text-align: left;
 }
 .article-container .highlight table {
   position: relative;
