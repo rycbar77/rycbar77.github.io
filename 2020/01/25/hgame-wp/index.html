@@ -1,27 +1,26 @@
 <!DOCTYPE html>
 <html>
-<head><meta name="generator" content="Hexo 3.8.0">
+<head>
   <meta charset="utf-8">
   
   <meta name="renderer" content="webkit">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="rycbar.xyz">
   <title>hgame_wp | My Tiny Ideas</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="记录一下Hgame的部分题解和一些解题时的思路">
-<meta name="keywords" content="CTF">
 <meta property="og:type" content="article">
 <meta property="og:title" content="hgame_wp">
 <meta property="og:url" content="rycbar.xyz/2020/01/25/hgame-wp/index.html">
 <meta property="og:site_name" content="My Tiny Ideas">
 <meta property="og:description" content="记录一下Hgame的部分题解和一些解题时的思路">
-<meta property="og:locale" content="default">
 <meta property="og:image" content="https://s2.ax1x.com/2020/01/16/lx8C1f.png">
 <meta property="og:image" content="https://s2.ax1x.com/2020/01/19/19Jx9H.png">
-<meta property="og:updated_time" content="2020-02-06T02:12:13.135Z">
+<meta property="article:published_time" content="2020-01-25T12:28:09.000Z">
+<meta property="article:modified_time" content="2020-02-06T02:24:16.162Z">
+<meta property="article:author" content="Aorui Zhang">
+<meta property="article:tag" content="CTF">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="hgame_wp">
-<meta name="twitter:description" content="记录一下Hgame的部分题解和一些解题时的思路">
 <meta name="twitter:image" content="https://s2.ax1x.com/2020/01/16/lx8C1f.png">
   
     <link rel="alternative" href="/atom.xml" title="My Tiny Ideas" type="application/atom+xml">
@@ -40,8 +39,8 @@
 
   
 
-</head>
-</html>
+<meta name="generator" content="Hexo 4.2.0"></head>
+
 <body>
   <div id="container" q-class="show:isCtnShow">
     <canvas id="anm-canvas" class="anm-canvas"></canvas>
@@ -171,7 +170,7 @@
         <p>记录一下Hgame的部分题解和一些解题时的思路</p>
 <a id="more"></a>
 
-<h2 id="Week1"><a href="#Week1" class="headerlink" title="Week1"></a>Week1</h2><h3 id="Web"><a href="#Web" class="headerlink" title="Web"></a>Web</h3><h4 id="接-头-霸-王"><a href="#接-头-霸-王" class="headerlink" title="接 头 霸 王"></a>接 头 霸 王</h4><p>打开题目，发现提示需要从<a href="https://vidar.club过来，所以burp抓包到repeater，添加响应头：" target="_blank" rel="noopener">https://vidar.club过来，所以burp抓包到repeater，添加响应头：</a></p>
+<h2 id="Week1"><a href="#Week1" class="headerlink" title="Week1"></a>Week1</h2><h3 id="Web"><a href="#Web" class="headerlink" title="Web"></a>Web</h3><h4 id="接-头-霸-王"><a href="#接-头-霸-王" class="headerlink" title="接 头 霸 王"></a>接 头 霸 王</h4><p>打开题目，发现提示需要从vidar.club过来，所以burp抓包到repeater，添加响应头：</p>
 <figure class="highlight http"><table><tr><td class="code"><pre><span class="line"><span class="attribute">Referer:https://vidar.club</span></span><br></pre></td></tr></table></figure>
 
 <p>然后提示需要从本地访问，添加响应头：</p>
@@ -182,6 +181,8 @@
 
 <p>再发送请求得到flag</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hgame&#123;W0w!Your_heads_@re_s0_many!&#125;</span><br></pre></td></tr></table></figure>
+
+
 
 <h3 id="RE"><a href="#RE" class="headerlink" title="RE"></a>RE</h3><h4 id="maze"><a href="#maze" class="headerlink" title="maze"></a>maze</h4><p>一看题目又是一道迷宫题，拖进IDA反编译</p>
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">v5 = (<span class="keyword">char</span> *)&amp;unk_6020C4;</span><br><span class="line">  <span class="keyword">while</span> ( (<span class="keyword">signed</span> <span class="keyword">int</span>)v4 &lt; SHIDWORD(v4) )</span><br><span class="line">  &#123;</span><br><span class="line">    v3 = s[(<span class="keyword">signed</span> <span class="keyword">int</span>)v4];</span><br><span class="line">    <span class="keyword">if</span> ( v3 == <span class="number">100</span> )</span><br><span class="line">    &#123;</span><br><span class="line">      v5 += <span class="number">4</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> ( v3 &gt; <span class="number">100</span> )</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="keyword">if</span> ( v3 == <span class="number">115</span> )</span><br><span class="line">      &#123;</span><br><span class="line">        v5 += <span class="number">64</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">else</span></span><br><span class="line">      &#123;</span><br><span class="line">        <span class="keyword">if</span> ( v3 != <span class="number">119</span> )</span><br><span class="line">        &#123;</span><br><span class="line">LABEL_12:</span><br><span class="line">          <span class="built_in">puts</span>(<span class="string">"Illegal input!"</span>);</span><br><span class="line">          <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        v5 -= <span class="number">64</span>;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">      <span class="keyword">if</span> ( v3 != <span class="number">97</span> )</span><br><span class="line">        <span class="keyword">goto</span> LABEL_12;</span><br><span class="line">      v5 -= <span class="number">4</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> ( v5 &lt; (<span class="keyword">char</span> *)&amp;unk_602080 || v5 &gt; (<span class="keyword">char</span> *)&amp;unk_60247C || *(_DWORD *)v5 &amp; <span class="number">1</span> )</span><br><span class="line">      <span class="keyword">goto</span> LABEL_22;</span><br><span class="line">    LODWORD(v4) = v4 + <span class="number">1</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> ( v5 == (<span class="keyword">char</span> *)&amp;unk_60243C )</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="built_in">sprintf</span>(&amp;v7, <span class="string">"hgame&#123;%s&#125;"</span>, s, v4);</span><br><span class="line">    <span class="built_in">puts</span>(<span class="string">"You win!"</span>);</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"Flag is: "</span>);</span><br><span class="line">    <span class="built_in">puts</span>(&amp;v7);</span><br><span class="line">    <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">  &#125;</span><br><span class="line">LABEL_22:</span><br><span class="line">  <span class="built_in">puts</span>(<span class="string">"You died"</span>);</span><br><span class="line">  <span class="built_in">exit</span>(<span class="number">0</span>);</span><br></pre></td></tr></table></figure>
@@ -226,6 +227,8 @@
 <p>提交提示成功，猜测正确</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hgame&#123;-24840_-78193_51567_2556_-26463_26729_3608_-25933_25943&#125;</span><br></pre></td></tr></table></figure>
 
+
+
 <h3 id="PWN"><a href="#PWN" class="headerlink" title="PWN"></a>PWN</h3><h4 id="Hard-AAAAA"><a href="#Hard-AAAAA" class="headerlink" title="Hard_AAAAA"></a>Hard_AAAAA</h4><p>IDA反编译</p>
 <figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> __<span class="function">cdecl <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">const</span> <span class="keyword">char</span> **argv, <span class="keyword">const</span> <span class="keyword">char</span> **envp)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">char</span> s; <span class="comment">// [esp+0h] [ebp-ACh]</span></span><br><span class="line">  <span class="keyword">char</span> v5; <span class="comment">// [esp+7Bh] [ebp-31h]</span></span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">int</span> v6; <span class="comment">// [esp+A0h] [ebp-Ch]</span></span><br><span class="line">  <span class="keyword">int</span> *v7; <span class="comment">// [esp+A4h] [ebp-8h]</span></span><br><span class="line"></span><br><span class="line">  v7 = &amp;argc;</span><br><span class="line">  v6 = __readgsdword(<span class="number">0x14</span>u);</span><br><span class="line">  alarm(<span class="number">8u</span>);</span><br><span class="line">  setbuf(_bss_start, <span class="number">0</span>);</span><br><span class="line">  <span class="built_in">memset</span>(&amp;s, <span class="number">0</span>, <span class="number">0xA0</span>u);</span><br><span class="line">  <span class="built_in">puts</span>(<span class="string">"Let's 0O0o\\0O0!"</span>);</span><br><span class="line">  gets(&amp;s);</span><br><span class="line">  <span class="keyword">if</span> ( !<span class="built_in">memcmp</span>(<span class="string">"0O0o"</span>, &amp;v5, <span class="number">7u</span>) )</span><br><span class="line">    backdoor();</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//backdoor</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">backdoor</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">return</span> system(<span class="string">"/bin/sh"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -235,11 +238,15 @@
 <p>最终得到flag：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hgame&#123;0OoO0oo0O0Oo&#125;</span><br></pre></td></tr></table></figure>
 
+
+
 <h3 id="Crypto"><a href="#Crypto" class="headerlink" title="Crypto"></a>Crypto</h3><h4 id="InfantRSA"><a href="#InfantRSA" class="headerlink" title="InfantRSA"></a>InfantRSA</h4><p>简单的RSA解密，p和q都已经分解出来了，其它的没什么难度</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="comment">#-*- coding:utf-8 -*-</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">gcdext</span><span class="params">(a, b)</span>:</span></span><br><span class="line">    <span class="string">"""</span></span><br><span class="line"><span class="string">    a: 模的取值</span></span><br><span class="line"><span class="string">    b: 想求逆的值</span></span><br><span class="line"><span class="string">    """</span></span><br><span class="line">    <span class="keyword">if</span> b == <span class="number">0</span>:</span><br><span class="line">        <span class="keyword">return</span> <span class="number">1</span>, <span class="number">0</span>, a</span><br><span class="line">    x, y, gcd = gcdext(b, a % b)</span><br><span class="line">    <span class="keyword">return</span> y, x - a // b * y, gcd</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">c = <span class="number">275698465082361070145173688411496311542172902608559859019841</span></span><br><span class="line">p = <span class="number">681782737450022065655472455411</span></span><br><span class="line">q = <span class="number">675274897132088253519831953441</span></span><br><span class="line">e = <span class="number">13</span></span><br><span class="line">n = p * q</span><br><span class="line"><span class="comment"># print(k)</span></span><br><span class="line">fai = (p - <span class="number">1</span>) * (q - <span class="number">1</span>)</span><br><span class="line">(d, k, g) = gcdext(e, fai)</span><br><span class="line"><span class="comment"># print(fai)</span></span><br><span class="line"><span class="comment"># print(k)</span></span><br><span class="line"><span class="comment"># print(m)</span></span><br><span class="line">m = pow(c, d, n)</span><br><span class="line"><span class="comment"># print(m)</span></span><br><span class="line">f = m.to_bytes(<span class="number">22</span>, byteorder=<span class="string">'big'</span>)</span><br><span class="line">print(f)</span><br></pre></td></tr></table></figure>
 
 <p>直接求解出来flag</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hgame&#123;t3Xt6O0k_R5A!!!&#125;</span><br></pre></td></tr></table></figure>
+
+
 
 <h3 id="misc"><a href="#misc" class="headerlink" title="misc"></a>misc</h3><h4 id="欢迎参加HGame！"><a href="#欢迎参加HGame！" class="headerlink" title="欢迎参加HGame！"></a>欢迎参加HGame！</h4><p>首先看到一长串似曾相识的东西</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">Li0tIC4uLi0tIC4tLi4gLS4tLiAtLS0tLSAtLSAuIC4uLS0uLSAtIC0tLSAuLi0tLi0gLi4tLS0gLS0tLS0gLi4tLS0gLS0tLS0gLi4tLS4tIC4uLi4gLS0uIC4tIC0tIC4uLi0t</span><br></pre></td></tr></table></figure>
@@ -367,7 +374,7 @@
 <nav id="article-nav">
   
   
-    <a href="/2020/01/11/RE题解/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2020/01/11/RE%E9%A2%98%E8%A7%A3/" id="article-nav-older" class="article-nav-link-wrap">
       <div class="article-nav-title">RE题解</div>
       <i class="icon-circle-right"></i>
     </a>
@@ -536,7 +543,7 @@ MathJax.Hub.Queue(function() {
         </div>
         <ul class="search-ul">
           <p q-show="jsonFail" style="padding: 20px; font-size: 12px;">
-            缺失模块。<br>1、请确保node版本大于6.2<br>2、在博客根目录（注意不是yilia根目录）执行以下命令：<br> npm i hexo-generator-json-content --save<br><br>
+            缺失模块。<br/>1、请确保node版本大于6.2<br/>2、在博客根目录（注意不是yilia根目录）执行以下命令：<br/> npm i hexo-generator-json-content --save<br/><br/>
             3、在根目录_config.yml里添加配置：
 <pre style="font-size: 12px;" q-show="jsonFail">
   jsonContent:

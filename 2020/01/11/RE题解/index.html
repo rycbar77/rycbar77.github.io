@@ -1,21 +1,19 @@
 <!DOCTYPE html>
 <html>
-<head><meta name="generator" content="Hexo 3.8.0">
+<head>
   <meta charset="utf-8">
   
   <meta name="renderer" content="webkit">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="rycbar.xyz">
   <title>RE题解 | My Tiny Ideas</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="一些平台的逆向题还不错，在这里记录一下解决题目的思路和方法">
-<meta name="keywords" content="CTF">
 <meta property="og:type" content="article">
 <meta property="og:title" content="RE题解">
-<meta property="og:url" content="rycbar.xyz/2020/01/11/RE题解/index.html">
+<meta property="og:url" content="rycbar.xyz/2020/01/11/RE%E9%A2%98%E8%A7%A3/index.html">
 <meta property="og:site_name" content="My Tiny Ideas">
 <meta property="og:description" content="一些平台的逆向题还不错，在这里记录一下解决题目的思路和方法">
-<meta property="og:locale" content="default">
 <meta property="og:image" content="https://s2.ax1x.com/2019/12/30/llVwqK.png">
 <meta property="og:image" content="https://s2.ax1x.com/2019/12/30/llVcRA.png">
 <meta property="og:image" content="https://s2.ax1x.com/2020/01/11/l5WbYn.png">
@@ -27,10 +25,11 @@
 <meta property="og:image" content="https://s2.ax1x.com/2020/01/11/lIAEm6.png">
 <meta property="og:image" content="https://s2.ax1x.com/2020/01/12/loJApR.png">
 <meta property="og:image" content="https://s2.ax1x.com/2020/01/13/lH3iRA.png">
-<meta property="og:updated_time" content="2020-02-06T02:14:04.829Z">
+<meta property="article:published_time" content="2020-01-11T07:31:43.000Z">
+<meta property="article:modified_time" content="2020-02-06T02:14:04.829Z">
+<meta property="article:author" content="Aorui Zhang">
+<meta property="article:tag" content="CTF">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="RE题解">
-<meta name="twitter:description" content="一些平台的逆向题还不错，在这里记录一下解决题目的思路和方法">
 <meta name="twitter:image" content="https://s2.ax1x.com/2019/12/30/llVwqK.png">
   
     <link rel="alternative" href="/atom.xml" title="My Tiny Ideas" type="application/atom+xml">
@@ -49,8 +48,8 @@
 
   
 
-</head>
-</html>
+<meta name="generator" content="Hexo 4.2.0"></head>
+
 <body>
   <div id="container" q-class="show:isCtnShow">
     <canvas id="anm-canvas" class="anm-canvas"></canvas>
@@ -169,7 +168,7 @@
   
 
         
-        <a href="/2020/01/11/RE题解/" class="archive-article-date">
+        <a href="/2020/01/11/RE%E9%A2%98%E8%A7%A3/" class="archive-article-date">
   	<time datetime="2020-01-11T07:31:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-11</time>
 </a>
         
@@ -201,6 +200,8 @@
 
 <p>输出flag为：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">flag&#123;read_asm_is_the_basic&#125;</span><br></pre></td></tr></table></figure>
+
+
 
 <h4 id="Py交易"><a href="#Py交易" class="headerlink" title="Py交易"></a>Py交易</h4><p>本题是python的反编译，使用在线工具或uncompyle6将pyc文件反编译，得到代码</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> base64</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">encode</span><span class="params">(message)</span>:</span></span><br><span class="line">    s = <span class="string">''</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> message:</span><br><span class="line">        x = ord(i) ^ <span class="number">32</span></span><br><span class="line">        x = x + <span class="number">16</span></span><br><span class="line">        s += chr(x)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> base64.b64encode(s)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">correct = <span class="string">'XlNkVmtUI1MgXWBZXCFeKY+AaXNt'</span></span><br><span class="line">flag = <span class="string">''</span></span><br><span class="line"><span class="keyword">print</span> <span class="string">'Input flag:'</span></span><br><span class="line">flag = raw_input()</span><br><span class="line"><span class="keyword">if</span> encode(flag) == correct:</span><br><span class="line">    <span class="keyword">print</span> <span class="string">'correct'</span></span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="keyword">print</span> <span class="string">'wrong'</span></span><br><span class="line"><span class="keyword">import</span> base64</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">encode</span><span class="params">(message)</span>:</span></span><br><span class="line">    s = <span class="string">''</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> message:</span><br><span class="line">        x = ord(i) ^ <span class="number">32</span></span><br><span class="line">        x = x + <span class="number">16</span></span><br><span class="line">        s += chr(x)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> base64.b64encode(s)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">correct = <span class="string">'XlNkVmtUI1MgXWBZXCFeKY+AaXNt'</span></span><br><span class="line">flag = <span class="string">''</span></span><br><span class="line"><span class="keyword">print</span> <span class="string">'Input flag:'</span></span><br><span class="line">flag = raw_input()</span><br><span class="line"><span class="keyword">if</span> encode(flag) == correct:</span><br><span class="line">    <span class="keyword">print</span> <span class="string">'correct'</span></span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="keyword">print</span> <span class="string">'wrong'</span></span><br></pre></td></tr></table></figure>
@@ -243,7 +244,9 @@
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">s = [<span class="number">0x15</span>, <span class="number">0x1F</span>, <span class="number">0x12</span>, <span class="number">0x14</span>, <span class="number">0x08</span>, <span class="number">0x3A</span>, <span class="number">0x46</span>, <span class="number">0x2C</span>, <span class="number">0x07</span>, <span class="number">0x1B</span>, <span class="number">0x51</span>, <span class="number">0x13</span>, <span class="number">0x3F</span>, <span class="number">0x57</span>, <span class="number">0x08</span>, <span class="number">0x05</span>, <span class="number">0x3F</span>, <span class="number">0x30</span>, <span class="number">0x32</span>,</span><br><span class="line">     <span class="number">0x51</span>, <span class="number">0x52</span>, <span class="number">0x02</span>, <span class="number">0x6E</span>, <span class="number">0x78</span>, <span class="number">0x16</span>, <span class="number">0x7C</span>, <span class="number">0x6E</span>, <span class="number">0x61</span>, <span class="number">0x70</span>, <span class="number">0x48</span>, <span class="number">0x1C</span>, <span class="number">0x3B</span>, <span class="number">0x32</span>, <span class="number">0x2A</span>, <span class="number">0x13</span>, <span class="number">0x45</span>, <span class="number">0x07</span>, <span class="number">0x2A</span>,</span><br><span class="line">     <span class="number">0x18</span>, <span class="number">0x0C</span>, <span class="number">0x6E</span>, <span class="number">0x41</span>, <span class="number">0x70</span>, <span class="number">0x04</span>, <span class="number">0x06</span>, <span class="number">0x6E</span>, <span class="number">0x5C</span>, <span class="number">0x00</span>, <span class="number">0x42</span>, <span class="number">0x45</span>, <span class="number">0x70</span>, <span class="number">0x5A</span>, <span class="number">0x02</span>, <span class="number">0x04</span>, <span class="number">0x0E</span>, <span class="number">0x4C</span>]</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">10</span>):</span><br><span class="line">    s[i]^=<span class="number">0xAD</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">10</span>,<span class="number">20</span>):</span><br><span class="line">    s[i]^=<span class="number">0xBE</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">20</span>,<span class="number">30</span>):</span><br><span class="line">    s[i]^=<span class="number">0xEF</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">30</span>,<span class="number">40</span>):</span><br><span class="line">    s[i]^=<span class="number">0xAB</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">40</span>,<span class="number">56</span>):</span><br><span class="line">    s[i]^=<span class="number">0xEF</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">56</span>):</span><br><span class="line">    s[i]^=<span class="number">0xDE</span></span><br><span class="line">print(<span class="string">''</span>.join([str(chr(i%<span class="number">128</span>)) <span class="keyword">for</span> i <span class="keyword">in</span> s]))</span><br></pre></td></tr></table></figure>
 
 <p>运行程序输出flag：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">flag&#123;I5_th1s_7he_PR1c3_I&apos;M_PAyiNG_f0r_my_pA57_m1stAk35?&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">flag&#123;I5_th1s_7he_PR1c3_I&#39;M_PAyiNG_f0r_my_pA57_m1stAk35?&#125;</span><br></pre></td></tr></table></figure>
+
+
 
 
       
@@ -314,7 +317,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http:rycbar.xyz/2020/01/11/RE题解/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http:rycbar.xyz/2020/01/11/RE%E9%A2%98%E8%A7%A3/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -507,7 +510,7 @@ MathJax.Hub.Queue(function() {
         </div>
         <ul class="search-ul">
           <p q-show="jsonFail" style="padding: 20px; font-size: 12px;">
-            缺失模块。<br>1、请确保node版本大于6.2<br>2、在博客根目录（注意不是yilia根目录）执行以下命令：<br> npm i hexo-generator-json-content --save<br><br>
+            缺失模块。<br/>1、请确保node版本大于6.2<br/>2、在博客根目录（注意不是yilia根目录）执行以下命令：<br/> npm i hexo-generator-json-content --save<br/><br/>
             3、在根目录_config.yml里添加配置：
 <pre style="font-size: 12px;" q-show="jsonFail">
   jsonContent:
