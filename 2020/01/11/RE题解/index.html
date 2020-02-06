@@ -8,12 +8,13 @@
   <link rel="dns-prefetch" href="rycbar.xyz">
   <title>RE题解 | My Tiny Ideas</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Bugku入门逆向直接拖进IDA反编译  直接可以看到flag Easy_vbIDA或OD反编译，搜索字符串看到有flag样式的字符串，是MCTF比赛的题，bugku上需要提交flag(xxx)，所以把MCTF改成flag{} Easy_Re用OD调试，搜索字符串，找到需要我们输入字符串的位置：发现提示语和%s，找到输入字符串的位置，加断点单步调试程序会把输入的字符串和flag进行比较，相同则通过">
+  <meta name="description" content="一些平台的逆向题还不错，在这里记录一下解决题目的思路和方法">
+<meta name="keywords" content="CTF">
 <meta property="og:type" content="article">
 <meta property="og:title" content="RE题解">
 <meta property="og:url" content="rycbar.xyz/2020/01/11/RE题解/index.html">
 <meta property="og:site_name" content="My Tiny Ideas">
-<meta property="og:description" content="Bugku入门逆向直接拖进IDA反编译  直接可以看到flag Easy_vbIDA或OD反编译，搜索字符串看到有flag样式的字符串，是MCTF比赛的题，bugku上需要提交flag(xxx)，所以把MCTF改成flag{} Easy_Re用OD调试，搜索字符串，找到需要我们输入字符串的位置：发现提示语和%s，找到输入字符串的位置，加断点单步调试程序会把输入的字符串和flag进行比较，相同则通过">
+<meta property="og:description" content="一些平台的逆向题还不错，在这里记录一下解决题目的思路和方法">
 <meta property="og:locale" content="default">
 <meta property="og:image" content="https://s2.ax1x.com/2019/12/30/llVwqK.png">
 <meta property="og:image" content="https://s2.ax1x.com/2019/12/30/llVcRA.png">
@@ -26,10 +27,10 @@
 <meta property="og:image" content="https://s2.ax1x.com/2020/01/11/lIAEm6.png">
 <meta property="og:image" content="https://s2.ax1x.com/2020/01/12/loJApR.png">
 <meta property="og:image" content="https://s2.ax1x.com/2020/01/13/lH3iRA.png">
-<meta property="og:updated_time" content="2020-01-16T04:06:08.357Z">
+<meta property="og:updated_time" content="2020-02-06T02:14:04.829Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="RE题解">
-<meta name="twitter:description" content="Bugku入门逆向直接拖进IDA反编译  直接可以看到flag Easy_vbIDA或OD反编译，搜索字符串看到有flag样式的字符串，是MCTF比赛的题，bugku上需要提交flag(xxx)，所以把MCTF改成flag{} Easy_Re用OD调试，搜索字符串，找到需要我们输入字符串的位置：发现提示语和%s，找到输入字符串的位置，加断点单步调试程序会把输入的字符串和flag进行比较，相同则通过">
+<meta name="twitter:description" content="一些平台的逆向题还不错，在这里记录一下解决题目的思路和方法">
 <meta name="twitter:image" content="https://s2.ax1x.com/2019/12/30/llVwqK.png">
   
     <link rel="alternative" href="/atom.xml" title="My Tiny Ideas" type="application/atom+xml">
@@ -71,8 +72,6 @@
 			
 				<li><a href="/">主页</a></li>
 	        
-				<li><a href="/tags/随笔/">随笔</a></li>
-	        
 			</ul>
 		</nav>
 		<nav class="header-smart-menu">
@@ -93,13 +92,11 @@
 		<nav class="header-nav">
 			<div class="social">
 				
-					<a class="github" target="_blank" href="#" title="github"><i class="icon-github"></i></a>
+					<a class="github" target="_blank" href="https://github.com/schrodinger17" title="github"><i class="icon-github"></i></a>
 		        
-					<a class="weibo" target="_blank" href="#" title="weibo"><i class="icon-weibo"></i></a>
+					<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/schrodinger17" title="zhihu"><i class="icon-zhihu"></i></a>
 		        
-					<a class="rss" target="_blank" href="#" title="rss"><i class="icon-rss"></i></a>
-		        
-					<a class="zhihu" target="_blank" href="#" title="zhihu"><i class="icon-zhihu"></i></a>
+					<a class="mail" target="_blank" href="/rycbar17th@gmail.com" title="mail"><i class="icon-mail"></i></a>
 		        
 			</div>
 		</nav>
@@ -127,20 +124,16 @@
 			
 				
 			
-				
-			
 			
 			
 			<nav class="header-nav">
 				<div class="social">
 					
-						<a class="github" target="_blank" href="#" title="github"><i class="icon-github"></i></a>
+						<a class="github" target="_blank" href="https://github.com/schrodinger17" title="github"><i class="icon-github"></i></a>
 			        
-						<a class="weibo" target="_blank" href="#" title="weibo"><i class="icon-weibo"></i></a>
+						<a class="zhihu" target="_blank" href="https://www.zhihu.com/people/schrodinger17" title="zhihu"><i class="icon-zhihu"></i></a>
 			        
-						<a class="rss" target="_blank" href="#" title="rss"><i class="icon-rss"></i></a>
-			        
-						<a class="zhihu" target="_blank" href="#" title="zhihu"><i class="icon-zhihu"></i></a>
+						<a class="mail" target="_blank" href="/rycbar17th@gmail.com" title="mail"><i class="icon-mail"></i></a>
 			        
 				</div>
 			</nav>
@@ -149,9 +142,7 @@
 				<ul style="width: 50%">
 				
 				
-					<li style="width: 50%"><a href="/">主页</a></li>
-		        
-					<li style="width: 50%"><a href="/tags/随笔/">随笔</a></li>
+					<li style="width: 100%"><a href="/">主页</a></li>
 		        
 				</ul>
 			</nav>
@@ -186,7 +177,10 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="Bugku"><a href="#Bugku" class="headerlink" title="Bugku"></a>Bugku</h3><h4 id="入门逆向"><a href="#入门逆向" class="headerlink" title="入门逆向"></a>入门逆向</h4><p>直接拖进IDA反编译</p>
+        <p>一些平台的逆向题还不错，在这里记录一下解决题目的思路和方法</p>
+<a id="more"></a>
+
+<h3 id="Bugku"><a href="#Bugku" class="headerlink" title="Bugku"></a>Bugku</h3><h4 id="入门逆向"><a href="#入门逆向" class="headerlink" title="入门逆向"></a>入门逆向</h4><p>直接拖进IDA反编译</p>
 <p><img src="https://s2.ax1x.com/2019/12/30/llVwqK.png" alt="1-1.png"></p>
 <p>直接可以看到flag</p>
 <h4 id="Easy-vb"><a href="#Easy-vb" class="headerlink" title="Easy_vb"></a>Easy_vb</h4><p>IDA或OD反编译，搜索字符串<br><img src="https://s2.ax1x.com/2019/12/30/llVcRA.png" alt="2-1.png"><br>看到有flag样式的字符串，是MCTF比赛的题，bugku上需要提交flag(xxx)，所以把MCTF改成flag{}</p>
@@ -259,6 +253,17 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">CTF</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
@@ -492,6 +497,10 @@ MathJax.Hub.Queue(function() {
             <input type="checkbox" q-on="click:toggleTag(e)" q-attr="checked:showTags">
           </label>
           <ul class="article-tag-list" q-show="showTags">
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">CTF</a>
+              </li>
             
             <div class="clearfix"></div>
           </ul>
