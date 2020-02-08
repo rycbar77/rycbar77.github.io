@@ -17,7 +17,7 @@
 <meta property="og:image" content="https://raw.githubusercontent.com/schrodinger17/photos/master/Hgame-maze-1.png">
 <meta property="og:image" content="https://raw.githubusercontent.com/schrodinger17/photos/master/Hgame-bitwise_operation2-1.png">
 <meta property="article:published_time" content="2020-01-25T12:28:09.000Z">
-<meta property="article:modified_time" content="2020-02-07T14:32:42.902Z">
+<meta property="article:modified_time" content="2020-02-08T04:21:38.060Z">
 <meta property="article:author" content="Aorui Zhang">
 <meta property="article:tag" content="CTF">
 <meta name="twitter:card" content="summary">
@@ -307,7 +307,7 @@
 <h4 id="babyPy"><a href="#babyPy" class="headerlink" title="babyPy"></a>babyPy</h4><p>这题比较简单，把log和dis指令表对照一下就能还原出来函数的原型来</p>
 <p>dis指令表见<a href="https://docs.python.org/3/library/dis.html#python-bytecode-instructions" target="_blank" rel="noopener">https://docs.python.org/3/library/dis.html#python-bytecode-instructions</a></p>
 <p>还原出来的函数原型（想打死命名的人）</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">encrypt</span><span class="params">(OOo)</span>:</span></span><br><span class="line"> O0O = OOo[::<span class="number">-1</span>]</span><br><span class="line"> O0o = list(O0O)</span><br><span class="line"> <span class="keyword">for</span> O0 <span class="keyword">in</span> range(<span class="number">1</span>, len(O0o)):</span><br><span class="line"> Oo = O0o[O0<span class="number">-1</span>] ^ O0o[O0]</span><br><span class="line"> O0o[O0] = Oo</span><br><span class="line"> O = bytes(O0o)</span><br><span class="line"> <span class="keyword">return</span> O.hex()</span><br></pre></td></tr></table></figure>
+<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">encrypt</span><span class="params">(OOo)</span>:</span></span><br><span class="line"> O0O = OOo[::<span class="number">-1</span>]</span><br><span class="line"> O0o = list(O0O)</span><br><span class="line"> <span class="keyword">for</span> O0 <span class="keyword">in</span> range(<span class="number">1</span>, len(O0o)):</span><br><span class="line"> 	Oo = O0o[O0<span class="number">-1</span>] ^ O0o[O0]</span><br><span class="line"> 	O0o[O0] = Oo</span><br><span class="line"> O = bytes(O0o)</span><br><span class="line"> <span class="keyword">return</span> O.hex()</span><br></pre></td></tr></table></figure>
 
 <p>所以只需要反过来异或一遍就可以了</p>
 <figure class="highlight python"><table><tr><td class="code"><pre><span class="line">s = bytes.fromhex(<span class="string">'7d037d045717722d62114e6a5b044f2c184c3f44214c2d4a22'</span>)</span><br><span class="line">c = list(str)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(len(c) - <span class="number">1</span>, <span class="number">0</span>, <span class="number">-1</span>):</span><br><span class="line">    c[i] ^= c[i - <span class="number">1</span>]</span><br><span class="line">print(bytes(c[::<span class="number">-1</span>]))</span><br></pre></td></tr></table></figure>
