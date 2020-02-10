@@ -6,14 +6,26 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="rycbar.xyz">
-  <title>Archives: 2020 | My Tiny Ideas</title>
+  <title>BUUCTF-re部分题解 | My Tiny Ideas</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="My Tiny Ideas">
-<meta property="og:url" content="rycbar.xyz/archives/2020/index.html">
+  <meta name="description" content="看到有些大佬在做BUUCTF的题，看了一下，题目很多，但是感觉良莠不齐，并且开始的一些题目有些太简单了，就当是多做些题目了。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="BUUCTF-re部分题解">
+<meta property="og:url" content="rycbar.xyz/2020/01/11/BUUCTF-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3/index.html">
 <meta property="og:site_name" content="My Tiny Ideas">
+<meta property="og:description" content="看到有些大佬在做BUUCTF的题，看了一下，题目很多，但是感觉良莠不齐，并且开始的一些题目有些太简单了，就当是多做些题目了。">
+<meta property="og:image" content="https://raw.githubusercontent.com/schrodinger17/photos/master/BUUCTF-%E4%B8%8D%E4%B8%80%E6%A0%B7%E7%9A%84flag-1.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/schrodinger17/photos/master/BUUCTF-%E4%B8%8D%E4%B8%80%E6%A0%B7%E7%9A%84flag-2.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/schrodinger17/photos/master/BUUCTF-%E5%88%AE%E5%BC%80%E6%9C%89%E5%A5%96-1.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/schrodinger17/photos/master/BUUCTF-%E5%88%AE%E5%BC%80%E6%9C%89%E5%A5%96-2.png">
+<meta property="article:published_time" content="2020-01-11T07:31:43.000Z">
+<meta property="article:modified_time" content="2020-02-10T06:44:00.971Z">
 <meta property="article:author" content="Aorui Zhang">
+<meta property="article:tag" content="CTF">
+<meta property="article:tag" content="re">
+<meta property="article:tag" content="BUUCTF">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/schrodinger17/photos/master/BUUCTF-%E4%B8%8D%E4%B8%80%E6%A0%B7%E7%9A%84flag-1.png">
   
     <link rel="alternative" href="/atom.xml" title="My Tiny Ideas" type="application/atom+xml">
   
@@ -147,170 +159,120 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-BUUCTF-re部分题解" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      BUUCTF-re部分题解
+    </h1>
+  
+
+        
+        <a href="/2020/01/11/BUUCTF-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3/" class="archive-article-date">
+  	<time datetime="2020-01-11T07:31:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-11</time>
+</a>
+        
+      </header>
     
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>看到有些大佬在做BUUCTF的题，看了一下，题目很多，但是感觉良莠不齐，并且开始的一些题目有些太简单了，就当是多做些题目了。</p>
+<a id="more"></a>
+
+<h4 id="easyre"><a href="#easyre" class="headerlink" title="easyre"></a>easyre</h4><p>确实非常easy，直接拖进IDA看到flag</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">flag&#123;this_Is_a_EaSyRe&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="reverse1"><a href="#reverse1" class="headerlink" title="reverse1"></a>reverse1</h4><p>IDA打开，通过字符串窗口找到主程序，整个程序流程很简单</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> ( j = <span class="number">0</span>; ; ++j )</span><br><span class="line">  &#123;</span><br><span class="line">    v8 = j;</span><br><span class="line">    v2 = j_strlen(Str2);</span><br><span class="line">    <span class="keyword">if</span> ( v8 &gt; v2 )</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">if</span> ( Str2[j] == <span class="string">'o'</span> )</span><br><span class="line">      Str2[j] = <span class="string">'0'</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  sub_1400111D1(<span class="string">"input the flag:"</span>);</span><br><span class="line">  sub_14001128F(<span class="string">"%20s"</span>, &amp;Str1);</span><br><span class="line">  v3 = j_strlen(Str2);</span><br><span class="line">  <span class="keyword">if</span> ( !<span class="built_in">strncmp</span>(&amp;Str1, Str2, v3) )</span><br><span class="line">    sub_1400111D1(<span class="string">"this is the right flag!\n"</span>);</span><br><span class="line">  <span class="keyword">else</span></span><br><span class="line">    sub_1400111D1(<span class="string">"wrong flag\n"</span>);</span><br></pre></td></tr></table></figure>
+
+<p>只有这一部分有用，str2时内存中的一个字符串，只是将输入的字符串和变换过后的str2进行一个简单的对比，一样则输出正确</p>
+<p>str2的变换就是将所有的o变换成0，str2为‘{hello_world}’，所以flag为</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">flag&#123;hell0_w0rld&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="reverse2"><a href="#reverse2" class="headerlink" title="reverse2"></a>reverse2</h4><p>和上一题完全一样，只不过时ELF64文件，把i和r全部替换成了1</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">flag&#123;hack1ng_fo1_fun&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="helloworld"><a href="#helloworld" class="headerlink" title="helloworld"></a>helloworld</h4><p>安卓逆向，直接apktool反编译，在MainActivity.smail文件里找到了flag</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">flag&#123;7631a988259a00816deda84afb29430a&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="新年快乐"><a href="#新年快乐" class="headerlink" title="新年快乐"></a>新年快乐</h4><p>简单加壳软件，在加壳时没做任何的修改，直接upx脱壳，IDA反编译，通过字符串直接找到flag</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">flag&#123;HappyNewYear!&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="内涵的软件"><a href="#内涵的软件" class="headerlink" title="内涵的软件"></a>内涵的软件</h4><p>IDA反编译可以直接发现flag，把花括号里的放进flag{}里即可</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">flag&#123;49d3c93df25caad81232130f3d2ebfad&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="xor"><a href="#xor" class="headerlink" title="xor"></a>xor</h4><p>一看题目就是到要逆运算异或，反编译之后发现关键运算</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> ( i = <span class="number">1</span>; i &lt; <span class="number">33</span>; ++i )</span><br><span class="line">    v6[i] ^= v6[i - <span class="number">1</span>];</span><br><span class="line">  v3 = global;</span><br><span class="line">  <span class="keyword">if</span> ( !<span class="built_in">strncmp</span>(v6, global, <span class="number">0x21</span>uLL) )</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"Success"</span>, v3);</span><br></pre></td></tr></table></figure>
+
+<p>所以逆运算就好了</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">unsigned</span> <span class="keyword">char</span> ida_chars[] =</span><br><span class="line">            &#123;</span><br><span class="line">                    <span class="number">0x66</span>, <span class="number">0x0A</span>, <span class="number">0x6B</span>, <span class="number">0x0C</span>, <span class="number">0x77</span>, <span class="number">0x26</span>, <span class="number">0x4F</span>, <span class="number">0x2E</span>, <span class="number">0x40</span>, <span class="number">0x11</span>,</span><br><span class="line">                    <span class="number">0x78</span>, <span class="number">0x0D</span>, <span class="number">0x5A</span>, <span class="number">0x3B</span>, <span class="number">0x55</span>, <span class="number">0x11</span>, <span class="number">0x70</span>, <span class="number">0x19</span>, <span class="number">0x46</span>, <span class="number">0x1F</span>,</span><br><span class="line">                    <span class="number">0x76</span>, <span class="number">0x22</span>, <span class="number">0x4D</span>, <span class="number">0x23</span>, <span class="number">0x44</span>, <span class="number">0x0E</span>, <span class="number">0x67</span>, <span class="number">0x06</span>, <span class="number">0x68</span>, <span class="number">0x0F</span>,</span><br><span class="line">                    <span class="number">0x47</span>, <span class="number">0x32</span>, <span class="number">0x4F</span></span><br><span class="line">            &#125;;</span><br><span class="line">    <span class="built_in">string</span> flag;</span><br><span class="line">    flag+=ida_chars[<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>;i&lt;<span class="number">33</span>;i++)</span><br><span class="line">        &#123;</span><br><span class="line">            flag+=(ida_chars[i]^ida_chars[i<span class="number">-1</span>]);</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;flag&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>直接输出flag</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">flag&#123;QianQiuWanDai_YiTongJiangHu&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="reverse3"><a href="#reverse3" class="headerlink" title="reverse3"></a>reverse3</h4><p>和bugku的love是同一个题，不再赘述</p>
+<h4 id="不一样的flag"><a href="#不一样的flag" class="headerlink" title="不一样的flag"></a>不一样的flag</h4><p>减弱般的迷宫题，上下左右全部都标示的清清楚楚</p>
+<p><img src="https://raw.githubusercontent.com/schrodinger17/photos/master/BUUCTF-%E4%B8%8D%E4%B8%80%E6%A0%B7%E7%9A%84flag-1.png" alt="不一样的flag-1"></p>
+<p>迷宫如下图</p>
+<p><img src="https://raw.githubusercontent.com/schrodinger17/photos/master/BUUCTF-%E4%B8%8D%E4%B8%80%E6%A0%B7%E7%9A%84flag-2.png" alt="不一样的flag-2"></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">*1111</span><br><span class="line">01000</span><br><span class="line">01010</span><br><span class="line">00010</span><br><span class="line">1111#</span><br></pre></td></tr></table></figure>
+
+<p>转换成5*5的方阵，*走到#即可</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">flag&#123;222441144222&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="刮开有奖"><a href="#刮开有奖" class="headerlink" title="刮开有奖"></a>刮开有奖</h4><p>IDA反编译出来，发现需要输入8位，经过sub_4010F0这个函数的变换后，在经过两个base64变换（查看函数内部自己发现），满足条件即正确</p>
+<p><img src="https://raw.githubusercontent.com/schrodinger17/photos/master/BUUCTF-%E5%88%AE%E5%BC%80%E6%9C%89%E5%A5%96-1.png" alt="刮开有奖-1"></p>
+<p>sub_4010F0这个函数内容比较多，但是和输入的字符串无关，所以直接直接把函数实现然后求出来正确的取值就可以了（后面的条件略多，这里的变换实际上只需要第一位和第五位）</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> __<span class="function">cdecl <span class="title">decrypt</span><span class="params">(<span class="keyword">char</span> *a1, <span class="keyword">int</span> a2, <span class="keyword">int</span> a3)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> result; <span class="comment">// eax</span></span><br><span class="line">    <span class="keyword">int</span> i; <span class="comment">// esi</span></span><br><span class="line">    <span class="keyword">int</span> v5; <span class="comment">// ecx</span></span><br><span class="line">    <span class="keyword">int</span> v6; <span class="comment">// edx</span></span><br><span class="line"></span><br><span class="line">    result = a3;</span><br><span class="line">    <span class="keyword">for</span> (i = a2; i &lt;= a3; a2 = i) &#123;</span><br><span class="line">        v5 = i;</span><br><span class="line">        v6 = a1[i];</span><br><span class="line">        <span class="keyword">if</span> (a2 &lt; result &amp;&amp; i &lt; result) &#123;</span><br><span class="line">            <span class="keyword">do</span> &#123;</span><br><span class="line">                <span class="keyword">if</span> (v6 &gt; a1[result]) &#123;</span><br><span class="line">                    <span class="keyword">if</span> (i &gt;= result)</span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line">                    ++i;</span><br><span class="line">                    a1[v5] = a1[result];</span><br><span class="line">                    <span class="keyword">if</span> (i &gt;= result)</span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line">                    <span class="keyword">while</span> (a1[result] &lt;= v6) &#123;</span><br><span class="line">                        <span class="keyword">if</span> (++i &gt;= result)</span><br><span class="line">                            <span class="keyword">goto</span> LABEL_13;</span><br><span class="line">                    &#125;</span><br><span class="line">                    <span class="keyword">if</span> (i &gt;= result)</span><br><span class="line">                        <span class="keyword">break</span>;</span><br><span class="line">                    v5 = i;</span><br><span class="line">                    a1[result] = a1[i];</span><br><span class="line">                &#125;</span><br><span class="line">                --result;</span><br><span class="line">            &#125; <span class="keyword">while</span> (i &lt; result);</span><br><span class="line">        &#125;</span><br><span class="line">        LABEL_13:</span><br><span class="line">        a1[result] = v6;</span><br><span class="line">        decrypt(a1, a2, i - <span class="number">1</span>);</span><br><span class="line">        result = a3;</span><br><span class="line">        ++i;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">char</span> v9[<span class="number">20</span>] = &#123;<span class="number">90</span>, <span class="number">74</span>, <span class="number">83</span>, <span class="number">69</span>, <span class="number">67</span>, <span class="number">97</span>, <span class="number">78</span>, <span class="number">72</span>, <span class="number">51</span>, <span class="number">110</span>, <span class="number">103</span>&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; v9 &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    decrypt(v9, <span class="number">0</span>, <span class="number">10</span>);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; v9 &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>输出如图所示</p>
+<p><img src="https://raw.githubusercontent.com/schrodinger17/photos/master/BUUCTF-%E5%88%AE%E5%BC%80%E6%9C%89%E5%A5%96-2.png" alt="刮开有奖-2"></p>
+<p>接着分析下面的部分</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span> ( String == v9 + <span class="number">34</span>         <span class="comment">// 第一位等于51+34=85--&gt;'U'</span></span><br><span class="line">        &amp;&amp; v21 == v13         <span class="comment">//第2位，等于v13,即sub_4010F0函数返回值的第5位值--&gt;'J'</span></span><br><span class="line">        &amp;&amp; <span class="number">4</span> * v22 - <span class="number">141</span> == <span class="number">3</span> * v11</span><br><span class="line">        &amp;&amp; v23 / <span class="number">4</span> == <span class="number">2</span> * (v16 / <span class="number">9</span>)</span><br><span class="line">        &amp;&amp; !<span class="built_in">strcmp</span>(v6, <span class="string">"ak1w"</span>)       <span class="comment">// 第6,7,8个字符base64之后，等于ak1w</span></span><br><span class="line">        &amp;&amp; !<span class="built_in">strcmp</span>(v7,<span class="string">"V1Ax"</span>)        <span class="comment">// 第3,4,5个字符，base64之后等于V1Ax</span></span><br><span class="line">   )</span><br><span class="line">      &#123;</span><br><span class="line">        MessageBoxA(hDlg, <span class="string">"U g3t 1T!"</span>, <span class="string">"@_@"</span>, <span class="number">0</span>);</span><br><span class="line">      &#125;</span><br></pre></td></tr></table></figure>
+
+<p>还多与两个条件就检验正确就可以了</p>
+<p>得到flag</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">flag&#123;UJWP1jMp&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="SimpleRev"><a href="#SimpleRev" class="headerlink" title="SimpleRev"></a>SimpleRev</h4><p>这题没什么难度，IDA打开</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">int</span> __cdecl __<span class="function">noreturn <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">const</span> <span class="keyword">char</span> **argv, <span class="keyword">const</span> <span class="keyword">char</span> **envp)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">int</span> v3; <span class="comment">// eax</span></span><br><span class="line">  <span class="keyword">char</span> v4; <span class="comment">// [rsp+Fh] [rbp-1h]</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">while</span> ( <span class="number">1</span> )</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">while</span> ( <span class="number">1</span> )</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="built_in">printf</span>(<span class="string">"Welcome to CTF game!\nPlease input d/D to start or input q/Q to quit this program: "</span>, argv, envp);</span><br><span class="line">      v4 = getchar();</span><br><span class="line">      <span class="keyword">if</span> ( v4 != <span class="string">'d'</span> &amp;&amp; v4 != <span class="string">'D'</span> )</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      Decry();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> ( v4 == <span class="string">'q'</span> || v4 == <span class="string">'Q'</span> )</span><br><span class="line">      Exit();</span><br><span class="line">    <span class="built_in">puts</span>(<span class="string">"Input fault format!"</span>);</span><br><span class="line">    v3 = getchar();</span><br><span class="line">    <span class="built_in">putchar</span>(v3);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>main函数里面没有什么需要注意的东西，解决问题的重点就都放在Decry()这个函数里了</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">unsigned</span> __<span class="function">int64 <span class="title">Decry</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">char</span> v1; <span class="comment">// [rsp+Fh] [rbp-51h]</span></span><br><span class="line">  <span class="keyword">int</span> v2; <span class="comment">// [rsp+10h] [rbp-50h]</span></span><br><span class="line">  <span class="keyword">int</span> v3; <span class="comment">// [rsp+14h] [rbp-4Ch]</span></span><br><span class="line">  <span class="keyword">int</span> i; <span class="comment">// [rsp+18h] [rbp-48h]</span></span><br><span class="line">  <span class="keyword">int</span> v5; <span class="comment">// [rsp+1Ch] [rbp-44h]</span></span><br><span class="line">  <span class="keyword">char</span> src[<span class="number">8</span>]; <span class="comment">// [rsp+20h] [rbp-40h]</span></span><br><span class="line">  __int64 v7; <span class="comment">// [rsp+28h] [rbp-38h]</span></span><br><span class="line">  <span class="keyword">int</span> v8; <span class="comment">// [rsp+30h] [rbp-30h]</span></span><br><span class="line">  __int64 v9; <span class="comment">// [rsp+40h] [rbp-20h]</span></span><br><span class="line">  __int64 v10; <span class="comment">// [rsp+48h] [rbp-18h]</span></span><br><span class="line">  <span class="keyword">int</span> v11; <span class="comment">// [rsp+50h] [rbp-10h]</span></span><br><span class="line">  <span class="keyword">unsigned</span> __int64 v12; <span class="comment">// [rsp+58h] [rbp-8h]</span></span><br><span class="line"></span><br><span class="line">  v12 = __readfsqword(<span class="number">0x28</span>u);</span><br><span class="line">  *(_QWORD *)src = 'SLCDN';</span><br><span class="line">  v7 = <span class="number">0L</span>L;</span><br><span class="line">  v8 = <span class="number">0</span>;</span><br><span class="line">  v9 = 'wodah';</span><br><span class="line">  v10 = <span class="number">0L</span>L;</span><br><span class="line">  v11 = <span class="number">0</span>;</span><br><span class="line">  text = join(key3, (<span class="keyword">const</span> <span class="keyword">char</span> *)&amp;v9);         <span class="comment">// text=killshadow</span></span><br><span class="line">  <span class="built_in">strcpy</span>(key, key1);                            <span class="comment">// key=key1='ADSFK'</span></span><br><span class="line">  <span class="built_in">strcat</span>(key, src);                             <span class="comment">// key='ADSFKNDCLS'</span></span><br><span class="line">  v2 = <span class="number">0</span>;</span><br><span class="line">  v3 = <span class="number">0</span>;</span><br><span class="line">  getchar();</span><br><span class="line">  v5 = <span class="built_in">strlen</span>(key);</span><br><span class="line">  <span class="keyword">for</span> ( i = <span class="number">0</span>; i &lt; v5; ++i )</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">if</span> ( key[v3 % v5] &gt; <span class="string">'@'</span> &amp;&amp; key[v3 % v5] &lt;= <span class="string">'Z'</span> )</span><br><span class="line">      key[i] = key[v3 % v5] + <span class="number">32</span>;</span><br><span class="line">    ++v3;</span><br><span class="line">  &#125;                                             <span class="comment">// 转换为小写</span></span><br><span class="line">                                                <span class="comment">// key='adsfkndcls'</span></span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">"Please input your flag:"</span>, src);</span><br><span class="line">  <span class="keyword">while</span> ( <span class="number">1</span> )</span><br><span class="line">  &#123;</span><br><span class="line">    v1 = getchar();</span><br><span class="line">    <span class="keyword">if</span> ( v1 == <span class="string">'\n'</span> )                           <span class="comment">// 遇到回车结束</span></span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">if</span> ( v1 == <span class="string">' '</span> )                            <span class="comment">// 跳过空格</span></span><br><span class="line">    &#123;</span><br><span class="line">      ++v2;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">      <span class="keyword">if</span> ( v1 &lt;= <span class="number">96</span> || v1 &gt; <span class="number">122</span> )</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="keyword">if</span> ( v1 &gt; <span class="number">64</span> &amp;&amp; v1 &lt;= <span class="number">90</span> )              <span class="comment">// 大写字母</span></span><br><span class="line">          str2[v2] = (v1 - <span class="number">39</span> - key[v3++ % v5] + <span class="number">97</span>) % <span class="number">26</span> + <span class="number">97</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">else</span>                                      <span class="comment">// 小写字母</span></span><br><span class="line">      &#123;</span><br><span class="line">        str2[v2] = (v1 - <span class="number">39</span> - key[v3++ % v5] + <span class="number">97</span>) % <span class="number">26</span> + <span class="number">97</span>;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">if</span> ( !(v3 % v5) )</span><br><span class="line">        <span class="built_in">putchar</span>(<span class="number">32</span>);</span><br><span class="line">      ++v2;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> ( !<span class="built_in">strcmp</span>(text, str2) )</span><br><span class="line">    <span class="built_in">puts</span>(<span class="string">"Congratulation!\n"</span>);</span><br><span class="line">  <span class="keyword">else</span></span><br><span class="line">    <span class="built_in">puts</span>(<span class="string">"Try again!\n"</span>);</span><br><span class="line">  <span class="keyword">return</span> __readfsqword(<span class="number">0x28</span>u) ^ v12;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>需要注意src和v9本身是以long long类型赋值，转换成字符串要记得逆序，接下来的过程就很简单了，程序的过程很清楚，直接逆向运算就可以算出来结果了</p>
+<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n = <span class="number">0</span>, v5 = <span class="number">10</span>, v3 = <span class="number">10</span>, v2 = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">char</span> v1;</span><br><span class="line">    <span class="keyword">char</span> flag[<span class="number">11</span>] = &#123;<span class="number">0</span>&#125;;</span><br><span class="line">    <span class="keyword">char</span> key[] = <span class="string">"adsfkndcls"</span>;</span><br><span class="line">    <span class="keyword">char</span> text[] = <span class="string">"killshadow"</span>;</span><br><span class="line"><span class="comment">//通过放缩，j只能取0-3之间</span></span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; <span class="number">4</span>; ++j) &#123;</span><br><span class="line">        <span class="keyword">for</span> (v2 = <span class="number">0</span>; v2 &lt; <span class="number">10</span>; ++v2) &#123;</span><br><span class="line">            v1 = text[v2] - <span class="number">97</span> + <span class="number">26</span> * j - <span class="number">97</span> + key[v3++ % v5] + <span class="number">39</span>;</span><br><span class="line">            <span class="keyword">if</span> ((v1 &gt;= <span class="number">65</span> &amp;&amp; v1 &lt;= <span class="number">90</span>) || (v1 &gt;= <span class="number">97</span> &amp;&amp; v1 &lt;= <span class="number">122</span>)) &#123;</span><br><span class="line">                flag[v2] = v1;</span><br><span class="line">                <span class="keyword">if</span> (++n == <span class="number">10</span>) &#123;</span><br><span class="line">                    <span class="built_in">printf</span>(<span class="string">"flag&#123;%s&#125;\n"</span>, flag);</span><br><span class="line">                    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里的j是用来逆向取余运算时候遍历，放缩之后得到一个范围，然后计算就可以了</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">flag&#123;KLDQCUDFZO&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="Java逆向解密"><a href="#Java逆向解密" class="headerlink" title="Java逆向解密"></a>Java逆向解密</h4><p>第一次做Java逆向，顺便也熟悉熟悉Java，所以逆向程序也是用Java写的</p>
+<p>附件打开是class文件，IDEA直接可以反编译，反编译出来的代码很简单</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Reverse</span> </span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Reverse</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        Scanner s = <span class="keyword">new</span> Scanner(System.in);</span><br><span class="line">        System.out.println(<span class="string">"Please input the flag ："</span>);</span><br><span class="line">        String str = s.next();</span><br><span class="line">        System.out.println(<span class="string">"Your input is ："</span>);</span><br><span class="line">        System.out.println(str);</span><br><span class="line">        <span class="keyword">char</span>[] stringArr = str.toCharArray();</span><br><span class="line">        Encrypt(stringArr);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Encrypt</span><span class="params">(<span class="keyword">char</span>[] arr)</span> </span>&#123;</span><br><span class="line">        ArrayList&lt;Integer&gt; Resultlist = <span class="keyword">new</span> ArrayList();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; arr.length; ++i) &#123;</span><br><span class="line">            <span class="keyword">int</span> result = arr[i] + <span class="number">64</span> ^ <span class="number">32</span>;</span><br><span class="line">            Resultlist.add(result);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">int</span>[] KEY = <span class="keyword">new</span> <span class="keyword">int</span>[]&#123;<span class="number">180</span>, <span class="number">136</span>, <span class="number">137</span>, <span class="number">147</span>, <span class="number">191</span>, <span class="number">137</span>, <span class="number">147</span>, <span class="number">191</span>, <span class="number">148</span>, <span class="number">136</span>, <span class="number">133</span>, <span class="number">191</span>, <span class="number">134</span>, <span class="number">140</span>, <span class="number">129</span>, <span class="number">135</span>, <span class="number">191</span>, <span class="number">65</span>&#125;;</span><br><span class="line">        ArrayList&lt;Integer&gt; KEYList = <span class="keyword">new</span> ArrayList();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; KEY.length; ++j) &#123;</span><br><span class="line">            KEYList.add(KEY[j]);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        System.out.println(<span class="string">"Result:"</span>);</span><br><span class="line">        <span class="keyword">if</span> (Resultlist.equals(KEYList)) &#123;</span><br><span class="line">            System.out.println(<span class="string">"Congratulations！"</span>);</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            System.err.println(<span class="string">"Error！"</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>把KEY每个值都减去64^32就好了，没什么难度，所以试试用Java写，练练手</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> com.company;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span>[] KEY = <span class="keyword">new</span> <span class="keyword">int</span>[]&#123;<span class="number">180</span>, <span class="number">136</span>, <span class="number">137</span>, <span class="number">147</span>, <span class="number">191</span>, <span class="number">137</span>, <span class="number">147</span>, <span class="number">191</span>, <span class="number">148</span>, <span class="number">136</span>, <span class="number">133</span>, <span class="number">191</span>, <span class="number">134</span>, <span class="number">140</span>, <span class="number">129</span>, <span class="number">135</span>, <span class="number">191</span>, <span class="number">65</span>&#125;;</span><br><span class="line">        ArrayList&lt;Integer&gt; resultList = <span class="keyword">new</span> ArrayList&lt;&gt;();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> value : KEY) &#123;</span><br><span class="line">            resultList.add(value - <span class="number">64</span> ^ <span class="number">32</span>);</span><br><span class="line">        &#125;</span><br><span class="line"><span class="comment">//        System.out.println(resultList);</span></span><br><span class="line">        StringBuilder s = <span class="keyword">new</span> StringBuilder();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> value:resultList)&#123;</span><br><span class="line">            s.append((<span class="keyword">char</span>)value);</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(<span class="string">"flag&#123;"</span>+s+<span class="string">"&#125;"</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>直接输出flag</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">flag&#123;This_is_the_flag_!&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="findit"><a href="#findit" class="headerlink" title="findit"></a>findit</h4><p>不管是apktool反编译还是直接cfr反编译到代码，都可以找到一串很像flag的字符数组</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">pvkq&#123;m164675262033l4m49lnp7p9mnk28k75&#125;</span><br></pre></td></tr></table></figure>
+
+<p>直接凯撒密码解密，a与k之间相差10，所以key=10</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">flag&#123;c164675262033b4c49bdf7f9cda28a75&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
       
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/01/25/hgame-wp/" class="archive-article-date">
-  	<time datetime="2020-01-25T12:28:09.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-25</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/01/25/hgame-wp/">hgame_wp</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">CTF</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">re</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">hgame</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/01/11/bugku-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3/" class="archive-article-date">
-  	<time datetime="2020-01-11T07:31:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-11</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/01/11/bugku-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3/">bugku-re部分题解</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">CTF</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">re， bugku</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/01/11/CGCTF-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3/" class="archive-article-date">
-  	<time datetime="2020-01-11T07:31:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-11</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/01/11/CGCTF-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3/">CGCTF-re部分题解</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">CTF</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">re</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">CG-CTF</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/01/11/BUUCTF-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3/" class="archive-article-date">
-  	<time datetime="2020-01-11T07:31:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-11</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/01/11/BUUCTF-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3/">BUUCTF-re部分题解</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -330,65 +292,128 @@
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http:rycbar.xyz/2020/01/11/BUUCTF-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2020/01/11/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3/" class="archive-article-date">
-  	<time datetime="2020-01-11T07:31:43.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-01-11</time>
-</a>
+<nav id="article-nav">
+  
+    <a href="/2020/01/11/CGCTF-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          CGCTF-re部分题解
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/01/11/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">攻防世界-re部分题解</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/01/11/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3/">攻防世界-re部分题解</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">CTF</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">re</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">攻防世界</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#easyre"><span class="toc-number">1.</span> <span class="toc-text">easyre</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#reverse1"><span class="toc-number">2.</span> <span class="toc-text">reverse1</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#reverse2"><span class="toc-number">3.</span> <span class="toc-text">reverse2</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#helloworld"><span class="toc-number">4.</span> <span class="toc-text">helloworld</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#新年快乐"><span class="toc-number">5.</span> <span class="toc-text">新年快乐</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#内涵的软件"><span class="toc-number">6.</span> <span class="toc-text">内涵的软件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#xor"><span class="toc-number">7.</span> <span class="toc-text">xor</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#reverse3"><span class="toc-number">8.</span> <span class="toc-text">reverse3</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#不一样的flag"><span class="toc-number">9.</span> <span class="toc-text">不一样的flag</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#刮开有奖"><span class="toc-number">10.</span> <span class="toc-text">刮开有奖</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#SimpleRev"><span class="toc-number">11.</span> <span class="toc-text">SimpleRev</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Java逆向解密"><span class="toc-number">12.</span> <span class="toc-text">Java逆向解密</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#findit"><span class="toc-number">13.</span> <span class="toc-text">findit</span></a></li></ol>
+                    </div>
+                </span>
+            </div>
         </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
+        
+    </div>
+</aside>
+
+
+
   
   
-    </div></section>
   
 
-    
+  
+
+  
+
+  
 
 
           </div>
@@ -411,8 +436,8 @@
 	var yiliaConfig = {
 		mathjax: true,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: true,
