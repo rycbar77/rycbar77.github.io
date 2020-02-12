@@ -1,1109 +1,847 @@
 <!DOCTYPE html>
-<html >
+<html lang="zh-CN">
+
+
+
+
+
 <head>
-    <meta charset="utf-8" />
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+  
+  <meta name="description" content="">
+  <meta name="author" content="Aorui Zhang">
+  <meta name="keywords" content="">
+  <title>CGCTF-re部分题解 ~ My Tiny Ideas</title>
 
-<meta name="generator" content="Hexo 4.2.0" />
+  <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css"  >
+<link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css"  >
+<link rel="stylesheet" href="/lib/mdbootstrap/css/mdb.min.css"  >
+<link rel="stylesheet" href="/lib/github-markdown/github-markdown.min.css"  >
 
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-
-<title>CGCTF-re部分题解 - My Tiny Ideas</title>
-
-
-    <meta name="description" content="CG-CTF是南邮的平台，题目都很不错，这里记录一下部分题解决题目的思路和方法">
-<meta property="og:type" content="article">
-<meta property="og:title" content="CGCTF-re部分题解">
-<meta property="og:url" content="https://rycbar.xyz/2020/01/11/CGCTF-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3/index.html">
-<meta property="og:site_name" content="My Tiny Ideas">
-<meta property="og:description" content="CG-CTF是南邮的平台，题目都很不错，这里记录一下部分题解决题目的思路和方法">
-<meta property="og:image" content="https://rycbar.xyz/images/og_image.png">
-<meta property="article:published_time" content="2020-01-11T07:31:43.000Z">
-<meta property="article:modified_time" content="2020-02-10T06:44:19.547Z">
-<meta property="article:author" content="Aorui Zhang">
-<meta property="article:tag" content="CTF">
-<meta property="article:tag" content="re">
-<meta property="article:tag" content="CG-CTF">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https://rycbar.xyz/images/og_image.png">
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1067060_qzomjdt8bmp.css">
 
 
 
+  <link rel="stylesheet" href="/lib/prettify/github-v2.min.css"  >
+
+<link rel="stylesheet" href="/css/main.css"  >
 
 
+  <link rel="stylesheet" href="/lib/fancybox/jquery.fancybox.min.css"  >
 
 
-<link rel="icon" href="/images/favicon.svg">
+<meta name="generator" content="Hexo 4.2.0"></head>
 
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.7.2/css/bulma.css">
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:400,600|Source+Code+Pro">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.12.0/styles/atom-one-light.css">
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>My Tiny Ideas</strong>&nbsp;</a>
 
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
 
-    
-    
-<style>body>.footer,body>.navbar,body>.section{opacity:0}</style>
-
-    
-    
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/css/lightgallery.min.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/css/justifiedGallery.min.css">
-
-    
-    
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.css">
-
-    
-    
-    
-    
-<link rel="stylesheet" href="/css/back-to-top.css">
-
-    
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128484503-1"></script>
-<script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-
-    gtag('config', 'UA-128484503-1');
-</script>
-
-    
-    
-    
-    
-    
-    <link rel="stylesheet" href="/css/progressbar.css">
-<script src="https://cdn.jsdelivr.net/npm/pace-js@1.0.2/pace.min.js"></script>
-    
-    
-    
-
-
-<link rel="stylesheet" href="/css/style.css">
-</head>
-<body class="is-3-column">
-    <nav class="navbar navbar-main">
-    <div class="container">
-        <div class="navbar-brand is-flex-center">
-            <a class="navbar-item navbar-logo" href="/">
-            
-                <img src="/images/logo.svg" alt="CGCTF-re部分题解" height="28">
-            
-            </a>
-        </div>
-        <div class="navbar-menu">
-            
-            <div class="navbar-start">
-                
-                <a class="navbar-item"
-                href="/">Home</a>
-                
-                <a class="navbar-item"
-                href="/archives">Archives</a>
-                
-                <a class="navbar-item"
-                href="/categories">Categories</a>
-                
-                <a class="navbar-item"
-                href="/tags">Tags</a>
-                
-                <a class="navbar-item"
-                href="/about">About</a>
-                
-            </div>
-            
-            <div class="navbar-end">
-                
-                    
-                    <a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus">
-                        
-                        <i class="fab fa-github"></i>
-                        
-                    </a>
-                    
-                
-                
-                <a class="navbar-item is-hidden-tablet catalogue" title="Catalogue" href="javascript:;">
-                    <i class="fas fa-list-ul"></i>
-                </a>
-                
-                
-                <a class="navbar-item search" title="Search" href="javascript:;">
-                    <i class="fas fa-search"></i>
-                </a>
-                
-            </div>
-        </div>
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/">首页</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/archives/">归档</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/categories/">分类</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/tags/">标签</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/about/">关于</a>
+          </li>
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
     </div>
+  </div>
 </nav>
-    
-    <section class="section">
-        <div class="container">
-            <div class="columns">
-                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main">
-<div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2020-01-11T07:31:43.000Z">2020-01-11</time>
+
+    <div class="view intro-2" id="background"
+         style="background: url('/img/default.png')no-repeat center center;
+           background-size: cover;
+           background-attachment: fixed;">
+      <div class="full-bg-img">
+        <div class="mask rgba-black-light flex-center">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              <br>
+              
+                <p class="mt-3">
+                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>&nbsp;
+                  星期六, 一月 11日 2020, 3:31 下午
+                </p>
+              
+
+              <p>
                 
+                  
+                  &nbsp;<i class="far fa-chart-bar"></i>
+                  <span class="post-count">
+                    2.1k 字
+                  </span>&nbsp;
                 
-                <span class="level-item has-text-grey">
-                    
-                    
-                    13 minutes read (About 2014 words)
-                </span>
+
                 
+                  
+                  &nbsp;<i class="far fa-clock"></i>
+                  <span class="post-count">
+                      11 分钟
+                  </span>&nbsp;
                 
-            </div>
+
+                
+                  <!-- 不蒜子统计文章PV -->
+                  
+                  &nbsp;<i class="far fa-eye" aria-hidden="true"></i>&nbsp;
+                  <span id="busuanzi_container_page_pv">
+                    <span id="busuanzi_value_page_pv"></span> 次
+                  </span>&nbsp;
+                
+              </p>
+            
+          </div>
+
+          
         </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                CGCTF-re部分题解
-            
-        </h1>
-        <div class="content">
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="py-5 z-depth-3" id="board">
+        <div class="post-content mx-auto" id="post">
+          <div class="markdown-body">
             <p>CG-CTF是南邮的平台，题目都很不错，这里记录一下部分题解决题目的思路和方法</p>
 <a id="more"></a>
 
-<h4 id="Hello-RE"><a href="#Hello-RE" class="headerlink" title="Hello,RE"></a>Hello,RE</h4><p>打开程序，发现输入flag，用OD打开，注意到是将输入的字符串和flag直接进行比较，所以单步调试直接找到flag<br><img src="https://s2.ax1x.com/2020/01/13/lH3iRA.png" alt="1-1"></p>
+<h4 id="Hello-RE"><a href="#Hello-RE" class="headerlink" title="Hello,RE"></a>Hello,RE</h4><p>打开程序，发现输入flag，用OD打开，注意到是将输入的字符串和flag直接进行比较，所以单步调试直接找到flag<br><img src="https://s2.ax1x.com/2020/01/13/lH3iRA.png" srcset="/img/loading.gif" alt="1-1"></p>
 <h4 id="ReadAsm2"><a href="#ReadAsm2" class="headerlink" title="ReadAsm2"></a>ReadAsm2</h4><p>这题考的是直接读汇编的能力，代码贴在下面</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> <span class="keyword">const</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">char</span> input[] = &#123;<span class="number">0x0</span>,  <span class="number">0x67</span>, <span class="number">0x6e</span>, <span class="number">0x62</span>, <span class="number">0x63</span>, <span class="number">0x7e</span>, <span class="number">0x74</span>, <span class="number">0x62</span>, <span class="number">0x69</span>, <span class="number">0x6d</span>,</span><br><span class="line">                  <span class="number">0x55</span>, <span class="number">0x6a</span>, <span class="number">0x7f</span>, <span class="number">0x60</span>, <span class="number">0x51</span>, <span class="number">0x66</span>, <span class="number">0x63</span>, <span class="number">0x4e</span>, <span class="number">0x66</span>, <span class="number">0x7b</span>,</span><br><span class="line">                  <span class="number">0x71</span>, <span class="number">0x4a</span>, <span class="number">0x74</span>, <span class="number">0x76</span>, <span class="number">0x6b</span>, <span class="number">0x70</span>, <span class="number">0x79</span>, <span class="number">0x66</span> , <span class="number">0x1c</span>&#125;;</span><br><span class="line">  func(input, <span class="number">28</span>);</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">"%s\n"</span>,input+<span class="number">1</span>);</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">00000000004004e6 &lt;func&gt;:</span><br><span class="line">  4004e6: 55                    push   rbp</span><br><span class="line">  4004e7: 48 89 e5              mov    rbp,rsp</span><br><span class="line">  4004ea: 48 89 7d e8           mov    QWORD PTR [rbp-0x18],rdi</span><br><span class="line">  4004ee: 89 75 e4              mov    DWORD PTR [rbp-0x1c],esi</span><br><span class="line">  4004f1: c7 45 fc 01 00 00 00  mov    DWORD PTR [rbp-0x4],0x1</span><br><span class="line">  4004f8: eb 28                 jmp    400522 &lt;func+0x3c&gt;</span><br><span class="line">  4004fa: 8b 45 fc              mov    eax,DWORD PTR [rbp-0x4]</span><br><span class="line">  4004fd: 48 63 d0              movsxd rdx,eax</span><br><span class="line">  400500: 48 8b 45 e8           mov    rax,QWORD PTR [rbp-0x18]</span><br><span class="line">  400504: 48 01 d0              add    rax,rdx</span><br><span class="line">  400507: 8b 55 fc              mov    edx,DWORD PTR [rbp-0x4]</span><br><span class="line">  40050a: 48 63 ca              movsxd rcx,edx</span><br><span class="line">  40050d: 48 8b 55 e8           mov    rdx,QWORD PTR [rbp-0x18]</span><br><span class="line">  400511: 48 01 ca              add    rdx,rcx</span><br><span class="line">  400514: 0f b6 0a              movzx  ecx,BYTE PTR [rdx]</span><br><span class="line">  400517: 8b 55 fc              mov    edx,DWORD PTR [rbp-0x4]</span><br><span class="line">  40051a: 31 ca                 xor    edx,ecx</span><br><span class="line">  40051c: 88 10                 mov    BYTE PTR [rax],dl</span><br><span class="line">  40051e: 83 45 fc 01           add    DWORD PTR [rbp-0x4],0x1</span><br><span class="line">  400522: 8b 45 fc              mov    eax,DWORD PTR [rbp-0x4]</span><br><span class="line">  400525: 3b 45 e4              cmp    eax,DWORD PTR [rbp-0x1c]</span><br><span class="line">  400528: 7e d0                 jle    4004fa &lt;func+0x14&gt;</span><br><span class="line">  40052a: 90                    nop</span><br><span class="line">  40052b: 5d                    pop    rbp</span><br><span class="line">  40052c: c3                    ret</span><br></pre></td></tr></table></figure>
-
+<pre><code class="c++">int main(int argc, char const *argv[])
+{
+  char input[] = {0x0,  0x67, 0x6e, 0x62, 0x63, 0x7e, 0x74, 0x62, 0x69, 0x6d,
+                  0x55, 0x6a, 0x7f, 0x60, 0x51, 0x66, 0x63, 0x4e, 0x66, 0x7b,
+                  0x71, 0x4a, 0x74, 0x76, 0x6b, 0x70, 0x79, 0x66 , 0x1c};
+  func(input, 28);
+  printf(&quot;%s\n&quot;,input+1);
+  return 0;
+}</code></pre>
+<pre><code class="asm">00000000004004e6 &lt;func&gt;:
+  4004e6: 55                    push   rbp
+  4004e7: 48 89 e5              mov    rbp,rsp
+  4004ea: 48 89 7d e8           mov    QWORD PTR [rbp-0x18],rdi
+  4004ee: 89 75 e4              mov    DWORD PTR [rbp-0x1c],esi
+  4004f1: c7 45 fc 01 00 00 00  mov    DWORD PTR [rbp-0x4],0x1
+  4004f8: eb 28                 jmp    400522 &lt;func+0x3c&gt;
+  4004fa: 8b 45 fc              mov    eax,DWORD PTR [rbp-0x4]
+  4004fd: 48 63 d0              movsxd rdx,eax
+  400500: 48 8b 45 e8           mov    rax,QWORD PTR [rbp-0x18]
+  400504: 48 01 d0              add    rax,rdx
+  400507: 8b 55 fc              mov    edx,DWORD PTR [rbp-0x4]
+  40050a: 48 63 ca              movsxd rcx,edx
+  40050d: 48 8b 55 e8           mov    rdx,QWORD PTR [rbp-0x18]
+  400511: 48 01 ca              add    rdx,rcx
+  400514: 0f b6 0a              movzx  ecx,BYTE PTR [rdx]
+  400517: 8b 55 fc              mov    edx,DWORD PTR [rbp-0x4]
+  40051a: 31 ca                 xor    edx,ecx
+  40051c: 88 10                 mov    BYTE PTR [rax],dl
+  40051e: 83 45 fc 01           add    DWORD PTR [rbp-0x4],0x1
+  400522: 8b 45 fc              mov    eax,DWORD PTR [rbp-0x4]
+  400525: 3b 45 e4              cmp    eax,DWORD PTR [rbp-0x1c]
+  400528: 7e d0                 jle    4004fa &lt;func+0x14&gt;
+  40052a: 90                    nop
+  40052b: 5d                    pop    rbp
+  40052c: c3                    ret</code></pre>
 <p>发现这段汇编的作用就是实现input[i]^i，所以实现上面代码输出得到flag</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">s = [<span class="number">0x0</span>, <span class="number">0x67</span>, <span class="number">0x6e</span>, <span class="number">0x62</span>, <span class="number">0x63</span>, <span class="number">0x7e</span>, <span class="number">0x74</span>, <span class="number">0x62</span>, <span class="number">0x69</span>, <span class="number">0x6d</span>,</span><br><span class="line">     <span class="number">0x55</span>, <span class="number">0x6a</span>, <span class="number">0x7f</span>, <span class="number">0x60</span>, <span class="number">0x51</span>, <span class="number">0x66</span>, <span class="number">0x63</span>, <span class="number">0x4e</span>, <span class="number">0x66</span>, <span class="number">0x7b</span>,</span><br><span class="line">     <span class="number">0x71</span>, <span class="number">0x4a</span>, <span class="number">0x74</span>, <span class="number">0x76</span>, <span class="number">0x6b</span>, <span class="number">0x70</span>, <span class="number">0x79</span>, <span class="number">0x66</span>, <span class="number">0x1c</span>]</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(len(s)):</span><br><span class="line">    s[i] ^= i</span><br><span class="line"></span><br><span class="line">out = <span class="string">''</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(len(s)):</span><br><span class="line">    out += chr(s[i])</span><br><span class="line"></span><br><span class="line">print(out)</span><br></pre></td></tr></table></figure>
+<pre><code class="python">s = [0x0, 0x67, 0x6e, 0x62, 0x63, 0x7e, 0x74, 0x62, 0x69, 0x6d,
+     0x55, 0x6a, 0x7f, 0x60, 0x51, 0x66, 0x63, 0x4e, 0x66, 0x7b,
+     0x71, 0x4a, 0x74, 0x76, 0x6b, 0x70, 0x79, 0x66, 0x1c]
+for i in range(len(s)):
+    s[i] ^= i
 
+out = &#39;&#39;
+for i in range(len(s)):
+    out += chr(s[i])
+
+print(out)</code></pre>
 <p>输出flag为：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">flag&#123;read_asm_is_the_basic&#125;</span><br></pre></td></tr></table></figure>
-
+<pre><code class="flag">flag{read_asm_is_the_basic}</code></pre>
 <h4 id="Py交易"><a href="#Py交易" class="headerlink" title="Py交易"></a>Py交易</h4><p>本题是python的反编译，使用在线工具或uncompyle6将pyc文件反编译，得到代码</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> base64</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">encode</span><span class="params">(message)</span>:</span></span><br><span class="line">    s = <span class="string">''</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> message:</span><br><span class="line">        x = ord(i) ^ <span class="number">32</span></span><br><span class="line">        x = x + <span class="number">16</span></span><br><span class="line">        s += chr(x)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> base64.b64encode(s)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">correct = <span class="string">'XlNkVmtUI1MgXWBZXCFeKY+AaXNt'</span></span><br><span class="line">flag = <span class="string">''</span></span><br><span class="line"><span class="keyword">print</span> <span class="string">'Input flag:'</span></span><br><span class="line">flag = raw_input()</span><br><span class="line"><span class="keyword">if</span> encode(flag) == correct:</span><br><span class="line">    <span class="keyword">print</span> <span class="string">'correct'</span></span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="keyword">print</span> <span class="string">'wrong'</span></span><br><span class="line"><span class="keyword">import</span> base64</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">encode</span><span class="params">(message)</span>:</span></span><br><span class="line">    s = <span class="string">''</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> message:</span><br><span class="line">        x = ord(i) ^ <span class="number">32</span></span><br><span class="line">        x = x + <span class="number">16</span></span><br><span class="line">        s += chr(x)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> base64.b64encode(s)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">correct = <span class="string">'XlNkVmtUI1MgXWBZXCFeKY+AaXNt'</span></span><br><span class="line">flag = <span class="string">''</span></span><br><span class="line"><span class="keyword">print</span> <span class="string">'Input flag:'</span></span><br><span class="line">flag = raw_input()</span><br><span class="line"><span class="keyword">if</span> encode(flag) == correct:</span><br><span class="line">    <span class="keyword">print</span> <span class="string">'correct'</span></span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="keyword">print</span> <span class="string">'wrong'</span></span><br></pre></td></tr></table></figure>
+<pre><code class="python">import base64
 
+
+def encode(message):
+    s = &#39;&#39;
+    for i in message:
+        x = ord(i) ^ 32
+        x = x + 16
+        s += chr(x)
+
+    return base64.b64encode(s)
+
+
+correct = &#39;XlNkVmtUI1MgXWBZXCFeKY+AaXNt&#39;
+flag = &#39;&#39;
+print &#39;Input flag:&#39;
+flag = raw_input()
+if encode(flag) == correct:
+    print &#39;correct&#39;
+else:
+    print &#39;wrong&#39;
+import base64
+
+
+def encode(message):
+    s = &#39;&#39;
+    for i in message:
+        x = ord(i) ^ 32
+        x = x + 16
+        s += chr(x)
+
+    return base64.b64encode(s)
+
+
+correct = &#39;XlNkVmtUI1MgXWBZXCFeKY+AaXNt&#39;
+flag = &#39;&#39;
+print &#39;Input flag:&#39;
+flag = raw_input()
+if encode(flag) == correct:
+    print &#39;correct&#39;
+else:
+    print &#39;wrong&#39;</code></pre>
 <p>研究代码，发现我们只要将correct逆向解密，就可以得到正确的flag，所以得到如下exp：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> base64</span><br><span class="line"></span><br><span class="line">correct = <span class="string">'XlNkVmtUI1MgXWBZXCFeKY+AaXNt'</span></span><br><span class="line">correct = str(base64.b64decode(correct))  <span class="comment"># ^SdVkT#S ]`Y\\!^)\x8f\x80ism</span></span><br><span class="line"><span class="comment"># print(correct)</span></span><br><span class="line">correct = <span class="string">'^SdVkT#S ]`Y\\!^)\x8f\x80ism'</span></span><br><span class="line">flag = <span class="string">''</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> s <span class="keyword">in</span> correct:</span><br><span class="line">    x = ord(s)</span><br><span class="line">    x -= <span class="number">16</span></span><br><span class="line">    i = chr(x ^ <span class="number">32</span>)</span><br><span class="line">    flag += i</span><br><span class="line">print(flag)</span><br></pre></td></tr></table></figure>
+<pre><code class="python">import base64
 
+correct = &#39;XlNkVmtUI1MgXWBZXCFeKY+AaXNt&#39;
+correct = str(base64.b64decode(correct))  # ^SdVkT#S ]`Y\\!^)\x8f\x80ism
+# print(correct)
+correct = &#39;^SdVkT#S ]`Y\\!^)\x8f\x80ism&#39;
+flag = &#39;&#39;
+
+for s in correct:
+    x = ord(s)
+    x -= 16
+    i = chr(x ^ 32)
+    flag += i
+print(flag)</code></pre>
 <p>输出flag为：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">nctf&#123;d3c0mpil1n9_PyC&#125;</span><br></pre></td></tr></table></figure>
-
+<pre><code class="flag">nctf{d3c0mpil1n9_PyC}</code></pre>
 <h4 id="WxyVM"><a href="#WxyVM" class="headerlink" title="WxyVM"></a>WxyVM</h4><p>下载下来不知道是什么文件，记事本打开，开头ELF，所以直接拖进IDA反编译，main函数如下：</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">__int64 __<span class="function">fastcall <span class="title">main</span><span class="params">(__int64 a1, <span class="keyword">char</span> **a2, <span class="keyword">char</span> **a3)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">char</span> v4; <span class="comment">// [rsp+Bh] [rbp-5h]</span></span><br><span class="line">  <span class="keyword">signed</span> <span class="keyword">int</span> i; <span class="comment">// [rsp+Ch] [rbp-4h]</span></span><br><span class="line"></span><br><span class="line">  <span class="built_in">puts</span>(<span class="string">"[WxyVM 0.0.1]"</span>);</span><br><span class="line">  <span class="built_in">puts</span>(<span class="string">"input your flag:"</span>);</span><br><span class="line">  <span class="built_in">scanf</span>(<span class="string">"%s"</span>, &amp;byte_604B80);</span><br><span class="line">  v4 = <span class="number">1</span>;</span><br><span class="line">  sub_4005B6();</span><br><span class="line">  <span class="keyword">if</span> ( <span class="built_in">strlen</span>(&amp;byte_604B80) != <span class="number">24</span> )</span><br><span class="line">    v4 = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span> ( i = <span class="number">0</span>; i &lt;= <span class="number">23</span>; ++i )</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">if</span> ( *(&amp;byte_604B80 + i) != dword_601060[i] )</span><br><span class="line">      v4 = <span class="number">0</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> ( v4 )</span><br><span class="line">    <span class="built_in">puts</span>(<span class="string">"correct"</span>);</span><br><span class="line">  <span class="keyword">else</span></span><br><span class="line">    <span class="built_in">puts</span>(<span class="string">"wrong"</span>);</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0L</span>L;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="c++">__int64 __fastcall main(__int64 a1, char **a2, char **a3)
+{
+  char v4; // [rsp+Bh] [rbp-5h]
+  signed int i; // [rsp+Ch] [rbp-4h]
 
+  puts(&quot;[WxyVM 0.0.1]&quot;);
+  puts(&quot;input your flag:&quot;);
+  scanf(&quot;%s&quot;, &amp;byte_604B80);
+  v4 = 1;
+  sub_4005B6();
+  if ( strlen(&amp;byte_604B80) != 24 )
+    v4 = 0;
+  for ( i = 0; i &lt;= 23; ++i )
+  {
+    if ( *(&amp;byte_604B80 + i) != dword_601060[i] )
+      v4 = 0;
+  }
+  if ( v4 )
+    puts(&quot;correct&quot;);
+  else
+    puts(&quot;wrong&quot;);
+  return 0LL;
+}</code></pre>
 <p>一开始认为需要输入一个24位的flag，然后和dword_601060每一位都相等即可，但是中间的sub_4005B6()函数对我们输入的flag还进行了一些变换，所以需要把dword_601060对应的进行反变换才能得到应该输入的正确的flag</p>
 <p>sub_4005B6()函数如下：</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">__<span class="function">int64 <span class="title">sub_4005B6</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">int</span> v0; <span class="comment">// ST04_4</span></span><br><span class="line">  __int64 result; <span class="comment">// rax</span></span><br><span class="line">  <span class="keyword">signed</span> <span class="keyword">int</span> i; <span class="comment">// [rsp+0h] [rbp-10h]</span></span><br><span class="line">  <span class="keyword">char</span> v3; <span class="comment">// [rsp+8h] [rbp-8h]</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> ( i = <span class="number">0</span>; i &lt;= <span class="number">14999</span>; i += <span class="number">3</span> )</span><br><span class="line">  &#123;</span><br><span class="line">    v0 = byte_6010C0[i];</span><br><span class="line">    v3 = byte_6010C0[i + <span class="number">2</span>];</span><br><span class="line">    result = v0;</span><br><span class="line">    <span class="keyword">switch</span> ( v0 )</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="keyword">case</span> <span class="number">1u</span>:</span><br><span class="line">        result = byte_6010C0[i + <span class="number">1</span>];</span><br><span class="line">        *(&amp;byte_604B80 + result) += v3;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      <span class="keyword">case</span> <span class="number">2u</span>:</span><br><span class="line">        result = byte_6010C0[i + <span class="number">1</span>];</span><br><span class="line">        *(&amp;byte_604B80 + result) -= v3;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      <span class="keyword">case</span> <span class="number">3u</span>:</span><br><span class="line">        result = byte_6010C0[i + <span class="number">1</span>];</span><br><span class="line">        *(&amp;byte_604B80 + result) ^= v3;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      <span class="keyword">case</span> <span class="number">4u</span>:</span><br><span class="line">        result = byte_6010C0[i + <span class="number">1</span>];</span><br><span class="line">        *(&amp;byte_604B80 + result) *= v3;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      <span class="keyword">case</span> <span class="number">5u</span>:</span><br><span class="line">        result = byte_6010C0[i + <span class="number">1</span>];</span><br><span class="line">        *(&amp;byte_604B80 + result) ^= *(&amp;byte_604B80 + byte_6010C0[i + <span class="number">2</span>]);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      <span class="keyword">default</span>:</span><br><span class="line">        <span class="keyword">continue</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre><code class="c++">__int64 sub_4005B6()
+{
+  unsigned int v0; // ST04_4
+  __int64 result; // rax
+  signed int i; // [rsp+0h] [rbp-10h]
+  char v3; // [rsp+8h] [rbp-8h]
 
+  for ( i = 0; i &lt;= 14999; i += 3 )
+  {
+    v0 = byte_6010C0[i];
+    v3 = byte_6010C0[i + 2];
+    result = v0;
+    switch ( v0 )
+    {
+      case 1u:
+        result = byte_6010C0[i + 1];
+        *(&amp;byte_604B80 + result) += v3;
+        break;
+      case 2u:
+        result = byte_6010C0[i + 1];
+        *(&amp;byte_604B80 + result) -= v3;
+        break;
+      case 3u:
+        result = byte_6010C0[i + 1];
+        *(&amp;byte_604B80 + result) ^= v3;
+        break;
+      case 4u:
+        result = byte_6010C0[i + 1];
+        *(&amp;byte_604B80 + result) *= v3;
+        break;
+      case 5u:
+        result = byte_6010C0[i + 1];
+        *(&amp;byte_604B80 + result) ^= *(&amp;byte_604B80 + byte_6010C0[i + 2]);
+        break;
+      default:
+        continue;
+    }
+  }
+  return result;
+}</code></pre>
 <p>用IDA将byte_6010C0导出，用python进行逆向处理</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">s = [<span class="number">0xc4</span>, <span class="number">0x34</span>, <span class="number">0x22</span>, <span class="number">0xb1</span>, <span class="number">0xd3</span>, <span class="number">0x11</span>, <span class="number">0x97</span>, <span class="number">0x7</span>, <span class="number">0xdb</span>, <span class="number">0x37</span>, <span class="number">0xc4</span>, <span class="number">0x6</span>, <span class="number">0x1d</span>, <span class="number">0xfc</span>, <span class="number">0x5b</span>, <span class="number">0xed</span>, <span class="number">0x98</span>, <span class="number">0xdf</span>, <span class="number">0x94</span>,<span class="number">0xd8</span>, <span class="number">0xb3</span>, <span class="number">0x84</span>, <span class="number">0xcc</span>, <span class="number">0x8</span>]</span><br><span class="line"><span class="comment"># dword与char比较，只取最后一位一个字节</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> open(<span class="string">'export_results.txt'</span>) <span class="keyword">as</span> f: <span class="comment">#文件里是导出的byte_6010C0</span></span><br><span class="line">    t = f.read().split(<span class="string">' '</span>)</span><br><span class="line"><span class="comment"># print(len(t))</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">5000</span>):</span><br><span class="line">    v0 = int(t[<span class="number">3</span> * (<span class="number">4999</span> - i)], <span class="number">16</span>)</span><br><span class="line">    v3 = int(t[<span class="number">3</span> * (<span class="number">4999</span> - i) + <span class="number">2</span>], <span class="number">16</span>)</span><br><span class="line">    result = int(t[<span class="number">3</span> * (<span class="number">4999</span> - i) + <span class="number">1</span>], <span class="number">16</span>)</span><br><span class="line">    <span class="keyword">if</span> v0 == <span class="number">1</span>:</span><br><span class="line">        s[result] -= v3</span><br><span class="line">    <span class="keyword">elif</span> v0 == <span class="number">2</span>:</span><br><span class="line">        s[result] += v3</span><br><span class="line">    <span class="keyword">elif</span> v0 == <span class="number">3</span>:</span><br><span class="line">        s[result] ^= v3</span><br><span class="line">    <span class="keyword">elif</span> v0 == <span class="number">4</span>:</span><br><span class="line">        s[result] /= v3</span><br><span class="line">    <span class="keyword">elif</span> v0 == <span class="number">5</span>:</span><br><span class="line">        s[result] ^= s[v3]</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">continue</span></span><br><span class="line">print(<span class="string">''</span>.join([str(chr(int(i) % <span class="number">128</span>)) <span class="keyword">for</span> i <span class="keyword">in</span> s]))</span><br></pre></td></tr></table></figure>
+<pre><code class="python">s = [0xc4, 0x34, 0x22, 0xb1, 0xd3, 0x11, 0x97, 0x7, 0xdb, 0x37, 0xc4, 0x6, 0x1d, 0xfc, 0x5b, 0xed, 0x98, 0xdf, 0x94,0xd8, 0xb3, 0x84, 0xcc, 0x8]
+# dword与char比较，只取最后一位一个字节
 
+with open(&#39;export_results.txt&#39;) as f: #文件里是导出的byte_6010C0
+    t = f.read().split(&#39; &#39;)
+# print(len(t))
+for i in range(5000):
+    v0 = int(t[3 * (4999 - i)], 16)
+    v3 = int(t[3 * (4999 - i) + 2], 16)
+    result = int(t[3 * (4999 - i) + 1], 16)
+    if v0 == 1:
+        s[result] -= v3
+    elif v0 == 2:
+        s[result] += v3
+    elif v0 == 3:
+        s[result] ^= v3
+    elif v0 == 4:
+        s[result] /= v3
+    elif v0 == 5:
+        s[result] ^= s[v3]
+    else:
+        continue
+print(&#39;&#39;.join([str(chr(int(i) % 128)) for i in s]))</code></pre>
 <p>这里有两件事需要注意，第一是dword只需要取最后一个字节，第二是逆运算时要从最后三位向前计算，最后输出flag: </p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">nctf&#123;Embr4ce_Vm_j0in_R3&#125;</span><br></pre></td></tr></table></figure>
-
+<pre><code class="flag">nctf{Embr4ce_Vm_j0in_R3}</code></pre>
 <h4 id="maze"><a href="#maze" class="headerlink" title="maze"></a>maze</h4><p>极其无聊的迷宫题……</p>
 <p>找到地图、起点终点和上下左右分别对应的键就可以了</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">nctf&#123;o0oo00O000oooo..OO&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h4 id="WxyVM2"><a href="#WxyVM2" class="headerlink" title="WxyVM2"></a>WxyVM2</h4><p>拖进IDA反编译，发现函数非常大，操作特别多，但是仔细看发现最后要验证的都是byte类型，所有对dword的操作都是无效的，所以把所有操作拷贝到文件(export_results.txt)中，先进行过滤操作，过滤出需要的操作,最后的验证过程如下：</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line"><span class="keyword">for</span> ( i = <span class="number">0</span>; i &lt;= <span class="number">24</span>; ++i )</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">if</span> ( *(&amp;byte_694100 + i) != dword_694060[i] )</span><br><span class="line">      v4 = <span class="number">0</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> ( v4 )</span><br><span class="line">    <span class="built_in">puts</span>(<span class="string">"correct"</span>);</span><br><span class="line">  <span class="keyword">else</span></span><br><span class="line">    <span class="built_in">puts</span>(<span class="string">"wrong"</span>);</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0L</span>L;</span><br></pre></td></tr></table></figure>
-
+<pre><code>nctf{o0oo00O000oooo..OO}</code></pre><h4 id="WxyVM2"><a href="#WxyVM2" class="headerlink" title="WxyVM2"></a>WxyVM2</h4><p>拖进IDA反编译，发现函数非常大，操作特别多，但是仔细看发现最后要验证的都是byte类型，所有对dword的操作都是无效的，所以把所有操作拷贝到文件(export_results.txt)中，先进行过滤操作，过滤出需要的操作,最后的验证过程如下：</p>
+<pre><code class="C++">for ( i = 0; i &lt;= 24; ++i )
+  {
+    if ( *(&amp;byte_694100 + i) != dword_694060[i] )
+      v4 = 0;
+  }
+  if ( v4 )
+    puts(&quot;correct&quot;);
+  else
+    puts(&quot;wrong&quot;);
+  return 0LL;</code></pre>
 <p>所以操作之后的数组和dword_694060数组的每个数的最后一位相同，将数组导出，进行逆运算得到原来输入的flag，python代码如下：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> open(<span class="string">'export_results.txt'</span>) <span class="keyword">as</span> f:</span><br><span class="line">    s = <span class="string">''</span></span><br><span class="line">    a = f.readline()</span><br><span class="line">    <span class="keyword">while</span> a:</span><br><span class="line">        <span class="keyword">if</span> re.match(<span class="string">r'(.*)byte_6941(.*);'</span>, a):</span><br><span class="line">            s += a</span><br><span class="line">        a = f.readline()</span><br><span class="line">    <span class="keyword">with</span> open(<span class="string">'s.txt'</span>, <span class="string">'w+'</span>) <span class="keyword">as</span> ff:</span><br><span class="line">        s = s.split(<span class="string">'\n'</span>)</span><br><span class="line">        n = len(s)</span><br><span class="line">        <span class="comment"># print(len(s))</span></span><br><span class="line">        <span class="comment"># print(s)</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> range(n):</span><br><span class="line">            ff.write(s[n - <span class="number">1</span> - i].strip() + <span class="string">'\n'</span>)</span><br><span class="line"></span><br><span class="line">ss = [<span class="number">0xC0</span>, <span class="number">0x85</span>, <span class="number">0xF9</span>, <span class="number">0x6C</span>, <span class="number">0xE2</span>, <span class="number">0x14</span>, <span class="number">0xBB</span>, <span class="number">0xe4</span>, <span class="number">0xd</span>, <span class="number">0x59</span>, <span class="number">0x1c</span>, <span class="number">0x23</span>, <span class="number">0x88</span>, <span class="number">0x6e</span>, <span class="number">0x9b</span>, <span class="number">0xca</span>, <span class="number">0xba</span>, <span class="number">0x5c</span>, <span class="number">0x37</span>,</span><br><span class="line">      <span class="number">0xfff</span>, <span class="number">0x48</span>, <span class="number">0xd8</span>, <span class="number">0x1f</span>, <span class="number">0xab</span>, <span class="number">0xa5</span>]</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> open(<span class="string">'s.txt'</span>) <span class="keyword">as</span> f:</span><br><span class="line">    a = f.readline()</span><br><span class="line">    <span class="keyword">while</span> a:</span><br><span class="line">        <span class="comment"># print(re.match(r'(.*)byte_6941(.*);', a).groups())</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> re.match(<span class="string">r'(.*)byte_6941(.*);'</span>, a).group(<span class="number">1</span>).strip():</span><br><span class="line">            s = re.match(<span class="string">r'(.*)byte_6941(.*);'</span>, a).group(<span class="number">2</span>).split(<span class="string">' '</span>)</span><br><span class="line">            <span class="comment"># print(s)</span></span><br><span class="line">            i = int(s[<span class="number">0</span>], <span class="number">16</span>)</span><br><span class="line">            <span class="comment"># print(i)</span></span><br><span class="line">            i1 = str(ss[i])</span><br><span class="line">            <span class="keyword">if</span> s[<span class="number">1</span>] == <span class="string">'+='</span>:</span><br><span class="line">                sub = <span class="string">'-'</span></span><br><span class="line">            <span class="keyword">elif</span> s[<span class="number">1</span>] == <span class="string">'-='</span>:</span><br><span class="line">                sub = <span class="string">'+'</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                sub = <span class="string">'^'</span></span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> re.match(<span class="string">r'(.*)u'</span>, s[<span class="number">2</span>]):</span><br><span class="line">                s2 = re.match(<span class="string">r'(.*)u'</span>, s[<span class="number">2</span>]).group(<span class="number">1</span>)</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                s2 = s[<span class="number">2</span>]</span><br><span class="line">            exp = i1 + sub + s2</span><br><span class="line">            ss[i] = eval(exp) % <span class="number">128</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            s = re.match(<span class="string">r'(.*)byte_6941(.*);'</span>, a).group(<span class="number">2</span>).split(<span class="string">' '</span>)</span><br><span class="line">            <span class="comment"># print(s)</span></span><br><span class="line">            i = int(s[<span class="number">0</span>], <span class="number">16</span>)</span><br><span class="line">            <span class="comment"># print(i)</span></span><br><span class="line">            i1 = str(ss[i])</span><br><span class="line">            <span class="keyword">if</span> re.match(<span class="string">r'(.*)byte_6941(.*);'</span>, a).group(<span class="number">1</span>).strip() == <span class="string">'++'</span>:</span><br><span class="line">                sub = <span class="string">'-'</span></span><br><span class="line">            <span class="keyword">if</span> re.match(<span class="string">r'(.*)byte_6941(.*);'</span>, a).group(<span class="number">1</span>).strip() == <span class="string">'--'</span>:</span><br><span class="line">                sub = <span class="string">'+'</span></span><br><span class="line">            exp = i1 + sub + <span class="string">'1'</span></span><br><span class="line">            ss[i] = eval(exp) % <span class="number">128</span></span><br><span class="line">        a = f.readline()</span><br><span class="line">    <span class="comment"># print(ss)</span></span><br><span class="line">print(<span class="string">''</span>.join([str(chr(i % <span class="number">128</span>)) <span class="keyword">for</span> i <span class="keyword">in</span> ss]))</span><br></pre></td></tr></table></figure>
+<pre><code class="python">import re
 
+with open(&#39;export_results.txt&#39;) as f:
+    s = &#39;&#39;
+    a = f.readline()
+    while a:
+        if re.match(r&#39;(.*)byte_6941(.*);&#39;, a):
+            s += a
+        a = f.readline()
+    with open(&#39;s.txt&#39;, &#39;w+&#39;) as ff:
+        s = s.split(&#39;\n&#39;)
+        n = len(s)
+        # print(len(s))
+        # print(s)
+        for i in range(n):
+            ff.write(s[n - 1 - i].strip() + &#39;\n&#39;)
+
+ss = [0xC0, 0x85, 0xF9, 0x6C, 0xE2, 0x14, 0xBB, 0xe4, 0xd, 0x59, 0x1c, 0x23, 0x88, 0x6e, 0x9b, 0xca, 0xba, 0x5c, 0x37,
+      0xfff, 0x48, 0xd8, 0x1f, 0xab, 0xa5]
+
+with open(&#39;s.txt&#39;) as f:
+    a = f.readline()
+    while a:
+        # print(re.match(r&#39;(.*)byte_6941(.*);&#39;, a).groups())
+        if not re.match(r&#39;(.*)byte_6941(.*);&#39;, a).group(1).strip():
+            s = re.match(r&#39;(.*)byte_6941(.*);&#39;, a).group(2).split(&#39; &#39;)
+            # print(s)
+            i = int(s[0], 16)
+            # print(i)
+            i1 = str(ss[i])
+            if s[1] == &#39;+=&#39;:
+                sub = &#39;-&#39;
+            elif s[1] == &#39;-=&#39;:
+                sub = &#39;+&#39;
+            else:
+                sub = &#39;^&#39;
+
+            if re.match(r&#39;(.*)u&#39;, s[2]):
+                s2 = re.match(r&#39;(.*)u&#39;, s[2]).group(1)
+            else:
+                s2 = s[2]
+            exp = i1 + sub + s2
+            ss[i] = eval(exp) % 128
+        else:
+            s = re.match(r&#39;(.*)byte_6941(.*);&#39;, a).group(2).split(&#39; &#39;)
+            # print(s)
+            i = int(s[0], 16)
+            # print(i)
+            i1 = str(ss[i])
+            if re.match(r&#39;(.*)byte_6941(.*);&#39;, a).group(1).strip() == &#39;++&#39;:
+                sub = &#39;-&#39;
+            if re.match(r&#39;(.*)byte_6941(.*);&#39;, a).group(1).strip() == &#39;--&#39;:
+                sub = &#39;+&#39;
+            exp = i1 + sub + &#39;1&#39;
+            ss[i] = eval(exp) % 128
+        a = f.readline()
+    # print(ss)
+print(&#39;&#39;.join([str(chr(i % 128)) for i in ss]))</code></pre>
 <p>这里要注意一点，python没有++和–操作，所以直接++和–的传唤算不出正确值，在这里卡了一会儿才发现问题。</p>
 <p>运行程序输出flag：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">nctf&#123;th3_vM_w1th0ut_dAta&#125;</span><br></pre></td></tr></table></figure>
-
+<pre><code class="flag">nctf{th3_vM_w1th0ut_dAta}</code></pre>
 <h4 id="你大概需要一个优秀的mac"><a href="#你大概需要一个优秀的mac" class="headerlink" title="你大概需要一个优秀的mac"></a>你大概需要一个优秀的mac</h4><p>这是一个macos程序，没法直接打开，所以还是拖进IDA反编译，发现需要输入一个56位的flag，然后经过几个函数处理之后与一个数组进行比较，相同则输入的是正确的flag，所以还是一样进行一个逆运算</p>
 <p>反编译出来的代码如下：</p>
-<figure class="highlight c++"><table><tr><td class="code"><pre><span class="line">  <span class="built_in">scanf</span>(<span class="string">"%s"</span>, &amp;v4);</span><br><span class="line">  <span class="keyword">if</span> ( <span class="built_in">strlen</span>(&amp;v4) != <span class="number">56</span> )</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="built_in">puts</span>((<span class="keyword">const</span> <span class="keyword">char</span> *)err);</span><br><span class="line">    <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  __strcpy_chk(input, &amp;v4, <span class="number">100L</span>L);</span><br><span class="line">  func1((__int64)input);</span><br><span class="line">  xfun1();</span><br><span class="line">  xfun2();</span><br><span class="line">  xfun3();</span><br><span class="line">  xfun4();</span><br><span class="line">  xfun5();</span><br><span class="line">  check();</span><br><span class="line"><span class="comment">//func1</span></span><br><span class="line">  <span class="keyword">for</span> ( i = <span class="number">0</span>; i &lt; <span class="number">57</span>; ++i ) <span class="comment">//这里应该是56？</span></span><br><span class="line">  &#123;</span><br><span class="line">    *(_BYTE *)(a1 + i) ^= <span class="number">0xDE</span>u;</span><br><span class="line">  &#125;</span><br><span class="line"><span class="comment">//xfun1</span></span><br><span class="line">  <span class="keyword">for</span> ( i = <span class="number">0</span>; i &lt; <span class="number">10</span>; ++i )</span><br><span class="line">  &#123;</span><br><span class="line">    input[i] ^= <span class="number">0xAD</span>u;</span><br><span class="line">  &#125;</span><br><span class="line"><span class="comment">//xfun2</span></span><br><span class="line">  <span class="keyword">for</span> ( i = <span class="number">0</span>; i &lt; <span class="number">10</span>; ++i )</span><br><span class="line">  &#123;</span><br><span class="line">    input[i + <span class="number">10</span>] ^= <span class="number">0xBE</span>u;</span><br><span class="line">  &#125;</span><br><span class="line"><span class="comment">//xfun3</span></span><br><span class="line">  <span class="keyword">for</span> ( i = <span class="number">0</span>; i &lt; <span class="number">10</span>; ++i )</span><br><span class="line">  &#123;</span><br><span class="line">    input[i + <span class="number">20</span>] ^= <span class="number">0xEF</span>u;</span><br><span class="line">  &#125;</span><br><span class="line"><span class="comment">//xfun4</span></span><br><span class="line">  <span class="keyword">for</span> ( i = <span class="number">0</span>; i &lt; <span class="number">10</span>; ++i )</span><br><span class="line">  &#123;</span><br><span class="line">    input[i + <span class="number">30</span>] ^= <span class="number">0xAB</span>u;</span><br><span class="line">  &#125;</span><br><span class="line"><span class="comment">//xfun5</span></span><br><span class="line">  <span class="keyword">for</span> ( i = <span class="number">0</span>; i &lt; <span class="number">16</span>; ++i )</span><br><span class="line">  &#123;</span><br><span class="line">    input[i + <span class="number">40</span>] ^= <span class="number">0xEF</span>u;</span><br><span class="line">  &#125;</span><br><span class="line"><span class="comment">//check</span></span><br><span class="line">  <span class="built_in">memcpy</span>(v2, &amp;byte_100000ED0, <span class="number">0xE0</span>uLL);</span><br><span class="line">  <span class="keyword">for</span> ( i = <span class="number">0</span>; i &lt; <span class="number">56</span>; ++i )</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">if</span> ( (<span class="keyword">char</span>)input[i] != v2[i] )</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="built_in">puts</span>((<span class="keyword">const</span> <span class="keyword">char</span> *)err);</span><br><span class="line">      <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
-
-<p>所以将byte_100000ED0处的数组导出，进行逆运算，代码如下：</p>
-<figure class="highlight python"><table><tr><td class="code"><pre><span class="line">s = [<span class="number">0x15</span>, <span class="number">0x1F</span>, <span class="number">0x12</span>, <span class="number">0x14</span>, <span class="number">0x08</span>, <span class="number">0x3A</span>, <span class="number">0x46</span>, <span class="number">0x2C</span>, <span class="number">0x07</span>, <span class="number">0x1B</span>, <span class="number">0x51</span>, <span class="number">0x13</span>, <span class="number">0x3F</span>, <span class="number">0x57</span>, <span class="number">0x08</span>, <span class="number">0x05</span>, <span class="number">0x3F</span>, <span class="number">0x30</span>, <span class="number">0x32</span>,</span><br><span class="line">     <span class="number">0x51</span>, <span class="number">0x52</span>, <span class="number">0x02</span>, <span class="number">0x6E</span>, <span class="number">0x78</span>, <span class="number">0x16</span>, <span class="number">0x7C</span>, <span class="number">0x6E</span>, <span class="number">0x61</span>, <span class="number">0x70</span>, <span class="number">0x48</span>, <span class="number">0x1C</span>, <span class="number">0x3B</span>, <span class="number">0x32</span>, <span class="number">0x2A</span>, <span class="number">0x13</span>, <span class="number">0x45</span>, <span class="number">0x07</span>, <span class="number">0x2A</span>,</span><br><span class="line">     <span class="number">0x18</span>, <span class="number">0x0C</span>, <span class="number">0x6E</span>, <span class="number">0x41</span>, <span class="number">0x70</span>, <span class="number">0x04</span>, <span class="number">0x06</span>, <span class="number">0x6E</span>, <span class="number">0x5C</span>, <span class="number">0x00</span>, <span class="number">0x42</span>, <span class="number">0x45</span>, <span class="number">0x70</span>, <span class="number">0x5A</span>, <span class="number">0x02</span>, <span class="number">0x04</span>, <span class="number">0x0E</span>, <span class="number">0x4C</span>]</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">10</span>):</span><br><span class="line">    s[i]^=<span class="number">0xAD</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">10</span>,<span class="number">20</span>):</span><br><span class="line">    s[i]^=<span class="number">0xBE</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">20</span>,<span class="number">30</span>):</span><br><span class="line">    s[i]^=<span class="number">0xEF</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">30</span>,<span class="number">40</span>):</span><br><span class="line">    s[i]^=<span class="number">0xAB</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">40</span>,<span class="number">56</span>):</span><br><span class="line">    s[i]^=<span class="number">0xEF</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> range(<span class="number">56</span>):</span><br><span class="line">    s[i]^=<span class="number">0xDE</span></span><br><span class="line">print(<span class="string">''</span>.join([str(chr(i%<span class="number">128</span>)) <span class="keyword">for</span> i <span class="keyword">in</span> s]))</span><br></pre></td></tr></table></figure>
-
-<p>运行程序输出flag：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">flag&#123;I5_th1s_7he_PR1c3_I&#39;M_PAyiNG_f0r_my_pA57_m1stAk35?&#125;</span><br></pre></td></tr></table></figure>
-
-
-        </div>
-        
-        <div class="level is-size-7 is-uppercase">
-            <div class="level-start">
-                <div class="level-item">
-                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
-                    <a class="has-link-grey -link" href="/tags/CG-CTF/" rel="tag">CG-CTF</a>, <a class="has-link-grey -link" href="/tags/CTF/" rel="tag">CTF</a>, <a class="has-link-grey -link" href="/tags/re/" rel="tag">re</a>
-                </div>
-            </div>
-        </div>
-        
-        
-        
-    </div>
-</div>
-
-
-
-<div class="card">
-    <div class="card-content">
-        <h3 class="menu-label has-text-centered">Like this article? Support the author with</h3>
-        <div class="buttons is-centered">
-            
-                
-<div class="notification is-danger">
-    You forgot to set the <code>qrcode</code> for Alipay. Please set it in <code>_config.yml</code>.
-</div>
-
-                
-                
-<div class="notification is-danger">
-    You forgot to set the <code>qrcode</code> for Wechat. Please set it in <code>_config.yml</code>.
-</div>
-
-                
-                <!-- Visit https://www.paypal.com/donate/buttons/ to get your donate button -->
-
-<div class="notification is-danger">
-    You forgot to set the <code>business</code> and <code>currency_code</code> for Paypal. Please set it in <code>_config.yml</code>.
-</div>
-
-                
-                
-<div class="notification is-danger">
-    You forgot to set the <code>url</code> Patreon. Please set it in <code>_config.yml</code>.
-</div>
-
-                
-        </div>
-    </div>
-</div>
-
-
-
-<div class="card card-transparent">
-    <div class="level post-navigation is-flex-wrap is-mobile">
-        
-        <div class="level-start">
-            <a class="level level-item has-link-grey  article-nav-prev" href="/2020/01/11/bugku-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3/">
-                <i class="level-item fas fa-chevron-left"></i>
-                <span class="level-item">bugku-re部分题解</span>
-            </a>
-        </div>
-        
-        
-        <div class="level-end">
-            <a class="level level-item has-link-grey  article-nav-next" href="/2020/01/11/BUUCTF-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3/">
-                <span class="level-item">BUUCTF-re部分题解</span>
-                <i class="level-item fas fa-chevron-right"></i>
-            </a>
-        </div>
-        
-    </div>
-</div>
-
-
-</div>
-                
-
-
-
-
-<div class="column is-4-tablet is-4-desktop is-3-widescreen  has-order-1 column-left ">
-    
-        
-<div class="card widget">
-    <div class="card-content">
-        <nav class="level">
-            <div class="level-item has-text-centered" style="flex-shrink: 1">
-                <div>
-                    
-                    <figure class="image is-128x128 has-mb-6">
-                        <img class="is-rounded" src="https://q2.qlogo.cn/headimg_dl?dst_uin=595371936&amp;spec=100" alt="Aorui Zhang">
-                    </figure>
-                    
-                    <p class="is-size-4 is-block">
-                        Aorui Zhang
-                    </p>
-                    
-                    
-                    
-                    <p class="is-size-6 is-flex is-flex-center has-text-grey">
-                        <i class="fas fa-map-marker-alt has-mr-7"></i>
-                        <span>ShaanXi,Xi&#39;an</span>
-                    </p>
-                    
-                </div>
-            </div>
-        </nav>
-        <nav class="level is-mobile">
-            <div class="level-item has-text-centered is-marginless">
-                <div>
-                    <p class="heading">
-                        Posts
-                    </p>
-                    <a href="/archives">
-                        <p class="title has-text-weight-normal">
-                            6
-                        </p>
-                    </a>
-                </div>
-            </div>
-            <div class="level-item has-text-centered is-marginless">
-                <div>
-                    <p class="heading">
-                        Categories
-                    </p>
-                    <a href="/categories">
-                        <p class="title has-text-weight-normal">
-                            0
-                        </p>
-                    </a>
-                </div>
-            </div>
-            <div class="level-item has-text-centered is-marginless">
-                <div>
-                    <p class="heading">
-                        Tags
-                    </p>
-                    <a href="/tags">
-                        <p class="title has-text-weight-normal">
-                            7
-                        </p>
-                    </a>
-                </div>
-            </div>
-        </nav>
-        
-        <div class="level">
-            <a class="level-item button is-link is-rounded" href="https://github.com/schrodinger17" target="_blank" rel="noopener">
-                Follow</a>
-        </div>
-        
-        
-        
-        <div class="level is-mobile">
-            
-            <a class="level-item button is-white is-marginless" target="_blank" rel="noopener"
-                title="Github" href="https://github.com/schrodinger17">
-                
-                <i class="fab fa-github"></i>
-                
-            </a>
-            
-        </div>
-        
-    </div>
-</div>
-    
-        
-
-    <div class="card widget" id="toc">
-        <div class="card-content">
-            <div class="menu">
-                <h3 class="menu-label">
-                    Catalogue
-                </h3>
-                <ul class="menu-list"><li>
-        <a class="is-flex" href="#Hello-RE">
-        <span class="has-mr-6">1</span>
-        <span>Hello,RE</span>
-        </a></li><li>
-        <a class="is-flex" href="#ReadAsm2">
-        <span class="has-mr-6">2</span>
-        <span>ReadAsm2</span>
-        </a></li><li>
-        <a class="is-flex" href="#Py交易">
-        <span class="has-mr-6">3</span>
-        <span>Py交易</span>
-        </a></li><li>
-        <a class="is-flex" href="#WxyVM">
-        <span class="has-mr-6">4</span>
-        <span>WxyVM</span>
-        </a></li><li>
-        <a class="is-flex" href="#maze">
-        <span class="has-mr-6">5</span>
-        <span>maze</span>
-        </a></li><li>
-        <a class="is-flex" href="#WxyVM2">
-        <span class="has-mr-6">6</span>
-        <span>WxyVM2</span>
-        </a></li><li>
-        <a class="is-flex" href="#你大概需要一个优秀的mac">
-        <span class="has-mr-6">7</span>
-        <span>你大概需要一个优秀的mac</span>
-        </a></li></ul>
-            </div>
-        </div>
-    </div>
-
-    
-        <div class="card widget">
-    <div class="card-content">
-        <div class="menu">
-        <h3 class="menu-label">
-            Links
-        </h3>
-        <ul class="menu-list">
-        
-            <li>
-                <a class="level is-mobile" href="https://hexo.io" target="_blank" rel="noopener">
-                    <span class="level-left">
-                        <span class="level-item">Hexo</span>
-                    </span>
-                    <span class="level-right">
-                        <span class="level-item tag">hexo.io</span>
-                    </span>
-                </a>
-            </li>
-        
-            <li>
-                <a class="level is-mobile" href="https://github.com/ppoffice" target="_blank" rel="noopener">
-                    <span class="level-left">
-                        <span class="level-item">PPOffice</span>
-                    </span>
-                    <span class="level-right">
-                        <span class="level-item tag">github.com</span>
-                    </span>
-                </a>
-            </li>
-        
-        </ul>
-        </div>
-    </div>
-</div>
-
-    
-        
-<div class="card widget">
-    <div class="card-content">
-        <div class="menu">
-            <h3 class="menu-label">
-                Categories
-            </h3>
-            <ul class="menu-list">
-            
-            </ul>
-        </div>
-    </div>
-</div>
-    
-        <div class="card widget">
-    <div class="card-content">
-        <h3 class="menu-label">
-            Tag Cloud
-        </h3>
-        <a href="/tags/BUUCTF/" style="font-size: 10px;">BUUCTF</a> <a href="/tags/CG-CTF/" style="font-size: 10px;">CG-CTF</a> <a href="/tags/CTF/" style="font-size: 20px;">CTF</a> <a href="/tags/bugku/" style="font-size: 10px;">bugku</a> <a href="/tags/hgame/" style="font-size: 10px;">hgame</a> <a href="/tags/re/" style="font-size: 20px;">re</a> <a href="/tags/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C/" style="font-size: 10px;">攻防世界</a>
-    </div>
-</div>
-    
-    
-        <div class="column-right-shadow is-hidden-widescreen ">
-        
-            <div class="card widget">
-    <div class="card-content">
-        <h3 class="menu-label">
-            Recent
-        </h3>
-        
-        <article class="media">
-            
-            <a href="/2020/01/25/hgame-wp/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="hgame_wp">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-01-25T12:28:09.000Z">2020-01-25</time></div>
-                    <a href="/2020/01/25/hgame-wp/" class="title has-link-black-ter is-size-6 has-text-weight-normal">hgame_wp</a>
-                    <p class="is-size-7 is-uppercase">
-                        
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/2020/01/11/bugku-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="bugku-re部分题解">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-01-11T07:31:43.000Z">2020-01-11</time></div>
-                    <a href="/2020/01/11/bugku-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3/" class="title has-link-black-ter is-size-6 has-text-weight-normal">bugku-re部分题解</a>
-                    <p class="is-size-7 is-uppercase">
-                        
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/2020/01/11/CGCTF-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="CGCTF-re部分题解">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-01-11T07:31:43.000Z">2020-01-11</time></div>
-                    <a href="/2020/01/11/CGCTF-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3/" class="title has-link-black-ter is-size-6 has-text-weight-normal">CGCTF-re部分题解</a>
-                    <p class="is-size-7 is-uppercase">
-                        
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/2020/01/11/BUUCTF-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="BUUCTF-re部分题解">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-01-11T07:31:43.000Z">2020-01-11</time></div>
-                    <a href="/2020/01/11/BUUCTF-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3/" class="title has-link-black-ter is-size-6 has-text-weight-normal">BUUCTF-re部分题解</a>
-                    <p class="is-size-7 is-uppercase">
-                        
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/2020/01/11/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="攻防世界-re部分题解">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-01-11T07:31:43.000Z">2020-01-11</time></div>
-                    <a href="/2020/01/11/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3/" class="title has-link-black-ter is-size-6 has-text-weight-normal">攻防世界-re部分题解</a>
-                    <p class="is-size-7 is-uppercase">
-                        
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-    </div>
-</div>
-        
-            <div class="card widget">
-    <div class="card-content">
-        <div class="menu">
-        <h3 class="menu-label">
-            Archives
-        </h3>
-        <ul class="menu-list">
-        
-        <li>
-            <a class="level is-marginless" href="/archives/2020/01/">
-                <span class="level-start">
-                    <span class="level-item">January 2020</span>
-                </span>
-                <span class="level-end">
-                    <span class="level-item tag">5</span>
-                </span>
-            </a>
-        </li>
-        
-        <li>
-            <a class="level is-marginless" href="/archives/2019/12/">
-                <span class="level-start">
-                    <span class="level-item">December 2019</span>
-                </span>
-                <span class="level-end">
-                    <span class="level-item tag">1</span>
-                </span>
-            </a>
-        </li>
-        
-        </ul>
-        </div>
-    </div>
-</div>
-        
-            <div class="card widget">
-    <div class="card-content">
-        <div class="menu">
-            <h3 class="menu-label">
-                Tags
-            </h3>
-            <div class="field is-grouped is-grouped-multiline">
-                
-                <div class="control">
-                    <a class="tags has-addons" href="/tags/BUUCTF/">
-                        <span class="tag">BUUCTF</span>
-                        <span class="tag is-grey">1</span>
-                    </a>
-                </div>
-                
-                <div class="control">
-                    <a class="tags has-addons" href="/tags/CG-CTF/">
-                        <span class="tag">CG-CTF</span>
-                        <span class="tag is-grey">1</span>
-                    </a>
-                </div>
-                
-                <div class="control">
-                    <a class="tags has-addons" href="/tags/CTF/">
-                        <span class="tag">CTF</span>
-                        <span class="tag is-grey">5</span>
-                    </a>
-                </div>
-                
-                <div class="control">
-                    <a class="tags has-addons" href="/tags/bugku/">
-                        <span class="tag">bugku</span>
-                        <span class="tag is-grey">1</span>
-                    </a>
-                </div>
-                
-                <div class="control">
-                    <a class="tags has-addons" href="/tags/hgame/">
-                        <span class="tag">hgame</span>
-                        <span class="tag is-grey">1</span>
-                    </a>
-                </div>
-                
-                <div class="control">
-                    <a class="tags has-addons" href="/tags/re/">
-                        <span class="tag">re</span>
-                        <span class="tag is-grey">5</span>
-                    </a>
-                </div>
-                
-                <div class="control">
-                    <a class="tags has-addons" href="/tags/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C/">
-                        <span class="tag">攻防世界</span>
-                        <span class="tag is-grey">1</span>
-                    </a>
-                </div>
-                
-            </div>
-        </div>
-    </div>
-</div>
-        
-        </div>
-    
-</div>
-
-                
-
-
-
-
-<div class="column is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only has-order-3 column-right ">
-    
-        <div class="card widget">
-    <div class="card-content">
-        <h3 class="menu-label">
-            Recent
-        </h3>
-        
-        <article class="media">
-            
-            <a href="/2020/01/25/hgame-wp/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="hgame_wp">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-01-25T12:28:09.000Z">2020-01-25</time></div>
-                    <a href="/2020/01/25/hgame-wp/" class="title has-link-black-ter is-size-6 has-text-weight-normal">hgame_wp</a>
-                    <p class="is-size-7 is-uppercase">
-                        
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/2020/01/11/bugku-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="bugku-re部分题解">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-01-11T07:31:43.000Z">2020-01-11</time></div>
-                    <a href="/2020/01/11/bugku-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3/" class="title has-link-black-ter is-size-6 has-text-weight-normal">bugku-re部分题解</a>
-                    <p class="is-size-7 is-uppercase">
-                        
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/2020/01/11/CGCTF-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="CGCTF-re部分题解">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-01-11T07:31:43.000Z">2020-01-11</time></div>
-                    <a href="/2020/01/11/CGCTF-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3/" class="title has-link-black-ter is-size-6 has-text-weight-normal">CGCTF-re部分题解</a>
-                    <p class="is-size-7 is-uppercase">
-                        
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/2020/01/11/BUUCTF-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="BUUCTF-re部分题解">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-01-11T07:31:43.000Z">2020-01-11</time></div>
-                    <a href="/2020/01/11/BUUCTF-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3/" class="title has-link-black-ter is-size-6 has-text-weight-normal">BUUCTF-re部分题解</a>
-                    <p class="is-size-7 is-uppercase">
-                        
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/2020/01/11/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="攻防世界-re部分题解">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-01-11T07:31:43.000Z">2020-01-11</time></div>
-                    <a href="/2020/01/11/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3/" class="title has-link-black-ter is-size-6 has-text-weight-normal">攻防世界-re部分题解</a>
-                    <p class="is-size-7 is-uppercase">
-                        
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-    </div>
-</div>
-    
-        <div class="card widget">
-    <div class="card-content">
-        <div class="menu">
-        <h3 class="menu-label">
-            Archives
-        </h3>
-        <ul class="menu-list">
-        
-        <li>
-            <a class="level is-marginless" href="/archives/2020/01/">
-                <span class="level-start">
-                    <span class="level-item">January 2020</span>
-                </span>
-                <span class="level-end">
-                    <span class="level-item tag">5</span>
-                </span>
-            </a>
-        </li>
-        
-        <li>
-            <a class="level is-marginless" href="/archives/2019/12/">
-                <span class="level-start">
-                    <span class="level-item">December 2019</span>
-                </span>
-                <span class="level-end">
-                    <span class="level-item tag">1</span>
-                </span>
-            </a>
-        </li>
-        
-        </ul>
-        </div>
-    </div>
-</div>
-    
-        <div class="card widget">
-    <div class="card-content">
-        <div class="menu">
-            <h3 class="menu-label">
-                Tags
-            </h3>
-            <div class="field is-grouped is-grouped-multiline">
-                
-                <div class="control">
-                    <a class="tags has-addons" href="/tags/BUUCTF/">
-                        <span class="tag">BUUCTF</span>
-                        <span class="tag is-grey">1</span>
-                    </a>
-                </div>
-                
-                <div class="control">
-                    <a class="tags has-addons" href="/tags/CG-CTF/">
-                        <span class="tag">CG-CTF</span>
-                        <span class="tag is-grey">1</span>
-                    </a>
-                </div>
-                
-                <div class="control">
-                    <a class="tags has-addons" href="/tags/CTF/">
-                        <span class="tag">CTF</span>
-                        <span class="tag is-grey">5</span>
-                    </a>
-                </div>
-                
-                <div class="control">
-                    <a class="tags has-addons" href="/tags/bugku/">
-                        <span class="tag">bugku</span>
-                        <span class="tag is-grey">1</span>
-                    </a>
-                </div>
-                
-                <div class="control">
-                    <a class="tags has-addons" href="/tags/hgame/">
-                        <span class="tag">hgame</span>
-                        <span class="tag is-grey">1</span>
-                    </a>
-                </div>
-                
-                <div class="control">
-                    <a class="tags has-addons" href="/tags/re/">
-                        <span class="tag">re</span>
-                        <span class="tag is-grey">5</span>
-                    </a>
-                </div>
-                
-                <div class="control">
-                    <a class="tags has-addons" href="/tags/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C/">
-                        <span class="tag">攻防世界</span>
-                        <span class="tag is-grey">1</span>
-                    </a>
-                </div>
-                
-            </div>
-        </div>
-    </div>
-</div>
-    
-    
-</div>
-
-            </div>
-        </div>
-    </section>
-    <footer class="footer">
-    <div class="container">
-        <div class="level">
-            <div class="level-start has-text-centered-mobile">
-                <a class="footer-logo is-block has-mb-6" href="/">
-                
-                    <img src="/images/logo.svg" alt="CGCTF-re部分题解" height="28">
-                
-                </a>
-                <p class="is-size-7">
-                &copy; 2020 Aorui Zhang&nbsp;
-                Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> & <a
-                        href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a>
-                
-                </p>
-            </div>
-            <div class="level-end">
-            
-                <div class="field has-addons is-flex-center-mobile has-mt-5-mobile is-flex-wrap is-flex-middle">
-                
-                <p class="control">
-                    <a class="button is-white is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/">
-                        
-                        <i class="fab fa-creative-commons"></i>
-                        
-                    </a>
-                </p>
-                
-                <p class="control">
-                    <a class="button is-white is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/">
-                        
-                        <i class="fab fa-creative-commons-by"></i>
-                        
-                    </a>
-                </p>
-                
-                <p class="control">
-                    <a class="button is-white is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus">
-                        
-                        <i class="fab fa-github"></i>
-                        
-                    </a>
-                </p>
-                
-                </div>
-            
-            </div>
-        </div>
-    </div>
-</footer>
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script>
-<script>moment.locale("en");</script>
-
-
-<script>
-var IcarusThemeSettings = {
-    site: {
-        url: 'https://rycbar.xyz',
-        external_link: {"enable":true,"exclude":[]}
-    },
-    article: {
-        highlight: {
-            clipboard: true,
-            fold: 'unfolded'
-        }
+<pre><code class="c++">  scanf(&quot;%s&quot;, &amp;v4);
+  if ( strlen(&amp;v4) != 56 )
+  {
+    puts((const char *)err);
+    exit(0);
+  }
+  __strcpy_chk(input, &amp;v4, 100LL);
+  func1((__int64)input);
+  xfun1();
+  xfun2();
+  xfun3();
+  xfun4();
+  xfun5();
+  check();
+//func1
+  for ( i = 0; i &lt; 57; ++i ) //这里应该是56？
+  {
+    *(_BYTE *)(a1 + i) ^= 0xDEu;
+  }
+//xfun1
+  for ( i = 0; i &lt; 10; ++i )
+  {
+    input[i] ^= 0xADu;
+  }
+//xfun2
+  for ( i = 0; i &lt; 10; ++i )
+  {
+    input[i + 10] ^= 0xBEu;
+  }
+//xfun3
+  for ( i = 0; i &lt; 10; ++i )
+  {
+    input[i + 20] ^= 0xEFu;
+  }
+//xfun4
+  for ( i = 0; i &lt; 10; ++i )
+  {
+    input[i + 30] ^= 0xABu;
+  }
+//xfun5
+  for ( i = 0; i &lt; 16; ++i )
+  {
+    input[i + 40] ^= 0xEFu;
+  }
+//check
+  memcpy(v2, &amp;byte_100000ED0, 0xE0uLL);
+  for ( i = 0; i &lt; 56; ++i )
+  {
+    if ( (char)input[i] != v2[i] )
+    {
+      puts((const char *)err);
+      exit(0);
     }
-};
-</script>
+  }</code></pre>
+<p>所以将byte_100000ED0处的数组导出，进行逆运算，代码如下：</p>
+<pre><code class="python">s = [0x15, 0x1F, 0x12, 0x14, 0x08, 0x3A, 0x46, 0x2C, 0x07, 0x1B, 0x51, 0x13, 0x3F, 0x57, 0x08, 0x05, 0x3F, 0x30, 0x32,
+     0x51, 0x52, 0x02, 0x6E, 0x78, 0x16, 0x7C, 0x6E, 0x61, 0x70, 0x48, 0x1C, 0x3B, 0x32, 0x2A, 0x13, 0x45, 0x07, 0x2A,
+     0x18, 0x0C, 0x6E, 0x41, 0x70, 0x04, 0x06, 0x6E, 0x5C, 0x00, 0x42, 0x45, 0x70, 0x5A, 0x02, 0x04, 0x0E, 0x4C]
+for i in range(10):
+    s[i]^=0xAD
+for i in range(10,20):
+    s[i]^=0xBE
+for i in range(20,30):
+    s[i]^=0xEF
+for i in range(30,40):
+    s[i]^=0xAB
+for i in range(40,56):
+    s[i]^=0xEF
+for i in range(56):
+    s[i]^=0xDE
+print(&#39;&#39;.join([str(chr(i%128)) for i in s]))</code></pre>
+<p>运行程序输出flag：</p>
+<pre><code class="flag">flag{I5_th1s_7he_PR1c3_I&#39;M_PAyiNG_f0r_my_pA57_m1stAk35?}</code></pre>
 
-
-<script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script>
-
-
-
-
-
-<script src="/js/animation.js"></script>
-
-
-
-<script src="https://cdn.jsdelivr.net/npm/lightgallery@1.6.8/dist/js/lightgallery.min.js" defer></script>
-<script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.7.0/dist/js/jquery.justifiedGallery.min.js" defer></script>
-<script src="/js/gallery.js" defer></script>
-
-
-
-<div id="outdated">
-    <h6>Your browser is out-of-date!</h6>
-    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" href="http://outdatedbrowser.com/">Update
-            my browser now </a></p>
-    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
-</div>
-<script src="https://cdn.jsdelivr.net/npm/outdatedbrowser@1.1.5/outdatedbrowser/outdatedbrowser.min.js" defer></script>
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        outdatedBrowser({
-            bgColor: '#f25648',
-            color: '#ffffff',
-            lowerThan: 'flex'
-        });
-    });
-</script>
-
-
-<script src="https://cdn.jsdelivr.net/npm/mathjax@2.7.5/unpacked/MathJax.js?config=TeX-MML-AM_CHTML" defer></script>
-<script>
-document.addEventListener('DOMContentLoaded', function () {
-    MathJax.Hub.Config({
-        'HTML-CSS': {
-            matchFontHeight: false
-        },
-        SVG: {
-            matchFontHeight: false
-        },
-        CommonHTML: {
-            matchFontHeight: false
-        },
-        tex2jax: {
-            inlineMath: [
-                ['$','$'],
-                ['\\(','\\)']
-            ]
-        }
-    });
-});
-</script>
-
-
-<a id="back-to-top" title="Back to Top" href="javascript:;">
-    <i class="fas fa-chevron-up"></i>
-</a>
-<script src="/js/back-to-top.js" defer></script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<script src="/js/main.js" defer></script>
-
-    
-    <div class="searchbox ins-search">
-    <div class="searchbox-container ins-search-container">
-        <div class="searchbox-input-wrapper">
-            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something..." />
-            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+            <hr>
+          </div>
+          <br>
+          <div>
+            <p>
+            
+              <span>
+                <i class="iconfont icon-inbox"></i>
+                
+                  <a class="hover-with-bg" href="/categories/ctf">ctf</a>
+                  &nbsp;
+                
+              </span>&nbsp;&nbsp;
+            
+            
+              <span>
+                <i class="iconfont icon-tag"></i>
+                
+                  <a class="hover-with-bg" href="/tags/ctf">ctf</a>
+                
+                  <a class="hover-with-bg" href="/tags/re">re</a>
+                
+                  <a class="hover-with-bg" href="/tags/CG-CTF">CG-CTF</a>
+                
+              </span>
+            
+            </p>
+            
+              <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" target="_blank" rel="nofollow noopener noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+            
+          </div>
         </div>
-        <div class="searchbox-result-wrapper ins-section-wrapper">
-            <div class="ins-section-container"></div>
-        </div>
+      </div>
     </div>
+    <div class="d-none d-lg-block col-lg-2 toc-container">
+      
+  <div id="toc">
+    <p class="h4"><i class="far fa-list-alt"></i>&nbsp;目录</p>
+    <div id="tocbot"></div>
+  </div>
+
+    </div>
+  </div>
 </div>
-<script>
-    (function (window) {
-        var INSIGHT_CONFIG = {
-            TRANSLATION: {
-                POSTS: 'Posts',
-                PAGES: 'Pages',
-                CATEGORIES: 'Categories',
-                TAGS: 'Tags',
-                UNTITLED: '(Untitled)',
-            },
-            CONTENT_URL: '/content.json',
-        };
-        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
-    })(window);
-</script>
-<script src="/js/insight.js" defer></script>
-<link rel="stylesheet" href="/css/search.css">
-<link rel="stylesheet" href="/css/insight.css">
+
+<!-- custom -->
+
+
+<!-- Comments -->
+<div class="col-lg-7 mx-auto nopadding-md">
+  <div class="container comments mx-auto" id="comments">
     
+  </div>
+</div>
+
+    
+  </main>
+
+  
+    <a class="z-depth-1" id="scroll-top-button" href="#" role="button">
+      <i class="fa fa-chevron-up scroll-top-arrow" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>
+    <i class="iconfont icon-love"></i>
+    <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+    <br>
+
+    
+  
+    <!-- 不蒜子统计PV -->
+    
+    &nbsp;<span id="busuanzi_container_site_pv">总访问量 
+          <span id="busuanzi_value_site_pv"></span> 次</span>&nbsp;
+  
+  
+    <!-- 不蒜子统计UV -->
+    
+    &nbsp;<span id="busuanzi_container_site_uv">总访客数 
+            <span id="busuanzi_value_site_uv"></span> 人</span>&nbsp;
+  
+  <br>
+
+
+
+    
+
+
+    <!-- cnzz Analytics icon -->
+    
+
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script src="/lib/jquery/jquery.min.js" ></script>
+<script src="/lib/popper/popper.min.js" ></script>
+<script src="/lib/bootstrap/js/bootstrap.min.js" ></script>
+<script src="/lib/mdbootstrap/js/mdb.min.js" ></script>
+<script src="/js/main.js" ></script>
+
+
+  <script src="/js/lazyload.js" ></script>
+
+
+
+  
+    <script src="/lib/tocbot/tocbot.min.js" ></script>
+  
+  <script src="/js/post.js" ></script>
+
+
+
+  <script src="/lib/smooth-scroll/smooth-scroll.min.js" ></script>
+
+
+
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+<!-- Plugins -->
+
+
+  
+
+  
+    <!-- Google Analytics -->
+    <script>
+      (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+          (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o),
+          m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+      })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+      ga('create', 'UA-128484503-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  
+
+  
+
+  
+
+  <!-- cnzz Analytics -->
+  
+
+
+
+  <script src="/lib/prettify/prettify.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      $('pre').addClass('prettyprint  ');
+      prettyPrint();
+    })
+  </script>
+
+
+
+  <script src="/lib/typed/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "CGCTF-re部分题解&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script src="/lib/anchor/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "false",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      getSearchFile(path);
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script src="/lib/fancybox/jquery.fancybox.min.js" ></script>
+  <script>
+    $("#post img:not(.no-zoom img, img[no-zoom])").each(
+      function () {
+        var element = document.createElement("a");
+        $(element).attr("data-fancybox", "images");
+        $(element).attr("href", $(this).attr("src"));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+  
+  
+    <script type="text/javascript">
+      //定义获取词语下标
+      var a_idx = 0;
+      jQuery(document).ready(function ($) {
+        //点击body时触发事件
+        $("body").click(function (e) {
+          //需要显示的词语
+          var a = new Array("富强", "民主", "文明", "和谐", "自由", "平等", "公正", "法治", "爱国", "敬业", "诚信", "友善");
+          //设置词语给span标签
+          var $i = $("<span/>").text(a[a_idx]);
+          //下标等于原来下标+1  余 词语总数
+          a_idx = (a_idx + 1) % a.length;
+          //获取鼠标指针的位置，分别相对于文档的左和右边缘。
+          //获取x和y的指针坐标
+          var x = e.pageX, y = e.pageY;
+          //在鼠标的指针的位置给$i定义的span标签添加css样式
+          $i.css({
+            "z-index": 999,
+            "top": y - 20,
+            "left": x,
+            "position": "absolute",
+            "font-weight": "bold",
+            "color": rand_color()
+          });
+          // 随机颜色
+          function rand_color() {
+            return "rgb(" + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + ")"
+          }
+          //在body添加这个标签
+          $("body").append($i);
+          //animate() 方法执行 CSS 属性集的自定义动画。
+          //该方法通过CSS样式将元素从一个状态改变为另一个状态。CSS属性值是逐渐改变的，这样就可以创建动画效果。
+          //详情请看http://www.w3school.com.cn/jquery/effect_animate.asp
+          $i.animate({
+            //将原来的位置向上移动180
+            "top": y - 180,
+            "opacity": 0
+            //1500动画的速度
+          }, 1500, function () {
+            //时间到了自动删除
+            $i.remove();
+          });
+        });
+      })
+      ;
+    </script>
+  
+
+
+
+
+
+
+
 </body>
 </html>
