@@ -133,7 +133,7 @@
                   
                   &nbsp;<i class="far fa-chart-bar"></i>
                   <span class="post-count">
-                    3.1k 字
+                    6.2k 字
                   </span>&nbsp;
                 
 
@@ -141,7 +141,7 @@
                   
                   &nbsp;<i class="far fa-clock"></i>
                   <span class="post-count">
-                      16 分钟
+                      33 分钟
                   </span>&nbsp;
                 
 
@@ -582,7 +582,7 @@ for i in target:
 print(flag[::-1])</code></pre>
 <p>输出flag</p>
 <pre><code>flag{xNqU4otPq3ys9wkDsN}</code></pre><h4 id="shuffle"><a href="#shuffle" class="headerlink" title="shuffle"></a>shuffle</h4><p>打开把所有的整数转换为字符就看到了flag</p>
-<pre><code>SECCON{Welcome to the SECCON 2014 CTF!}</code></pre><h4 id="re-for-50-plz-50"><a href="#re-for-50-plz-50" class="headerlink" title="re-for-50-plz-50"></a>re-for-50-plz-50</h4><p>这题是mips，IDA直接反编译不出来，mips指令学的也不是很好，所以直接用retdec插件</p>
+<pre><code>SECCON{Welcome to the SECCON 2014 CTF!}</code></pre><h4 id="re-for-50-plz-50"><a href="#re-for-50-plz-50" class="headerlink" title="re-for-50-plz-50"></a>re-for-50-plz-50</h4><p>这题是MIPS，IDA直接反编译不出来，MIPS指令学的也不是很好，所以直接用retdec插件</p>
 <p>retdec直接反编译出来</p>
 <pre><code class="c++">int main(int argc, char ** argv) {
     // 0x401398
@@ -707,7 +707,449 @@ int main() {
     return 0;
 }</code></pre>
 <p>输出flag</p>
-<pre><code>lucky_hacker_you_are</code></pre>
+<pre><code>lucky_hacker_you_are</code></pre><h4 id="secret-galaxy-300"><a href="#secret-galaxy-300" class="headerlink" title="secret-galaxy-300"></a>secret-galaxy-300</h4><p>题目里面只有一个结构体，运行了一遍什么都没发现，OD调试的时候查找字符串找到flag</p>
+<pre><code>aliens_are_around_us</code></pre><h4 id="srm-50"><a href="#srm-50" class="headerlink" title="srm-50"></a>srm-50</h4><p>这题是个简单的注册机，找到关键函数</p>
+<pre><code class="c++">BOOL __stdcall DialogFunc(HWND hDlg, UINT a2, WPARAM a3, LPARAM a4)
+{
+  HMODULE v5; // eax
+  HICON v6; // eax
+  HMODULE v7; // eax
+  HCURSOR v8; // ST20_4
+  HWND v9; // eax
+  CHAR String; // [esp+8h] [ebp-340h]
+  CHAR v11[4]; // [esp+108h] [ebp-240h]
+  char v12; // [esp+10Ch] [ebp-23Ch]
+  char v13; // [esp+10Dh] [ebp-23Bh]
+  char v14; // [esp+10Eh] [ebp-23Ah]
+  char v15; // [esp+10Fh] [ebp-239h]
+  char v16; // [esp+110h] [ebp-238h]
+  char v17; // [esp+111h] [ebp-237h]
+  char v18; // [esp+112h] [ebp-236h]
+  char v19; // [esp+113h] [ebp-235h]
+  char v20; // [esp+114h] [ebp-234h]
+  char v21; // [esp+115h] [ebp-233h]
+  char v22; // [esp+116h] [ebp-232h]
+  char v23; // [esp+117h] [ebp-231h]
+  CHAR Text; // [esp+208h] [ebp-140h]
+  char Src[16]; // [esp+308h] [ebp-40h]
+  __int128 v26; // [esp+318h] [ebp-30h]
+  int v27; // [esp+328h] [ebp-20h]
+  __int128 v28; // [esp+32Ch] [ebp-1Ch]
+  int v29; // [esp+33Ch] [ebp-Ch]
+  __int16 v30; // [esp+340h] [ebp-8h]
+
+  if ( a2 == 16 )
+  {
+    EndDialog(hDlg, 0);
+    return 0;
+  }
+  if ( a2 == 272 )
+  {
+    v5 = GetModuleHandleW(0);
+    v6 = LoadIconW(v5, (LPCWSTR)0x67);
+    SetClassLongA(hDlg, -14, (LONG)v6);
+    v7 = GetModuleHandleW(0);
+    v8 = LoadCursorW(v7, (LPCWSTR)0x66);
+    v9 = GetDlgItem(hDlg, 1);
+    SetClassLongA(v9, -12, (LONG)v8);
+    return 1;
+  }
+  if ( a2 != 273 || (unsigned __int16)a3 != 1 )
+    return 0;
+  memset(&amp;String, (unsigned __int16)a3 - 1, 0x100u);
+  memset(v11, 0, 0x100u);
+  memset(&amp;Text, 0, 0x100u);
+  GetDlgItemTextA(hDlg, 1001, &amp;String, 256);
+  GetDlgItemTextA(hDlg, 1002, v11, 256);
+  if ( strstr(&amp;String, &quot;@&quot;) &amp;&amp; strstr(&amp;String, &quot;.&quot;) &amp;&amp; strstr(&amp;String, &quot;.&quot;)[1] &amp;&amp; strstr(&amp;String, &quot;@&quot;)[1] != 46 )
+  {
+    v28 = xmmword_410AA0;
+    v29 = 1701999980;
+    *(_OWORD *)Src = xmmword_410A90;
+    v30 = 46;
+    v26 = xmmword_410A80;
+    v27 = 3830633;
+    if ( strlen(v11) != 16
+      || v11[0] != 67
+      || v23 != 88
+      || v11[1] != 90
+      || v11[1] + v22 != 155
+      || v11[2] != 57
+      || v11[2] + v21 != 155
+      || v11[3] != 100
+      || v20 != 55
+      || v12 != 109
+      || v19 != 71
+      || v13 != 113
+      || v13 + v18 != 170
+      || v14 != 52
+      || v17 != 103
+      || v15 != 99
+      || v16 != 56 )
+    {
+      strcpy_s(&amp;Text, 0x100u, (const char *)&amp;v28);
+    }
+    else
+    {
+      strcpy_s(&amp;Text, 0x100u, Src);
+      strcat_s(&amp;Text, 0x100u, v11);
+    }
+  }
+  else
+  {
+    strcpy_s(&amp;Text, 0x100u, &quot;Your E-mail address in not valid.&quot;);
+  }
+  MessageBoxA(hDlg, &amp;Text, &quot;Registeration&quot;, 0x40u);
+  return 1;
+}</code></pre>
+<p>过程十分简单，先简单判断邮箱是不是符合格式，如果符合进入序列号的判断，序列号的判断关键也就只有一个if条件，然后就会输出注册有没有成功</p>
+<pre><code class="c++">#include &lt;iostream&gt;
+#include &lt;cstring&gt;
+#include &lt;string&gt;
+
+
+using namespace std;
+
+int main() {
+    char v11[17]={0};
+    v11[0] = &#39;C&#39;;
+    v11[15] = &#39;X&#39;;
+    v11[1] = &#39;Z&#39;;
+    v11[14] = 155-v11[1];
+    v11[2] = 57;
+     v11[13] = 155-v11[2];
+    v11[3] = 100;
+    v11[12] = 55;
+    v11[4] = 109;
+    v11[11] = 71;
+    v11[5] = 113;
+    v11[10] = 170-v11[5];
+    v11[6] = 52;
+    v11[9] = 103;
+    v11[7] = 99;
+    v11[8] = 56;
+    cout&lt;&lt;v11&lt;&lt;endl;
+
+    return 0;
+}</code></pre>
+<p>输出结果为</p>
+<pre><code>CZ9dmq4c8g9G7bAX</code></pre><h4 id="Mysterious"><a href="#Mysterious" class="headerlink" title="Mysterious"></a>Mysterious</h4><p>通过字符串找到关键函数</p>
+<pre><code class="c++">int __stdcall sub_401090(HWND hWnd, int a2, int a3, int a4)
+{
+  char v5; // [esp+50h] [ebp-310h]
+  CHAR Text[4]; // [esp+154h] [ebp-20Ch]
+  char v7; // [esp+159h] [ebp-207h]
+  __int16 v8; // [esp+255h] [ebp-10Bh]
+  char v9; // [esp+257h] [ebp-109h]
+  int v10; // [esp+258h] [ebp-108h]
+  CHAR String; // [esp+25Ch] [ebp-104h]
+  char v12; // [esp+25Fh] [ebp-101h]
+  char v13; // [esp+260h] [ebp-100h]
+  char v14; // [esp+261h] [ebp-FFh]
+
+  memset(&amp;String, 0, 0x104u);
+  v10 = 0;
+  if ( a2 == 16 )
+  {
+    DestroyWindow(hWnd);
+    PostQuitMessage(0);
+  }
+  else if ( a2 == 273 )
+  {
+    if ( a3 == 1000 )
+    {
+      GetDlgItemTextA(hWnd, 1002, &amp;String, 260);
+      strlen(&amp;String);
+      if ( strlen(&amp;String) &gt; 6 )
+        ExitProcess(0);
+      v10 = atoi(&amp;String) + 1;
+      if ( v10 == 123 &amp;&amp; v12 == &#39;x&#39; &amp;&amp; v14 == &#39;z&#39; &amp;&amp; v13 == &#39;y&#39; )
+      {
+        strcpy(Text, &quot;flag&quot;);
+        memset(&amp;v7, 0, 0xFCu);
+        v8 = 0;
+        v9 = 0;
+        _itoa(v10, &amp;v5, 10);
+        strcat(Text, &quot;{&quot;);
+        strcat(Text, &amp;v5);
+        strcat(Text, &quot;_&quot;);
+        strcat(Text, &quot;Buff3r_0v3rf|0w&quot;);
+        strcat(Text, &quot;}&quot;);
+        MessageBoxA(0, Text, &quot;well done&quot;, 0);
+      }
+      SetTimer(hWnd, 1u, 0x3E8u, TimerFunc);
+    }
+    if ( a3 == 1001 )
+      KillTimer(hWnd, 1u);
+  }
+  return 0;
+}</code></pre>
+<p>发现我们只要输入122xyz，就会输出flag，而且flag也可以直接拼凑出来</p>
+<pre><code>flag{123_Buff3r_0v3rf|0w}</code></pre><h4 id="re1-100"><a href="#re1-100" class="headerlink" title="re1-100"></a>re1-100</h4><p>这题题目里面的if实在是太多了，主要是为了判断是不是有debugger，所以不能通过调试的方式获得flag，所以还是要研究一下代码</p>
+<pre><code class="c++">if ( strlen(bufParentRead) == 42 )
+          {
+            if ( !strncmp(&amp;bufParentRead[1], &quot;53fc275d81&quot;, 10uLL) )
+            {
+              if ( bufParentRead[strlen(bufParentRead) - 1] == &#39;}&#39; )
+              {
+                if ( !strncmp(&amp;bufParentRead[31], &quot;4938ae4efd&quot;, 10uLL) )
+                {
+                  if ( !confuseKey(bufParentRead, 42) )
+                  {
+                    responseFalse();
+                  }
+                  else if ( !strncmp(bufParentRead, &quot;{daf29f59034938ae4efd53fc275d81053ed5be8c}&quot;, 42uLL) )
+                  {
+                    responseTrue();
+                  }
+                  else
+                  {
+                    responseFalse();
+                  }
+                }
+                else
+                {
+                  responseFalse();
+                }
+              }
+              else
+              {
+                responseFalse();
+              }
+            }
+            else
+            {
+              responseFalse();
+            }</code></pre>
+<p>截取了其中一段，这里把flag分成了4个部分，每段10个字符，已经知道第一段地最后一段，但是也知道经过<code>confuseKey()</code>之后flag是什么，所以我们只要研究一下<code>confusekey()</code>就可以了</p>
+<pre><code class="c++">bool __cdecl confuseKey(char *szKey, int iKeyLength)
+{
+  char szPart1[15]; // [rsp+10h] [rbp-50h]
+  char szPart2[15]; // [rsp+20h] [rbp-40h]
+  char szPart3[15]; // [rsp+30h] [rbp-30h]
+  char szPart4[15]; // [rsp+40h] [rbp-20h]
+  unsigned __int64 v7; // [rsp+58h] [rbp-8h]
+
+  v7 = __readfsqword(0x28u);
+  *(_QWORD *)szPart1 = 0LL;
+  *(_DWORD *)&amp;szPart1[8] = 0;
+  *(_WORD *)&amp;szPart1[12] = 0;
+  szPart1[14] = 0;
+  *(_QWORD *)szPart2 = 0LL;
+  *(_DWORD *)&amp;szPart2[8] = 0;
+  *(_WORD *)&amp;szPart2[12] = 0;
+  szPart2[14] = 0;
+  *(_QWORD *)szPart3 = 0LL;
+  *(_DWORD *)&amp;szPart3[8] = 0;
+  *(_WORD *)&amp;szPart3[12] = 0;
+  szPart3[14] = 0;
+  *(_QWORD *)szPart4 = 0LL;
+  *(_DWORD *)&amp;szPart4[8] = 0;
+  *(_WORD *)&amp;szPart4[12] = 0;
+  szPart4[14] = 0;
+  if ( iKeyLength != 42 )
+    return 0;
+  if ( !szKey )
+    return 0;
+  if ( strlen(szKey) != 42 )
+    return 0;
+  if ( *szKey != &#39;{&#39; )
+    return 0;
+  strncpy(szPart1, szKey + 1, 0xAuLL);
+  strncpy(szPart2, szKey + 11, 0xAuLL);
+  strncpy(szPart3, szKey + 21, 0xAuLL);
+  strncpy(szPart4, szKey + 31, 0xAuLL);
+  memset(szKey, 0, iKeyLength);
+  *szKey = 123;
+  strcat(szKey, szPart3);
+  strcat(szKey, szPart4);
+  strcat(szKey, szPart1);
+  strcat(szKey, szPart2);
+  szKey[41] = 125;
+  return 1;
+}</code></pre>
+<p>内容挺多，实际上只实现了一件事情，把四段调换了一个顺序，变成了3421的顺序，所以调整一下顺序就出来了</p>
+<pre><code>53fc275d81053ed5be8cdaf29f59034938ae4efd</code></pre><h4 id="crazy"><a href="#crazy" class="headerlink" title="crazy"></a>crazy</h4><p>这题c++17编写，还有类，乍一看有点复杂，但实际上不是很难</p>
+<p>还是先看关键函数，这里在main函数里就进行了处理</p>
+<pre><code class="c++">int __cdecl main(int argc, const char **argv, const char **envp)
+{
+  __int64 v3; // rax
+  __int64 v4; // rax
+  __int64 v5; // rax
+  __int64 v6; // rax
+  __int64 v7; // rax
+  __int64 v8; // rax
+  __int64 v9; // rax
+  __int64 v10; // rax
+  __int64 v11; // rax
+  __int64 v12; // rax
+  __int64 v13; // rax
+  __int64 v14; // rax
+  __int64 v15; // rax
+  __int64 v16; // rax
+  char v18; // [rsp+10h] [rbp-130h]
+  char v19; // [rsp+30h] [rbp-110h]
+  char v20; // [rsp+50h] [rbp-F0h]
+  char v21; // [rsp+70h] [rbp-D0h]
+  char v22; // [rsp+90h] [rbp-B0h]
+  char v23; // [rsp+B0h] [rbp-90h]
+  unsigned __int64 v24; // [rsp+128h] [rbp-18h]
+
+  v24 = __readfsqword(0x28u);
+  std::__cxx11::basic_string&lt;char,std::char_traits&lt;char&gt;,std::allocator&lt;char&gt;&gt;::basic_string(&amp;v18, argv, envp);
+  std::operator&gt;&gt;&lt;char,std::char_traits&lt;char&gt;,std::allocator&lt;char&gt;&gt;(&amp;std::cin, &amp;v18);
+  v3 = std::operator&lt;&lt;&lt;std::char_traits&lt;char&gt;&gt;(&amp;std::cout, &quot;-------------------------------------------&quot;);
+  std::ostream::operator&lt;&lt;(v3, &amp;std::endl&lt;char,std::char_traits&lt;char&gt;&gt;);
+  v4 = std::operator&lt;&lt;&lt;std::char_traits&lt;char&gt;&gt;(&amp;std::cout, &quot;Quote from people&#39;s champ&quot;);
+  std::ostream::operator&lt;&lt;(v4, &amp;std::endl&lt;char,std::char_traits&lt;char&gt;&gt;);
+  v5 = std::operator&lt;&lt;&lt;std::char_traits&lt;char&gt;&gt;(&amp;std::cout, &quot;-------------------------------------------&quot;);
+  std::ostream::operator&lt;&lt;(v5, &amp;std::endl&lt;char,std::char_traits&lt;char&gt;&gt;);
+  v6 = std::operator&lt;&lt;&lt;std::char_traits&lt;char&gt;&gt;(
+         &amp;std::cout,
+         &quot;*My goal was never to be the loudest or the craziest. It was to be the most entertaining.&quot;);
+  std::ostream::operator&lt;&lt;(v6, &amp;std::endl&lt;char,std::char_traits&lt;char&gt;&gt;);
+  v7 = std::operator&lt;&lt;&lt;std::char_traits&lt;char&gt;&gt;(&amp;std::cout, &quot;*Wrestling was like stand-up comedy for me.&quot;);
+  std::ostream::operator&lt;&lt;(v7, &amp;std::endl&lt;char,std::char_traits&lt;char&gt;&gt;);
+  v8 = std::operator&lt;&lt;&lt;std::char_traits&lt;char&gt;&gt;(
+         &amp;std::cout,
+         &quot;*I like to use the hard times in the past to motivate me today.&quot;);
+  std::ostream::operator&lt;&lt;(v8, &amp;std::endl&lt;char,std::char_traits&lt;char&gt;&gt;);
+  v9 = std::operator&lt;&lt;&lt;std::char_traits&lt;char&gt;&gt;(&amp;std::cout, &quot;-------------------------------------------&quot;);
+  std::ostream::operator&lt;&lt;(v9, &amp;std::endl&lt;char,std::char_traits&lt;char&gt;&gt;);
+  HighTemplar::HighTemplar((DarkTemplar *)&amp;v23, (__int64)&amp;v18);
+  v10 = std::operator&lt;&lt;&lt;std::char_traits&lt;char&gt;&gt;(&amp;std::cout, &quot;Checking....&quot;);
+  std::ostream::operator&lt;&lt;(v10, &amp;std::endl&lt;char,std::char_traits&lt;char&gt;&gt;);
+  std::__cxx11::basic_string&lt;char,std::char_traits&lt;char&gt;,std::allocator&lt;char&gt;&gt;::basic_string(&amp;v19, &amp;v18);
+  func1((__int64)&amp;v20, (__int64)&amp;v19);
+  func2((__int64)&amp;v21, (__int64)&amp;v20);
+  func3((__int64)&amp;v21, 0);
+  std::__cxx11::basic_string&lt;char,std::char_traits&lt;char&gt;,std::allocator&lt;char&gt;&gt;::~basic_string(&amp;v21);
+  std::__cxx11::basic_string&lt;char,std::char_traits&lt;char&gt;,std::allocator&lt;char&gt;&gt;::~basic_string(&amp;v20);
+  std::__cxx11::basic_string&lt;char,std::char_traits&lt;char&gt;,std::allocator&lt;char&gt;&gt;::~basic_string(&amp;v19);
+  HighTemplar::calculate((HighTemplar *)&amp;v23);
+  if ( (unsigned int)HighTemplar::getSerial((HighTemplar *)&amp;v23) == 0 )
+  {
+    v11 = std::operator&lt;&lt;&lt;std::char_traits&lt;char&gt;&gt;(&amp;std::cout, &quot;/////////////////////////////////&quot;);
+    std::ostream::operator&lt;&lt;(v11, &amp;std::endl&lt;char,std::char_traits&lt;char&gt;&gt;);
+    v12 = std::operator&lt;&lt;&lt;std::char_traits&lt;char&gt;&gt;(&amp;std::cout, &quot;Do not be angry. Happy Hacking :)&quot;);
+    std::ostream::operator&lt;&lt;(v12, &amp;std::endl&lt;char,std::char_traits&lt;char&gt;&gt;);
+    v13 = std::operator&lt;&lt;&lt;std::char_traits&lt;char&gt;&gt;(&amp;std::cout, &quot;/////////////////////////////////&quot;);
+    std::ostream::operator&lt;&lt;(v13, &amp;std::endl&lt;char,std::char_traits&lt;char&gt;&gt;);
+    ZN11HighTemplar7getFlagB5cxx11Ev((__int64)&amp;v22, (__int64)&amp;v23);
+    v14 = std::operator&lt;&lt;&lt;std::char_traits&lt;char&gt;&gt;(&amp;std::cout, &quot;flag{&quot;);
+    v15 = std::operator&lt;&lt;&lt;char,std::char_traits&lt;char&gt;,std::allocator&lt;char&gt;&gt;(v14, &amp;v22);
+    v16 = std::operator&lt;&lt;&lt;std::char_traits&lt;char&gt;&gt;(v15, &quot;}&quot;);
+    std::ostream::operator&lt;&lt;(v16, &amp;std::endl&lt;char,std::char_traits&lt;char&gt;&gt;);
+    std::__cxx11::basic_string&lt;char,std::char_traits&lt;char&gt;,std::allocator&lt;char&gt;&gt;::~basic_string(&amp;v22);
+  }
+  HighTemplar::~HighTemplar((HighTemplar *)&amp;v23);
+  std::__cxx11::basic_string&lt;char,std::char_traits&lt;char&gt;,std::allocator&lt;char&gt;&gt;::~basic_string(&amp;v18);
+  return 0;
+}</code></pre>
+<p>乍一看很复杂，慢慢分析，发现了一个输入，被赋值给了<code>v18</code>，然后发现一个类的构造函数调用了我们输入的字符串，可以理解为，用我们的字符串初始化了类中的数据成员，进去仔细看看</p>
+<pre><code class="c++">nsigned __int64 __fastcall HighTemplar::HighTemplar(DarkTemplar *a1, __int64 a2)
+{
+  char v3; // [rsp+17h] [rbp-19h]
+  unsigned __int64 v4; // [rsp+18h] [rbp-18h]
+
+  v4 = __readfsqword(0x28u);
+  DarkTemplar::DarkTemplar(a1);
+  *(_QWORD *)a1 = &amp;off_401EA0;
+  *((_DWORD *)a1 + 3) = 0;
+  std::__cxx11::basic_string&lt;char,std::char_traits&lt;char&gt;,std::allocator&lt;char&gt;&gt;::basic_string((char *)a1 + 16, a2);
+  std::__cxx11::basic_string&lt;char,std::char_traits&lt;char&gt;,std::allocator&lt;char&gt;&gt;::basic_string((char *)a1 + 48, a2);
+  std::allocator&lt;char&gt;::allocator(&amp;v3, a2);
+  std::__cxx11::basic_string&lt;char,std::char_traits&lt;char&gt;,std::allocator&lt;char&gt;&gt;::basic_string(
+    (char *)a1 + 80,
+    &quot;327a6c4304ad5938eaf0efb6cc3e53dc&quot;,
+    &amp;v3);
+  std::allocator&lt;char&gt;::~allocator(&amp;v3);
+  return __readfsqword(0x28u) ^ v4;
+}</code></pre>
+<p>从这里看，类里面至少应该有一个<code>getSerial()</code>函数在<code>off_401EA0</code>处，三个字符串，偏移量分别为16，48，80，长度都是32位，还有一个布尔型变量，偏移量位3，并且我们还知道，我们的数据被传入了一个变量<code>v23</code>里，然后返回去，跟踪<code>v23</code>，找到剩下的关键函数</p>
+<pre><code class="c++">bool __fastcall HighTemplar::calculate(HighTemplar *this)
+{
+  __int64 v1; // rax
+  _BYTE *v2; // rbx
+  bool result; // al
+  _BYTE *v4; // rbx
+  int i; // [rsp+18h] [rbp-18h]
+  int j; // [rsp+1Ch] [rbp-14h]
+
+  if ( std::__cxx11::basic_string&lt;char,std::char_traits&lt;char&gt;,std::allocator&lt;char&gt;&gt;::length((char *)this + 16) != 32 )
+  {
+    v1 = std::operator&lt;&lt;&lt;std::char_traits&lt;char&gt;&gt;(&amp;std::cout, &quot;Too short or too long&quot;);
+    std::ostream::operator&lt;&lt;(v1, &amp;std::endl&lt;char,std::char_traits&lt;char&gt;&gt;);
+    exit(-1);
+  }
+  for ( i = 0;
+        i &lt;= (unsigned __int64)std::__cxx11::basic_string&lt;char,std::char_traits&lt;char&gt;,std::allocator&lt;char&gt;&gt;::length((char *)this + 16);
+        ++i )
+  {
+    v2 = (_BYTE *)std::__cxx11::basic_string&lt;char,std::char_traits&lt;char&gt;,std::allocator&lt;char&gt;&gt;::operator[](
+                    (char *)this + 16,
+                    i);
+    *v2 = (*(_BYTE *)std::__cxx11::basic_string&lt;char,std::char_traits&lt;char&gt;,std::allocator&lt;char&gt;&gt;::operator[](
+                       (char *)this + 16,
+                       i) ^ 0x50)
+        + 23;
+  }
+  for ( j = 0; ; ++j )
+  {
+    result = j &lt;= (unsigned __int64)std::__cxx11::basic_string&lt;char,std::char_traits&lt;char&gt;,std::allocator&lt;char&gt;&gt;::length((char *)this + 16);
+    if ( !result )
+      break;
+    v4 = (_BYTE *)std::__cxx11::basic_string&lt;char,std::char_traits&lt;char&gt;,std::allocator&lt;char&gt;&gt;::operator[](
+                    (char *)this + 16,
+                    j);
+    *v4 = (*(_BYTE *)std::__cxx11::basic_string&lt;char,std::char_traits&lt;char&gt;,std::allocator&lt;char&gt;&gt;::operator[](
+                       (char *)this + 16,
+                       j) ^ 0x13)
+        + 11;
+  }
+  return result;
+}</code></pre>
+<p>这一看就是个加密函数，并且只对偏移量位16处的字符串进行了操作，这里正好是我们输入的字符串，虽然有两个for循环，但是都是对同一个字符串的同一个位置进行操作，很好逆向，加密完之后应该还会有一个验证，找到下面的验证函数</p>
+<pre><code class="c++">__int64 __fastcall HighTemplar::getSerial(HighTemplar *this)
+{
+  __int64 v1; // rbx
+  __int64 v2; // rax
+  __int64 v3; // rax
+  __int64 v4; // rax
+  __int64 v5; // rax
+  unsigned int i; // [rsp+1Ch] [rbp-14h]
+
+  for ( i = 0;
+        (signed int)i &lt; (unsigned __int64)std::__cxx11::basic_string&lt;char,std::char_traits&lt;char&gt;,std::allocator&lt;char&gt;&gt;::length((char *)this + 16);
+        ++i )
+  {
+    v1 = *(unsigned __int8 *)std::__cxx11::basic_string&lt;char,std::char_traits&lt;char&gt;,std::allocator&lt;char&gt;&gt;::operator[](
+                               (char *)this + 80,
+                               (signed int)i);
+    if ( (_BYTE)v1 != *(_BYTE *)std::__cxx11::basic_string&lt;char,std::char_traits&lt;char&gt;,std::allocator&lt;char&gt;&gt;::operator[](
+                                  (char *)this + 16,
+                                  (signed int)i) )
+    {
+      v4 = std::operator&lt;&lt;&lt;std::char_traits&lt;char&gt;&gt;(&amp;std::cout, &quot;You did not pass &quot;);
+      v5 = std::ostream::operator&lt;&lt;(v4, i);
+      std::ostream::operator&lt;&lt;(v5, &amp;std::endl&lt;char,std::char_traits&lt;char&gt;&gt;);
+      *((_DWORD *)this + 3) = 1;
+      return *((unsigned int *)this + 3);
+    }
+    v2 = std::operator&lt;&lt;&lt;std::char_traits&lt;char&gt;&gt;(&amp;std::cout, &quot;Pass &quot;);
+    v3 = std::ostream::operator&lt;&lt;(v2, i);
+    std::ostream::operator&lt;&lt;(v3, &amp;std::endl&lt;char,std::char_traits&lt;char&gt;&gt;);
+  }
+  return *((unsigned int *)this + 3);
+}</code></pre>
+<p>这个函数不长，很简单的验证了加密过后的字符串和偏移量位80的字符串是不是一样，用偏移量位3处的布尔值作为返回值，如果相同返回0，回到主函数，接下来就成功了，没有其他的变换和判断，所以这个程序实际上非常简单</p>
+<pre><code class="python">target = &quot;327a6c4304ad5938eaf0efb6cc3e53dc&quot;
+flag = &#39;&#39;
+for i in target:
+    flag += chr((((ord(i) - 11) ^ 0x13) - 23) ^ 0x50)
+print(flag)</code></pre>
+<p>很简单就可以逆向出，套上<code>flag{}</code>提交即可（这个flag长得实在不像是正确的）</p>
+<pre><code>flag{tMx~qdstOs~crvtwb~aOba}qddtbrtcd}</code></pre>
             <hr>
           </div>
           <br>
