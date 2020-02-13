@@ -133,7 +133,7 @@
                   
                   &nbsp;<i class="far fa-chart-bar"></i>
                   <span class="post-count">
-                    6.9k 字
+                    8.7k 字
                   </span>&nbsp;
                 
 
@@ -141,7 +141,7 @@
                   
                   &nbsp;<i class="far fa-clock"></i>
                   <span class="post-count">
-                      36 分钟
+                      46 分钟
                   </span>&nbsp;
                 
 
@@ -1289,7 +1289,263 @@ for i in range(33):
     flag += chr(a2[i] ^ ord(f[i % 8]))
 print(flag)</code></pre>
 <p>输出flag</p>
-<pre><code>flag{s0me7hing_S0me7hinG_t0lki3n}</code></pre>
+<pre><code>flag{s0me7hing_S0me7hinG_t0lki3n}</code></pre><h4 id="tt3441810"><a href="#tt3441810" class="headerlink" title="tt3441810"></a>tt3441810</h4><p>这题并不知道是在干什么，IDA打开是个dumpfile，打开给了很多16进制，看到了<code>0x68</code>这个经典数字（<code>push</code>指令的编码)，后面接了两个字符，看到<code>fl</code>，感觉有问题，找到后面很多个<code>0x68</code>，每个后买你都跟了两个字符，像是把flag<code>push</code>进栈的操作，所以把这些数据导出，然后写个脚本跑一下，验证猜想</p>
+<pre><code class="c++">#include &lt;iostream&gt;
+#include &lt;cstring&gt;
+#include &lt;string&gt;
+
+
+using namespace std;
+
+
+int main() {
+
+    unsigned char ida_chars[] =
+            {
+                    0x68, 0x66, 0x6C, 0x00, 0x00, 0x48, 0xBF, 0x01, 0x00, 0x00,
+                    0x00, 0x00, 0x00, 0x00, 0x00, 0x48, 0x8D, 0x34, 0x24, 0x48,
+                    0xBA, 0x02, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x48,
+                    0xB8, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x0F,
+                    0x05, 0x68, 0x61, 0x67, 0x00, 0x00, 0x48, 0xBF, 0x01, 0x00,
+                    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x48, 0x8D, 0x34, 0x24,
+                    0x48, 0xBA, 0x02, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+                    0x48, 0xB8, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+                    0x0F, 0x05, 0x68, 0x7B, 0x70, 0x00, 0x00, 0x48, 0xBF, 0x01,
+                    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x48, 0x8D, 0x34,
+                    0x24, 0x48, 0xBA, 0x02, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+                    0x00, 0x48, 0xB8, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+                    0x00, 0x0F, 0x05, 0x68, 0x6F, 0x70, 0x00, 0x00, 0x48, 0xBF,
+                    0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x48, 0x8D,
+                    0x34, 0x24, 0x48, 0xBA, 0x02, 0x00, 0x00, 0x00, 0x00, 0x00,
+                    0x00, 0x00, 0x48, 0xB8, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00,
+                    0x00, 0x00, 0x0F, 0x05, 0x68, 0x70, 0x6F, 0x00, 0x00, 0x48,
+                    0xBF, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x48,
+                    0x8D, 0x34, 0x24, 0x48, 0xBA, 0x02, 0x00, 0x00, 0x00, 0x00,
+                    0x00, 0x00, 0x00, 0x48, 0xB8, 0x01, 0x00, 0x00, 0x00, 0x00,
+                    0x00, 0x00, 0x00, 0x0F, 0x05, 0x68, 0x70, 0x72, 0x00, 0x00,
+                    0x48, 0xBF, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+                    0x48, 0x8D, 0x34, 0x24, 0x48, 0xBA, 0x02, 0x00, 0x00, 0x00,
+                    0x00, 0x00, 0x00, 0x00, 0x48, 0xB8, 0x01, 0x00, 0x00, 0x00,
+                    0x00, 0x00, 0x00, 0x00, 0x0F, 0x05, 0x68, 0x65, 0x74, 0x00,
+                    0x00, 0x48, 0xBF, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+                    0x00, 0x48, 0x8D, 0x34, 0x24, 0x48, 0xBA, 0x02, 0x00, 0x00,
+                    0x00, 0x00, 0x00, 0x00, 0x00, 0x48, 0xB8, 0x01, 0x00, 0x00,
+                    0x00, 0x00, 0x00, 0x00, 0x00, 0x0F, 0x05, 0x68, 0x7D, 0x0A,
+                    0x00, 0x00, 0x48, 0xBF, 0x01, 0x00, 0x00, 0x00, 0x00, 0x00,
+                    0x00, 0x00, 0x48, 0x8D, 0x34, 0x24, 0x48, 0xBA, 0x02, 0x00,
+                    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x48, 0xB8, 0x01, 0x00,
+                    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x0F, 0x05, 0x48, 0x31,
+                    0xFF, 0x48, 0xB8, 0x3C, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
+                    0x00, 0x0F, 0x05
+            };
+    int len = sizeof(ida_chars)/ sizeof(ida_chars[0]);
+    string flag;
+    int i =0;
+    while(i!=len) {
+        if(ida_chars[i]==0x68)
+        {
+            while(ida_chars[++i]!=0x00)
+            {
+                flag+=ida_chars[i];
+            }
+        }
+        else
+        {
+            i++;
+        }
+    }
+    cout&lt;&lt;flag&lt;&lt;endl;
+    return 0;
+}</code></pre>
+<p>输出flag</p>
+<pre><code>flag{poppopret}</code></pre><p>提交的时候只需要中间的部分</p>
+<h4 id="re2-cpp-is-awesome"><a href="#re2-cpp-is-awesome" class="headerlink" title="re2-cpp-is-awesome"></a>re2-cpp-is-awesome</h4><p>这题有很多string类，所以还是要慢慢分析</p>
+<pre><code class="c++">__int64 __fastcall main(int a1, char **a2, char **a3)
+{
+  char *v3; // rbx
+  __int64 v4; // rax
+  __int64 v5; // rdx
+  __int64 v6; // rax
+  __int64 v7; // rdx
+  __int64 v8; // rdx
+  __int64 v9; // rdx
+  __int64 i; // [rsp+10h] [rbp-60h]
+  char v12; // [rsp+20h] [rbp-50h]
+  char v13; // [rsp+4Fh] [rbp-21h]
+  __int64 v14; // [rsp+50h] [rbp-20h]
+  int v15; // [rsp+5Ch] [rbp-14h]
+
+  if ( a1 != 2 )
+  {
+    v3 = *a2;
+    v4 = std::operator&lt;&lt;&lt;std::char_traits&lt;char&gt;&gt;(&amp;std::cout, &quot;Usage: &quot;, a3);
+    v6 = std::operator&lt;&lt;&lt;std::char_traits&lt;char&gt;&gt;(v4, v3, v5);
+    std::operator&lt;&lt;&lt;std::char_traits&lt;char&gt;&gt;(v6, &quot; flag\n&quot;, v7);
+    exit(0);
+  }
+  std::allocator&lt;char&gt;::allocator(&amp;v13, a2, a3);
+  std::__cxx11::basic_string&lt;char,std::char_traits&lt;char&gt;,std::allocator&lt;char&gt;&gt;::basic_string(&amp;v12, a2[1], &amp;v13);
+  std::allocator&lt;char&gt;::~allocator(&amp;v13);
+  v15 = 0;
+  for ( i = std::__cxx11::basic_string&lt;char,std::char_traits&lt;char&gt;,std::allocator&lt;char&gt;&gt;::begin(&amp;v12); ; sub_400D7A(&amp;i) )
+  {
+    v14 = std::__cxx11::basic_string&lt;char,std::char_traits&lt;char&gt;,std::allocator&lt;char&gt;&gt;::end(&amp;v12);
+    if ( !sub_400D3D((__int64)&amp;i, (__int64)&amp;v14) )
+      break;
+    v9 = *(unsigned __int8 *)sub_400D9A((__int64)&amp;i);
+    if ( (_BYTE)v9 != off_6020A0[dword_6020C0[v15]] )
+      sub_400B56((__int64)&amp;i, (__int64)&amp;v14, v9);
+    ++v15;
+  }
+  sub_400B73((__int64)&amp;i, (__int64)&amp;v14, v8);
+  std::__cxx11::basic_string&lt;char,std::char_traits&lt;char&gt;,std::allocator&lt;char&gt;&gt;::~basic_string(&amp;v12);
+  return 0LL;
+}</code></pre>
+<p>真正有用的内容只有一个for循环，在这之前我们输入的字符串被传入了<code>v12</code>，然后用迭代器进行循环，遍历整个字符串，每个字符被赋值给了<code>v9</code>，然后进行判断，如果判断可以通过，我们输入的就是正确的flag，判断的条件是<code>v9 = off_6020A0[dword_6020C0[v15]]</code>，一个嵌套索引，把数据导出之后很容易得到结果</p>
+<pre><code class="python">target = &quot;L3t_ME_T3ll_Y0u_S0m3th1ng_1mp0rtant_A_{FL4G}_W0nt_b3_3X4ctly_th4t_345y_t0_c4ptur3_H0wev3r_1T_w1ll_b3_C00l_1F_Y0u_g0t_1t&quot;
+dword_6020C0 = [36, 0, 5, 54, 101, 7, 39, 38, 45, 1, 3, 0, 13, 86, 1, 3, 101, 3, 45, 22, 2, 21, 3, 101, 0, 41, 68, 68,
+                1, 68, 43]
+flag = &#39;&#39;
+for i in dword_6020C0:
+    # print(i)
+    flag += target[i]
+print(flag)</code></pre>
+<p>输出结果</p>
+<pre><code>ALEXCTF{W3_L0v3_C_W1th_CL45535}</code></pre><h4 id="流浪者"><a href="#流浪者" class="headerlink" title="流浪者"></a>流浪者</h4><p>这题是MFC，题目中的函数很多，打开发现输入有错误提示，还是从字符串入手，找到了几个很有用的函数</p>
+<pre><code class="c++">BOOL __cdecl sub_4017F0(int a1)
+{
+  BOOL result; // eax
+  char Str1[28]; // [esp+D8h] [ebp-24h]
+  int v3; // [esp+F4h] [ebp-8h]
+  int v4; // [esp+F8h] [ebp-4h]
+
+  v4 = 0;
+  v3 = 0;
+  while ( *(_DWORD *)(a1 + 4 * v4) &lt; 62 &amp;&amp; *(_DWORD *)(a1 + 4 * v4) &gt;= 0 )
+  {
+    Str1[v4] = alphabet[*(_DWORD *)(a1 + 4 * v4)];
+    ++v4;
+  }
+  Str1[v4] = 0;
+  if ( !strcmp(Str1, &quot;KanXueCTF2019JustForhappy&quot;) )
+    result = pass();
+  else
+    result = fail();
+  return result;
+}</code></pre>
+<p>更改了一些函数和变量名，更容易辨认，这个函数传入了<code>a1</code>之后，对<code>a1</code>之后的地址上的内容作为索引值依次连接组成了一个新的字符串，所以<code>a1</code>显然应该是一个地址，或者说是一个数组的首地址，而这个数组的内容我们很容易就可以得到，接着再看到底在哪里引用了这个函数</p>
+<pre><code class="c++">int __thiscall sub_401890(CWnd *this)
+{
+  struct CString *v1; // ST08_4
+  CWnd *v2; // eax
+  int v3; // eax
+  int v5[26]; // [esp+4Ch] [ebp-74h]
+  int i; // [esp+B4h] [ebp-Ch]
+  char *Str; // [esp+B8h] [ebp-8h]
+  CWnd *v8; // [esp+BCh] [ebp-4h]
+
+  v8 = this;
+  v1 = (CWnd *)((char *)this + 100);
+  v2 = CWnd::GetDlgItem(this, 1002);
+  CWnd::GetWindowTextA(v2, v1);
+  v3 = sub_401A30((char *)v8 + 100);
+  Str = CString::GetBuffer((CWnd *)((char *)v8 + 100), v3);
+  if ( !strlen(Str) )
+    return CWnd::MessageBoxA(v8, &amp;Qingshuru, 0, 0);
+  for ( i = 0; Str[i]; ++i )
+  {
+    if ( Str[i] &gt; 57 || Str[i] &lt; 48 )
+    {
+      if ( Str[i] &gt; 122 || Str[i] &lt; 97 )
+      {
+        if ( Str[i] &gt; 90 || Str[i] &lt; 65 )
+          fail();
+        else
+          v5[i] = Str[i] - 29;
+      }
+      else
+      {
+        v5[i] = Str[i] - 87;
+      }
+    }
+    else
+    {
+      v5[i] = Str[i] - 48;
+    }
+  }
+  return sub_4017F0((int)v5);
+}</code></pre>
+<p>这个函数也很简单，把输入的内容赋给<code>Str</code>，然后对str里面的字符进行一个变换，把变换后的数组传给刚刚分析的那个函数，所以想要逆向解出输入的字符就很简单了</p>
+<pre><code class="python">str1 = &#39;KanXueCTF2019JustForhappy&#39;
+alphabet = &#39;abcdefghiABCDEFGHIJKLMNjklmn0123456789opqrstuvwxyzOPQRSTUVWXYZ&#39;
+a1 = []
+for i in str1:
+    j = alphabet.index(i)
+    a1.append(j)
+# print(a1)
+flag = &#39;&#39;
+for i in a1:
+    if 0 &lt;= i &lt;= 9:
+        flag += chr(i + 48)
+    elif i &lt;= 35:
+        flag += chr(i + 87)
+    else:
+        flag += chr(i + 29)
+print(flag)</code></pre>
+<p>根据题目要求把输出的内容套上flag</p>
+<pre><code>flag{j0rXI4bTeustBiIGHeCF70DDM}</code></pre><h4 id="easyRE1"><a href="#easyRE1" class="headerlink" title="easyRE1"></a>easyRE1</h4><p>毫无意义的题目，打开就能看到flag，套上<code>flag{}</code>直接交上去就行了</p>
+<h4 id="debug"><a href="#debug" class="headerlink" title="debug"></a>debug</h4><p>题如其名，peid打开发现是c#，所以直接dnspy打开，发现flag是直接计算出来的，并且没有进行任何的反调试，所以直接调试运行几步就得到了flag</p>
+<pre><code>flag{967DDDFBCD32C1F53527C221D9E40A0B}</code></pre><h4 id="Guess-the-Number"><a href="#Guess-the-Number" class="headerlink" title="Guess-the-Number"></a>Guess-the-Number</h4><p>这题是java逆向，cfr反编译之后，查看源代码</p>
+<pre><code class="java">import java.io.PrintStream;
+import java.math.BigInteger;
+
+public class guess {
+    static String XOR(String _str_one, String _str_two) {
+        BigInteger i1 = new BigInteger(_str_one, 16);
+        BigInteger i2 = new BigInteger(_str_two, 16);
+        BigInteger res = i1.xor(i2);
+        String result = res.toString(16);
+        return result;
+    }
+
+    public static void main(String[] args) {
+        block5: {
+            int guess_number = 0;
+            int my_num = 349763335;
+            int my_number = 1545686892;
+            int flag = 345736730;
+            if (args.length &gt; 0) {
+                try {
+                    guess_number = Integer.parseInt(args[0]);
+                    if (my_number / 5 == guess_number) {
+                        String str_one = &quot;4b64ca12ace755516c178f72d05d7061&quot;;
+                        String str_two = &quot;ecd44646cfe5994ebeb35bf922e25dba&quot;;
+                        my_num += flag;
+                        String answer = guess.XOR(str_one, str_two);
+                        System.out.println(&quot;your flag is: &quot; + answer);
+                        break block5;
+                    }
+                    System.err.println(&quot;wrong guess!&quot;);
+                    System.exit(1);
+                }
+                catch (NumberFormatException e) {
+                    System.err.println(&quot;please enter an integer \nexample: java -jar guess 12&quot;);
+                    System.exit(1);
+                }
+            } else {
+                System.err.println(&quot;wrong guess!&quot;);
+                int num = 1000000;
+                ++num;
+                System.exit(1);
+            }
+        }
+    }
+}</code></pre>
+<p>程序很简单，我们当然可以根据算法来算出来flag的值，但是完全可以得到需要输入的数，所以直接运行就好了</p>
+<pre><code class="powershell">&gt;java -jar Guess-the-Number.jar 309137378</code></pre>
+<p>输出结果</p>
+<pre><code>your flag is: a7b08c546302cc1fd2a4d48bf2bf2ddb</code></pre><p>直接提交即可</p>
+
             <hr>
           </div>
           <br>
