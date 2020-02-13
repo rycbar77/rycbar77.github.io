@@ -233,7 +233,7 @@ LABEL_22:
   puts(&quot;You died&quot;);
   exit(0);</code></pre>
 <p>贴出来的是反编译出来的主要部分，从这里可以确定v5的起始位置是unk_6020C4，上下左右分别是’w’,’s’,’a’,’d’，左右移动变化4字节，将所有的数据转化为DWORD类型，上下移动变化64字节，所以每行16个元素，范围是unk_602080到unk_60247C，正好是256个DWORD类型，组成16*16的方阵，其中所有和1按位与运算结果为0的是可以走的路线，即所有末尾为0的值是可以走的位置，最终的目标是走到unk_60243C这个点</p>
-<p><img src="https://raw.githubusercontent.com/schrodinger17/photos/master/Hgame-maze-1.png" srcset="/img/loading.gif" alt="maze"></p>
+<p><img src="https://s2.ax1x.com/2020/02/13/1qp5rT.png" srcset="/img/loading.gif" alt="maze"></p>
 <p>即从（2，2）位置走到（15，16）位置</p>
 <p>所以最后的flag为</p>
 <pre><code class="flag">hgame{ssssddddddsssssddwwdddssssdssdd}</code></pre>
@@ -442,7 +442,7 @@ print(flag)</code></pre>
 <p>输出得到flag</p>
 <pre><code class="flag">hgame{0f233e63637982d266cbf41ecb1b0102}</code></pre>
 <p>到虚拟机上验证一下，发现结果正确</p>
-<p><img src="https://raw.githubusercontent.com/schrodinger17/photos/master/Hgame-bitwise_operation2-1.png" srcset="/img/loading.gif" alt="bitwise_operation2"></p>
+<p><img src="https://s2.ax1x.com/2020/02/13/1qpqi9.png" srcset="/img/loading.gif" alt="bitwise_operation2"></p>
 <h4 id="advance"><a href="#advance" class="headerlink" title="advance"></a>advance</h4><p>windows可执行程序，打开发现还是让输入flag，然后验证正确与否，还是IDA反编译，发现所有的函数名字IDA都识别不了，根据程序打开的提示语，搜索所有字符串找到主函数入口，根据具体操作给部分函数和变量重新命名，大概了解其用途</p>
 <pre><code class="c++">int __cdecl main(int argc, const char **argv, const char **envp)
 {
