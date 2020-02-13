@@ -133,7 +133,7 @@
                   
                   &nbsp;<i class="far fa-chart-bar"></i>
                   <span class="post-count">
-                    6.2k 字
+                    6.9k 字
                   </span>&nbsp;
                 
 
@@ -141,7 +141,7 @@
                   
                   &nbsp;<i class="far fa-clock"></i>
                   <span class="post-count">
-                      33 分钟
+                      36 分钟
                   </span>&nbsp;
                 
 
@@ -1149,7 +1149,147 @@ for i in target:
     flag += chr((((ord(i) - 11) ^ 0x13) - 23) ^ 0x50)
 print(flag)</code></pre>
 <p>很简单就可以逆向出，套上<code>flag{}</code>提交即可（这个flag长得实在不像是正确的）</p>
-<pre><code>flag{tMx~qdstOs~crvtwb~aOba}qddtbrtcd}</code></pre>
+<pre><code>flag{tMx~qdstOs~crvtwb~aOba}qddtbrtcd}</code></pre><h4 id="re4-unvm-me"><a href="#re4-unvm-me" class="headerlink" title="re4-unvm-me"></a>re4-unvm-me</h4><p>pyc格式，直接uncompyle6反编译，成功，没有对pyc文件动什么手脚，反编译后的源代码如下</p>
+<pre><code class="python">import md5
+md5s = [
+ 174282896860968005525213562254350376167, 137092044126081477479435678296496849608, 126300127609096051658061491018211963916, 314989972419727999226545215739316729360, 256525866025901597224592941642385934114, 115141138810151571209618282728408211053, 8705973470942652577929336993839061582, 256697681645515528548061291580728800189, 39818552652170274340851144295913091599, 65313561977812018046200997898904313350, 230909080238053318105407334248228870753, 196125799557195268866757688147870815374, 74874145132345503095307276614727915885]
+print &#39;Can you turn me back to python ? ...&#39;
+flag = raw_input(&#39;well as you wish.. what is the flag: &#39;)
+if len(flag) &gt; 69:
+    print &#39;nice try&#39;
+    exit()
+if len(flag) % 5 != 0:
+    print &#39;nice try&#39;
+    exit()
+for i in range(0, len(flag), 5):
+    s = flag[i:i + 5]
+    if int(&#39;0x&#39; + md5.new(s).hexdigest(), 16) != md5s[(i / 5)]:
+        print &#39;nice try&#39;
+        exit()
+
+print &#39;Congratz now you have the flag&#39;</code></pre>
+<p>发现给出了很多md5，把flag每5个字符一组，算出md5要和给出的相同，所以用这些<a href="https://www.somd5.com/" target="_blank" rel="noopener">md5在线解密</a></p>
+<p>组合起来就是flag</p>
+<pre><code>ALEXCTF{dv5d4s2vj8nk43s8d8l6m1n5l67ds9v41n52nv37j481h3d28n4b6v3k}</code></pre><h4 id="anser-to-everything"><a href="#anser-to-everything" class="headerlink" title="anser_to_everything"></a>anser_to_everything</h4><p>IDA打开</p>
+<pre><code class="c++">int __cdecl main(int argc, const char **argv, const char **envp)
+{
+  int v4; // [rsp+Ch] [rbp-4h]
+
+  printf(&quot;Gimme: &quot;, argv, envp);
+  __isoc99_scanf(&quot;%d&quot;, &amp;v4);
+  not_the_flag(v4);
+  return 0;
+}
+
+//not_the_flag
+__int64 __fastcall not_the_flag(int a1)
+{
+  if ( a1 == &#39;*&#39; )
+    puts(&quot;Cipher from Bill \nSubmit without any tags\n#kdudpeh&quot;);
+  else
+    puts(&quot;YOUSUCK&quot;);
+  return 0LL;
+}</code></pre>
+<p>找到了一个字符串<code>kdudpeh</code>，根据题目提示，sha1加密得<code>80ee2a3fe31da904c596d993f7f1de4827c1450a</code></p>
+<p>套上flag得</p>
+<pre><code>flag{80ee2a3fe31da904c596d993f7f1de4827c1450a}</code></pre><h4 id="elrond32"><a href="#elrond32" class="headerlink" title="elrond32"></a>elrond32</h4><p>IDA打开，main函数如下</p>
+<pre><code class="c++">int __cdecl main(int a1, char **a2)
+{
+  if ( a1 &gt; 1 &amp;&amp; sub_8048414(a2[1], 0) )
+  {
+    puts(unk_80487E4);
+    sub_8048538((int)a2[1]);
+  }
+  else
+  {
+    puts(&quot;Access denied&quot;);
+  }
+  return 0;
+}</code></pre>
+<p>我们得输入作为main函数得参数传入，在<code>sub_8048414()</code>函数中进行了一个判断，然后进入<code>sub_8048538()</code>函数处理后输出flag</p>
+<pre><code class="c++">signed int __cdecl sub_8048414(_BYTE *a1, int a2)
+{
+  signed int result; // eax
+
+  switch ( a2 )
+  {
+    case 0:
+      if ( *a1 == &#39;i&#39; )
+        goto LABEL_19;
+      result = 0;
+      break;
+    case 1:
+      if ( *a1 == &#39;e&#39; )
+        goto LABEL_19;
+      result = 0;
+      break;
+    case 3:
+      if ( *a1 == &#39;n&#39; )
+        goto LABEL_19;
+      result = 0;
+      break;
+    case 4:
+      if ( *a1 == &#39;d&#39; )
+        goto LABEL_19;
+      result = 0;
+      break;
+    case 5:
+      if ( *a1 == &#39;a&#39; )
+        goto LABEL_19;
+      result = 0;
+      break;
+    case 6:
+      if ( *a1 == &#39;g&#39; )
+        goto LABEL_19;
+      result = 0;
+      break;
+    case 7:
+      if ( *a1 == &#39;s&#39; )
+        goto LABEL_19;
+      result = 0;
+      break;
+    case 9:
+      if ( *a1 == &#39;r&#39; )
+LABEL_19:
+        result = sub_8048414(a1 + 1, 7 * (a2 + 1) % 11);
+      else
+        result = 0;
+      break;
+    default:
+      result = 1;
+      break;
+  }
+  return result;
+}</code></pre>
+<p>判断得过程是一个递归，因为返回值要为1，所以递归过程中得每一个if都需要满足，所以很好得到输入的字符串是什么</p>
+<pre><code class="c++">int __cdecl sub_8048538(int a1)
+{
+  int v2[33]; // [esp+18h] [ebp-A0h]
+  int i; // [esp+9Ch] [ebp-1Ch]
+
+  qmemcpy(v2, &amp;unk_8048760, sizeof(v2));
+  for ( i = 0; i &lt;= 32; ++i )
+    putchar(v2[i] ^ *(char *)(a1 + i % 8));
+  return putchar(10);
+}</code></pre>
+<p>输出部分只进行了一个很简单的处理，而且不需要逆向，直接用同样的方式处理即可</p>
+<pre><code class="python">targrt = &#39;ie_ndags_r&#39;
+f = &#39;&#39;
+j = 0
+for i in range(8):
+    f += targrt[j]
+    j = 7 * (j + 1) % 11
+# print(f)
+flag = &#39;&#39;
+a2 = [0x0F, 0x1F, 0x04, 0x09, 0x1C, 0x12, 0x42, 0x09, 0x0C, 0x44, 0x0D, 0x07, 0x09, 0x06, 0x2D,
+      0x37, 0x59, 0x1E, 0x00, 0x59, 0x0F, 0x08, 0x1C, 0x23, 0x36, 0x07, 0x55, 0x02, 0x0C, 0x08,
+      0x41, 0x0A, 0x14]
+
+for i in range(33):
+    flag += chr(a2[i] ^ ord(f[i % 8]))
+print(flag)</code></pre>
+<p>输出flag</p>
+<pre><code>flag{s0me7hing_S0me7hinG_t0lki3n}</code></pre>
             <hr>
           </div>
           <br>
