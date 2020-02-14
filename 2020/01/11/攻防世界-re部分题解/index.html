@@ -133,7 +133,7 @@
                   
                   &nbsp;<i class="far fa-chart-bar"></i>
                   <span class="post-count">
-                    8.7k 字
+                    9.6k 字
                   </span>&nbsp;
                 
 
@@ -141,7 +141,7 @@
                   
                   &nbsp;<i class="far fa-clock"></i>
                   <span class="post-count">
-                      46 分钟
+                      50 分钟
                   </span>&nbsp;
                 
 
@@ -1545,6 +1545,175 @@ public class guess {
 <pre><code class="powershell">&gt;java -jar Guess-the-Number.jar 309137378</code></pre>
 <p>输出结果</p>
 <pre><code>your flag is: a7b08c546302cc1fd2a4d48bf2bf2ddb</code></pre><p>直接提交即可</p>
+<h4 id="EASYHOOK"><a href="#EASYHOOK" class="headerlink" title="EASYHOOK"></a>EASYHOOK</h4><p>这题很有意思，值得好好分析一下，IDA打开，找到main函数</p>
+<pre><code class="c++">int __cdecl main(int argc, const char **argv, const char **envp)
+{
+  int result; // eax
+  HANDLE v4; // eax
+  DWORD NumberOfBytesWritten; // [esp+4h] [ebp-24h]
+  char Buffer; // [esp+8h] [ebp-20h]
+
+  puts((int)aPleaseInputFla);
+  scanf(a31s, &amp;Buffer);
+  if ( strlen(&amp;Buffer) == 19 )
+  {
+    sub_401220();
+    v4 = CreateFileA(FileName, 0x40000000u, 0, 0, 2u, 0x80u, 0);
+    WriteFile(v4, &amp;Buffer, 19u, &amp;NumberOfBytesWritten, 0);
+    sub_401240(&amp;Buffer, &amp;NumberOfBytesWritten);
+    if ( NumberOfBytesWritten == 1 )
+      puts((int)aRightFlagIsYou);
+    else
+      puts((int)aWrong);
+    system(aPause);
+    result = 0;
+  }
+  else
+  {
+    puts((int)aWrong);
+    system(aPause);
+    result = 0;
+  }
+  return result;
+}</code></pre>
+<p>第一反应当然是查看一下<code>sub_401240()</code>的内容，毕竟这是最后一个调用<code>NumberOfBytesWritten</code>的函数，而这个值，经过<code>writeFile()</code>之后应该是19</p>
+<pre><code class="c++">signed int __cdecl sub_401240(const char *a1, _DWORD *a2)
+{
+  signed int result; // eax
+  unsigned int v3; // kr04_4
+  char v4[24]; // [esp+Ch] [ebp-18h]
+
+  result = 0;
+  strcpy(v4, &quot;This_is_not_the_flag&quot;);
+  v3 = strlen(a1) + 1;
+  if ( (signed int)(v3 - 1) &gt; 0 )
+  {
+    while ( v4[a1 - v4 + result] == v4[result] )
+    {
+      if ( ++result &gt;= (signed int)(v3 - 1) )
+      {
+        if ( result == 21 )
+        {
+          result = (signed int)a2;
+          *a2 = 1;
+        }
+        return result;
+      }
+    }
+  }
+  return result;
+}</code></pre>
+<p>看到<code>This_is_not_the_flag</code>感觉有些不对，仔细观察发现这个字符串有20的字符，而下面的判断需要我们的输入和这个字符串相等，但是我们只输入19个字符，所以这个函数永远不可能返回我们想要的结果，肯定是有什么东西被漏掉了，所以返回<code>main</code>，前面还有一个<code>sub_401220()</code>没有看</p>
+<pre><code class="c++">int sub_401220()
+{
+  HMODULE v0; // eax
+  DWORD v2; // eax
+
+  v2 = GetCurrentProcessId();
+  hProcess = OpenProcess(0x1F0FFFu, 0, v2);
+  v0 = LoadLibraryA(LibFileName);
+  dword_40C9C4 = (int)GetProcAddress(v0, unk_40A05C);// 找到writefile的地址
+  lpAddress = (LPVOID)dword_40C9C4;
+  if ( !dword_40C9C4 )
+    return puts((int)&amp;dword_40A044);
+  unk_40C9B4 = *(_DWORD *)lpAddress;
+  *((_BYTE *)&amp;unk_40C9B4 + 4) = *((_BYTE *)lpAddress + 4);
+  byte_40C9BC = 0xE9u;
+  dword_40C9BD = (char *)sub_401080 - (char *)lpAddress - 5;
+  return sub_4010D0();
+}</code></pre>
+<p>在这里发现了问题，这里找到了储存<code>writefile()</code>地址的位置，然后保存前五个字节的内容，后面进行了一些赋值，看到<code>0xE9</code>就发现这里想要修改<code>writefile()</code>函数地址，跳转到另一个函数<code>sub_401080()</code>，然后函数进入<code>sub_4010D0()</code></p>
+<pre><code class="c++">BOOL sub_4010D0()
+{
+  DWORD v1; // [esp+4h] [ebp-8h]
+  DWORD flOldProtect; // [esp+8h] [ebp-4h]
+
+  v1 = 0;
+  VirtualProtectEx(hProcess, lpAddress, 5u, 4u, &amp;flOldProtect);
+  WriteProcessMemory(hProcess, lpAddress, &amp;byte_40C9BC, 5u, 0);
+  return VirtualProtectEx(hProcess, lpAddress, 5u, flOldProtect, &amp;v1);
+}</code></pre>
+<p>这个函数把刚刚的修改写进了相应的地址，此时程序一旦调用<code>writefile()</code>，就会跳转到<code>sub_401080()</code>，所以转到这个函数</p>
+<pre><code class="c++">int __stdcall sub_401080(HANDLE hFile, LPCVOID lpBuffer, DWORD nNumberOfBytesToWrite, LPDWORD lpNumberOfBytesWritten, LPOVERLAPPED lpOverlapped)
+{
+  signed int v5; // ebx
+
+  v5 = sub_401000((int)lpBuffer, nNumberOfBytesToWrite);
+  sub_401140();
+  WriteFile(hFile, lpBuffer, nNumberOfBytesToWrite, lpNumberOfBytesWritten, lpOverlapped);
+  if ( v5 )
+    *lpNumberOfBytesWritten = 1;
+  return 0;
+}</code></pre>
+<p>如果<code>sub_401000()</code>返回值是1，就会输出我们的输入是正确的，<code>sub_401140()</code>是用来恢复<code>writefile()</code>函数的地址，就不再赘述，所以重点就是<code>sub_401000()</code></p>
+<pre><code class="c++">signed int __cdecl sub_401000(int a1, signed int a2)
+{
+  char v2; // al
+  char v3; // bl
+  char v4; // cl
+  int v5; // eax
+
+  v2 = 0;
+  if ( a2 &gt; 0 )
+  {
+    do
+    {
+      if ( v2 == 18 )
+      {
+        *(_BYTE *)(a1 + 18) ^= 0x13u;
+      }
+      else
+      {
+        if ( v2 % 2 )
+          v3 = *(_BYTE *)(v2 + a1) - v2;
+        else
+          v3 = *(_BYTE *)(v2 + a1 + 2);
+        *(_BYTE *)(v2 + a1) = v2 ^ v3;
+      }
+      ++v2;
+    }
+    while ( v2 &lt; a2 );
+  }
+  v4 = 0;
+  if ( a2 &lt;= 0 )
+    return 1;
+  v5 = 0;
+  while ( aAjygkfmSv8mln[v5] == *(_BYTE *)(v5 + a1) )
+  {
+    v5 = ++v4;
+    if ( v4 &gt;= a2 )
+      return 1;
+  }
+  return 0;
+}</code></pre>
+<p>这里的操作就很简单了，也不需要再多说，我们的输入经过处理后如果和内存中的字符串相同，就对了</p>
+<pre><code class="c++">#include &lt;iostream&gt;
+
+using namespace std;
+
+int main() {
+
+    char str[20] =
+            &quot;ajygkFm.\x7F_~-SV{8mLn&quot;;
+    char a1[20] = {0};
+    for (int i = 0; i &lt; 19; i++) {
+        if (i == 18) {
+            a1[i] = str[18] ^ 0x13;
+
+        }
+        if (i % 2) {
+            a1[i] = (str[i] ^ i) + i;
+        } else {
+            a1[i + 2] = (str[i] ^ i);
+        }
+    }
+    a1[0]=&#39;f&#39;;
+    cout &lt;&lt; a1 &lt;&lt; endl;
+}</code></pre>
+<p>这里有一点需要注意，这个程序是没法检测第一位输入的，中间的过程也完全没有用到第一位，所以根据输出结果手动添加了’f’，输出</p>
+<pre><code>flag{Ho0k_w1th_Fun}</code></pre><p>可以验证一下，第一位其实并不影响结果</p>
+<p><img src="https://s2.ax1x.com/2020/02/14/1XU7IP.png" srcset="/img/loading.gif" alt="EASYHOOK-1"></p>
+<p>发现第一位改成其他的字符也是正确的</p>
 
             <hr>
           </div>
