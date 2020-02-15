@@ -133,7 +133,7 @@
                   
                   &nbsp;<i class="far fa-chart-bar"></i>
                   <span class="post-count">
-                    9.6k 字
+                    10k 字
                   </span>&nbsp;
                 
 
@@ -141,7 +141,7 @@
                   
                   &nbsp;<i class="far fa-clock"></i>
                   <span class="post-count">
-                      50 分钟
+                      52 分钟
                   </span>&nbsp;
                 
 
@@ -1714,7 +1714,121 @@ int main() {
 <pre><code>flag{Ho0k_w1th_Fun}</code></pre><p>可以验证一下，第一位其实并不影响结果</p>
 <p><img src="https://s2.ax1x.com/2020/02/14/1XU7IP.png" srcset="/img/loading.gif" alt="EASYHOOK-1"></p>
 <p>发现第一位改成其他的字符也是正确的</p>
+<h4 id="reverse-for-the-holy-grail-350"><a href="#reverse-for-the-holy-grail-350" class="headerlink" title="reverse-for-the-holy-grail-350"></a>reverse-for-the-holy-grail-350</h4><p>这题还算是比较简单的题目，很容易就可以找到关键函数，然后发现所有的数据处理和验证全部都在这个函数里面</p>
+<pre><code class="c++">__int64 __fastcall stringMod(__int64 *a1)
+{
+  __int64 v1; // r9
+  __int64 v2; // r10
+  __int64 i; // rcx
+  signed int v4; // er8
+  int *v5; // rdi
+  int *v6; // rsi
+  signed int v7; // ecx
+  signed int v8; // er9
+  int v9; // er10
+  unsigned int v10; // eax
+  int v11; // esi
+  int v12; // esi
+  int v14[24]; // [rsp+0h] [rbp-60h]
+  int _48[24]; // [rsp+48h] [rbp-18h]
 
+  memset(v14, 0, 0x48uLL);
+  v1 = a1[1];
+  if ( v1 )
+  {
+    v2 = *a1;
+    i = 0LL;
+    v4 = 0;
+    do
+    {
+      v12 = *(char *)(v2 + i);
+      v14[i] = v12;
+      if ( 3 * ((unsigned int)i / 3) == (_DWORD)i &amp;&amp; v12 != firstchar[(unsigned int)i / 3] )// 3的倍数等于firstchar
+        v4 = -1;
+      ++i;
+    }
+    while ( i != v1 );
+  }
+  else
+  {
+    v4 = 0;
+  }
+  v5 = v14;
+  v6 = v14;
+  v7 = 666;
+  do
+  {
+    *v6 = v7 ^ *(unsigned __int8 *)v6;
+    v7 += v7 % 5;
+    ++v6;
+  }
+  while ( _48 != v6 );
+  v8 = 1;
+  v9 = 0;
+  v10 = 1;
+  v11 = 0;
+  do
+  {
+    if ( v11 == 2 )
+    {
+      if ( *v5 != thirdchar[v9] )
+        v4 = -1;
+      if ( v10 % *v5 != masterArray[v9] )
+        v4 = -1;
+      ++v9;
+      v10 = 1;
+      v11 = 0;
+    }
+    else
+    {
+      v10 *= *v5;
+      if ( ++v11 == 3 )
+        v11 = 0;
+    }
+    ++v8;
+    ++v5;
+  }
+  while ( v8 != 19 );
+  return (unsigned int)(v7 * v4);
+}</code></pre>
+<p>发现把输入分成了三个部分，处理起来也很简单，写脚本处理</p>
+<pre><code class="c++">#include &lt;iostream&gt;
+
+using namespace std;
+
+int main() {
+    int firstchar[8] =
+            {65, 105, 110, 69, 111, 97};
+    int thirdchar[8] =
+            {751, 708, 732, 711, 734, 764};
+    int masterArray[6] =
+            {471, 12, 580, 606, 147, 108};
+    int xor_[24] = {0};
+    char flag[24] = {0};
+    xor_[0] = 666;
+    for (int i = 1; i &lt; 24; i++) {
+        xor_[i] = xor_[i - 1] + xor_[i - 1] % 5;
+    }
+    for (int i = 0; i &lt; 6; i++) {
+        flag[3 * i] = firstchar[i];
+        flag[3 * i + 2] = thirdchar[i] ^ xor_[3 * i + 2];
+        for (int j = 48; j &lt; 122; j++) {
+            if ((j &gt;= 48 &amp;&amp; j &lt;= 57) || (j &gt;= 65 &amp;&amp; j &lt;= 90) || (j &gt;= 97 &amp;&amp; j &lt;= 122)) {
+                int tmp = j ^xor_[3 * i + 1];
+                if (tmp * (flag[3 * i] ^ xor_[3 * i]) % thirdchar[i] == masterArray[i]) {
+                    flag[3 * i + 1] = j;
+                    break;
+                }
+            } else
+                continue;
+        }
+    }
+
+    cout &lt;&lt; flag &lt;&lt; endl;
+
+}</code></pre>
+<p>输出flag，再套上<code>main</code>里面提供的格式即可</p>
+<pre><code>tuctf{AfricanOrEuropean?}</code></pre>
             <hr>
           </div>
           <br>
