@@ -133,7 +133,7 @@
                   
                   &nbsp;<i class="far fa-chart-bar"></i>
                   <span class="post-count">
-                    10k 字
+                    10.1k 字
                   </span>&nbsp;
                 
 
@@ -141,7 +141,7 @@
                   
                   &nbsp;<i class="far fa-clock"></i>
                   <span class="post-count">
-                      52 分钟
+                      53 分钟
                   </span>&nbsp;
                 
 
@@ -1828,7 +1828,9 @@ int main() {
 
 }</code></pre>
 <p>输出flag，再套上<code>main</code>里面提供的格式即可</p>
-<pre><code>tuctf{AfricanOrEuropean?}</code></pre>
+<pre><code>tuctf{AfricanOrEuropean?}</code></pre><h4 id="android-app-100"><a href="#android-app-100" class="headerlink" title="android-app-100"></a>android-app-100</h4><p>反编译之后发现还调用了c的库，于是IDA打开so文件，看到了混淆，但是内容比较好猜，所以直接找到字符串计算md5或者在apk里面提交就好了</p>
+<pre><code>Sharif_CTF(833489ef285e6fa80690099efc5d9c9d)</code></pre><h4 id="dmd-50"><a href="#dmd-50" class="headerlink" title="dmd-50"></a>dmd-50</h4><p>打开直接找到输入的flag的md5值，md5解密找到flag</p>
+<pre><code>b781cbb29054db12f88f08c6e161c199</code></pre>
             <hr>
           </div>
           <br>
