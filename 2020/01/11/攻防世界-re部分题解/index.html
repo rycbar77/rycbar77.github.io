@@ -131,7 +131,7 @@
                   
                   &nbsp;<i class="far fa-chart-bar"></i>
                   <span class="post-count">
-                    10.1k 字
+                    11.3k 字
                   </span>&nbsp;
                 
 
@@ -139,7 +139,7 @@
                   
                   &nbsp;<i class="far fa-clock"></i>
                   <span class="post-count">
-                      53 分钟
+                      59 分钟
                   </span>&nbsp;
                 
 
@@ -1828,7 +1828,194 @@ int main() {
 <p>输出flag，再套上<code>main</code>里面提供的格式即可</p>
 <pre><code>tuctf{AfricanOrEuropean?}</code></pre><h4 id="android-app-100"><a href="#android-app-100" class="headerlink" title="android-app-100"></a>android-app-100</h4><p>反编译之后发现还调用了c的库，于是IDA打开so文件，看到了混淆，但是内容比较好猜，所以直接找到字符串计算md5或者在apk里面提交就好了</p>
 <pre><code>Sharif_CTF(833489ef285e6fa80690099efc5d9c9d)</code></pre><h4 id="dmd-50"><a href="#dmd-50" class="headerlink" title="dmd-50"></a>dmd-50</h4><p>打开直接找到输入的flag的md5值，md5解密找到flag</p>
-<pre><code>b781cbb29054db12f88f08c6e161c199</code></pre>
+<pre><code>b781cbb29054db12f88f08c6e161c199</code></pre><h4 id="Windows-Reverse1"><a href="#Windows-Reverse1" class="headerlink" title="Windows_Reverse1"></a>Windows_Reverse1</h4><p>这道题很有意思，首先查壳，发现是upx，直接脱壳，IDA打开，F5查看</p>
+<pre><code class="c++">int __cdecl main(int argc, const char **argv, const char **envp)
+{
+  char v4; // [esp+4h] [ebp-804h]
+  char v5; // [esp+5h] [ebp-803h]
+  char v6; // [esp+404h] [ebp-404h]
+  char Dst; // [esp+405h] [ebp-403h]
+
+  v6 = 0;
+  memset(&amp;Dst, 0, 0x3FFu);
+  v4 = 0;
+  memset(&amp;v5, 0, 0x3FFu);
+  printf(&quot;please input code:&quot;);
+  scanf(&quot;%s&quot;, &amp;v6);
+  sub_401000(&amp;v6);
+  if ( !strcmp(&amp;v4, &quot;DDCTF{reverseME}&quot;) )
+    printf(&quot;You&#39;ve got it!!%s\n&quot;, &amp;v4);
+  else
+    printf(&quot;Try again later.\n&quot;);
+  return 0;
+}</code></pre>
+<p>表面上看我们需要输入一个字符串，然后经过<code>sub_401000</code>的变换之后变成<code>DDCTF{reverseME}</code>，然后查看一下加密函数</p>
+<pre><code class="c++">unsigned int __cdecl sub_401000(const char *a1)
+{
+  _BYTE *v1; // ecx
+  unsigned int v2; // edi
+  unsigned int result; // eax
+  int v4; // ebx
+
+  v2 = 0;
+  result = strlen(a1);
+  if ( result )
+  {
+    v4 = a1 - v1;
+    do
+    {
+      *v1 = byte_402FF8[(char)v1[v4]];
+      ++v2;
+      ++v1;
+      result = strlen(a1);
+    }
+    while ( v2 &lt; result );
+  }
+  return result;
+}</code></pre>
+<p>看起来是一个换表操作，但是在这里遇到了两个让人疑惑的事情，第一个，我们输入的字符串是怎么传入这个函数里面来的，第二个，在<code>0x402FF8</code>处什么都没有，这个表在哪里</p>
+<p>所以还是需要仔细看看汇编代码</p>
+<pre><code class="asm">.text:004010A4                   lea     edx, [esp+824h+var_404]
+.text:004010AB                 push    edx
+.text:004010AC                 push    offset aS       ; &quot;%s&quot;
+.text:004010B1                 call    ds:scanf
+.text:004010B7                 lea     eax, [esp+82Ch+var_404]
+.text:004010BE                 push    eax
+.text:004010BF                 lea     ecx, [esp+830h+var_804]
+.text:004010C3                 call    sub_401000
+
+.text:00401000 sub_401000      proc near               ; CODE XREF: _main+73↓p
+.text:00401000
+.text:00401000 arg_0           = dword ptr  4
+.text:00401000
+.text:00401000                 push    ecx
+.text:00401001                 push    ebp
+.text:00401002                 mov     ebp, [esp+8+arg_0]
+.text:00401006                 push    esi
+.text:00401007                 mov     eax, ebp
+.text:00401009                 push    edi
+.text:0040100A                 xor     edi, edi
+.text:0040100C                 lea     esi, [eax+1]
+.text:0040100F                 nop</code></pre>
+<p>这里应该是人为修改了代码，可以看到我们输入的字符串地址被赋给了<code>ecx</code>，然后再我们的解密函数最开始，先把<code>ecx</code>里面的值压进了栈，所以这个函数用了<code>ecx</code>寄存器来传参，而这是个32位的程序，所以IDA这里检测的时候出现了一点问题，第一个问题解决了，再看看第二个，先来研究里面的索引值</p>
+<pre><code class="c++">if ( result )
+  {
+    v4 = a1 - v1;
+    do
+    {
+      *v1 = byte_402FF8[(char)v1[v4]];
+      ++v2;
+      ++v1;
+      result = strlen(a1);
+    }
+    while ( v2 &lt; result );
+  }</code></pre>
+<p><code>v1[v4]</code>这个表达形式可以看得出来就是<code>a1</code>的首地址，而<code>a1</code>就是我们输入的字符串，都是可见字符，所以每个字符的值都要大于32，所以在<code>0x402FF8</code>这个位置向下偏移至少32的位置寻找，找到了真正的字母表</p>
+<p>分析结束，可以直接动手逆向了，不过在导出这个字母表的时候很凑巧的发现这个字母表的值刚好是从126-32的排列，这说明我们输入的和变换出来的值相加正好为158，这就提供了一个更简单的逆向思路</p>
+<pre><code class="c++">#include &lt;iostream&gt;
+#include &lt;string&gt;
+
+using namespace std;
+
+int main() {
+    string target = &quot;DDCTF{reverseME}&quot;;
+    string flag = &quot;&quot;;
+    for (int i = 0; i &lt; target.length(); i++) {
+        flag += 158 - target[i];
+    }
+    cout &lt;&lt; flag &lt;&lt; endl;
+}</code></pre>
+<p>输出套上flag即可</p>
+<pre><code>ZZ[JX#,9(9,+9QY!</code></pre><h4 id="babymips"><a href="#babymips" class="headerlink" title="babymips"></a>babymips</h4><p>这个题本身没有什么，很简单的算法，也没有什么加密、加壳，主要是有些受不了IDA+Retdec反汇编出来的代码，所以试了一下Ghidra</p>
+<pre><code class="c++">void FUN_004009a8(void)
+
+{
+  int iVar1;
+  int iStack48;
+  byte abStack44 [36];
+
+  setbuf(stdout,(char *)0x0);
+  setbuf(stdin,(char *)0x0);
+  printf(&quot;Give me your flag:&quot;);
+  scanf(&quot;%32s&quot;,abStack44);
+  iStack48 = 0;
+  while (iStack48 &lt; 0x20) {
+    abStack44[iStack48] = abStack44[iStack48] ^ 0x20U - (char)iStack48;
+    iStack48 = iStack48 + 1;
+  }
+  iVar1 = strncmp((char *)abStack44,_fdata,5);
+  if (iVar1 == 0) {
+    FUN_004007f0(abStack44);
+  }
+  else {
+    puts(&quot;Wrong&quot;);
+  }
+  return;
+}</code></pre>
+<p>首先是输入flag，然后进行一个变换，先比较前5位，如果一致进入下一个变换</p>
+<pre><code class="c++">void FUN_004007f0(char *param_1)
+
+{
+  size_t sVar1;
+  int iVar2;
+  uint uStack16;
+
+  uStack16 = 5;
+  while (sVar1 = strlen(param_1), uStack16 &lt; sVar1) {
+    if ((uStack16 &amp; 1) == 0) {
+      param_1[uStack16] =
+           (byte)((uint)((int)param_1[uStack16] &lt;&lt; 0x1a) &gt;&gt; 0x18) | param_1[uStack16] &gt;&gt; 6;
+    }
+    else {
+      param_1[uStack16] =
+           param_1[uStack16] &gt;&gt; 2 | (byte)((uint)((int)param_1[uStack16] &lt;&lt; 0x1e) &gt;&gt; 0x18);
+    }
+    uStack16 = uStack16 + 1;
+  }
+  iVar2 = strncmp(param_1 + 5,PTR_DAT_00410d04,0x1b);
+  if (iVar2 == 0) {
+    puts(&quot;Right!&quot;);
+  }
+  else {
+    puts(&quot;Wrong!&quot;);
+  }
+  return;
+}</code></pre>
+<p>后面对奇数位和偶数位进行了两个不同的位运算，很清晰，仔细分析一下会发现实际上是前后位置的一个交换，并且奇偶运算就是互为逆运算，逆向的时候更方便处理了。最后是进行简单的字符串比较，然后程序就结束了。</p>
+<pre><code class="c++">#include &lt;iostream&gt;
+#include &lt;string&gt;
+
+using namespace std;
+
+int main() {
+    string target = &quot;Q|j{g\x52\xfd\x16\xa4\x89\xbd\x92\x80\x13\x41\x54\xa0\x8d\x45\x18\x81\xde\xfc\x95\xf0\x16\x79\x1a\x15\x5b\x75\x1f&quot;;
+    string flag = &quot;&quot;;
+    for (int i = 0; i &lt; target.length(); i++) {
+        if(i&gt;=5)
+        {
+            int32_t tmp=target[i];
+            if(i%2==0)
+            {
+                tmp=((tmp&amp;0x3)&lt;&lt;6)|((tmp&amp;0xfc)&gt;&gt;2);
+            }
+            else
+            {
+                tmp=((tmp&amp;0xc0)&gt;&gt;6)|((tmp&amp;0x3f)&lt;&lt;2);
+            }
+            flag+=(tmp^(0x20-i));
+        }
+        else
+        {
+            flag+=(target[i]^(0x20-i));
+        }
+
+    }
+    cout &lt;&lt; flag &lt;&lt; endl;
+}
+</code></pre>
+<p>需要注意的两点，运算符优先级的问题，加减运算要先于移位运算先于位运算，处理的时候需要注意，还有，移位的时候要注意把多余的位置清0，这里用的是与运算</p>
+<p>输出flag</p>
+<pre><code>qctf{ReA11y_4_B@89_mlp5_4_XmAn_}</code></pre>
             <hr>
           </div>
           <br>
