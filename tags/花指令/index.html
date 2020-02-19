@@ -16,7 +16,7 @@
   <meta name="description" content="">
   <meta name="author" content="Aorui Zhang">
   <meta name="keywords" content="">
-  <title>My Tiny Ideas</title>
+  <title>标签 - 花指令 ~ My Tiny Ideas</title>
 
   <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css"  >
 <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css"  >
@@ -39,7 +39,7 @@
 
 
 <body>
-  <header style="height: 100vh;">
+  <header style="height: 80vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
@@ -107,7 +107,7 @@
 </nav>
 
     <div class="view intro-2" id="background"
-         style="background: url('https://s2.ax1x.com/2019/10/28/Kge6Cq.jpg')no-repeat center center;
+         style="background: url('/img/default.png')no-repeat center center;
            background-size: cover;
            background-attachment: fixed;">
       <div class="full-bg-img">
@@ -120,10 +120,6 @@
             
           </div>
 
-          
-            <div class="scroll-down-bar">
-              <i class="fas fa-angle-down scroll-down-arrow"></i>
-            </div>
           
         </div>
       </div>
@@ -140,281 +136,20 @@
               <div class="col-12 col-md-10 m-auto">
                 
 
-
-  <div class="row mb-4 mx-auto">
+<div class="list-group">
+<!--  <p class="h4">共计 1 篇文章</p>-->
+  <hr>
+  
     
+      
+      <p class="h5">2020</p>
     
-    <div class="col-12 col-md-8 m-auto">
-      <a href="/2020/02/19/%E8%8A%B1%E6%8C%87%E4%BB%A4/">
-        <p class="h4 index-header">花指令</p>
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">年轻人的第一个花指令
-这里写一下有关花指令的内容，自己的理解也很有限，只能以后再多学学再补充，现在只能把自己知道的写下来。  
-首先反汇编有一个很关键的问题，就是怎么样区分数据和代码，由于x86和x64架构的每条指令是不等长的，区分数据和代码就变得很困难，反汇编的算法必须要对汇编指令长度和各种各样的跳转进行适当的处理，不然就会发生错误，导致反汇编失败，这也是花指令的作用。  
-目前主要的反汇编算法主要还是线性扫描(Linear Sweep)*和较高级的递归行进(Recursive Traversal)*，目前我比较常用的就是OD和IDA，它们的工作原理列在下面，此外还尝试了Ghidra，这个工具比较神奇，可以在有花指令的情况下抛掉很多无用的指令，反汇编出函数的大概，目前工作的原理还没有详细地了解，这里先提一下，了解之后再补充。
-
-线性扫描本身的技术含量不是很高，反汇编工具将整个模块中的每一条指令都反汇编成汇编指令，每一个遇到的机器码都会当作汇编指令处理（不加判断），所以线性扫描根本不能把代码和数据区分开来，而一旦一条指令开始出错，整个反汇编都开始出错。
-
-
-递归行进算法相较于线性扫描算</div>
-        </div>
-      </a>
-
-      <div>
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2020-02-19&nbsp;&nbsp;
-        
-        
-          <i class="iconfont icon-inbox"></i>
-          
-            <a href="/categories/ctf">ctf</a>&nbsp;
-          &nbsp;
-        
-        
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/ctf">ctf</a>&nbsp;
-          
-            <a href="/tags/re">re</a>&nbsp;
-          
-            <a href="/tags/%E8%8A%B1%E6%8C%87%E4%BB%A4">花指令</a>&nbsp;
-          
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mb-4 mx-auto">
-    
-    
-    <div class="col-12 col-md-8 m-auto">
-      <a href="/2020/01/25/hgame-wp/">
-        <p class="h4 index-header">hgame_wp</p>
-        
-        
-          
-          
-        
-        <div class="index-excerpt" style="max-height: none;">
-          <div class="index-text mb-1">记录一下Hgame的部分题解和一些解题时的思路...</div>
-        </div>
-      </a>
-
-      <div>
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2020-01-25&nbsp;&nbsp;
-        
-        
-          <i class="iconfont icon-inbox"></i>
-          
-            <a href="/categories/ctf">ctf</a>&nbsp;
-          &nbsp;
-        
-        
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/ctf">ctf</a>&nbsp;
-          
-            <a href="/tags/re">re</a>&nbsp;
-          
-            <a href="/tags/hgame">hgame</a>&nbsp;
-          
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mb-4 mx-auto">
-    
-    
-    <div class="col-12 col-md-8 m-auto">
-      <a href="/2020/01/11/BUUCTF-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3/">
-        <p class="h4 index-header">BUUCTF-re部分题解</p>
-        
-        
-          
-          
-        
-        <div class="index-excerpt" style="max-height: none;">
-          <div class="index-text mb-1">看到有些大佬在做BUUCTF的题，看了一下，题目很多，但是感觉良莠不齐，并且开始的一些题目有些太简单了，就当是多做些题目了。...</div>
-        </div>
-      </a>
-
-      <div>
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2020-01-11&nbsp;&nbsp;
-        
-        
-          <i class="iconfont icon-inbox"></i>
-          
-            <a href="/categories/ctf">ctf</a>&nbsp;
-          &nbsp;
-        
-        
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/ctf">ctf</a>&nbsp;
-          
-            <a href="/tags/re">re</a>&nbsp;
-          
-            <a href="/tags/BUUCTF">BUUCTF</a>&nbsp;
-          
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mb-4 mx-auto">
-    
-    
-    <div class="col-12 col-md-8 m-auto">
-      <a href="/2020/01/11/bugku-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3/">
-        <p class="h4 index-header">bugku-re部分题解</p>
-        
-        
-          
-          
-        
-        <div class="index-excerpt" style="max-height: none;">
-          <div class="index-text mb-1">这里记录一下bugku平台上一些re题的题解...</div>
-        </div>
-      </a>
-
-      <div>
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2020-01-11&nbsp;&nbsp;
-        
-        
-          <i class="iconfont icon-inbox"></i>
-          
-            <a href="/categories/ctf">ctf</a>&nbsp;
-          &nbsp;
-        
-        
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/ctf">ctf</a>&nbsp;
-          
-            <a href="/tags/re">re</a>&nbsp;
-          
-            <a href="/tags/bugku">bugku</a>&nbsp;
-          
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mb-4 mx-auto">
-    
-    
-    <div class="col-12 col-md-8 m-auto">
-      <a href="/2020/01/11/CGCTF-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3/">
-        <p class="h4 index-header">CGCTF-re部分题解</p>
-        
-        
-          
-          
-        
-        <div class="index-excerpt" style="max-height: none;">
-          <div class="index-text mb-1">CG-CTF是南邮的平台，题目都很不错，这里记录一下部分题解决题目的思路和方法...</div>
-        </div>
-      </a>
-
-      <div>
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2020-01-11&nbsp;&nbsp;
-        
-        
-          <i class="iconfont icon-inbox"></i>
-          
-            <a href="/categories/ctf">ctf</a>&nbsp;
-          &nbsp;
-        
-        
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/ctf">ctf</a>&nbsp;
-          
-            <a href="/tags/re">re</a>&nbsp;
-          
-            <a href="/tags/CG-CTF">CG-CTF</a>&nbsp;
-          
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mb-4 mx-auto">
-    
-    
-    <div class="col-12 col-md-8 m-auto">
-      <a href="/2020/01/11/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3/">
-        <p class="h4 index-header">攻防世界-re部分题解</p>
-        
-        
-          
-          
-        
-        <div class="index-excerpt" style="max-height: none;">
-          <div class="index-text mb-1">攻防世界的题目质量还是比较高的，题目类型很多，难度也有一定的梯度，挺适合不断进阶学习。...</div>
-        </div>
-      </a>
-
-      <div>
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2020-01-11&nbsp;&nbsp;
-        
-        
-          <i class="iconfont icon-inbox"></i>
-          
-            <a href="/categories/ctf">ctf</a>&nbsp;
-          &nbsp;
-        
-        
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/ctf">ctf</a>&nbsp;
-          
-            <a href="/tags/re">re</a>&nbsp;
-          
-            <a href="/tags/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C">攻防世界</a>&nbsp;
-          
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mb-4 mx-auto">
-    
-    
-    <div class="col-12 col-md-8 m-auto">
-      <a href="/2019/12/30/hello-world/">
-        <p class="h4 index-header">Hello World</p>
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">My first post to say “Hello”.
+    <a href="/2020/02/19/%E8%8A%B1%E6%8C%87%E4%BB%A4/" class="list-group-item list-group-item-action">
+      <span class="archive-post-title">花指令</span>
+      <span style="float: right;">02-19</span>
+    </a>
+  
 </div>
-        </div>
-      </a>
-
-      <div>
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2019-12-30&nbsp;&nbsp;
-        
-        
-        
-      </div>
-    </div>
-  </div>
-
-
 
 
 
@@ -559,7 +294,7 @@
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "Why So Serious?&nbsp;",
+        "标签 - 花指令&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,
