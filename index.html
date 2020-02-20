@@ -145,22 +145,58 @@
     
     
     <div class="col-12 col-md-8 m-auto">
+      <a href="/2020/02/20/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-crackme-wp%EF%BC%88%E6%89%8B%E5%8A%A8%E8%84%B1%E5%A3%B3%EF%BC%89/">
+        <p class="h4 index-header">攻防世界-crackme-wp（手动脱壳）</p>
+        
+        
+          
+          
+        
+        <div class="index-excerpt" style="max-height: none;">
+          <div class="index-text mb-1">这里以攻防世界的一道简单的题目来记录一下手动脱壳相关内容，其实理解了原理之后也是非常简单的一件事。...</div>
+        </div>
+      </a>
+
+      <div>
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-02-20&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/ctf">ctf</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/ctf">ctf</a>&nbsp;
+          
+            <a href="/tags/re">re</a>&nbsp;
+          
+            <a href="/tags/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C">攻防世界</a>&nbsp;
+          
+            <a href="/tags/%E8%84%B1%E5%A3%B3">脱壳</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-4 mx-auto">
+    
+    
+    <div class="col-12 col-md-8 m-auto">
       <a href="/2020/02/19/%E8%8A%B1%E6%8C%87%E4%BB%A4/">
         <p class="h4 index-header">花指令</p>
         
         
           
+          
         
-        <div class="index-excerpt" >
+        <div class="index-excerpt" style="max-height: none;">
           <div class="index-text mb-1">年轻人的第一个花指令
-这里写一下有关花指令的内容，自己的理解也很有限，只能以后再多学学再补充，现在只能把自己知道的写下来。  
-首先反汇编有一个很关键的问题，就是怎么样区分数据和代码，由于x86和x64架构的每条指令是不等长的，区分数据和代码就变得很困难，反汇编的算法必须要对汇编指令长度和各种各样的跳转进行适当的处理，不然就会发生错误，导致反汇编失败，这也是花指令的作用。  
-目前主要的反汇编算法主要还是线性扫描(Linear Sweep)*和较高级的递归行进(Recursive Traversal)*，目前我比较常用的就是OD和IDA，它们的工作原理列在下面，此外还尝试了Ghidra，这个工具比较神奇，可以在有花指令的情况下抛掉很多无用的指令，反汇编出函数的大概，目前工作的原理还没有详细地了解，这里先提一下，了解之后再补充。
-
-线性扫描本身的技术含量不是很高，反汇编工具将整个模块中的每一条指令都反汇编成汇编指令，每一个遇到的机器码都会当作汇编指令处理（不加判断），所以线性扫描根本不能把代码和数据区分开来，而一旦一条指令开始出错，整个反汇编都开始出错。
-
-
-递归行进算法相较于线性扫描算</div>
+这里写一下有关花指令的内容，自己的理解也很有限，只能以后再多学学再补充，现在只能把自己知道的写下来。  ...</div>
         </div>
       </a>
 

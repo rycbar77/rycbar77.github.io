@@ -16,7 +16,7 @@
   <meta name="description" content="">
   <meta name="author" content="Aorui Zhang">
   <meta name="keywords" content="">
-  <title>花指令 ~ My Tiny Ideas</title>
+  <title>攻防世界-crackme-wp（手动脱壳） ~ My Tiny Ideas</title>
 
   <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css"  >
 <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css"  >
@@ -122,7 +122,7 @@
               
                 <p class="mt-3">
                   <i class="fas fa-calendar-alt" aria-hidden="true"></i>&nbsp;
-                  星期三, 二月 19日 2020, 2:39 下午
+                  星期四, 二月 20日 2020, 5:10 下午
                 </p>
               
 
@@ -131,7 +131,7 @@
                   
                   &nbsp;<i class="far fa-chart-bar"></i>
                   <span class="post-count">
-                    1.3k 字
+                    1.6k 字
                   </span>&nbsp;
                 
 
@@ -139,7 +139,7 @@
                   
                   &nbsp;<i class="far fa-clock"></i>
                   <span class="post-count">
-                      4 分钟
+                      6 分钟
                   </span>&nbsp;
                 
 
@@ -172,81 +172,90 @@
       <div class="py-5 z-depth-3" id="board">
         <div class="post-content mx-auto" id="post">
           <div class="markdown-body">
-            <p><strong><em>年轻人的第一个花指令</em></strong></p>
-<p>这里写一下有关花指令的内容，自己的理解也很有限，只能以后再多学学再补充，现在只能把自己知道的写下来。  </p>
+            <p>这里以攻防世界的一道简单的题目来记录一下手动脱壳相关内容，其实理解了原理之后也是非常简单的一件事。</p>
 <a id="more"></a>
 
-<p>首先反汇编有一个很关键的问题，就是怎么样区分数据和代码，由于x86和x64架构的每条指令是不等长的，区分数据和代码就变得很困难，反汇编的算法必须要对汇编指令长度和各种各样的跳转进行适当的处理，不然就会发生错误，导致反汇编失败，这也是花指令的作用。  </p>
-<p>目前主要的反汇编算法主要还是线性扫描<em>(Linear Sweep)*和较高级的递归行进</em>(Recursive Traversal)*，目前我比较常用的就是OD和IDA，它们的工作原理列在下面，此外还尝试了Ghidra，这个工具比较神奇，可以在有花指令的情况下抛掉很多无用的指令，反汇编出函数的大概，目前工作的原理还没有详细地了解，这里先提一下，了解之后再补充。</p>
+<p>首先看看攻防世界的这道crackme。</p>
+<h4 id="查壳"><a href="#查壳" class="headerlink" title="查壳"></a>查壳</h4><p>PEiD查一查，发现有壳，nSpack，并不是常见的upx，也懒得去找工具，这样一道简单的题目肯定不会用很复杂的壳，所以开始徒手脱壳。</p>
+<p><img src="https://s2.ax1x.com/2020/02/20/3eQuwV.png" srcset="/img/loading.gif" alt="crackme-1"></p>
+<h4 id="找OEP"><a href="#找OEP" class="headerlink" title="找OEP"></a>找OEP</h4><p>手动脱壳的第一步，就是要找到程序的OEP，就是真正的程序入口点。这个要从壳的原理说起，所谓的压缩壳、加密壳，作用都是要隐藏程序真正的入口点，在壳加载的过程中对数据进行解压和解密并放到相应的段，然后壳的作用就结束了，这个时候会从壳进入真正的程序，这个时候会有一个真正的程序入口，就是OEP，不管脱什么壳，首先都是要找到OEP。</p>
+<p>首先OD打开调试（不管用什么调试都差不多，IDA也是可以的，并且也有相应的Dump脚本，过程上没什么太大的差别）</p>
+<p><img src="https://s2.ax1x.com/2020/02/20/3eJESU.png" srcset="/img/loading.gif" alt="crackme-2"></p>
+<p>首先看到<code>pushfd</code>和<code>pushad</code>两条命令，这是记录所有寄存器，这里我根据<em>esp定律</em>，实际上也就是堆栈平衡的原理，在执行完<code>pushad</code>之后对<code>esp</code>下断点</p>
+<p><img src="https://s2.ax1x.com/2020/02/20/3eJFYV.png" srcset="/img/loading.gif" alt="crackme-3"></p>
+<p>下面简单介绍一下<em>esp定律</em>：</p>
 <blockquote>
-<p>线性扫描本身的技术含量不是很高，反汇编工具将整个模块中的每一条指令都反汇编成汇编指令，每一个遇到的机器码都会当作汇编指令处理（不加判断），所以线性扫描根本不能把代码和数据区分开来，而一旦一条指令开始出错，整个反汇编都开始出错。</p>
+<p>一般的加壳软件在执行时，首先要初始化，保存环境（保存各个寄存器的值），一般利用<code>pushad</code>（相当于把<code>eax,ecx,edx,ebx,esp,ebp,esi,edi</code>都压栈），当加壳程序的外壳执行完毕以后，再来恢复各个寄存器的内容，通常会用POPAD（相当与把刚刚保存的寄存器的值都还原），在脱壳的时候，我们可以根据堆栈平衡来对ESP进行下断，进而快速到达OEP</p>
 </blockquote>
+<p>使用硬件读断点（<code>hw esp</code>），这里只经过了两次跳转，然后就来到了OEP附近，这里也需要注意，OEP处的<code>esp</code>并不一定是之前记录的值，但是一定很近了，这个时候需要耐心的寻找疑似的OEP。这里的OEP我找到实在<code>0x401000</code>处</p>
+<p><img src="https://s2.ax1x.com/2020/02/20/3eJkWT.png" srcset="/img/loading.gif" alt="crackme-4"></p>
+<p>这里显然就是程序真正的入口。还有一点需要注意，壳加载过程中会加载代码，所以如果遇到没有解析的数据，就<code>Ctrl+A</code>重新分析代码。</p>
+<h4 id="Dump"><a href="#Dump" class="headerlink" title="Dump"></a>Dump</h4><p>接下来要把内存中的完整程序Dump出来，好像OD有相关的插件，但我还是喜欢LordPE，使用也很简单，就是注意右键进程，修正镜像大小，因为有人会改镜像的大小，Dump出来的程序会有问题，所以一般不去判断，直接先修正，再Dump</p>
+<h4 id="修正IAT"><a href="#修正IAT" class="headerlink" title="修正IAT"></a>修正IAT</h4><p>这个时候Dump出来的程序时没法运行的，因为缺少了很关键的一部分内容，就是IAT，也就是输入表，我们可以把现在Dump出来的程序用IDA打开，可以看到<code>printf</code>和<code>scanf</code>之类的函数都识别不出来，这就是因为我们Dump出来的程序没有输入表。至于输入表是什么，偷懒从百度百科抄了过来，这是PE结构中很重要的一部分。</p>
 <blockquote>
-<p>递归行进算法相较于线性扫描算法更灵活一些，它是按照代码可能的执行顺序来反汇编程序，每条可能的路径来扫描，解码出分支之后会记录这个地址，分别反汇编各个分支中的指令，这样按照路径进行搜寻，可以有效避免将数据识别成指令的问题。  </p>
+<p>Import Address Table 由于导入函数就是被程序调用但其执行代码又不在程序中的函数，这些函数的代码位于一个或者多个DLL 中。当PE 文件被装入内存的时候，Windows 装载器才将DLL 装入，并将调用导入函数的指令和函数实际所处的地址联系起来(动态连接)，这操作就需要导入表完成.其中导入地址表就指示函数实际地址。</p>
 </blockquote>
-<table>
-<thead>
-<tr>
-<th>工具</th>
-<th>算法</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>OllyDbg</td>
-<td>Linear Sweep/Recursive Traversal(Ctrl+A)</td>
-</tr>
-<tr>
-<td>IDA Pro</td>
-<td>Recursive Traversal</td>
-</tr>
-<tr>
-<td>Ghidra</td>
-<td></td>
-</tr>
-</tbody></table>
-<p>但是我们可以通过巧妙地构造代码和数据，插入一些<em>“花指令”</em>，以此干扰反汇编软件。因为前面提到的不同的机器指令包含的字节数不同地原因，所有的多字节指令只有正确识别第一个字节，也就是操作码，才能正确实现反汇编，否则就会识别成完全不同的另一条指令。</p>
-<p>而迷惑递归行进算法还需要多动动脑子，一两个简单的垃圾数据不会使递归行进算法失效，但是，个人理解，在递归行进算法中，任意的控制转移指令，其后的地址都认为是有效的，因为递归行进算法中最重要的就是通过跳转来确定分支，因此，我们可以利用跳转来实现我们想要的<em>“花指令”</em>。</p>
-<p>下面是几个主要的分类：</p>
-<ul>
-<li><p><code>jx/jnx</code></p>
-<p>这一类是我见过最多的，比如说这样一段代码</p>
-</li>
-</ul>
-<pre><code class="asm">text:00401065            jz short near ptr loc_401069+1
-text:00401067            jnz short near ptr loc_401069+1
-text:00401069
-text:00401069 loc_401069:
-text:00401069            db 36h
-text:0040107C            ……</code></pre>
-<p>​    这里只是一个随便编写的例子，但是差不多所有的处理都是这个样子，这里的跳转导致0x401069处的指令没有解析，所以后面的指令也就跟着出错了</p>
-<ul>
-<li><p><code>call+pop/(add esp)+return</code></p>
-<p>这个分类主要是看到的IDA反汇编出错的红字<code>endp;sp-analysis failed</code></p>
-<p>比如说这样的代码</p>
-<pre><code class="asm">text:0040103B        call loc_401042
-text:0040103B sub_401022    endp;sp-analysis failed
-text:0040103B
-text:00401040        cmp cl,dl
-text:00401042
-text:00401042 loc_401042:
-text:00401042        add esp,4</code></pre>
-<p><code>call</code>指令相当于<code>jmp</code>+<code>push eip</code>，所以用<code>add esp,4</code>指令可以消除入栈的<code>eip</code>的影响，此时<code>call</code>就相当于<code>jmp</code>，但是IDA还是会把<code>0x401042</code>当作新函数的首地址，所以当前函数的识别就会出错，IDA会找不到结束位置，因此没法继续反汇编。</p>
-</li>
-<li><p><code>jx</code></p>
-<p>这一类理解起来也蛮简单的，就是<code>jmp</code>到一个IDA无法解析的位置，比如说下面这段</p>
-<pre><code class="asm">.text:00000000004009F5 loc_4009F5:                             
-.text:00000000004009F5                 jmp     short near ptr loc_4009FB+1
-;---------------------------------------------------------------------------
-;从这里开始
-.text:00000000004009F7                 xor     eax, eax
-.text:00000000004009F9                 jz      short loc_4009F5
-.text:00000000004009FB
-.text:00000000004009FB loc_4009FB:                             
-.text:00000000004009FB                 call    near ptr 0C59748h</code></pre>
-<p>最下面这个<code>0c59748</code>的地址显然是无效的，这里肯定是出了问题，仔细观察一下代码，<code>xor  eax, eax</code>这句得到的是0，所以下一个跳转是一定可以实现的，但是IDA判断不出来，他会对所有可能的分支进行解析，所以会从<code>0x4009FB</code>出开始解析新的命令，然后这个跳转并不存在，就会提示地址不存在，但是真正让反汇编进行不下去的是接下来的操作，另一条可能的路径，即正常的执行流程，进入到<code>0x4009F5</code>之后跳转到了<code>0x4009FC</code>的位置，但是这里已经解析过了，被一条假的命令占用了，IDA就会停止反汇编，然后报错。</p>
-</li>
-</ul>
+<p>IAT当然可以自己动手改Dump出来的程序的16进制，但是我还是喜欢用ImportREC（明明有工具为什么还要自己动手……还容易写错）。</p>
+<p><img src="https://s2.ax1x.com/2020/02/20/3ewXrT.png" srcset="/img/loading.gif" alt="crackme-5"></p>
+<p>使用起来很简单，首先要把我们知道的OEP地址输入进去，注意这里是偏移地址，然后可以选择<code>IAT Autosearch</code>选项，但有的时候可能会不准确，这个时候可以手动寻找，RVA就是相对虚拟地址，Size就是大小，手动找的过程也很简单，只要找到调用的函数的部分，比如说<code>printf</code>，就可以在汇编代码里看到调用的地址，比如说<code>dword ptr [402094]</code>，这是个间接取址，这里取的是<code>402094</code>处指针指向的地址，这里才是真正的<code>printf</code>函数的入口，我们转到<code>402094</code>的位置，可以看到上下都有很多这样的指针，指向外部引用的函数，这里就是输入表</p>
+<p><img src="https://s2.ax1x.com/2020/02/20/3erkMq.png" srcset="/img/loading.gif" alt="crackme-6"></p>
+<p>两个不同的dll中间用0隔开，所以找到开始地址和结束地址，就能知道RVA和Size。</p>
+<p>这个时候点<code>Get Imports</code>，中间窗口会显示出来，但是注意有时候会出现无效的值，这个时候可能需要手动修复或者是删除，如果全都显示有效，就可以<code>Fix Dump</code>，选择刚刚Dump出来的文件，成功的话会生成一个新的文件，这个文件是可以执行的程序，到这里脱壳的过程就结束了。</p>
+<h4 id="解题"><a href="#解题" class="headerlink" title="解题"></a>解题</h4><p>回到题目本身，IDA打开</p>
+<pre><code class="c++">signed int start()
+{
+  signed int result; // eax
+  int v1; // eax
+  char Buf; // [esp+4h] [ebp-38h]
+  char Dst; // [esp+5h] [ebp-37h]
 
+  Buf = 0;
+  memset(&amp;Dst, 0, 0x31u);
+  printf(&quot;Please Input Flag:&quot;);
+  gets_s(&amp;Buf, 0x2Cu);
+  if ( strlen(&amp;Buf) == 42 )
+  {
+    v1 = 0;
+    while ( (*(&amp;Buf + v1) ^ byte_402130[v1 % 16]) == dword_402150[v1] )
+    {
+      if ( ++v1 &gt;= 42 )
+      {
+        printf(&quot;right!\n&quot;);
+        goto LABEL_8;
+      }
+    }
+    printf(&quot;error!\n&quot;);
+LABEL_8:
+    result = 0;
+  }
+  else
+  {
+    printf(&quot;error!\n&quot;);
+    result = -1;
+  }
+  return result;
+}</code></pre>
+<p>发现程序的判断非常简单，可见这题的主要目的是为了考脱壳，把需要的数据导出之后，直接简单逆向输出flag</p>
+<pre><code class="c++">#include &lt;iostream&gt;
+#include &lt;string&gt;
+
+using namespace std;
+
+int main() {
+    int dword_402150[] = { 18, 4, 8, 20, 36, 92, 74, 61, 86, 10, 16, 103, 0, 65, 0, 1, 70, 90, 68, 66, 110, 12, 68, 114, 12, 13, 64, 62, 75, 95, 2, 1, 76, 94, 91, 23, 110, 12, 22, 104, 91, 18};
+    char aThisIsNotFlag[] =
+            &quot;this_is_not_flag&quot;;
+    string flag;
+    for(int i =0;i&lt;42;i++)
+    {
+        flag+=(dword_402150[i]^aThisIsNotFlag[i%16]);
+    }
+    cout&lt;&lt;flag&lt;&lt;endl;
+    return 0;
+}
+</code></pre>
+<p>输出得到flag</p>
+<pre><code>flag{59b8ed8f-af22-11e7-bb4a-3cf862d1ee75}</code></pre>
             <hr>
           </div>
           <br>
@@ -269,7 +278,9 @@ text:00401042        add esp,4</code></pre>
                 
                   <a class="hover-with-bg" href="/tags/re">re</a>
                 
-                  <a class="hover-with-bg" href="/tags/%E8%8A%B1%E6%8C%87%E4%BB%A4">花指令</a>
+                  <a class="hover-with-bg" href="/tags/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C">攻防世界</a>
+                
+                  <a class="hover-with-bg" href="/tags/%E8%84%B1%E5%A3%B3">脱壳</a>
                 
               </span>
             
@@ -470,7 +481,7 @@ text:00401042        add esp,4</code></pre>
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "花指令&nbsp;",
+        "攻防世界-crackme-wp（手动脱壳）&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,

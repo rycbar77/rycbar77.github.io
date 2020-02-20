@@ -131,7 +131,7 @@
                   
                   &nbsp;<i class="far fa-chart-bar"></i>
                   <span class="post-count">
-                    11.4k 字
+                    11.5k 字
                   </span>&nbsp;
                 
 
@@ -2016,7 +2016,9 @@ int main() {
 <p>需要注意的两点，运算符优先级的问题，加减运算要先于移位运算先于位运算，处理的时候需要注意，还有，移位的时候要注意把多余的位置清0，这里用的是与运算</p>
 <p>输出flag</p>
 <pre><code>qctf{ReA11y_4_B@89_mlp5_4_XmAn_}</code></pre><h4 id="serial-150"><a href="#serial-150" class="headerlink" title="serial-150"></a>serial-150</h4><p>这题本身的算法没什么难度，主要就是花指令的去除，去除之后就只是简单的字符串比较了，很容易。</p>
-<pre><code>EZ9dmq4c8g9G7bAV</code></pre>
+<pre><code>EZ9dmq4c8g9G7bAV</code></pre><h4 id="testre"><a href="#testre" class="headerlink" title="testre"></a>testre</h4><p>主要就是一个base58，很好做，尝试了一下ghidra的效果发现不尽如人意，所以主要还是采用IDA做题。</p>
+<pre><code>flag{base58_is_boring}</code></pre><h4 id="simple-check-100"><a href="#simple-check-100" class="headerlink" title="simple-check-100"></a>simple-check-100</h4><p>这题没什么好写的，虽然前面的check函数进行了检测，但是后面的计算和前面的输入没什么关系，并且直接把flag给输出了，所以直接gdb调试改了<code>eax</code>的值直接输出flag就好了</p>
+<pre><code>flag_is_you_know_cracking!!!</code></pre>
             <hr>
           </div>
           <br>
