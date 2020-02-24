@@ -2450,13 +2450,13 @@ flag_is_you_know_cracking!!!
 
 一直不知道这是什么，后来发现这竟然是个压缩包，里面有个网页和调用的js，js里面可以看到把机器码转成了命令然后执行，所以在执行之前输出一下
 
-```javascript
+```
 console.log(command);
 ```
 
 在console里找到了关键判断
 
-```javascript
+```
 var f=window.machine.registers[1].userinput
 var i = f.length
 var nonce = 'groke';
