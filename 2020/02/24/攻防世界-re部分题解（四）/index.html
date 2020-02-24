@@ -131,7 +131,7 @@
                   
                   &nbsp;<i class="far fa-chart-bar"></i>
                   <span class="post-count">
-                    1.7k 字
+                    2.2k 字
                   </span>&nbsp;
                 
 
@@ -139,7 +139,7 @@
                   
                   &nbsp;<i class="far fa-clock"></i>
                   <span class="post-count">
-                      9 分钟
+                      12 分钟
                   </span>&nbsp;
                 
 
@@ -525,6 +525,74 @@ int __cdecl main(int argc, const char **argv, const char **envp) {
 <p>直接输出flag</p>
 <pre><code class="c++">Your flag is:
 CTF{daf8f4d816261a41a115052a1bc21ade}</code></pre>
+<h4 id="easyre-153"><a href="#easyre-153" class="headerlink" title="easyre-153"></a>easyre-153</h4><p>先查壳，发现是upx，脱壳</p>
+<pre><code class="c++">int __cdecl main(int argc, const char **argv, const char **envp)
+{
+  int pipedes[2]; // [esp+18h] [ebp-38h]
+  __pid_t v5; // [esp+20h] [ebp-30h]
+  int v6; // [esp+24h] [ebp-2Ch]
+  char buf; // [esp+2Eh] [ebp-22h]
+  unsigned int v8; // [esp+4Ch] [ebp-4h]
+
+  v8 = __readgsdword(0x14u);
+  pipe(pipedes);
+  v5 = fork();
+  if ( !v5 )
+  {
+    puts(&quot;\nOMG!!!! I forgot kid&#39;s id&quot;);
+    write(pipedes[1], &quot;69800876143568214356928753&quot;, 29u);
+    puts(&quot;Ready to exit     &quot;);
+    exit(0);
+  }
+  read(pipedes[0], &amp;buf, 29u);
+  __isoc99_scanf(&quot;%d&quot;, &amp;v6);
+  if ( v6 == v5 )
+  {
+    if ( (*(_DWORD *)((_BYTE *)lol + 3) &amp; 0xFF) == 204 )
+    {
+      puts(&quot;:D&quot;);
+      exit(1);
+    }
+    printf(&quot;\nYou got the key\n &quot;);
+    lol(&amp;buf);
+  }
+  wait(0);
+  return 0;
+}</code></pre>
+<p>发现用到了简单的子进程和pipe。</p>
+<p>pipe的作用就和名字一样，建立一个管道，这个管道一端是读，一端是写，按照规定，<code>pipe[0]</code>是读，<code>pipe[1]</code>是写，然后fork了一个子进程，在子进程中，返回值为0，进入if分支通过管道写入了一个字符串，然后退出子进程。在父进程中，返回的是fork出来的子进程的id，跳过if分支，在下面读取了刚刚子进程写入的字符串，关键就是lol这个函数</p>
+<pre><code class="c++">int __cdecl lol(_BYTE *a1)
+{
+  char v2; // [esp+15h] [ebp-13h]
+  char v3; // [esp+16h] [ebp-12h]
+  char v4; // [esp+17h] [ebp-11h]
+  char v5; // [esp+18h] [ebp-10h]
+  char v6; // [esp+19h] [ebp-Fh]
+  char v7; // [esp+1Ah] [ebp-Eh]
+  char v8; // [esp+1Bh] [ebp-Dh]
+
+  v2 = 2 * a1[1];
+  v3 = a1[4] + a1[5];
+  v4 = a1[8] + a1[9];
+  v5 = 2 * a1[12];
+  v6 = a1[18] + a1[17];
+  v7 = a1[10] + a1[21];
+  v8 = a1[9] + a1[25];
+  return printf(&quot;flag_is_not_here&quot;);
+}</code></pre>
+<p>这里的处理过程非常简单，还是正向的处理，但是最后输出的是一个没用的字符串，所以即使是输入子进程的pid，也不会输出真正的flag，所以还是自己动手算出来</p>
+<pre><code class="python">a1 = &quot;69800876143568214356928753&quot;
+v2 = 2 * ord(a1[1])
+v3 = ord(a1[4]) + ord(a1[5])
+v4 = ord(a1[8]) + ord(a1[9])
+v5 = 2 * ord(a1[12])
+v6 = ord(a1[18]) + ord(a1[17])
+v7 = ord(a1[10]) + ord(a1[21])
+v8 = ord(a1[9]) + ord(a1[25])
+
+print(chr(v2)+chr(v3)+chr(v4)+chr(v5)+chr(v6)+chr(v7)+chr(v8))</code></pre>
+<p>输出结果</p>
+<pre><code>rhelheg</code></pre><p>直接提交不对，要套上外面的格式，试了一下比赛的名称，通过。</p>
 
             <hr>
           </div>
