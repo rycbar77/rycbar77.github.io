@@ -152,14 +152,16 @@
           
         
         <div class="index-excerpt" >
-          <div class="index-text mb-1">serial-150这题本身的算法没什么难度，主要就是花指令的去除，去除之后就只是简单的字符串比较了，很容易。
+          <div class="index-text mb-1">
+
+serial-150这题本身的算法没什么难度，主要就是花指令的去除，去除之后就只是简单的字符串比较了，很容易。
 EZ9dmq4c8g9G7bAVtestre主要就是一个base58，很好做，尝试了一下ghidra的效果发现不尽如人意，所以主要还是采用IDA做题。
 flag{base58_is_boring}simple-check-100这题没什么好写的，虽然前面的check函数进行了检测，但是后面的计算和前面的输入没什么关系，并且直接把flag给输出了，所以直接gdb调试改了eax的值直接输出flag就好了
 flag_is_you_know_cracking!!!secret-string-400一直不知道这是什么，后来发现这竟然是个压缩包，里面有个网页和调用的js，js里面可以看到把机器码转成了命令然后执行，所以在执行之前输出一下
 console.log(command);在console里找到了关键判断
 var f=window.machine.registers[1].userinput
 var i = f.length
-var nonce = &#39;groke&#39;;</div>
+var nonce = &#39;groke&#39</div>
         </div>
       </a>
 
@@ -198,7 +200,9 @@ var nonce = &#39;groke&#39;;</div>
           
         
         <div class="index-excerpt" >
-          <div class="index-text mb-1">tt3441810这题并不知道是在干什么，IDA打开是个dumpfile，打开给了很多16进制，看到了0x68这个经典数字（push指令的编码)，后面接了两个字符，看到fl，感觉有问题，找到后面很多个0x68，每个后买你都跟了两个字符，像是把flagpush进栈的操作，所以把这些数据导出，然后写个脚本跑一下，验证猜想
+          <div class="index-text mb-1">
+
+tt3441810这题并不知道是在干什么，IDA打开是个dumpfile，打开给了很多16进制，看到了0x68这个经典数字（push指令的编码)，后面接了两个字符，看到fl，感觉有问题，找到后面很多个0x68，每个后买你都跟了两个字符，像是把flagpush进栈的操作，所以把这些数据导出，然后写个脚本跑一下，验证猜想
 #include &lt;iostream&gt;
 #include &lt;cstring&gt;
 #include &lt;string&gt;
@@ -213,7 +217,7 @@ int main() {
             {
                     0x68, 0x66, 0x6C, 0x00, 0x00, 0x48, 0xBF, 0x01, 0x00, 0x00,
                     0x00, 0x00, 0x00, 0x00, 0x00, 0x48, 0x8D, 0x34, 0x24, 0x48,
-                    </div>
+                  </div>
         </div>
       </a>
 
@@ -252,7 +256,9 @@ int main() {
           
         
         <div class="index-excerpt" >
-          <div class="index-text mb-1">IgniteMeIDA打开，首先发现flag的格式，EIS{***}
+          <div class="index-text mb-1">
+
+IgniteMeIDA打开，首先发现flag的格式，EIS{***}
 找到关键函数
 bool __cdecl sub_4011C0(char *a1)
 {
@@ -272,7 +278,7 @@ bool __cdecl sub_4011C0(char *a1)
     v8[v6++] = a1[i++];
   v8[v6] = 0;
   v5 = 0;
-  v3 = 0;                               </div>
+  v3 = 0;                             </div>
         </div>
       </a>
 
