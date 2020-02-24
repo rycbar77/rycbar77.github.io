@@ -145,6 +145,205 @@
     
     
     <div class="col-12 col-md-8 m-auto">
+      <a href="/2020/02/24/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3%EF%BC%88%E5%9B%9B%EF%BC%89/">
+        <p class="h4 index-header">攻防世界-re部分题解（四）</p>
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">serial-150这题本身的算法没什么难度，主要就是花指令的去除，去除之后就只是简单的字符串比较了，很容易。
+EZ9dmq4c8g9G7bAVtestre主要就是一个base58，很好做，尝试了一下ghidra的效果发现不尽如人意，所以主要还是采用IDA做题。
+flag{base58_is_boring}simple-check-100这题没什么好写的，虽然前面的check函数进行了检测，但是后面的计算和前面的输入没什么关系，并且直接把flag给输出了，所以直接gdb调试改了eax的值直接输出flag就好了
+flag_is_you_know_cracking!!!secret-string-400一直不知道这是什么，后来发现这竟然是个压缩包，里面有个网页和调用的js，js里面可以看到把机器码转成了命令然后执行，所以在执行之前输出一下
+console.log(command);在console里找到了关键判断
+var f=window.machine.registers[1].userinput
+var i = f.length
+var nonce = &#39;groke&#39;;</div>
+        </div>
+      </a>
+
+      <div>
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-02-24&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/ctf">ctf</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/ctf">ctf</a>&nbsp;
+          
+            <a href="/tags/re">re</a>&nbsp;
+          
+            <a href="/tags/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C">攻防世界</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-4 mx-auto">
+    
+    
+    <div class="col-12 col-md-8 m-auto">
+      <a href="/2020/02/24/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3%EF%BC%88%E4%B8%89%EF%BC%89/">
+        <p class="h4 index-header">攻防世界-re部分题解（三）</p>
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">tt3441810这题并不知道是在干什么，IDA打开是个dumpfile，打开给了很多16进制，看到了0x68这个经典数字（push指令的编码)，后面接了两个字符，看到fl，感觉有问题，找到后面很多个0x68，每个后买你都跟了两个字符，像是把flagpush进栈的操作，所以把这些数据导出，然后写个脚本跑一下，验证猜想
+#include &lt;iostream&gt;
+#include &lt;cstring&gt;
+#include &lt;string&gt;
+
+
+using namespace std;
+
+
+int main() {
+
+    unsigned char ida_chars[] =
+            {
+                    0x68, 0x66, 0x6C, 0x00, 0x00, 0x48, 0xBF, 0x01, 0x00, 0x00,
+                    0x00, 0x00, 0x00, 0x00, 0x00, 0x48, 0x8D, 0x34, 0x24, 0x48,
+                    </div>
+        </div>
+      </a>
+
+      <div>
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-02-24&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/ctf">ctf</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/ctf">ctf</a>&nbsp;
+          
+            <a href="/tags/re">re</a>&nbsp;
+          
+            <a href="/tags/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C">攻防世界</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-4 mx-auto">
+    
+    
+    <div class="col-12 col-md-8 m-auto">
+      <a href="/2020/02/24/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3%EF%BC%88%E4%BA%8C%EF%BC%89/">
+        <p class="h4 index-header">攻防世界-re部分题解（二）</p>
+        
+        
+          
+        
+        <div class="index-excerpt" >
+          <div class="index-text mb-1">IgniteMeIDA打开，首先发现flag的格式，EIS{***}
+找到关键函数
+bool __cdecl sub_4011C0(char *a1)
+{
+  size_t v2; // eax
+  signed int v3; // [esp+50h] [ebp-B0h]
+  char v4[32]; // [esp+54h] [ebp-ACh]
+  int v5; // [esp+74h] [ebp-8Ch]
+  int v6; // [esp+78h] [ebp-88h]
+  size_t i; // [esp+7Ch] [ebp-84h]
+  char v8[128]; // [esp+80h] [ebp-80h]
+
+  if ( strlen(a1) &lt;= 4 )
+    return 0;
+  i = 4;
+  v6 = 0;
+  while ( i &lt; strlen(a1) - 1 )
+    v8[v6++] = a1[i++];
+  v8[v6] = 0;
+  v5 = 0;
+  v3 = 0;                               </div>
+        </div>
+      </a>
+
+      <div>
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-02-24&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/ctf">ctf</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/ctf">ctf</a>&nbsp;
+          
+            <a href="/tags/re">re</a>&nbsp;
+          
+            <a href="/tags/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C">攻防世界</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-4 mx-auto">
+    
+    
+    <div class="col-12 col-md-8 m-auto">
+      <a href="/2020/02/24/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3%EF%BC%88%E4%B8%80%EF%BC%89/">
+        <p class="h4 index-header">攻防世界-re部分题解（一）</p>
+        
+        
+          
+          
+        
+        <div class="index-excerpt" style="max-height: none;">
+          <div class="index-text mb-1">攻防世界的题目质量还是比较高的，题目类型很多，难度也有一定的梯度，挺适合不断进阶学习。...</div>
+        </div>
+      </a>
+
+      <div>
+        
+          <i class="iconfont icon-riqi2"></i>&nbsp;2020-02-24&nbsp;&nbsp;
+        
+        
+          <i class="iconfont icon-inbox"></i>
+          
+            <a href="/categories/ctf">ctf</a>&nbsp;
+          &nbsp;
+        
+        
+          <i class="iconfont icon-tag"></i>
+          
+            <a href="/tags/ctf">ctf</a>&nbsp;
+          
+            <a href="/tags/re">re</a>&nbsp;
+          
+            <a href="/tags/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C">攻防世界</a>&nbsp;
+          
+        
+      </div>
+    </div>
+  </div>
+
+  <div class="row mb-4 mx-auto">
+    
+    
+    <div class="col-12 col-md-8 m-auto">
       <a href="/2020/02/20/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-crackme-wp%EF%BC%88%E6%89%8B%E5%8A%A8%E8%84%B1%E5%A3%B3%EF%BC%89/">
         <p class="h4 index-header">攻防世界-crackme-wp（手动脱壳）</p>
         
@@ -384,73 +583,19 @@
     </div>
   </div>
 
-  <div class="row mb-4 mx-auto">
-    
-    
-    <div class="col-12 col-md-8 m-auto">
-      <a href="/2020/01/11/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3/">
-        <p class="h4 index-header">攻防世界-re部分题解</p>
-        
-        
-          
-          
-        
-        <div class="index-excerpt" style="max-height: none;">
-          <div class="index-text mb-1">攻防世界的题目质量还是比较高的，题目类型很多，难度也有一定的梯度，挺适合不断进阶学习。...</div>
-        </div>
-      </a>
-
-      <div>
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2020-01-11&nbsp;&nbsp;
-        
-        
-          <i class="iconfont icon-inbox"></i>
-          
-            <a href="/categories/ctf">ctf</a>&nbsp;
-          &nbsp;
-        
-        
-          <i class="iconfont icon-tag"></i>
-          
-            <a href="/tags/ctf">ctf</a>&nbsp;
-          
-            <a href="/tags/re">re</a>&nbsp;
-          
-            <a href="/tags/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C">攻防世界</a>&nbsp;
-          
-        
-      </div>
-    </div>
-  </div>
-
-  <div class="row mb-4 mx-auto">
-    
-    
-    <div class="col-12 col-md-8 m-auto">
-      <a href="/2019/12/30/hello-world/">
-        <p class="h4 index-header">Hello World</p>
-        
-        
-          
-        
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">My first post to say “Hello”.
-</div>
-        </div>
-      </a>
-
-      <div>
-        
-          <i class="iconfont icon-riqi2"></i>&nbsp;2019-12-30&nbsp;&nbsp;
-        
-        
-        
-      </div>
-    </div>
-  </div>
 
 
+  <nav aria-label="index posts navigation">
+    <span class="pagination pg-blue justify-content-center mt-5" id="pagination">
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fas fa-angle-double-right"></i></a>
+    </span>
+  </nav>
+  
+  <script>
+    for (ele of document.getElementById("pagination").getElementsByClassName("page-number")) {
+      ele.href += '#board';
+    }
+  </script>
 
 
 

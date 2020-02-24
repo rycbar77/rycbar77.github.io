@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="description" content="">
+  <meta name="author" content="Aorui Zhang">
+  <meta name="keywords" content="">
+  <title>攻防世界-re部分题解（四） ~ My Tiny Ideas</title>
+
+  <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css"  >
+<link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css"  >
+<link rel="stylesheet" href="/lib/mdbootstrap/css/mdb.min.css"  >
+<link rel="stylesheet" href="/lib/github-markdown/github-markdown.min.css"  >
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1067060_qzomjdt8bmp.css">
+
+
+
+  <link rel="stylesheet" href="/lib/prettify/github-v2.min.css"  >
+
+<link rel="stylesheet" href="/css/main.css"  >
+
+
+  <link rel="stylesheet" href="/lib/fancybox/jquery.fancybox.min.css"  >
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>My Tiny Ideas</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/">首页</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/archives/">归档</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/categories/">分类</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/tags/">标签</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/about/">关于</a>
+          </li>
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background"
+         style="background: url('/img/default.png')no-repeat center center;
+           background-size: cover;
+           background-attachment: fixed;">
+      <div class="full-bg-img">
+        <div class="mask rgba-black-light flex-center">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              <br>
+              
+                <p class="mt-3">
+                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>&nbsp;
+                  星期一, 二月 24日 2020, 9:35 上午
+                </p>
+              
+
+              <p>
+                
+                  
+                  &nbsp;<i class="far fa-chart-bar"></i>
+                  <span class="post-count">
+                    1.7k 字
+                  </span>&nbsp;
+                
+
+                
+                  
+                  &nbsp;<i class="far fa-clock"></i>
+                  <span class="post-count">
+                      9 分钟
+                  </span>&nbsp;
+                
+
+                
+                  <!-- 不蒜子统计文章PV -->
+                  
+                  &nbsp;<i class="far fa-eye" aria-hidden="true"></i>&nbsp;
+                  <span id="busuanzi_container_page_pv">
+                    <span id="busuanzi_value_page_pv"></span> 次
+                  </span>&nbsp;
+                
+              </p>
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="py-5 z-depth-3" id="board">
+        <div class="post-content mx-auto" id="post">
+          <div class="markdown-body">
+            <h4 id="serial-150"><a href="#serial-150" class="headerlink" title="serial-150"></a>serial-150</h4><p>这题本身的算法没什么难度，主要就是花指令的去除，去除之后就只是简单的字符串比较了，很容易。</p>
+<pre><code>EZ9dmq4c8g9G7bAV</code></pre><h4 id="testre"><a href="#testre" class="headerlink" title="testre"></a>testre</h4><p>主要就是一个base58，很好做，尝试了一下ghidra的效果发现不尽如人意，所以主要还是采用IDA做题。</p>
+<pre><code>flag{base58_is_boring}</code></pre><h4 id="simple-check-100"><a href="#simple-check-100" class="headerlink" title="simple-check-100"></a>simple-check-100</h4><p>这题没什么好写的，虽然前面的check函数进行了检测，但是后面的计算和前面的输入没什么关系，并且直接把flag给输出了，所以直接gdb调试改了<code>eax</code>的值直接输出flag就好了</p>
+<pre><code>flag_is_you_know_cracking!!!</code></pre><h4 id="secret-string-400"><a href="#secret-string-400" class="headerlink" title="secret-string-400"></a>secret-string-400</h4><p>一直不知道这是什么，后来发现这竟然是个压缩包，里面有个网页和调用的js，js里面可以看到把机器码转成了命令然后执行，所以在执行之前输出一下</p>
+<pre><code>console.log(command);</code></pre><p>在console里找到了关键判断</p>
+<pre><code>var f=window.machine.registers[1].userinput
+var i = f.length
+var nonce = &#39;groke&#39;;
+var j = 0;
+var out = [];
+var eq = true;
+while(j &lt; i){
+    out.push(f.charCodeAt(j) ^ nonce.charCodeAt(j%5))
+    j++;
+}
+var ex =  [1, 30, 14, 12, 69, 14, 1, 85, 75, 50, 40, 37, 48, 24, 10, 56, 55, 46, 56, 60];
+if (ex.length == out.length) {
+    j = 0;
+    while(j &lt; ex.length){
+        if(ex[j] != out[j])
+        eq = false;
+        j += 1;
+    }
+if(eq){
+    alert(&#39;YOU WIN!&#39;);
+}else{
+    alert(&#39;NOPE!&#39;);
+}}else{alert(&#39;NOPE!&#39;);}</code></pre><p>过程非常简单，也是闲着无聊，写了个什么都没有的网页</p>
+<pre><code class="html">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;decode&lt;/title&gt;
+    &lt;script type=&#39;text/javascript&#39; src=&#39;out.js&#39;&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;br/&gt;
+    &lt;input type=&#39;button&#39; onclick=&quot;run()&quot; value=&#39;decode&#39;&gt;&lt;/button&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<pre><code class="javascript">function run() {
+    const nonce = &#39;groke&#39;;
+    let j = 0;
+    let flag =&#39;&#39;;
+    const ex = [1, 30, 14, 12, 69, 14, 1, 85, 75, 50, 40, 37, 48, 24, 10, 56, 55, 46, 56, 60];
+    let i = ex.length;
+    while (j &lt; i) {
+        flag+=String.fromCharCode(ex[j] ^ nonce.charCodeAt(j % 5));
+        j++;
+    }
+    alert(flag);
+}</code></pre>
+<p>点击按钮获得flag</p>
+<pre><code>flag is: WOW_so_EASY</code></pre><h4 id="windows-reverse2"><a href="#windows-reverse2" class="headerlink" title="windows_reverse2"></a>windows_reverse2</h4><p>首先是脱壳，看雪脱壳工具就可以，也可以手动脱壳，IDA研究之后发现中间一个函数的作用不是很明朗，OD调试一下根据结果猜测可能是16进制转base64，试了一下就对了。</p>
+<pre><code>ADEBDEAEC7BE</code></pre><h4 id="Newbie-calculations"><a href="#Newbie-calculations" class="headerlink" title="Newbie_calculations"></a>Newbie_calculations</h4><p>这题的就是直接会输出flag，但是进行了大量费事而且毫无意义的计算，需要仔细分析一下每一部分的函数作用，简化计算的过程，总共只有三个运算函数，很简单，就不一一分析了，直接计算flag：</p>
+<pre><code class="c++">#include&lt;iostream&gt;
+
+using namespace std;
+
+int* sub(int *a, int b) {
+     *a -= b;
+     return a;
+}
+
+int* add(int *a, int b) {
+    *a += b;
+    return a;
+}
+
+int* mul(int *a, int b) {
+    *a *= b;
+    return a;
+}
+
+int __cdecl main(int argc, const char **argv, const char **envp) {
+    int *v3; // eax
+    int *v4; // eax
+    int *v5; // eax
+    int *v6; // eax
+    int *v7; // eax
+    int *v8; // eax
+    int *v9; // eax
+    int *v10; // eax
+    int *v11; // eax
+    int *v12; // eax
+    int *v13; // eax
+    int *v14; // eax
+    int *v15; // eax
+    int *v16; // eax
+    int *v17; // eax
+    int *v18; // eax
+    int *v19; // eax
+    int *v20; // eax
+    int *v21; // eax
+    int *v22; // eax
+    int *v23; // eax
+    int *v24; // eax
+    int *v25; // eax
+    int *v26; // eax
+    int *v27; // eax
+    int *v28; // eax
+    int *v29; // eax
+    int *v30; // eax
+    int *v31; // eax
+    int *v32; // eax
+    int *v33; // eax
+    int *v34; // eax
+    int *v35; // eax
+    int *v36; // eax
+    int *v37; // eax
+    int *v38; // eax
+    int *v39; // eax
+    int *v40; // eax
+    int *v41; // eax
+    int *v42; // eax
+    int *v43; // eax
+    int *v44; // eax
+    int *v45; // eax
+    int *v46; // eax
+    int *v47; // eax
+    int *v48; // eax
+    int *v49; // eax
+    int *v50; // eax
+    int *v51; // eax
+    int *v52; // eax
+    int *v53; // eax
+    int *v54; // eax
+    int *v55; // eax
+    int *v56; // eax
+    int *v57; // eax
+    int *v58; // eax
+    int *v59; // eax
+    int *v60; // eax
+    int *v61; // eax
+    int *v62; // eax
+    int *v63; // eax
+    int *v64; // eax
+    int *v65; // eax
+    int *v66; // eax
+    int *v67; // eax
+    int *v68; // eax
+    int *v69; // eax
+    int *v70; // eax
+    int *v71; // eax
+    int *v72; // eax
+    int *v73; // eax
+    int *v74; // eax
+    int *v75; // eax
+    int *v76; // eax
+    int *v77; // eax
+    int *v78; // eax
+    int *v79; // eax
+    int *v80; // eax
+    int *v81; // eax
+    int *v82; // eax
+    int *v83; // eax
+    int *v84; // eax
+    int *v85; // eax
+    int *v86; // eax
+    int *v87; // eax
+    int *v88; // eax
+    int *v89; // eax
+    int *v90; // eax
+    int *v91; // eax
+    int *v92; // eax
+    int *v93; // eax
+    int *v94; // eax
+    int *v95; // eax
+    int *v96; // eax
+    int *v97; // eax
+    int *v98; // eax
+    int *v99; // eax
+    int *v100; // eax
+    int *v101; // eax
+    int *v102; // eax
+    int *v103; // eax
+    int *v104; // eax
+    int *v105; // eax
+    int *v106; // eax
+    int *v107; // eax
+    int *v108; // eax
+    int v109; // ST1C_4
+    int *v110; // eax
+    int *v111; // eax
+    int v112; // ST20_4
+    int *v113; // eax
+    int *v114; // eax
+    int v115; // ST20_4
+    int *v116; // eax
+    int flag[32]; // [esp+Ch] [ebp-88h]
+    int v121; // [esp+8Ch] [ebp-8h]
+
+    for (int i = 0; i &lt; 32; ++i )
+        flag[i] = 1;
+    v121 = 0;
+    puts(&quot;Your flag is:&quot;);
+    v3 = mul(flag, 1000000000);
+    v4 = sub(v3, 999999950);
+    mul(v4, 2);
+    v5 = add(&amp;flag[1], 5000000);
+    v6 = sub(v5, 6666666);
+    v7 = add(v6, 1666666);
+    v8 = add(v7, 45);
+    v9 = mul(v8, 2);
+    add(v9, 5);
+    v10 = mul(&amp;flag[2], 1000000000);
+    v11 = sub(v10, 999999950);
+    v12 = mul(v11, 2);
+    add(v12, 2);
+    v13 = add(&amp;flag[3], 55);
+    v14 = sub(v13, 3);
+    v15 = add(v14, 4);
+    sub(v15, 1);
+    v16 = mul(&amp;flag[4], 100000000);
+    v17 = sub(v16, 99999950);
+    v18 = mul(v17, 2);
+    add(v18, 2);
+    v19 = sub(&amp;flag[5], 1);
+    v20 = mul(v19, 1000000000);
+    v21 = add(v20, 55);
+    sub(v21, 3);
+    v22 = mul(&amp;flag[6], 1000000);
+    v23 = sub(v22, 999975);
+    mul(v23, 4);
+    v24 = add(&amp;flag[7], 55);
+    v25 = sub(v24, 33);
+    v26 = add(v25, 44);
+    sub(v26, 11);
+    v27 = mul(&amp;flag[8], 10);
+    v28 = sub(v27, 5);
+    v29 = mul(v28, 8);
+    add(v29, 9);
+    v30 = add(&amp;flag[9], 0);
+    v31 = sub(v30, 0);
+    v32 = add(v31, 11);
+    v33 = sub(v32, 11);
+    add(v33, 53);
+    v34 = add(&amp;flag[10], 49);
+    v35 = sub(v34, 2);
+    v36 = add(v35, 4);
+    sub(v36, 2);
+    v37 = mul(&amp;flag[11], 1000000);
+    v38 = sub(v37, 999999);
+    v39 = mul(v38, 4);
+    add(v39, 50);
+    v40 = add(&amp;flag[12], 1);
+    v41 = add(v40, 1);
+    v42 = add(v41, 1);
+    v43 = add(v42, 1);
+    v44 = add(v43, 1);
+    v45 = add(v44, 1);
+    v46 = add(v45, 10);
+    add(v46, 32);
+    v47 = mul(&amp;flag[13], 10);
+    v48 = sub(v47, 5);
+    v49 = mul(v48, 8);
+    v50 = add(v49, 9);
+    add(v50, 48);
+    v51 = sub(&amp;flag[14], 1);
+    v52 = mul(v51, -294967296);
+    v53 = add(v52, 55);
+    sub(v53, 3);
+    v54 = add(&amp;flag[15], 1);
+    v55 = add(v54, 2);
+    v56 = add(v55, 3);
+    v57 = add(v56, 4);
+    v58 = add(v57, 5);
+    v59 = add(v58, 6);
+    v60 = add(v59, 7);
+    add(v60, 20);
+    v61 = mul(&amp;flag[16], 10);
+    v62 = sub(v61, 5);
+    v63 = mul(v62, 8);
+    v64 = add(v63, 9);
+    add(v64, 48);
+    v65 = add(&amp;flag[17], 7);
+    v66 = add(v65, 6);
+    v67 = add(v66, 5);
+    v68 = add(v67, 4);
+    v69 = add(v68, 3);
+    v70 = add(v69, 2);
+    v71 = add(v70, 1);
+    add(v71, 20);
+    v72 = add(&amp;flag[18], 7);
+    v73 = add(v72, 2);
+    v74 = add(v73, 4);
+    v75 = add(v74, 3);
+    v76 = add(v75, 6);
+    v77 = add(v76, 5);
+    v78 = add(v77, 1);
+    add(v78, 20);
+    v79 = mul(&amp;flag[19], 1000000);
+    v80 = sub(v79, 999999);
+    v81 = mul(v80, 4);
+    v82 = add(v81, 50);
+    sub(v82, 1);
+    v83 = sub(&amp;flag[20], 1);
+    v84 = mul(v83, -294967296);
+    v85 = add(v84, 49);
+    sub(v85, 1);
+    v86 = sub(&amp;flag[21], 1);
+    v87 = mul(v86, 1000000000);
+    v88 = add(v87, 54);
+    v89 = sub(v88, 1);
+    v90 = add(v89, 1000000000);
+    sub(v90, 1000000000);
+    v91 = add(&amp;flag[22], 49);
+    v92 = sub(v91, 1);
+    v93 = add(v92, 2);
+    sub(v93, 1);
+    v94 = mul(&amp;flag[23], 10);
+    v95 = sub(v94, 5);
+    v96 = mul(v95, 8);
+    v97 = add(v96, 9);
+    add(v97, 48);
+    v98 = add(&amp;flag[24], 1);
+    v99 = add(v98, 3);
+    v100 = add(v99, 3);
+    v101 = add(v100, 3);
+    v102 = add(v101, 6);
+    v103 = add(v102, 6);
+    v104 = add(v103, 6);
+    add(v104, 20);
+    v105 = add(&amp;flag[25], 55);
+    v106 = sub(v105, 33);
+    v107 = add(v106, 44);
+    v108 = sub(v107, 11);
+    add(v108, 42);
+    add(&amp;flag[26], flag[25]);
+    add(&amp;flag[27], flag[12]);
+    v109 = flag[27];
+    v110 = sub(&amp;flag[28], 1);
+    v111 = add(v110, v109);
+    sub(v111, 1);
+    v112 = flag[23];
+    v113 = sub(&amp;flag[29], 1);
+    v114 = mul(v113, 1000000);
+    add(v114, v112);
+    v115 = flag[27];
+    v116 = add(&amp;flag[30], 1);
+    mul(v116, v115);
+    add(&amp;flag[31], flag[30]);
+    printf(&quot;CTF{&quot;);
+    for (int j = 0; j &lt; 32; ++j)
+        printf(&quot;%c&quot;, char(flag[j]));
+    puts(&quot;}&quot;);
+    return 0;
+}</code></pre>
+<p>直接输出flag</p>
+<pre><code class="c++">Your flag is:
+CTF{daf8f4d816261a41a115052a1bc21ade}</code></pre>
+
+            <hr>
+          </div>
+          <br>
+          <div>
+            <p>
+            
+              <span>
+                <i class="iconfont icon-inbox"></i>
+                
+                  <a class="hover-with-bg" href="/categories/ctf">ctf</a>
+                  &nbsp;
+                
+              </span>&nbsp;&nbsp;
+            
+            
+              <span>
+                <i class="iconfont icon-tag"></i>
+                
+                  <a class="hover-with-bg" href="/tags/ctf">ctf</a>
+                
+                  <a class="hover-with-bg" href="/tags/re">re</a>
+                
+                  <a class="hover-with-bg" href="/tags/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C">攻防世界</a>
+                
+              </span>
+            
+            </p>
+            
+              <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" target="_blank" rel="nofollow noopener noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="d-none d-lg-block col-lg-2 toc-container">
+      
+  <div id="toc">
+    <p class="h4"><i class="far fa-list-alt"></i>&nbsp;目录</p>
+    <div id="tocbot"></div>
+  </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- custom -->
+
+
+<!-- Comments -->
+<div class="col-lg-7 mx-auto nopadding-md">
+  <div class="container comments mx-auto" id="comments">
+    
+      <br><br>
+      
+      
+  <div id="gitalk-container"></div>
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/blueimp-md5@2.11.1/js/md5.min.js"></script>
+  <script type="text/javascript">
+    var gitalk = new Gitalk({
+      clientID: '03ed5c136827a32c890a',
+      clientSecret: '1945beadf21785378114a7137b12ad7b6ec28256',
+      repo: 'comments',
+      owner: 'schrodinger17',
+      admin: 'schrodinger17',
+      id: md5(location.pathname),
+      language: 'zh-CN',
+      perPage: 15,
+      pagerDirection: 'last',
+      createIssueManually: 'false',
+      distractionFreeMode: 'false'
+    });
+
+    gitalk.render('gitalk-container')
+  </script>
+
+
+    
+  </div>
+</div>
+
+    
+  </main>
+
+  
+    <a class="z-depth-1" id="scroll-top-button" href="#" role="button">
+      <i class="fa fa-chevron-up scroll-top-arrow" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>
+    <i class="iconfont icon-love"></i>
+    <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+    <br>
+
+    
+  
+    <!-- 不蒜子统计PV -->
+    
+    &nbsp;<span id="busuanzi_container_site_pv">总访问量 
+          <span id="busuanzi_value_site_pv"></span> 次</span>&nbsp;
+  
+  
+    <!-- 不蒜子统计UV -->
+    
+    &nbsp;<span id="busuanzi_container_site_uv">总访客数 
+            <span id="busuanzi_value_site_uv"></span> 人</span>&nbsp;
+  
+  <br>
+
+
+
+    
+
+
+    <!-- cnzz Analytics icon -->
+    
+
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script src="/lib/jquery/jquery.min.js" ></script>
+<script src="/lib/popper/popper.min.js" ></script>
+<script src="/lib/bootstrap/js/bootstrap.min.js" ></script>
+<script src="/lib/mdbootstrap/js/mdb.min.js" ></script>
+<script src="/js/main.js" ></script>
+
+
+  <script src="/js/lazyload.js" ></script>
+
+
+
+  
+    <script src="/lib/tocbot/tocbot.min.js" ></script>
+  
+  <script src="/js/post.js" ></script>
+
+
+
+  <script src="/lib/smooth-scroll/smooth-scroll.min.js" ></script>
+
+
+
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+<!-- Plugins -->
+
+
+  
+
+  
+    <!-- Google Analytics -->
+    <script>
+      (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+          (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o),
+          m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+      })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+      ga('create', 'UA-128484503-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  
+
+  
+
+  
+
+  <!-- cnzz Analytics -->
+  
+
+
+
+  <script src="/lib/prettify/prettify.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      $('pre').addClass('prettyprint  ');
+      prettyPrint();
+    })
+  </script>
+
+
+
+  <script src="/lib/typed/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "攻防世界-re部分题解（四）&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script src="/lib/anchor/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "false",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      getSearchFile(path);
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script src="/lib/fancybox/jquery.fancybox.min.js" ></script>
+  <script>
+    $("#post img:not(.no-zoom img, img[no-zoom])").each(
+      function () {
+        var element = document.createElement("a");
+        $(element).attr("data-fancybox", "images");
+        $(element).attr("href", $(this).attr("src"));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+  
+  
+    <script type="text/javascript">
+      //定义获取词语下标
+      var a_idx = 0;
+      jQuery(document).ready(function ($) {
+        //点击body时触发事件
+        $("body").click(function (e) {
+          //需要显示的词语
+          var a = new Array("富强", "民主", "文明", "和谐", "自由", "平等", "公正", "法治", "爱国", "敬业", "诚信", "友善");
+          //设置词语给span标签
+          var $i = $("<span/>").text(a[a_idx]);
+          //下标等于原来下标+1  余 词语总数
+          a_idx = (a_idx + 1) % a.length;
+          //获取鼠标指针的位置，分别相对于文档的左和右边缘。
+          //获取x和y的指针坐标
+          var x = e.pageX, y = e.pageY;
+          //在鼠标的指针的位置给$i定义的span标签添加css样式
+          $i.css({
+            "z-index": 999,
+            "top": y - 20,
+            "left": x,
+            "position": "absolute",
+            "font-weight": "bold",
+            "color": rand_color()
+          });
+          // 随机颜色
+          function rand_color() {
+            return "rgb(" + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + ")"
+          }
+          //在body添加这个标签
+          $("body").append($i);
+          //animate() 方法执行 CSS 属性集的自定义动画。
+          //该方法通过CSS样式将元素从一个状态改变为另一个状态。CSS属性值是逐渐改变的，这样就可以创建动画效果。
+          //详情请看http://www.w3school.com.cn/jquery/effect_animate.asp
+          $i.animate({
+            //将原来的位置向上移动180
+            "top": y - 180,
+            "opacity": 0
+            //1500动画的速度
+          }, 1500, function () {
+            //时间到了自动删除
+            $i.remove();
+          });
+        });
+      })
+      ;
+    </script>
+  
+
+
+
+
+
+
+
+</body>
+</html>
