@@ -131,7 +131,7 @@
                   
                   &nbsp;<i class="far fa-chart-bar"></i>
                   <span class="post-count">
-                    2.2k 字
+                    3.6k 字
                   </span>&nbsp;
                 
 
@@ -139,7 +139,7 @@
                   
                   &nbsp;<i class="far fa-clock"></i>
                   <span class="post-count">
-                      12 分钟
+                      18 分钟
                   </span>&nbsp;
                 
 
@@ -593,7 +593,198 @@ v8 = ord(a1[9]) + ord(a1[25])
 print(chr(v2)+chr(v3)+chr(v4)+chr(v5)+chr(v6)+chr(v7)+chr(v8))</code></pre>
 <p>输出结果</p>
 <pre><code>rhelheg</code></pre><p>直接提交不对，要套上外面的格式，试了一下比赛的名称，通过。</p>
+<h4 id="asong"><a href="#asong" class="headerlink" title="asong"></a>asong</h4><p>这题还是很考验对于算法的逆向能力的</p>
+<p>首先IDA打开</p>
+<pre><code class="c++">__int64 __fastcall main(__int64 a1, char **a2, char **a3)
+{
+  void *that_girl; // ST00_8
+  const char *flag; // ST08_8
 
+  that_girl = malloc(0xBCuLL);
+  flag = (const char *)malloc(80uLL);
+  sub_400BBF();
+  read_0((__int64)flag);
+  sub_400C02((__int64)flag);                   // 输入的是QCTF{***}的格式，在这里取出中间的部分
+  readfile(&quot;that_girl&quot;, (__int64)that_girl);
+  sub_400E54(flag, (__int64)that_girl);
+  return 0LL;
+}</code></pre>
+<p>程序流程是这样，先输入flag，然后验证格式，取中间部分，然后读取另一个文件中的内容进行一些处理，然后将输入的flag和读取出来的内容进行一个比较，输出到out里面，重点来看一下几个函数</p>
+<pre><code class="c++">int __fastcall readfile(const char *a1, __int64 a2)
+{
+  int v2; // eax
+  __int64 v4; // [rsp+0h] [rbp-20h]
+  char buf; // [rsp+13h] [rbp-Dh]
+  int fd; // [rsp+14h] [rbp-Ch]
+  unsigned __int64 v7; // [rsp+18h] [rbp-8h]
+
+  v7 = __readfsqword(0x28u);
+  fd = open(a1, 0, a2, a1);
+  while ( read(fd, &amp;buf, 1uLL) == 1 )
+  {
+    v2 = sub_400936(buf);
+    ++*(_DWORD *)(4LL * v2 + v4);
+  }
+  return close(fd);
+}</code></pre>
+<p>这里明显看到进行了一个词频统计，但是看这个伪代码完全看不出来处理之后的v4和分配出来的a2有什么关联，这点在C伪代码里面不是很明显，但是在汇编里面可以看的很清楚</p>
+<pre><code class="asm">call    sub_400936
+cdqe
+lea     rdx, ds:0[rax*4]
+mov     rax, [rbp+var_20]
+add     rax, rdx
+mov     edx, [rax]
+add     edx, 1
+mov     [rax], edx</code></pre>
+<p>这里其实很清楚，<code>sub_400936</code>就是我们用来处理的函数，它的返回值放到了<code>rax</code>，<code>cdqe</code>的拓展在这里可以不用考虑，差不多算是个类型转换，<code>ds:0</code>是之前分配的空间，把<code>ds:0[rax*4]</code>的地址复制进<code>rdx</code>，后面的一句并没有什么意义，将这个地址中的值赋给<code>rax</code>，就是0，<code>add</code>之后rax的值就是我们需要的地址，接下来把该地址内存的的值取出来，加一然后再放回去，这个操作逻辑很容易理解。</p>
+<p>这个函数过后构建了一个词频表，然后进行关键的变换。</p>
+<pre><code class="c++">unsigned __int64 __fastcall sub_400E54(const char *flag, __int64 that_girl)
+{
+  int i; // [rsp+18h] [rbp-48h]
+  int v4; // [rsp+1Ch] [rbp-44h]
+  char v5[56]; // [rsp+20h] [rbp-40h]
+  unsigned __int64 v6; // [rsp+58h] [rbp-8h]
+
+  v6 = __readfsqword(0x28u);
+  v4 = strlen(flag);
+  for ( i = 0; i &lt; v4; ++i )
+    v5[i] = *(_DWORD *)(4LL * (signed int)sub_400936(flag[i]) + that_girl);
+  sub_400D33((unsigned __int8 *)v5);
+  sub_400DB4(v5, v4);
+  writefile((__int64)v5, &quot;out&quot;, v4);
+  return __readfsqword(0x28u) ^ v6;
+}</code></pre>
+<p>首先就是一个换表，然后就是两个函数的操作之后输出到了<code>out</code>文件里面，这个是我们已知的，再去看看两个关键函数</p>
+<pre><code class="c++">__int64 __fastcall sub_400D33(unsigned __int8 *a1)
+{
+  __int64 result; // rax
+  _BYTE v2[5]; // [rsp+13h] [rbp-5h]
+
+  v2[4] = 0;
+  *(_DWORD *)v2 = *a1;
+  while ( dword_6020A0[*(signed int *)&amp;v2[1]] )
+  {
+    a1[*(signed int *)&amp;v2[1]] = a1[dword_6020A0[*(signed int *)&amp;v2[1]]];
+    *(_DWORD *)&amp;v2[1] = dword_6020A0[*(signed int *)&amp;v2[1]];
+  }
+  result = v2[0];
+  a1[*(signed int *)&amp;v2[1]] = v2[0];
+  return result;
+}</code></pre>
+<p>这是一个简单的次序上的调整，可以很快的逆出来</p>
+<pre><code class="c++">_BYTE *__fastcall sub_400DB4(_BYTE *a1, int a2)
+{
+  _BYTE *result; // rax
+  char v3; // [rsp+17h] [rbp-5h]
+  int i; // [rsp+18h] [rbp-4h]
+
+  v3 = *a1 &gt;&gt; 5;
+  for ( i = 0; a2 - 1 &gt; i; ++i )
+    a1[i] = 8 * a1[i] | (a1[i + 1] &gt;&gt; 5);
+  result = &amp;a1[i];
+  *result = 8 * *result | v3;
+  return result;
+}</code></pre>
+<p>这个函数里有些很有意思的操作，这个或操作看着很熟悉，这是显然是一个换位的操作，但是这里用了前一个数和后一个数之间的交错换位，逆起来就有了一些难度。</p>
+<p>我也看过一些其他大佬的wp，这里普遍都是采用了爆破的方法，我不是很喜欢，虽然爆破可能更加省时省力，我还是想更加加深一下逆向位运算的熟练程度。</p>
+<p>经过观察我们可以很轻松的发现，只需要将所有的数拆成两部分，再按照反方向运算回去就可以了，非常简单。</p>
+<p>这样的话所有的内容就分析完了，这里我用python来做的逆向（后悔没有用C++）</p>
+<pre><code class="python">def sub_400936(a1):
+    result = a1 - 10
+    if a1 == 10:
+        result = a1 + 35
+    if a1 == 32 or a1 == 33 or a1 == 34:
+        result = a1 + 10
+    if a1 == 39:
+        result = a1 + 2
+    if a1 == 44:
+        result = a1 - 4
+    if a1 == 46:
+        result = a1 - 7
+    if a1 == 58 or a1 == 59:
+        result = a1 - 21
+    if a1 == 63:
+        result = a1 - 27
+    if a1 == 95:
+        result = a1 - 49
+
+    if a1 &lt;= 47 or a1 &gt; 48:
+        if a1 &lt;= 64 or a1 &gt; 90:
+            if 96 &lt; a1 &lt;= 122:
+                result = a1 - 87
+        else:
+            result = a1 - 55
+    else:
+        result = a1 - 48
+    return result
+
+
+def get_that_girl():
+    adic = {}
+    fp = open(&quot;that_girl&quot;, &quot;r&quot;)
+    while True:
+        data = fp.read(1)
+        if not data:
+            break
+        else:
+            data = sub_400936(ord(data))
+            if data in adic:
+                adic[data] = adic[data] + 1
+            else:
+                adic[data] = 1
+    fp.close()
+    return adic
+
+
+def table():
+    t = {}
+    for ia in range(256):
+        t[sub_400936(ia)] = ia
+    return t
+
+
+a1 = [0xec, 0x29, 0xe3, 0x41, 0xe1, 0xf7, 0xaa, 0x1d, 0x29, 0xed, 0x29, 0x99, 0x39, 0xf3, 0xb7, 0xa9, 0xe7, 0xac, 0x2b,
+      0xb7, 0xab, 0x40, 0x9f, 0xa9, 0x31, 0x35, 0x2c, 0x29, 0xef, 0xA8, 0x3d, 0x4b, 0xb0, 0xe9, 0xe1, 0x68, 0x7b, 0x41]
+target = []
+part1 = []
+part2 = []
+for i in range(len(a1)):
+    part2.append((a1[i] &gt;&gt; 3) &amp; 0xff)
+    part1.append((a1[i] &lt;&lt; 5) &amp; 0xff)
+target.append(part2[0] | part1[len(a1) - 1])
+for i in range(1, len(a1)):
+    target.append(part2[i] | part1[i - 1])
+
+dword_6020A0 = [22, 0, 6, 2, 30, 24, 9, 1, 21, 7, 18, 10, 8, 12, 17, 23, 13, 4, 3, 14, 19, 11, 20, 16, 15, 5, 25, 36,
+                27, 28, 29, 37, 31, 32, 33, 26, 34, 35]
+i = 0
+index = []
+while (dword_6020A0[i]):
+    index.append(i)
+    i = dword_6020A0[i]
+index.append(1)
+index.reverse()
+
+a2 = [0 for i in range(len(index))]
+
+for i in index:
+    if i == 1:
+        a2[0] = target[i]
+    a2[i] = target[dword_6020A0.index(i)]
+
+dic = get_that_girl()
+dic_ = {v: k for k, v in dic.items()}
+
+flag = &#39;QCTF{&#39;
+for i in a2:
+    flag += chr(table()[dic_[i]])
+flag += &#39;}&#39;
+
+print(flag)
+</code></pre>
+<p>最后一部分最开始是打算爆破，但是想到了一种更简便的方法，就是先把所有的ASCII码值遍历一遍，制作一个表，可以避免双重循环爆破，虽然实际上爆破也并不麻烦。</p>
+<p>最后输出flag</p>
+<pre><code>QCTF{that_girl_saying_no_for_your_vindicate}</code></pre>
             <hr>
           </div>
           <br>
