@@ -131,7 +131,7 @@
                   
                   &nbsp;<i class="far fa-chart-bar"></i>
                   <span class="post-count">
-                    3.6k 字
+                    4.1k 字
                   </span>&nbsp;
                 
 
@@ -139,7 +139,7 @@
                   
                   &nbsp;<i class="far fa-clock"></i>
                   <span class="post-count">
-                      18 分钟
+                      20 分钟
                   </span>&nbsp;
                 
 
@@ -784,7 +784,76 @@ print(flag)
 </code></pre>
 <p>最后一部分最开始是打算爆破，但是想到了一种更简便的方法，就是先把所有的ASCII码值遍历一遍，制作一个表，可以避免双重循环爆破，虽然实际上爆破也并不麻烦。</p>
 <p>最后输出flag</p>
-<pre><code>QCTF{that_girl_saying_no_for_your_vindicate}</code></pre>
+<pre><code>QCTF{that_girl_saying_no_for_your_vindicate}</code></pre><h4 id="signin"><a href="#signin" class="headerlink" title="signin"></a>signin</h4><p>找一道比较简单的题目保持一下做题的感觉</p>
+<p>用Ghidra打开，部分函数的签名有问题，有时候将RDX误当作函数的参数，但是函数只需要两个参数，这里我打开IDA看了一下，IDA做的要比Ghidra好很多，根据汇编修改了一下函数签名，看一下主要的函数部分。</p>
+<pre><code class="c++">undefined8 FUN_00100a21(void)
+
+{
+  int iVar1;
+  long in_FS_OFFSET;
+  undefined local_4a8 [16];
+  undefined local_498 [16];
+  undefined local_488 [16];
+  undefined local_478 [16];
+  undefined local_468 [112];
+  undefined local_3f8 [1000];
+  long local_10;
+
+  local_10 = *(long *)(in_FS_OFFSET + 0x28);
+  puts(&quot;[sign in]&quot;);
+  printf(&quot;[input your flag]: &quot;);
+  __isoc99_scanf(&amp;DAT_00100c26,local_468);
+                    /* 字符串转16进制 */
+  FUN_0010096a(local_468,local_3f8);
+  __gmpz_init_set_str(local_478,&quot;ad939ff59f6e70bcbfad406f2494993757eee98b91bc244184a377520d06fc35&quot;,
+                      0x10);
+  __gmpz_init_set_str(local_488,local_3f8,0x10);
+  __gmpz_init_set_str(local_4a8,
+
+                      &quot;103461035900816914121390101299049044413950405173712170434161686539878160984549&quot;
+                      ,10);
+  __gmpz_init_set_str(local_498,&quot;65537&quot;,10);
+  __gmpz_powm(local_488,local_488,local_498,local_4a8);
+  iVar1 = __gmpz_cmp(local_488,local_478);
+  if (iVar1 == 0) {
+    puts(&quot;TTTTTTTTTTql!&quot;);
+  }
+  else {
+    puts(&quot;GG!&quot;);
+  }
+  if (local_10 != *(long *)(in_FS_OFFSET + 0x28)) {
+                    /* WARNING: Subroutine does not return */
+    __stack_chk_fail();
+  }
+  return 0;
+}</code></pre>
+<p>首先是需要我们输入字符串，然后进行了一些大数的操作，这里是利用了一个库，查了一下mannual，很好理解，输入之后有一个函数对我们输入的字符串进行了一些操作，进入这个函数</p>
+<pre><code class="c++">void FUN_0010096a(char *param_1,long param_2)
+
+{
+  size_t sVar1;
+  int local_20;
+  int local_1c;
+
+  local_20 = 0;
+  local_1c = 0;
+  while( true ) {
+    sVar1 = strlen(param_1);
+    if (sVar1 &lt;= (ulong)(long)local_20) break;
+    *(undefined *)(local_1c + param_2) = (&amp;DAT_00302010)[(int)(param_1[local_20] &gt;&gt; 4)];
+    *(undefined *)((long)local_1c + 1 + param_2) =
+         (&amp;DAT_00302010)[(int)((int)param_1[local_20] &amp; 0xf)];
+    local_20 = local_20 + 1;
+    local_1c = local_1c + 2;
+  }
+  return;
+}</code></pre>
+<p>看到分别取低四位和高四位的操作之后立刻反应过来是把字符串转换为16进制串，耐心看一下很好理解。</p>
+<p>回到主函数，看到乘幂取模操作，发现是RSA，用yafu分解一下<code>103461035900816914121390101299049044413950405173712170434161686539878160984549</code></p>
+<p>分解的也很快，这个数还是不够大</p>
+<pre><code>prp39 = 282164587459512124844245113950593348271
+prp39 = 366669102002966856876605669837014229419</code></pre><p>然后可以直接在线解密也是可以解出来的，由于gmpy2安装不上，直接在线解密了</p>
+<pre><code>suctf{Pwn_@_hundred_years}</code></pre>
             <hr>
           </div>
           <br>
