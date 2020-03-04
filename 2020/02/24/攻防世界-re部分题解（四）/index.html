@@ -131,7 +131,7 @@
                   
                   &nbsp;<i class="far fa-chart-bar"></i>
                   <span class="post-count">
-                    4.1k 字
+                    4.2k 字
                   </span>&nbsp;
                 
 
@@ -139,7 +139,7 @@
                   
                   &nbsp;<i class="far fa-clock"></i>
                   <span class="post-count">
-                      20 分钟
+                      21 分钟
                   </span>&nbsp;
                 
 
@@ -853,7 +853,30 @@ print(flag)
 <p>分解的也很快，这个数还是不够大</p>
 <pre><code>prp39 = 282164587459512124844245113950593348271
 prp39 = 366669102002966856876605669837014229419</code></pre><p>然后可以直接在线解密也是可以解出来的，由于gmpy2安装不上，直接在线解密了</p>
-<pre><code>suctf{Pwn_@_hundred_years}</code></pre>
+<pre><code>suctf{Pwn_@_hundred_years}</code></pre><h4 id="key"><a href="#key" class="headerlink" title="key"></a>key</h4><p>过程很复杂，动态调试绕过文件检测之后调试出flag</p>
+<pre><code>idg_cni~bjbfi|gsxb</code></pre><h4 id="notsequence"><a href="#notsequence" class="headerlink" title="notsequence"></a>notsequence</h4><p>题目还是很不错，逻辑很清楚，仔细观察可以看出来杨辉三角就解决了，一共20层，全部组合起来取md5就可以了</p>
+<pre><code class="python">import hashlib
+
+
+def create(line):  # 生成杨辉三角的一行
+    L = [1]
+    for x in range(1, len(line)):
+        L.append(line[x] + line[x - 1])
+    L.append(1)
+    return L
+
+
+L = [1]
+raw_flag = &#39;1&#39;
+for x in range(19):
+    L = create(L)
+    raw_flag += &#39;&#39;.join([str(i) for i in L])
+# print(raw_flag)
+m = hashlib.md5(raw_flag.encode()).hexdigest()
+
+print(&#39;RCTF{&#39; + m + &#39;}&#39;)</code></pre>
+<p>输出flag</p>
+<pre><code>RCTF{37894beff1c632010dd6d524aa9604db}</code></pre>
             <hr>
           </div>
           <br>
