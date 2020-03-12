@@ -16,7 +16,7 @@
   <meta name="description" content="">
   <meta name="author" content="Aorui Zhang">
   <meta name="keywords" content="">
-  <title>分类 - ctf ~ My Tiny Ideas</title>
+  <title>攻防世界-re部分题解（五） ~ My Tiny Ideas</title>
 
   <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css"  >
 <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css"  >
@@ -39,7 +39,7 @@
 
 
 <body>
-  <header style="height: 80vh;">
+  <header style="height: 70vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
@@ -118,6 +118,41 @@
             </span>
 
             
+              <br>
+              
+                <p class="mt-3">
+                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>&nbsp;
+                  星期四, 三月 12日 2020, 11:23 上午
+                </p>
+              
+
+              <p>
+                
+                  
+                  &nbsp;<i class="far fa-chart-bar"></i>
+                  <span class="post-count">
+                    969 字
+                  </span>&nbsp;
+                
+
+                
+                  
+                  &nbsp;<i class="far fa-clock"></i>
+                  <span class="post-count">
+                      5 分钟
+                  </span>&nbsp;
+                
+
+                
+                  <!-- 不蒜子统计文章PV -->
+                  
+                  &nbsp;<i class="far fa-eye" aria-hidden="true"></i>&nbsp;
+                  <span id="busuanzi_container_page_pv">
+                    <span id="busuanzi_value_page_pv"></span> 次
+                  </span>&nbsp;
+                
+              </p>
+            
           </div>
 
           
@@ -128,60 +163,296 @@
 
   <main>
     
-      <div class="container nopadding-md">
-        <div class="py-5 z-depth-3" id="board">
-          
-          <div class="container">
-            <div class="row">
-              <div class="col-12 col-md-10 m-auto">
-                
-
-<div class="list-group">
-<!--  <p class="h4">共计 3 篇文章</p>-->
-  <hr>
-  
-    
       
-      <p class="h5">2020</p>
-    
-    <a href="/2020/01/11/BUUCTF-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">BUUCTF-re部分题解</span>
-      <span style="float: right;">01-11</span>
-    </a>
-  
-    
-    <a href="/2020/01/11/bugku-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">bugku-re部分题解</span>
-      <span style="float: right;">01-11</span>
-    </a>
-  
-    
-    <a href="/2020/01/11/CGCTF-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">CGCTF-re部分题解</span>
-      <span style="float: right;">01-11</span>
-    </a>
-  
-</div>
 
-  <nav aria-label="index posts navigation">
-    <span class="pagination pg-blue justify-content-center mt-5" id="pagination">
-      <a class="extend prev" rel="prev" href="/categories/ctf/"><i class="fas fa-angle-double-left"></i></a><a class="page-number" href="/categories/ctf/">1</a><span class="page-number current">2</span>
-    </span>
-  </nav>
-  
-  <script>
-    for (ele of document.getElementById("pagination").getElementsByClassName("page-number")) {
-      ele.href += '#board';
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="py-5 z-depth-3" id="board">
+        <div class="post-content mx-auto" id="post">
+          <div class="markdown-body">
+            <h4 id="easy-Maze"><a href="#easy-Maze" class="headerlink" title="easy_Maze"></a>easy_Maze</h4><p>看名字就知道是个迷宫题，IDA打开看看</p>
+<pre><code class="c++">int __cdecl main(int argc, const char **argv, const char **envp)
+{
+  __int64 v3; // rax
+  int v5[7]; // [rsp+0h] [rbp-270h]
+  int v6; // [rsp+C0h] [rbp-1B0h]
+  int v7[7]; // [rsp+D0h] [rbp-1A0h]
+  int v8; // [rsp+190h] [rbp-E0h]
+  int v9[7]; // [rsp+1A0h] [rbp-D0h]
+  int v10; // [rsp+1BCh] [rbp-B4h]
+  int v11; // [rsp+1C0h] [rbp-B0h]
+  int v12; // [rsp+1C4h] [rbp-ACh]
+  int v13; // [rsp+1C8h] [rbp-A8h]
+  int v14; // [rsp+1CCh] [rbp-A4h]
+  int v15; // [rsp+1D0h] [rbp-A0h]
+  int v16; // [rsp+1D4h] [rbp-9Ch]
+  int v17; // [rsp+1D8h] [rbp-98h]
+  int v18; // [rsp+1DCh] [rbp-94h]
+  int v19; // [rsp+1E0h] [rbp-90h]
+  int v20; // [rsp+1E4h] [rbp-8Ch]
+  int v21; // [rsp+1E8h] [rbp-88h]
+  int v22; // [rsp+1ECh] [rbp-84h]
+  int v23; // [rsp+1F0h] [rbp-80h]
+  int v24; // [rsp+1F4h] [rbp-7Ch]
+  int v25; // [rsp+1F8h] [rbp-78h]
+  int v26; // [rsp+1FCh] [rbp-74h]
+  int v27; // [rsp+200h] [rbp-70h]
+  int v28; // [rsp+204h] [rbp-6Ch]
+  int v29; // [rsp+208h] [rbp-68h]
+  int v30; // [rsp+20Ch] [rbp-64h]
+  int v31; // [rsp+210h] [rbp-60h]
+  int v32; // [rsp+214h] [rbp-5Ch]
+  int v33; // [rsp+218h] [rbp-58h]
+  int v34; // [rsp+21Ch] [rbp-54h]
+  int v35; // [rsp+220h] [rbp-50h]
+  int v36; // [rsp+224h] [rbp-4Ch]
+  int v37; // [rsp+228h] [rbp-48h]
+  int v38; // [rsp+22Ch] [rbp-44h]
+  int v39; // [rsp+230h] [rbp-40h]
+  int v40; // [rsp+234h] [rbp-3Ch]
+  int v41; // [rsp+238h] [rbp-38h]
+  int v42; // [rsp+23Ch] [rbp-34h]
+  int v43; // [rsp+240h] [rbp-30h]
+  int v44; // [rsp+244h] [rbp-2Ch]
+  int v45; // [rsp+248h] [rbp-28h]
+  int v46; // [rsp+24Ch] [rbp-24h]
+  int v47; // [rsp+250h] [rbp-20h]
+  int v48; // [rsp+254h] [rbp-1Ch]
+  int v49; // [rsp+258h] [rbp-18h]
+  int v50; // [rsp+25Ch] [rbp-14h]
+  int v51; // [rsp+260h] [rbp-10h]
+
+  v9[0] = 1;
+  v9[1] = 1;
+  v9[2] = -1;
+  v9[3] = 1;
+  v9[4] = -1;
+  v9[5] = 1;
+  v9[6] = -1;
+  v10 = 0;
+  v11 = 0;
+  v12 = 0;
+  v13 = 0;
+  v14 = 1;
+  v15 = -1;
+  v16 = 0;
+  v17 = 0;
+  v18 = 1;
+  v19 = 0;
+  v20 = 0;
+  v21 = 1;
+  v22 = 0;
+  v23 = -1;
+  v24 = -1;
+  v25 = 0;
+  v26 = 1;
+  v27 = 0;
+  v28 = 1;
+  v29 = -1;
+  v30 = 0;
+  v31 = -1;
+  v32 = 0;
+  v33 = 0;
+  v34 = 0;
+  v35 = 0;
+  v36 = 0;
+  v37 = 1;
+  v38 = -1;
+  v39 = -1;
+  v40 = 1;
+  v41 = -1;
+  v42 = 0;
+  v43 = -1;
+  v44 = 2;
+  v45 = 1;
+  v46 = -1;
+  v47 = 0;
+  v48 = 0;
+  v49 = -1;
+  v50 = 1;
+  v51 = 0;
+  memset(v7, 0, 0xC0uLL);
+  v8 = 0;
+  memset(v5, 0, 0xC0uLL);
+  v6 = 0;
+  Step_0((int (*)[7])v9, 7, (int (*)[7])v7);
+  Step_1((int (*)[7])v7, 7, (int (*)[7])v5);
+  v3 = std::operator&lt;&lt;&lt;std::char_traits&lt;char&gt;&gt;(&amp;_bss_start, &quot;Please help me out!&quot;);
+  std::ostream::operator&lt;&lt;(v3, &amp;std::endl&lt;char,std::char_traits&lt;char&gt;&gt;);
+  Step_2((int (*)[7])v5, 7);
+  system(&quot;pause&quot;);
+  return 0;
+}</code></pre>
+<p>首先新建了三个地图，初始化了其中一个，然后利用下面两步分别初始化另外两个图</p>
+<pre><code class="c++">Step_0((int (*)[7])v9, 7, (int (*)[7])v7);
+Step_1((int (*)[7])v7, 7, (int (*)[7])v5);</code></pre>
+<p>具体的操作在<code>Step_2((int (*)[7])v5, 7)</code>里，可以看到只用了最后的一个图，可以直接动态调试<code>dump</code>出地图来，然后看一下具体操作</p>
+<pre><code class="c++">__int64 __fastcall Step_2(int (*a1)[7])
+{
+  int v1; // eax
+  __int64 v2; // rax
+  __int64 v3; // rax
+  __int64 result; // rax
+  __int64 v5; // rax
+  char v6[35]; // [rsp+10h] [rbp-30h]
+  char v7; // [rsp+33h] [rbp-Dh]
+  int v8; // [rsp+34h] [rbp-Ch]
+  int v9; // [rsp+38h] [rbp-8h]
+  int v10; // [rsp+3Ch] [rbp-4h]
+
+  v10 = 0;
+  v9 = 0;
+  v8 = 0;
+  while ( v8 &lt;= 29 &amp;&amp; (*a1)[7 * v10 + v9] == 1 )
+  {
+    std::operator&gt;&gt;&lt;char,std::char_traits&lt;char&gt;&gt;(&amp;std::cin, &amp;v7);
+    v1 = v8++;
+    v6[v1] = v7;
+    if ( v7 == 100 )
+    {
+      ++v9;
     }
-  </script>
-
-
-
-              </div>
-            </div>
+    else if ( v7 &gt; 100 )
+    {
+      if ( v7 == 115 )
+      {
+        ++v10;
+      }
+      else
+      {
+        if ( v7 != 119 )
+          goto LABEL_14;
+        --v10;
+      }
+    }
+    else if ( v7 == 97 )
+    {
+      --v9;
+    }
+    else
+    {
+LABEL_14:
+      v2 = std::operator&lt;&lt;&lt;std::char_traits&lt;char&gt;&gt;(&amp;_bss_start, &quot;include illegal words.&quot;);
+      std::ostream::operator&lt;&lt;(v2, &amp;std::endl&lt;char,std::char_traits&lt;char&gt;&gt;);
+    }
+  }
+  if ( v10 != 6 || v9 != 6 )
+  {
+    v5 = std::operator&lt;&lt;&lt;std::char_traits&lt;char&gt;&gt;(&amp;_bss_start, &quot;Oh no!,Please try again~~&quot;);
+    std::ostream::operator&lt;&lt;(v5, &amp;std::endl&lt;char,std::char_traits&lt;char&gt;&gt;);
+    result = 0LL;
+  }
+  else
+  {
+    v3 = std::operator&lt;&lt;&lt;std::char_traits&lt;char&gt;&gt;(&amp;_bss_start, &quot;Congratulations!&quot;);
+    std::ostream::operator&lt;&lt;(v3, &amp;std::endl&lt;char,std::char_traits&lt;char&gt;&gt;);
+    output(v6, v8);
+    result = 1LL;
+  }
+  return result;
+}</code></pre>
+<p>难度不是很大，经典的<code>wasd</code>，只能经过1的位置，走到最后就可以了，整个路径的操作就是flag，格式为<code>UNCTF{}</code></p>
+<p><code>dump</code>出的地图为</p>
+<pre><code>1 0 0 1 1 1 1
+1 0 1 1 0 0 1
+1 1 1 0 1 1 1
+0 0 0 1 1 0 0
+1 1 1 1 0 0 0
+1 0 0 0 1 1 1
+1 1 1 1 1 0 1</code></pre><p>走出来就可以了</p>
+<pre><code>ssddwdwdddssaasasaaassddddwdds</code></pre><p>验证一下</p>
+<pre><code class="bash">root@rycbar17th:~# ./easy_Maze 
+Please help me out!
+ssddwdwdddssaasasaaassddddwdds
+Congratulations!
+Thanks! Give you a flag: UNCTF{ssddwdwdddssaasasaaassddddwdds}
+sh: 1: pause: not found</code></pre>
+<p>得到flag</p>
+<pre><code>UNCTF{ssddwdwdddssaasasaaassddddwdds}</code></pre>
+            <hr>
+          </div>
+          <br>
+          <div>
+            <p>
+            
+              <span>
+                <i class="iconfont icon-inbox"></i>
+                
+                  <a class="hover-with-bg" href="/categories/ctf">ctf</a>
+                  &nbsp;
+                
+              </span>&nbsp;&nbsp;
+            
+            
+              <span>
+                <i class="iconfont icon-tag"></i>
+                
+                  <a class="hover-with-bg" href="/tags/ctf">ctf</a>
+                
+                  <a class="hover-with-bg" href="/tags/re">re</a>
+                
+                  <a class="hover-with-bg" href="/tags/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C">攻防世界</a>
+                
+              </span>
+            
+            </p>
+            
+              <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" target="_blank" rel="nofollow noopener noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+            
           </div>
         </div>
       </div>
+    </div>
+    <div class="d-none d-lg-block col-lg-2 toc-container">
+      
+  <div id="toc">
+    <p class="h4"><i class="far fa-list-alt"></i>&nbsp;目录</p>
+    <div id="tocbot"></div>
+  </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- custom -->
+
+
+<!-- Comments -->
+<div class="col-lg-7 mx-auto nopadding-md">
+  <div class="container comments mx-auto" id="comments">
+    
+      <br><br>
+      
+      
+  <div id="gitalk-container"></div>
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/blueimp-md5@2.11.1/js/md5.min.js"></script>
+  <script type="text/javascript">
+    var gitalk = new Gitalk({
+      clientID: '03ed5c136827a32c890a',
+      clientSecret: '1945beadf21785378114a7137b12ad7b6ec28256',
+      repo: 'comments',
+      owner: 'schrodinger17',
+      admin: 'schrodinger17',
+      id: md5(location.pathname),
+      language: 'zh-CN',
+      perPage: 15,
+      pagerDirection: 'last',
+      createIssueManually: 'false',
+      distractionFreeMode: 'false'
+    });
+
+    gitalk.render('gitalk-container')
+  </script>
+
+
+    
+  </div>
+</div>
+
     
   </main>
 
@@ -260,6 +531,11 @@
 
 
 
+  
+    <script src="/lib/tocbot/tocbot.min.js" ></script>
+  
+  <script src="/js/post.js" ></script>
+
 
 
   <script src="/lib/smooth-scroll/smooth-scroll.min.js" ></script>
@@ -318,7 +594,7 @@
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "分类 - ctf&nbsp;",
+        "攻防世界-re部分题解（五）&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,
