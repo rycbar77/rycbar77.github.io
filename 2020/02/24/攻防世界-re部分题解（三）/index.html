@@ -172,7 +172,8 @@
       <div class="py-5 z-depth-3" id="board">
         <div class="post-content mx-auto" id="post">
           <div class="markdown-body">
-            <a id="more"></a>
+            <p>题目还不是很难，所以还是放在一起来写</p>
+<a id="more"></a>
 
 <h4 id="tt3441810"><a href="#tt3441810" class="headerlink" title="tt3441810"></a>tt3441810</h4><p>这题并不知道是在干什么，IDA打开是个dumpfile，打开给了很多16进制，看到了<code>0x68</code>这个经典数字（<code>push</code>指令的编码)，后面接了两个字符，看到<code>fl</code>，感觉有问题，找到后面很多个<code>0x68</code>，每个后买你都跟了两个字符，像是把flag<code>push</code>进栈的操作，所以把这些数据导出，然后写个脚本跑一下，验证猜想</p>
 <pre><code class="c++">#include &lt;iostream&gt;

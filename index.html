@@ -185,23 +185,10 @@
         
         
           
+          
         
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">easy_Maze看名字就知道是个迷宫题，IDA打开看看
-int __cdecl main(int argc, const char **argv, const char **envp)
-{
-  __int64 v3; // rax
-  int v5[7]; // [rsp+0h] [rbp-270h]
-  int v6; // [rsp+C0h] [rbp-1B0h]
-  int v7[7]; // [rsp+D0h] [rbp-1A0h]
-  int v8; // [rsp+190h] [rbp-E0h]
-  int v9[7]; // [rsp+1A0h] [rbp-D0h]
-  int v10; // [rsp+1BCh] [rbp-B4h]
-  int v11; // [rsp+1C0h] [rbp-B0h]
-  int v12; // [rsp+1C4h] [rbp-ACh]
-  int v13; // [rsp+1C8h] [rbp-A8h]
-  int v14; // [rsp+1CCh] [rbp-A4h]
-  int v15; // [rsp+1D0h] [rbp-</div>
+        <div class="index-excerpt" style="max-height: none;">
+          <div class="index-text mb-1">后面的题目也越来越难了，比较难比较复杂的题目会单拉出来写，这里就记录一些比较简单的题目。...</div>
         </div>
       </a>
 
@@ -393,26 +380,10 @@ int __cdecl main(int argc, const char **argv, const char **envp)
         
         
           
+          
         
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">
-
-tt3441810这题并不知道是在干什么，IDA打开是个dumpfile，打开给了很多16进制，看到了0x68这个经典数字（push指令的编码)，后面接了两个字符，看到fl，感觉有问题，找到后面很多个0x68，每个后买你都跟了两个字符，像是把flagpush进栈的操作，所以把这些数据导出，然后写个脚本跑一下，验证猜想
-#include &lt;iostream&gt;
-#include &lt;cstring&gt;
-#include &lt;string&gt;
-
-
-using namespace std;
-
-
-int main() {
-
-    unsigned char ida_chars[] =
-            {
-                    0x68, 0x66, 0x6C, 0x00, 0x00, 0x48, 0xBF, 0x01, 0x00, 0x00,
-                    0x00, 0x00, 0x00, 0x00, 0x00, 0x48, 0x8D, 0x34, 0x24, 0x48,
-                  </div>
+        <div class="index-excerpt" style="max-height: none;">
+          <div class="index-text mb-1">题目还不是很难，所以还是放在一起来写...</div>
         </div>
       </a>
 
@@ -449,31 +420,10 @@ int main() {
         
         
           
+          
         
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">
-
-IgniteMeIDA打开，首先发现flag的格式，EIS{***}
-找到关键函数
-bool __cdecl sub_4011C0(char *a1)
-{
-  size_t v2; // eax
-  signed int v3; // [esp+50h] [ebp-B0h]
-  char v4[32]; // [esp+54h] [ebp-ACh]
-  int v5; // [esp+74h] [ebp-8Ch]
-  int v6; // [esp+78h] [ebp-88h]
-  size_t i; // [esp+7Ch] [ebp-84h]
-  char v8[128]; // [esp+80h] [ebp-80h]
-
-  if ( strlen(a1) &lt;= 4 )
-    return 0;
-  i = 4;
-  v6 = 0;
-  while ( i &lt; strlen(a1) - 1 )
-    v8[v6++] = a1[i++];
-  v8[v6] = 0;
-  v5 = 0;
-  v3 = 0;                             </div>
+        <div class="index-excerpt" style="max-height: none;">
+          <div class="index-text mb-1">题目有点多，放在一篇里面太过臃肿，所以多分了几篇...</div>
         </div>
       </a>
 
