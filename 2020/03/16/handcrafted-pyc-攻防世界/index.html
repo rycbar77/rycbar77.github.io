@@ -131,7 +131,7 @@
                   
                   &nbsp;<i class="far fa-chart-bar"></i>
                   <span class="post-count">
-                    2.8k 字
+                    3.1k 字
                   </span>&nbsp;
                 
 
@@ -139,7 +139,7 @@
                   
                   &nbsp;<i class="far fa-clock"></i>
                   <span class="post-count">
-                      11 分钟
+                      13 分钟
                   </span>&nbsp;
                 
 
@@ -276,7 +276,7 @@ code
 <p><code>pyc</code>文件格式的粗略解析就差不多了，可以看出来比<code>ELF</code>，<code>PE</code>都要简单得多。</p>
 <h4 id="题目分析"><a href="#题目分析" class="headerlink" title="题目分析"></a>题目分析</h4><p>前面看到，本题还有一个<em>PyCodeObject</em> <em>main</em>是主要操作，所以用上面的方法再来解析一下<code>main</code>函数（太长了，就不全放出来了）</p>
 <p>主要关注输入操作</p>
-<pre><code>              737 LOAD_CONST               0 (None)
+<pre><code>            737 LOAD_CONST               0 (None)
             740 NOP                 
             741 JUMP_ABSOLUTE          759
         &gt;&gt;  744 LOAD_GLOBAL              1 (raw_input)
@@ -298,8 +298,8 @@ code
 password: 0
 hitcon{Now you can compile and run Python bytecode in your brain!}</code></pre>
 <p>当然也可以逐步分析</p>
-<pre><code>         &gt;&gt;  767 POP_JUMP_IF_FALSE     1591
-             770 LOAD_GLOBAL              0 (chr)
+<pre><code>        &gt;&gt;  767 POP_JUMP_IF_FALSE     1591
+            770 LOAD_GLOBAL              0 (chr)
             773 LOAD_CONST              17 (99)
             776 CALL_FUNCTION            1
             779 LOAD_GLOBAL              0 (chr)
@@ -325,7 +325,7 @@ hitcon{Now you can compile and run Python bytecode in your brain!}</code></pre>
 |--------...---------|</code></pre><p>执行一次<code>ROT_TWO</code>，栈顶两个元素换位，然后<code>BINARY_ADD</code>，经过几次，然后进行下一组</p>
 <pre><code>|--------high--------|            |--------high--------|            |--------high--------|
 |--------&#39;c&#39;---------|            |--------&#39;c&#39;---------|            |--------&#39;hitc&#39;------|
-|--------&#39;t&#39;---------|    --&gt;    |--------&#39;t&#39;---------|    --&gt;    |--------...---------|
+|--------&#39;t&#39;---------|            |--------&#39;t&#39;---------|            |--------...---------|
 |--------&#39;i&#39;---------|            |--------&#39;hi&#39;--------|
 |--------&#39;h&#39;---------|            |--------...---------|
 |--------...---------|</code></pre><p>大概的变化过程就是这样，仔细分析，每四个字符一组，每组做一个倒序处理</p>
@@ -385,6 +385,57 @@ hitcon{Now you can compile and run Python bytecode in your brain!}</code></pre>
 <p><del>万恶的VM，万恶的出题人</del></p>
 <h5 id="SMC"><a href="#SMC" class="headerlink" title="SMC"></a>SMC</h5><p>程序在循行开始的时候按照自己设定的加解密方式对真正的代码进行加密，然后再执行真正的代码部分，这样的方式利用python也可以实现</p>
 <h4 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h4><p>本来是由一个题发散出来，结果写了很多，都只是一些个人的理解，整理整理才觉得还有很多需要学的东西。</p>
+<p>解析的时候借用了一个国外大佬写的<code>dis</code>的代码，输出的层次很清晰，非常适合学习，<a href="http://nedbatchelder.com/blog/200804/the_structure_of_pyc_files.html" target="_blank" rel="noopener">原文</a>写的也很不错。</p>
+<pre><code class="python">import dis, marshal, struct, sys, time, types
+
+
+def show_file(fname):
+    f = open(fname, &quot;rb&quot;)
+    magic = f.read(4)
+    moddate = f.read(4)
+    modtime = time.asctime(time.localtime(struct.unpack(&#39;I&#39;, moddate)[0]))
+    print &quot;magic %s&quot; % (magic.encode(&#39;hex&#39;))
+    print &quot;moddate %s (%s)&quot; % (moddate.encode(&#39;hex&#39;), modtime)
+    code = marshal.load(f)
+    show_code(code)
+
+
+def show_code(code, indent=&#39;&#39;):
+    print &quot;%scode&quot; % indent
+    indent += &#39;   &#39;
+    print &quot;%sargcount %d&quot; % (indent, code.co_argcount)
+    print &quot;%snlocals %d&quot; % (indent, code.co_nlocals)
+    print &quot;%sstacksize %d&quot; % (indent, code.co_stacksize)
+    print &quot;%sflags %04x&quot; % (indent, code.co_flags)
+    show_hex(&quot;code&quot;, code.co_code, indent=indent)
+    dis.disassemble(code)
+    print &quot;%sconsts&quot; % indent
+    for const in code.co_consts:
+        if type(const) == types.CodeType:
+            show_code(const, indent + &#39;   &#39;)
+        else:
+            print &quot;   %s%r&quot; % (indent, const)
+    print &quot;%snames %r&quot; % (indent, code.co_names)
+    print &quot;%svarnames %r&quot; % (indent, code.co_varnames)
+    print &quot;%sfreevars %r&quot; % (indent, code.co_freevars)
+    print &quot;%scellvars %r&quot; % (indent, code.co_cellvars)
+    print &quot;%sfilename %r&quot; % (indent, code.co_filename)
+    print &quot;%sname %r&quot; % (indent, code.co_name)
+    print &quot;%sfirstlineno %d&quot; % (indent, code.co_firstlineno)
+    show_hex(&quot;lnotab&quot;, code.co_lnotab, indent=indent)
+
+
+def show_hex(label, h, indent):
+    h = h.encode(&#39;hex&#39;)
+    if len(h) &lt; 60:
+        print &quot;%s%s %s&quot; % (indent, label, h)
+    else:
+        print &quot;%s%s&quot; % (indent, label)
+        for i in range(0, len(h), 60):
+            print &quot;%s   %s&quot; % (indent, h[i:i + 60])
+
+
+show_file(sys.argv[1])</code></pre>
 
             <hr>
           </div>
