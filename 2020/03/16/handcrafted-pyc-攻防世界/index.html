@@ -330,7 +330,7 @@ hitcon{Now you can compile and run Python bytecode in your brain!}</code></pre>
 |--------&#39;h&#39;---------|            |--------...---------|
 |--------...---------|</code></pre><p>大概的变化过程就是这样，仔细分析，每四个字符一组，每组做一个倒序处理</p>
 <p>然后跳转到最后</p>
-<pre><code>         &gt;&gt; 2212 PRINT_ITEM
+<pre><code>        &gt;&gt; 2212 PRINT_ITEM
            2213 PRINT_NEWLINE
            2214 LOAD_CONST               0 (None)
            2217 RETURN_VALUE</code></pre><p>直接输出，这样就得到需要的flag</p>
