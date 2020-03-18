@@ -131,7 +131,7 @@
                   
                   &nbsp;<i class="far fa-chart-bar"></i>
                   <span class="post-count">
-                    2.2k 字
+                    2.4k 字
                   </span>&nbsp;
                 
 
@@ -139,7 +139,7 @@
                   
                   &nbsp;<i class="far fa-clock"></i>
                   <span class="post-count">
-                      12 分钟
+                      13 分钟
                   </span>&nbsp;
                 
 
@@ -575,7 +575,23 @@ for i in range(14):
     flag += chr(target[i] ^ i)
 print(flag)</code></pre>
 <p>输出flag</p>
-<pre><code>flag{n1c3_j0b}</code></pre>
+<pre><code>flag{n1c3_j0b}</code></pre><h4 id="What-does-this-button-do"><a href="#What-does-this-button-do" class="headerlink" title="What-does-this-button-do"></a>What-does-this-button-do</h4><p>不知道为什么这题放在了这个位置，简单得不能再简单的一个mobile</p>
+<p>jadx打开，很快就可以找到关键代码</p>
+<pre><code class="java"> public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_flag);
+        String flag = &quot;&quot;;
+        int[] d = {102, 108, 97, 103, 123, 119, 52, 110, 110, 52, 95, 106, 52, 114, 95, 109, 121, 95, 100, 51, 120, 125};
+        for (int i = 0; i &lt; 22; i++) {
+            flag = flag.concat(String.valueOf((char) d[i]));
+        }
+        ((TextView) findViewById(R.id.flagText)).setText(flag);
+    }</code></pre>
+<p>然后直接输出把flag输出就可以了</p>
+<p>不过这题要去掉外面的<code>flag{}</code>提交</p>
+<pre><code>w4nn4_j4r_my_d3x</code></pre><h4 id="76号"><a href="#76号" class="headerlink" title="76号"></a>76号</h4><p>单字检测，pintools爆破，得到flag</p>
+<p>直接<a href="https://github.com/ChrisTheCoolHut/PinCTF" target="_blank" rel="noopener">滚轮子</a></p>
+<pre><code>flag{09vdf7wefijbk}</code></pre>
             <hr>
           </div>
           <br>
