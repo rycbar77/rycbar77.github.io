@@ -131,7 +131,7 @@
                   
                   &nbsp;<i class="far fa-chart-bar"></i>
                   <span class="post-count">
-                    2.4k 字
+                    2.6k 字
                   </span>&nbsp;
                 
 
@@ -139,7 +139,7 @@
                   
                   &nbsp;<i class="far fa-clock"></i>
                   <span class="post-count">
-                      13 分钟
+                      14 分钟
                   </span>&nbsp;
                 
 
@@ -591,7 +591,33 @@ print(flag)</code></pre>
 <p>不过这题要去掉外面的<code>flag{}</code>提交</p>
 <pre><code>w4nn4_j4r_my_d3x</code></pre><h4 id="76号"><a href="#76号" class="headerlink" title="76号"></a>76号</h4><p>单字检测，pintools爆破，得到flag</p>
 <p>直接<a href="https://github.com/ChrisTheCoolHut/PinCTF" target="_blank" rel="noopener">滚轮子</a></p>
-<pre><code>flag{09vdf7wefijbk}</code></pre>
+<pre><code>flag{09vdf7wefijbk}</code></pre><h4 id="easy-go"><a href="#easy-go" class="headerlink" title="easy_go"></a>easy_go</h4><p>这题根据名字也知道是go逆向，IDA打开是乱七八糟的函数，也没有任何的symbol，用go重命名的插件给函数重命名，发现一个base64的解码函数和奇怪的字符串，字母表不是很清楚，动态调试一下</p>
+<pre><code class="asm">[-------------------------------------code-------------------------------------]
+   0x4952dd:    mov    QWORD PTR [rsp],rax
+   0x4952e1:    mov    QWORD PTR [rsp+0x8],rcx
+   0x4952e6:    mov    QWORD PTR [rsp+0x10],rdx
+=&gt; 0x4952eb:    call   0x47e620
+   0x4952f0:    mov    rax,QWORD PTR [rsp+0x38]
+   0x4952f5:    mov    rcx,QWORD PTR [rsp+0x30]
+   0x4952fa:    mov    rdx,QWORD PTR [rsp+0x18]
+   0x4952ff:    mov    rbx,QWORD PTR [rsp+0x20]
+No argument
+[------------------------------------stack-------------------------------------]
+0000| 0xc000070e90 --&gt; 0xc000074580 (&quot;6789_-abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ012345&quot;, &#39;\377&#39; &lt;repeats 45 times&gt;, &quot;\005\377\377:;&lt;=&gt;?&quot;)
+0008| 0xc000070e98 --&gt; 0xc000088040 (&quot;tGRBtXMZgD6ZhalBtCUTgWgZfnkTgqoNsnAVsmUYsGtCt9pEtDEYsql3&quot;)
+0016| 0xc000070ea0 --&gt; 0x38 (&#39;8&#39;)
+0024| 0xc000070ea8 --&gt; 0x40 (&#39;@&#39;)
+0032| 0xc000070eb0 --&gt; 0xc000088040 (&quot;tGRBtXMZgD6ZhalBtCUTgWgZfnkTgqoNsnAVsmUYsGtCt9pEtDEYsql3&quot;)
+0040| 0xc000070eb8 --&gt; 0x38 (&#39;8&#39;)
+0048| 0xc000070ec0 --&gt; 0x1 
+0056| 0xc000070ec8 --&gt; 0x1 
+[------------------------------------------------------------------------------]
+Legend: code, data, rodata, value
+
+Thread 1 &quot;easyGo&quot; hit Breakpoint 3, 0x00000000004952eb in ?? ()
+</code></pre>
+<p>找到字母表和密文，解密得到flag</p>
+<pre><code>flag{92094daf-33c9-431e-a85a-8bfbd5df98ad}</code></pre>
             <hr>
           </div>
           <br>
