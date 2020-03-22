@@ -131,7 +131,7 @@
                   
                   &nbsp;<i class="far fa-chart-bar"></i>
                   <span class="post-count">
-                    3.9k 字
+                    4.1k 字
                   </span>&nbsp;
                 
 
@@ -139,7 +139,7 @@
                   
                   &nbsp;<i class="far fa-clock"></i>
                   <span class="post-count">
-                      20 分钟
+                      21 分钟
                   </span>&nbsp;
                 
 
@@ -405,7 +405,22 @@ LABEL_39:
 <p>走到地图中间怎么都跳不上去，到了最右边发现不能走了但是地图没完，后面接着长长的一条路，所以一直往右边拉，看到<code>pctf</code>，找到了flag的位置</p>
 <p><del>(然后为了找flag跑崩了四次虚拟机……显卡和cpu看样8太行)</del></p>
 <p>用鼠标上下没法超出屏幕，用<code>alt+f7</code>移动窗口慢慢找，感觉应该有逆向方法，那个pck包我至今还没解开</p>
-<pre><code>PCTF{ITWASTIMEFORTHOMASTOGO_HEHADSEENEVERYTHING}</code></pre><h4 id="Digital-Sloth"><a href="#Digital-Sloth" class="headerlink" title="Digital Sloth"></a>Digital Sloth</h4><p>这题的逻辑很简单</p>
+<pre><code>PCTF{ITWASTIMEFORTHOMASTOGO_HEHADSEENEVERYTHING}</code></pre><hr>
+<p>来补充一下，IDA可以直接打开pck包，里面有关于人物的设定</p>
+<pre><code>&#39;# Global Variables&#39;,0Ah
+seg000:0000000000004610                 db &#39;var g_direction&#39;,0Ah
+seg000:0000000000004610                 db &#39;var g_velocity&#39;,0Ah
+seg000:0000000000004610                 db &#39;var g_parent&#39;,0Ah
+seg000:0000000000004610                 db &#39;var g_airborne&#39;,0Ah
+seg000:0000000000004610                 db &#39;var g_delta&#39;,0Ah
+seg000:0000000000004610                 db &#39;var g_cheat_stack&#39;,0Ah
+seg000:0000000000004610                 db &#39;var g_god_mode&#39;,0Ah</code></pre><p>惊奇的发现下面还有一个上帝模式和开启方法</p>
+<pre><code> db 9,&#39;if self.g_cheat_stack == [&quot;P&quot;, &quot;U&quot;, &quot;R&quot;, &quot;G&quot;, &quot;0&quot;, &quot;0&quot;]:&#39;,0Ah
+seg000:0000000000004610                 db 9,9,&#39;self.g_god_mode = not self.g_god_mode&#39;,0Ah
+seg000:0000000000004610                 db 9,9,&#39;$CollisionShape2D.disabled = not $CollisionShape2D.disabled&#39;,0Ah</code></pre><p>方法就是按键直接输入<code>PURG00</code>，打开之后就可以飞和穿墙，直接跑到flag在的地方去看就可以了</p>
+<p><del>(亏我还调窗口大小调了这么久)</del></p>
+<p>Digital Sloth</p>
+<p>这题的逻辑很简单</p>
 <pre><code class="c++">__int64 __fastcall main(__int64 a1, char **a2, char **a3)
 {
   signed int v3; // esi
@@ -532,6 +547,8 @@ int main() {
     }
     return 0;
 }</code></pre>
+<hr>
+<p>又是一道分割线，看了其它大佬的wp才知道……直接用python的<code>pow</code>不就好了……</p>
 <p>直接输出flag</p>
 <pre><code>pctf{one man&#39;s trash is another man&#39;s V#x0GFu_Lp%3}</code></pre><p><del>看到最后一段甚至感觉做错了，到现在没看懂</del></p>
 <h4 id="train-arms"><a href="#train-arms" class="headerlink" title="train_arms"></a>train_arms</h4><p><del>arm一语双关，妙啊</del></p>
