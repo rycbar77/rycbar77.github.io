@@ -150,34 +150,10 @@
         
         
           
+          
         
-        <div class="index-excerpt" >
-          <div class="index-text mb-1">这题就是一个脑洞题，但可以大概的了解一下windows编程
-首先看看这题怎么做
-查壳发现是虚拟机
-IDA打开，脱壳怕是不可能的了，只能换其他方法。
-这里用面向大佬博客做题法
-因为Flag就在控件里，干脆spy++查看一下
-
-找到句柄，用xspy查一查
-OnMsg:0464,func= 0x00402170(mfc逆向-200.exe+ 0x002170 )找到了一个奇怪的东西，但是接下来不知道该怎么做了
-然后偷瞄大佬博客
-大佬掐指一算应该发个消息，vs启动
-#include &lt;iostream&gt;
-#include&lt;Windows.h&gt;
-int main()
-{
-    HWND h = FindWindowA(NULL, &quot;Flag就在控件里&quot;);
-    if (h)
-    {
-        SendMessage(h, 0x464, NULL, NULL);
-    }
-    return 0;
-}
-这里只是简单的用到了两个函数
-第一个FindWindowA，定义如下
-HWND FindWindowA(
-  LPCSTR lpCla</div>
+        <div class="index-excerpt" style="max-height: none;">
+          <div class="index-text mb-1">这题就是一个脑洞题，但可以大概的了解一下windows编程...</div>
         </div>
       </a>
 
