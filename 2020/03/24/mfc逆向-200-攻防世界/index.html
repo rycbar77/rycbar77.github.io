@@ -16,7 +16,7 @@
   <meta name="description" content="">
   <meta name="author" content="Aorui Zhang">
   <meta name="keywords" content="">
-  <title>归档 ~ My Tiny Ideas</title>
+  <title>mfc逆向-200_攻防世界 ~ My Tiny Ideas</title>
 
   <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css"  >
 <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css"  >
@@ -39,7 +39,7 @@
 
 
 <body>
-  <header style="height: 80vh;">
+  <header style="height: 70vh;">
     <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
   <div class="container">
     <a class="navbar-brand"
@@ -118,6 +118,41 @@
             </span>
 
             
+              <br>
+              
+                <p class="mt-3">
+                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>&nbsp;
+                  星期二, 三月 24日 2020, 10:44 上午
+                </p>
+              
+
+              <p>
+                
+                  
+                  &nbsp;<i class="far fa-chart-bar"></i>
+                  <span class="post-count">
+                    529 字
+                  </span>&nbsp;
+                
+
+                
+                  
+                  &nbsp;<i class="far fa-clock"></i>
+                  <span class="post-count">
+                      1 分钟
+                  </span>&nbsp;
+                
+
+                
+                  <!-- 不蒜子统计文章PV -->
+                  
+                  &nbsp;<i class="far fa-eye" aria-hidden="true"></i>&nbsp;
+                  <span id="busuanzi_container_page_pv">
+                    <span id="busuanzi_value_page_pv"></span> 次
+                  </span>&nbsp;
+                
+              </p>
+            
           </div>
 
           
@@ -128,35 +163,134 @@
 
   <main>
     
-      <div class="container nopadding-md">
-        <div class="py-5 z-depth-3" id="board">
-          
-          <div class="container">
-            <div class="row">
-              <div class="col-12 col-md-10 m-auto">
-                
-
-<div class="list-group">
-  <p class="h4">共计 21 篇文章</p>
-  <hr>
-  
-    
       
-      <p class="h5">2019</p>
-    
-    <a href="/2019/12/30/hello-world/" class="list-group-item list-group-item-action">
-      <span class="archive-post-title">Hello World</span>
-      <span style="float: right;">12-30</span>
-    </a>
-  
-</div>
 
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="py-5 z-depth-3" id="board">
+        <div class="post-content mx-auto" id="post">
+          <div class="markdown-body">
+            <p>这题就是一个脑洞题，但可以大概的了解一下windows编程</p>
+<p>首先看看这题怎么做</p>
+<p>查壳发现是虚拟机<br><img src="https://s1.ax1x.com/2020/03/24/8b4mz4.png" srcset="/img/loading.gif" alt="8b4mz4.png"></p>
+<p>IDA打开，脱壳怕是不可能的了，只能换其他方法。</p>
+<p><del>这里用面向大佬博客做题法</del></p>
+<p>因为<strong>Flag就在控件里</strong>，干脆spy++查看一下</p>
+<p><img src="https://s1.ax1x.com/2020/03/24/8b4uQJ.png" srcset="/img/loading.gif" alt="8b4uQJ.png"></p>
+<p>找到句柄，用xspy查一查</p>
+<pre><code>OnMsg:0464,func= 0x00402170(mfc逆向-200.exe+ 0x002170 )</code></pre><p>找到了一个奇怪的东西，但是接下来不知道该怎么做了</p>
+<p><del>然后偷瞄大佬博客</del></p>
+<p>大佬掐指一算应该发个消息，vs启动</p>
+<pre><code class="c++">#include &lt;iostream&gt;
+#include&lt;Windows.h&gt;
+int main()
+{
+    HWND h = FindWindowA(NULL, &quot;Flag就在控件里&quot;);
+    if (h)
+    {
+        SendMessage(h, 0x464, NULL, NULL);
+    }
+    return 0;
+}</code></pre>
+<p>这里只是简单的用到了两个函数</p>
+<p>第一个<code>FindWindowA</code>，定义如下</p>
+<pre><code class="c++">HWND FindWindowA(
+  LPCSTR lpClassName,  {窗口的类名，可为空}
+  LPCSTR lpWindowName  {窗口的标题名}
+);</code></pre>
+<p>这个函数不查找子窗口（<code>FindWindowEx</code>），返回的是这个窗口的句柄，其实就是我们之前用spy++查询到的句柄，也可以用下面的代码</p>
+<pre><code class="c++">auto h = HWND(0xa505f4);</code></pre>
+<p>作用是一样的，找到句柄之后就可以发消息，用到了<code>SendMessage</code></p>
+<p>定义如下</p>
+<pre><code class="c++">LRESULT SendMessage（HWND hWnd，UINT Msg，WPARAM wParam，LPARAM IParam）</code></pre>
+<blockquote>
+<p>参数<br>hWnd：指定要接收消息的窗口的句柄。如果此参数为HWND_BROADCAST，则消息将被发送到系统中所有顶层窗口，包括无效或不可见的非自身拥有的窗口、被覆盖的窗口和弹出式窗口，但消息不被发送到子窗口。<br>Msg：指定被发送的消息。<br>wParam：指定附加的消息特定信息。<br>IParam：指定附加的消息特定信息。<br>返回值：返回值指定消息处理的结果，依赖于所发送的消息。</p>
+</blockquote>
+<p>所以给这个控件发个<code>0x464</code>，然后窗体里面的内容变了，变成了<code>{I am a Des key}</code></p>
+<p>有了key，但是密文是什么……</p>
+<p>大佬掐指一算，之前这个控件有个奇怪的类名<code>944c8d100f82f0c18b682f63e4dbaa207a2f1e72581c2f1b</code></p>
+<p>解密得到flag</p>
+<pre><code>thIs_Is_real_kEy_hahaaa</code></pre><hr>
+<p><del>不仅懂得比大佬少，脑洞也比不过大佬</del></p>
 
-              </div>
-            </div>
+            <hr>
+          </div>
+          <br>
+          <div>
+            <p>
+            
+            
+              <span>
+                <i class="iconfont icon-tag"></i>
+                
+                  <a class="hover-with-bg" href="/tags/ctf">ctf</a>
+                
+                  <a class="hover-with-bg" href="/tags/re">re</a>
+                
+                  <a class="hover-with-bg" href="/tags/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C">攻防世界</a>
+                
+                  <a class="hover-with-bg" href="/tags/mfc">mfc</a>
+                
+              </span>
+            
+            </p>
+            
+              <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" target="_blank" rel="nofollow noopener noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+            
           </div>
         </div>
       </div>
+    </div>
+    <div class="d-none d-lg-block col-lg-2 toc-container">
+      
+  <div id="toc">
+    <p class="h4"><i class="far fa-list-alt"></i>&nbsp;目录</p>
+    <div id="tocbot"></div>
+  </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- custom -->
+
+
+<!-- Comments -->
+<div class="col-lg-7 mx-auto nopadding-md">
+  <div class="container comments mx-auto" id="comments">
+    
+      <br><br>
+      
+      
+  <div id="gitalk-container"></div>
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/blueimp-md5@2.11.1/js/md5.min.js"></script>
+  <script type="text/javascript">
+    var gitalk = new Gitalk({
+      clientID: '03ed5c136827a32c890a',
+      clientSecret: '1945beadf21785378114a7137b12ad7b6ec28256',
+      repo: 'comments',
+      owner: 'schrodinger17',
+      admin: 'schrodinger17',
+      id: md5(location.pathname),
+      language: 'zh-CN',
+      perPage: 15,
+      pagerDirection: 'last',
+      createIssueManually: 'false',
+      distractionFreeMode: 'false'
+    });
+
+    gitalk.render('gitalk-container')
+  </script>
+
+
+    
+  </div>
+</div>
+
     
   </main>
 
@@ -235,6 +369,11 @@
 
 
 
+  
+    <script src="/lib/tocbot/tocbot.min.js" ></script>
+  
+  <script src="/js/post.js" ></script>
+
 
 
   <script src="/lib/smooth-scroll/smooth-scroll.min.js" ></script>
@@ -293,7 +432,7 @@
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "归档&nbsp;",
+        "mfc逆向-200_攻防世界&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,
