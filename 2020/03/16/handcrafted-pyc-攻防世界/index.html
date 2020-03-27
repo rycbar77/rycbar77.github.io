@@ -231,7 +231,7 @@ code
    code
       6401008400005a00006501006402006b0200721f00650000830000016e00
       0064000053</code></pre><p><code>co_flags</code>后面是<code>co_code</code>，把它单独拿出来，因为它也有一些自己的结构</p>
-<h5 id="co-code"><a href="#co-code" class="headerlink" title="co_code"></a>co_code</h5><p>同样先是 <code>TYPE_CODE</code> , 类型标识 ， 这里是 <code>s</code> ， 即 <code>0x73</code> 。后面的四个字节用来标识指令的 <code>长度</code> ， 这里是 <code>0x23</code> 。紧跟在后面的是具体的字节码，包含<code>指令</code>和<code>操作数</code>，有些指令是没有操作数的，指令占用一个字节，操作数占用两个字节，字节码和指令的对应关系和指令的作用可以查阅<a href="https://rycbar.xyz/2020/03/13/python-opcode/">这篇文章</a>或者直接去查阅<code>dis</code>的手册。</p>
+<h5 id="co-code"><a href="#co-code" class="headerlink" title="co_code"></a>co_code</h5><p>同样先是 <code>TYPE_CODE</code> , 类型标识 ， 这里是 <code>s</code> ， 即 <code>0x73</code> 。后面的四个字节用来标识指令的 <code>长度</code> ， 这里是 <code>0x23</code> 。紧跟在后面的是具体的字节码，包含<code>指令</code>和<code>操作数</code>，有些指令是没有操作数的，指令占用一个字节，操作数占用两个字节，字节码和指令的对应关系和指令的作用可以查阅<a href="https://rycbar.xyz/2020/03/13/python-opcode/" target="_blank" rel="noopener">这篇文章</a>或者直接去查阅<code>dis</code>的手册。</p>
 <blockquote>
 <p>给出链接</p>
 <p><a href="https://docs.python.org/2/library/dis.html" target="_blank" rel="noopener">https://docs.python.org/2/library/dis.html</a></p>
