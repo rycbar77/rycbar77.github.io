@@ -131,7 +131,7 @@
                   
                   &nbsp;<i class="far fa-chart-bar"></i>
                   <span class="post-count">
-                    2.7k 字
+                    2.9k 字
                   </span>&nbsp;
                 
 
@@ -139,7 +139,7 @@
                   
                   &nbsp;<i class="far fa-clock"></i>
                   <span class="post-count">
-                      14 分钟
+                      15 分钟
                   </span>&nbsp;
                 
 
@@ -619,6 +619,11 @@ Thread 1 &quot;easyGo&quot; hit Breakpoint 3, 0x00000000004952eb in ?? ()
 <p>找到字母表和密文，解密得到flag</p>
 <pre><code>flag{92094daf-33c9-431e-a85a-8bfbd5df98ad}</code></pre><h4 id="easyCpp"><a href="#easyCpp" class="headerlink" title="easyCpp"></a>easyCpp</h4><p>这题有很多c++标准库的调用，整体来说不是很难，可以通过调试发现每一部分的作用，也不是很难</p>
 <h4 id="re5-packed-movement"><a href="#re5-packed-movement" class="headerlink" title="re5-packed-movement"></a>re5-packed-movement</h4><p>极其无聊的一道题，硬生生用<code>mov</code>实现了所有操作，要求输入<code>flag</code>对比一下，直接<code>objdump</code>就能再汇编代码里找到逐字符将flag移入到某个地址，或者因为是逐字符验证，直接<code>pintools</code>爆破也可以</p>
+<h4 id="the-maya-society"><a href="#the-maya-society" class="headerlink" title="the_maya_society"></a>the_maya_society</h4><p>大致意思就是对当前时间进行一个<code>md5</code>加密，然后和一个字符串连接成目标网址，如果这个目标是对的后面的通信就会得到正确的flag……</p>
+<p>时间应该是2012-12-21</p>
+<h4 id="2ex1"><a href="#2ex1" class="headerlink" title="2ex1"></a>2ex1</h4><p><code>mips</code>，并且<code>strip</code>过，什么信息都没有，打开输出发现很像<code>base64</code>，但应该换过表，<code>ghidra</code>打开找找可疑字符串，发现奇怪的字符串</p>
+<pre><code>@,.1fgvw#`/2ehux$~&quot;3dity%_;4cjsz^+{5bkrA&amp;=}6alqB*-[70mpC()]89noD</code></pre><p>试一试就得到了flag</p>
+<pre><code>flag{change53233}</code></pre><p>对这个字符串表进行交叉引用查询到话也可以找到进行<code>base64</code>编码的函数</p>
 
             <hr>
           </div>
