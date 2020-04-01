@@ -16,7 +16,7 @@
   <meta name="description" content="">
   <meta name="author" content="Aorui Zhang">
   <meta name="keywords" content="">
-  <title>Javis_OJ_wp ~ My Tiny Ideas</title>
+  <title>Javis-OJ-wp ~ My Tiny Ideas</title>
 
   <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css"  >
 <link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css"  >
@@ -122,7 +122,7 @@
               
                 <p class="mt-3">
                   <i class="fas fa-calendar-alt" aria-hidden="true"></i>&nbsp;
-                  星期三, 四月 1日 2020, 3:24 下午
+                  星期三, 四月 1日 2020, 4:54 下午
                 </p>
               
 
@@ -131,7 +131,7 @@
                   
                   &nbsp;<i class="far fa-chart-bar"></i>
                   <span class="post-count">
-                    1.2k 字
+                    1.3k 字
                   </span>&nbsp;
                 
 
@@ -234,18 +234,14 @@ print(flag)
     }</code></pre>
 <p>找到关键部分，发现是简单对输入<code>base64</code>处理，然后直接对比，所以<code>base64</code>解码之后就可以了</p>
 <h4 id="Classic-Crackme2"><a href="#Classic-Crackme2" class="headerlink" title="Classic Crackme2"></a>Classic Crackme2</h4><p>这题和上一个基本相似，也是<code>c#</code>+<code>confuser</code>，不过这次想直接找到关键代码有点困难，所以调试解决，在主函数下断点</p>
-<img src="/2020/04/01/Javis-OJ-wp/Classic Crackme-1.png" srcset="/img/loading.gif">
-
+<p>![Classic Crackme-1](Javis-OJ-wp/Classic Crackme-1.png)</p>
 <p>断点处这一串奇怪的字符串名应该就是关键的类，启动调试，跟进去</p>
 <p>调试过程中发现了关键的比较</p>
-<img src="/2020/04/01/Javis-OJ-wp/Classic Crackme-2.png" srcset="/img/loading.gif">
-
+<p>![Classic Crackme-2](Javis-OJ-wp/Classic Crackme-2.png)</p>
 <p><code>text1</code>是我们的输入，去看看<code>text2</code>是什么</p>
-<img src="/2020/04/01/Javis-OJ-wp/Classic Crackme-3.png" srcset="/img/loading.gif">
-
+<p>![Classic Crackme-3](Javis-OJ-wp/Classic Crackme-3.png)</p>
 <p>发现加密方式是<code>AES-ECB</code>方式加密，填充方式也已知，<code>key</code>在局部变量窗口可以获得，最后应该还有个比较，接着调试</p>
-<img src="/2020/04/01/Javis-OJ-wp/Classic Crackme-4.png" srcset="/img/loading.gif">
-
+<p>![Classic Crackme-4](Javis-OJ-wp/Classic Crackme-4.png)</p>
 <p>发现了我们的输入被加密之后和另一串进行了一个比较，然后就可以写个脚本来跑一跑</p>
 <pre><code class="python">import base64
 from Crypto.Cipher import AES
@@ -502,7 +498,7 @@ print(plain_text)
     var typed = new Typed('#subtitle', {
       strings: [
         '  ',
-        "Javis_OJ_wp&nbsp;",
+        "Javis-OJ-wp&nbsp;",
       ],
       cursorChar: "_",
       typeSpeed: 70,
