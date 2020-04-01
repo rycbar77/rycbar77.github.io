@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-touch-icon.png">
+  <link rel="icon" type="image/png" href="/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="description" content="">
+  <meta name="author" content="Aorui Zhang">
+  <meta name="keywords" content="">
+  <title>Javis_OJ_wp ~ My Tiny Ideas</title>
+
+  <link rel="stylesheet" href="/lib/font-awesome/css/all.min.css"  >
+<link rel="stylesheet" href="/lib/bootstrap/css/bootstrap.min.css"  >
+<link rel="stylesheet" href="/lib/mdbootstrap/css/mdb.min.css"  >
+<link rel="stylesheet" href="/lib/github-markdown/github-markdown.min.css"  >
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1067060_qzomjdt8bmp.css">
+
+
+
+  <link rel="stylesheet" href="/lib/prettify/github-v2.min.css"  >
+
+<link rel="stylesheet" href="/css/main.css"  >
+
+
+  <link rel="stylesheet" href="/lib/fancybox/jquery.fancybox.min.css"  >
+
+
+<meta name="generator" content="Hexo 4.2.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>My Tiny Ideas</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/">首页</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/archives/">归档</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/categories/">分类</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/tags/">标签</a>
+          </li>
+        
+          
+          
+          
+          
+          <li class="nav-item">
+            <a class="nav-link" href="/about/">关于</a>
+          </li>
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="view intro-2" id="background"
+         style="background: url('/img/default.png')no-repeat center center;
+           background-size: cover;
+           background-attachment: fixed;">
+      <div class="full-bg-img">
+        <div class="mask rgba-black-light flex-center">
+          <div class="container text-center white-text fadeInUp">
+            <span class="h2" id="subtitle">
+              
+            </span>
+
+            
+              <br>
+              
+                <p class="mt-3">
+                  <i class="fas fa-calendar-alt" aria-hidden="true"></i>&nbsp;
+                  星期三, 四月 1日 2020, 3:24 下午
+                </p>
+              
+
+              <p>
+                
+                  
+                  &nbsp;<i class="far fa-chart-bar"></i>
+                  <span class="post-count">
+                    1.3k 字
+                  </span>&nbsp;
+                
+
+                
+                  
+                  &nbsp;<i class="far fa-clock"></i>
+                  <span class="post-count">
+                      6 分钟
+                  </span>&nbsp;
+                
+
+                
+                  <!-- 不蒜子统计文章PV -->
+                  
+                  &nbsp;<i class="far fa-eye" aria-hidden="true"></i>&nbsp;
+                  <span id="busuanzi_container_page_pv">
+                    <span id="busuanzi_value_page_pv"></span> 次
+                  </span>&nbsp;
+                
+              </p>
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="py-5 z-depth-3" id="board">
+        <div class="post-content mx-auto" id="post">
+          <div class="markdown-body">
+            <p>Javis OJ的题目还是很不错的，可以仔细研究研究</p>
+<h3 id="re"><a href="#re" class="headerlink" title="re"></a>re</h3><h4 id="Findkey"><a href="#Findkey" class="headerlink" title="Findkey"></a>Findkey</h4><p><code>DIE</code>看看发现是<code>pyc</code>文件，试一下<code>uncompyle6</code>发现直接成功没加任何保护，看看代码</p>
+<pre><code class="python">import sys
+lookup = [
+ 196, 153, 149, 206, 17, 221, 10, 217, 167, 18, 36, 135, 103, 61, 111, 31, 92, 152, 21, 228, 105, 191, 173, 41, 2, 245, 23, 144, 1, 246, 89, 178, 182, 119, 38, 85, 48, 226, 165, 241, 166, 214, 71, 90, 151, 3, 109, 169, 150, 224, 69, 156, 158, 57, 181, 29, 200, 37, 51, 252, 227, 93, 65, 82, 66, 80, 170, 77, 49, 177, 81, 94, 202, 107, 25, 73, 148, 98, 129, 231, 212, 14, 84, 121, 174, 171, 64, 180, 233, 74, 140, 242, 75, 104, 253, 44, 39, 87, 86, 27, 68, 22, 55, 76, 35, 248, 96, 5, 56, 20, 161, 213, 238, 220, 72, 100, 247, 8, 63, 249, 145, 243, 155, 222, 122, 32, 43, 186, 0, 102, 216, 126, 15, 42, 115, 138, 240, 147, 229, 204, 117, 223, 141, 159, 131, 232, 124, 254, 60, 116, 46, 113, 79, 16, 128, 6, 251, 40, 205, 137, 199, 83, 54, 188, 19, 184, 201, 110, 255, 26, 91, 211, 132, 160, 168, 154, 185, 183, 244, 78, 33, 123, 28, 59, 12, 210, 218, 47, 163, 215, 209, 108, 235, 237, 118, 101, 24, 234, 106, 143, 88, 9, 136, 95, 30, 193, 176, 225, 198, 197, 194, 239, 134, 162, 192, 11, 70, 58, 187, 50, 67, 236, 230, 13, 99, 190, 208, 207, 7, 53, 219, 203, 62, 114, 127, 125, 164, 179, 175, 112, 172, 250, 133, 130, 52, 189, 97, 146, 34, 157, 120, 195, 45, 4, 142, 139]
+pwda = [
+ 188, 155, 11, 58, 251, 208, 204, 202, 150, 120, 206, 237, 114, 92, 126, 6, 42]
+pwdb = [53, 222, 230, 35, 67, 248, 226, 216, 17, 209, 32, 2, 181, 200, 171, 60, 108]
+flag = raw_input(&#39;Input your Key:&#39;).strip()
+if len(flag) != 17:
+    print &#39;Wrong Key!!&#39;
+    sys.exit(1)
+flag = flag[::-1]
+for i in range(0, len(flag)):
+    if ord(flag[i]) + pwda[i] &amp; 255 != lookup[(i + pwdb[i])]:
+        print &#39;Wrong Key!!&#39;
+        sys.exit(1)
+
+print &#39;Congratulations!!&#39;</code></pre>
+<p>简单写个脚本逆一下</p>
+<pre><code class="python">lookup = [
+    196, 153, 149, 206, 17, 221, 10, 217, 167, 18, 36, 135, 103, 61, 111, 31, 92, 152, 21, 228, 105, 191, 173, 41, 2,
+    245, 23, 144, 1, 246, 89, 178, 182, 119, 38, 85, 48, 226, 165, 241, 166, 214, 71, 90, 151, 3, 109, 169, 150, 224,
+    69, 156, 158, 57, 181, 29, 200, 37, 51, 252, 227, 93, 65, 82, 66, 80, 170, 77, 49, 177, 81, 94, 202, 107, 25, 73,
+    148, 98, 129, 231, 212, 14, 84, 121, 174, 171, 64, 180, 233, 74, 140, 242, 75, 104, 253, 44, 39, 87, 86, 27, 68, 22,
+    55, 76, 35, 248, 96, 5, 56, 20, 161, 213, 238, 220, 72, 100, 247, 8, 63, 249, 145, 243, 155, 222, 122, 32, 43, 186,
+    0, 102, 216, 126, 15, 42, 115, 138, 240, 147, 229, 204, 117, 223, 141, 159, 131, 232, 124, 254, 60, 116, 46, 113,
+    79, 16, 128, 6, 251, 40, 205, 137, 199, 83, 54, 188, 19, 184, 201, 110, 255, 26, 91, 211, 132, 160, 168, 154, 185,
+    183, 244, 78, 33, 123, 28, 59, 12, 210, 218, 47, 163, 215, 209, 108, 235, 237, 118, 101, 24, 234, 106, 143, 88, 9,
+    136, 95, 30, 193, 176, 225, 198, 197, 194, 239, 134, 162, 192, 11, 70, 58, 187, 50, 67, 236, 230, 13, 99, 190, 208,
+    207, 7, 53, 219, 203, 62, 114, 127, 125, 164, 179, 175, 112, 172, 250, 133, 130, 52, 189, 97, 146, 34, 157, 120,
+    195, 45, 4, 142, 139]
+pwda = [
+    188, 155, 11, 58, 251, 208, 204, 202, 150, 120, 206, 237, 114, 92, 126, 6, 42]
+pwdb = [53, 222, 230, 35, 67, 248, 226, 216, 17, 209, 32, 2, 181, 200, 171, 60, 108]
+flag = &#39;&#39;
+for i in range(17):
+    index = 16 - i
+    flag += chr((lookup[(index + pwdb[index])] - pwda[index])&amp;255)
+print(flag)
+
+# PCTF{PyC_Cr4ck3r}</code></pre>
+<h4 id="Classical-Crackme"><a href="#Classical-Crackme" class="headerlink" title="Classical Crackme"></a>Classical Crackme</h4><p>这题有<code>confuser</code>的混淆，想脱掉这个壳有点困难，所以先看看代码</p>
+<pre><code class="c#">private void \u202C\u200B\u206A\u202A\u206D\u206B\u202D\u206F\u202D\u200C\u200E\u206B\u202E\u202E\u202C\u202B\u206A\u206D\u206E\u202B\u206E\u200F\u202D\u200E\u202C\u200F\u200D\u200F\u202B\u200C\u202A\u206D\u206A\u206E\u202D\u200D\u200C\u206B\u202A\u202D\u202E(object A_1, EventArgs A_2)
+    {
+        string s = this.\u200E\u206F\u206A\u200F\u206E\u202C\u206C\u200C\u206A\u200B\u206E\u202D\u206B\u202D\u200F\u206B\u202B\u200C\u206B\u202D\u206D\u202B\u206B\u200C\u206F\u206D\u206A\u202D\u200F\u202E\u200B\u206D\u202C\u200D\u200D\u202C\u200F\u202E\u202E\u206A\u202E.Text.ToString();
+        byte[] bytes = Encoding.Default.GetBytes(s);
+        string a = Convert.ToBase64String(bytes);
+        string b = &quot;UENURntFYTV5X0RvX05ldF9DcjRjazNyfQ==&quot;;
+        if (a == b)
+        {
+            MessageBox.Show(&quot;注册成功！&quot;, &quot;提示&quot;, MessageBoxButtons.OK);
+        }
+        else
+        {
+            MessageBox.Show(&quot;注册失败！&quot;, &quot;提示&quot;, MessageBoxButtons.OK, MessageBoxIcon.Hand);
+        }
+    }</code></pre>
+<p>找到关键部分，发现是简单对输入<code>base64</code>处理，然后直接对比，所以<code>base64</code>解码之后就可以了</p>
+<h4 id="Classic-Crackme2"><a href="#Classic-Crackme2" class="headerlink" title="Classic Crackme2"></a>Classic Crackme2</h4><p>这题和上一个基本相似，也是<code>c#</code>+<code>confuser</code>，不过这次想直接找到关键代码有点困难，所以调试解决，在主函数下断点</p>
+<p>![Classic Crackme-1](Javis-OJ-wp/Classic Crackme-1.png)</p>
+<p>断点处这一串奇怪的字符串名应该就是关键的类，启动调试，跟进去</p>
+<p>调试过程中发现了关键的比较</p>
+<p>![Classic Crackme-2](Javis-OJ-wp/Classic Crackme-2.png)</p>
+<p><code>text1</code>是我们的输入，去看看<code>text2</code>是什么</p>
+<p>![Classic Crackme-3](Javis-OJ-wp/Classic Crackme-3.png)</p>
+<p>发现加密方式是<code>AES-ECB</code>方式加密，填充方式也已知，<code>key</code>在局部变量窗口可以获得，最后应该还有个比较，接着调试</p>
+<p>![Classic Crackme-4](Javis-OJ-wp/Classic Crackme-4.png)</p>
+<p>发现了我们的输入被加密之后和另一串进行了一个比较，然后就可以写个脚本来跑一跑</p>
+<pre><code class="python">import base64
+from Crypto.Cipher import AES
+
+cipher = &quot;x/nzolo0TTIyrEISd4AP1spCzlhSWJXeNbY81SjPgmk=&quot;
+cipher = base64.b64decode(cipher)
+key=&quot;pctf2016pctf2016pctf2016pctf2016&quot;
+cryptor = AES.new(key, AES.MODE_ECB)
+plain_text = cryptor.decrypt(cipher)
+print(plain_text)
+
+#b&#39;PCTF{Dot_Net_UnPack3r_yoo}\x06\x06\x06\x06\x06\x06&#39;</code></pre>
+<h4 id="Smali"><a href="#Smali" class="headerlink" title="Smali"></a>Smali</h4><p><code>Smali</code>的语法我还是不是很会，不过这题比较简单，可以很容易看出来，也是简单的AES加密</p>
+<pre><code class="python">import base64
+from Crypto.Cipher import AES
+
+cipher = &quot;sSNnx1UKbYrA1+MOrdtDTA==&quot;
+cipher = base64.b64decode(cipher)
+key = &quot;cGhyYWNrICBjdGYgMjAxNg==&quot;
+key = base64.b64decode(key)
+cryptor = AES.new(key, AES.MODE_ECB)
+plain_text = cryptor.decrypt(cipher)
+print(plain_text)
+
+#b&#39;PCTF{Sm4liRiver}&#39;</code></pre>
+
+            <hr>
+          </div>
+          <br>
+          <div>
+            <p>
+            
+              <span>
+                <i class="iconfont icon-inbox"></i>
+                
+                  <a class="hover-with-bg" href="/categories/ctf">ctf</a>
+                  &nbsp;
+                
+              </span>&nbsp;&nbsp;
+            
+            
+              <span>
+                <i class="iconfont icon-tag"></i>
+                
+                  <a class="hover-with-bg" href="/tags/ctf">ctf</a>
+                
+                  <a class="hover-with-bg" href="/tags/writeup">writeup</a>
+                
+                  <a class="hover-with-bg" href="/tags/re">re</a>
+                
+                  <a class="hover-with-bg" href="/tags/Javis%20OJ">Javis OJ</a>
+                
+              </span>
+            
+            </p>
+            
+              <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a href="https://zh.wikipedia.org/wiki/Wikipedia:CC_BY-SA_3.0%E5%8D%8F%E8%AE%AE%E6%96%87%E6%9C%AC" target="_blank" rel="nofollow noopener noopener">CC BY-SA 3.0协议</a> 。转载请注明出处！</p>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="d-none d-lg-block col-lg-2 toc-container">
+      
+  <div id="toc">
+    <p class="h4"><i class="far fa-list-alt"></i>&nbsp;目录</p>
+    <div id="tocbot"></div>
+  </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- custom -->
+
+
+<!-- Comments -->
+<div class="col-lg-7 mx-auto nopadding-md">
+  <div class="container comments mx-auto" id="comments">
+    
+      <br><br>
+      
+      
+  <div id="gitalk-container"></div>
+  <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css">
+  <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/blueimp-md5@2.11.1/js/md5.min.js"></script>
+  <script type="text/javascript">
+    var gitalk = new Gitalk({
+      clientID: '6dbe0fb891585031b176',
+      clientSecret: '4407fec5af8e37150b5a4cb82821318d91c07769',
+      repo: 'comments',
+      owner: 'schrodinger17',
+      admin: 'schrodinger17',
+      id: md5(location.pathname),
+      language: 'zh-CN',
+      perPage: 15,
+      pagerDirection: 'last',
+      createIssueManually: 'false',
+      distractionFreeMode: 'false'
+    });
+
+    gitalk.render('gitalk-container')
+  </script>
+
+
+    
+  </div>
+</div>
+
+    
+  </main>
+
+  
+    <a class="z-depth-1" id="scroll-top-button" href="#" role="button">
+      <i class="fa fa-chevron-up scroll-top-arrow" aria-hidden="true"></i>
+    </a>
+  
+
+  
+    <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+  
+
+  <footer class="mt-5">
+  <div class="text-center py-3">
+    <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><b>Hexo</b></a>
+    <i class="iconfont icon-love"></i>
+    <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"> <b>Fluid</b></a>
+    <br>
+
+    
+  
+    <!-- 不蒜子统计PV -->
+    
+    &nbsp;<span id="busuanzi_container_site_pv">总访问量 
+          <span id="busuanzi_value_site_pv"></span> 次</span>&nbsp;
+  
+  
+    <!-- 不蒜子统计UV -->
+    
+    &nbsp;<span id="busuanzi_container_site_uv">总访客数 
+            <span id="busuanzi_value_site_uv"></span> 人</span>&nbsp;
+  
+  <br>
+
+
+
+    
+  <!-- 备案信息 -->
+  <a href="http://beian.miit.gov.cn/" target="_blank"
+     rel="nofollow noopener">苏ICP备20015929号-1</a>
+  
+
+
+
+    <!-- cnzz Analytics icon -->
+    
+
+  </div>
+</footer>
+
+<!-- SCRIPTS -->
+<script src="/lib/jquery/jquery.min.js" ></script>
+<script src="/lib/popper/popper.min.js" ></script>
+<script src="/lib/bootstrap/js/bootstrap.min.js" ></script>
+<script src="/lib/mdbootstrap/js/mdb.min.js" ></script>
+<script src="/js/main.js" ></script>
+
+
+  <script src="/js/lazyload.js" ></script>
+
+
+
+  
+    <script src="/lib/tocbot/tocbot.min.js" ></script>
+  
+  <script src="/js/post.js" ></script>
+
+
+
+  <script src="/lib/smooth-scroll/smooth-scroll.min.js" ></script>
+
+
+
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+<!-- Plugins -->
+
+
+  
+
+  
+    <!-- Google Analytics -->
+    <script>
+      (function (i, s, o, g, r, a, m) {
+        i['GoogleAnalyticsObject'] = r;
+        i[r] = i[r] || function () {
+          (i[r].q = i[r].q || []).push(arguments)
+        }, i[r].l = 1 * new Date();
+        a = s.createElement(o),
+          m = s.getElementsByTagName(o)[0];
+        a.async = 1;
+        a.src = g;
+        m.parentNode.insertBefore(a, m)
+      })(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+      ga('create', 'UA-128484503-1', 'auto');
+      ga('send', 'pageview');
+    </script>
+  
+
+  
+
+  
+
+  <!-- cnzz Analytics -->
+  
+
+
+
+  <script src="/lib/prettify/prettify.min.js" ></script>
+  <script>
+    $(document).ready(function () {
+      $('pre').addClass('prettyprint  ');
+      prettyPrint();
+    })
+  </script>
+
+
+
+  <script src="/lib/typed/typed.min.js" ></script>
+  <script>
+    var typed = new Typed('#subtitle', {
+      strings: [
+        '  ',
+        "Javis_OJ_wp&nbsp;",
+      ],
+      cursorChar: "_",
+      typeSpeed: 70,
+      loop: false,
+    });
+    typed.stop();
+    $(document).ready(function () {
+      $(".typed-cursor").addClass("h2");
+      typed.start();
+    });
+  </script>
+
+
+
+  <script src="/lib/anchor/anchor.min.js" ></script>
+  <script>
+    anchors.options = {
+      placement: "right",
+      visible: "false",
+      
+    };
+    var el = "h1,h2,h3,h4,h5,h6".split(",");
+    var res = [];
+    for (item of el) {
+      res.push(".markdown-body > " + item)
+    }
+    anchors.add(res.join(", "))
+  </script>
+
+
+
+  <script src="/js/local-search.js" ></script>
+  <script>
+    var path = "/local-search.xml";
+    var inputArea = document.querySelector("#local-search-input");
+    inputArea.onclick = function () {
+      getSearchFile(path);
+      this.onclick = null
+    }
+  </script>
+
+
+
+  <script src="/lib/fancybox/jquery.fancybox.min.js" ></script>
+  <script>
+    $("#post img:not(.no-zoom img, img[no-zoom])").each(
+      function () {
+        var element = document.createElement("a");
+        $(element).attr("data-fancybox", "images");
+        $(element).attr("href", $(this).attr("src"));
+        $(this).wrap(element);
+      }
+    );
+  </script>
+
+
+
+
+
+  
+  
+    <script type="text/javascript">
+      //定义获取词语下标
+      var a_idx = 0;
+      jQuery(document).ready(function ($) {
+        //点击body时触发事件
+        $("body").click(function (e) {
+          //需要显示的词语
+          var a = new Array("富强", "民主", "文明", "和谐", "自由", "平等", "公正", "法治", "爱国", "敬业", "诚信", "友善");
+          //设置词语给span标签
+          var $i = $("<span/>").text(a[a_idx]);
+          //下标等于原来下标+1  余 词语总数
+          a_idx = (a_idx + 1) % a.length;
+          //获取鼠标指针的位置，分别相对于文档的左和右边缘。
+          //获取x和y的指针坐标
+          var x = e.pageX, y = e.pageY;
+          //在鼠标的指针的位置给$i定义的span标签添加css样式
+          $i.css({
+            "z-index": 999,
+            "top": y - 20,
+            "left": x,
+            "position": "absolute",
+            "font-weight": "bold",
+            "color": rand_color()
+          });
+          // 随机颜色
+          function rand_color() {
+            return "rgb(" + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + "," + ~~(255 * Math.random()) + ")"
+          }
+          //在body添加这个标签
+          $("body").append($i);
+          //animate() 方法执行 CSS 属性集的自定义动画。
+          //该方法通过CSS样式将元素从一个状态改变为另一个状态。CSS属性值是逐渐改变的，这样就可以创建动画效果。
+          //详情请看http://www.w3school.com.cn/jquery/effect_animate.asp
+          $i.animate({
+            //将原来的位置向上移动180
+            "top": y - 180,
+            "opacity": 0
+            //1500动画的速度
+          }, 1500, function () {
+            //时间到了自动删除
+            $i.remove();
+          });
+        });
+      })
+      ;
+    </script>
+  
+
+
+
+
+
+
+
+</body>
+</html>
