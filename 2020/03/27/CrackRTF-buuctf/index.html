@@ -342,7 +342,7 @@
 </tr>
 </tbody></table>
 <p><code>phHash</code><br>The address to which the function copies a handle to the new hash object. When you have finished using the hash object, release the handle by calling the <a href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptdestroyhash" target="_blank" rel="noopener">CryptDestroyHash</a> function.</p>
-<p>需要关注<code>Algid</code>，定义了加密的方式，在 <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/alg-id" target="_blank" rel="noopener">ALG_ID</a> 查一下<code>0x8004</code><br>|Identifier    |Value    |Description|<br>| ——— | ———- | ———————————————————— |<br>| CALG_SHA  | 0x00008004 | SHA hashing algorithm. This algorithm is supported by the <a href="https://docs.microsoft.com/zh-cn/windows/win32/seccrypto/microsoft-base-cryptographic-provider" target="_blank" rel="noopener">Microsoft Base Cryptographic Provider</a>. |<br>| CALG_SHA1 | 0x00008004 | Same as <strong>CALG_SHA</strong>. This algorithm is supported by the <a href="https://docs.microsoft.com/zh-cn/windows/win32/seccrypto/microsoft-base-cryptographic-provider" target="_blank" rel="noopener">Microsoft Base Cryptographic Provider</a>. |</p>
+<p>需要关注<code>Algid</code>，定义了加密的方式，在 <a href="https://docs.microsoft.com/windows/desktop/SecCrypto/alg-id" target="_blank" rel="noopener">ALG_ID</a> 查一下<code>0x8004</code><br>| Identifier    | Value    | Description |<br>| :- | :- | :- |<br>| CALG_SHA  | 0x00008004 | SHA hashing algorithm. This algorithm is supported by the <a href="https://docs.microsoft.com/zh-cn/windows/win32/seccrypto/microsoft-base-cryptographic-provider" target="_blank" rel="noopener">Microsoft Base Cryptographic Provider</a>. |<br>| CALG_SHA1 | 0x00008004 | Same as <strong>CALG_SHA</strong>. This algorithm is supported by the <a href="https://docs.microsoft.com/zh-cn/windows/win32/seccrypto/microsoft-base-cryptographic-provider" target="_blank" rel="noopener">Microsoft Base Cryptographic Provider</a>. |</p>
 <p><code>sha1</code>加密，对我们输入的6位纯数字和后面接上的字符串进行sha1加密然后直接进行字符串对比，知道是数字所以爆破非常简单</p>
 <pre><code class="python">import hashlib
 
@@ -418,7 +418,7 @@ for i in range(100000, 999999):
   __chkesp();
   return;
 }</code></pre>
-<p>和上面的加密几乎一样，但是这次是<code>0x8003</code>，再查一查<br>|Identifier    |Value    |Description|<br>| ——— | ———- | ———————————————————— |<br>| CALG_MD5 | 0x00008003 | MD5 hashing algorithm. This algorithm is supported by the <a href="https://docs.microsoft.com/zh-cn/windows/win32/seccrypto/microsoft-base-cryptographic-provider" target="_blank" rel="noopener">Microsoft Base Cryptographic Provider</a>. |</p>
+<p>和上面的加密几乎一样，但是这次是<code>0x8003</code>，再查一查<br>| Identifier | Value | Description |<br>| :- | :- | :- |<br>| CALG_MD5 | 0x00008003 | MD5 hashing algorithm. This algorithm is supported by the <a href="https://docs.microsoft.com/zh-cn/windows/win32/seccrypto/microsoft-base-cryptographic-provider" target="_blank" rel="noopener">Microsoft Base Cryptographic Provider</a>. |</p>
 <p><code>md5</code>加密，并且没有限定字符的范围，<del>下辈子都跑不出来</del></p>
 <p>再往下面看，两层加密都通过之后</p>
 <pre><code class="c++">void __cdecl FUN_004014d0(LPCSTR param_1)
