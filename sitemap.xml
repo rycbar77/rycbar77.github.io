@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://blog.rycbar.club/2020/04/24/CTF-WP/</loc>
+    
+    <lastmod>2020-04-24T04:13:01.296Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.rycbar.club/2020/03/16/b01lersCTF-2020-wp/</loc>
+    
+    <lastmod>2020-04-21T16:43:24.367Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://blog.rycbar.club/2020/04/20/WPICTF-re-wp/</loc>
     
     <lastmod>2020-04-20T14:26:13.416Z</lastmod>
@@ -110,13 +124,6 @@
     <loc>http://blog.rycbar.club/2020/03/21/BJDCTF-re-wp/</loc>
     
     <lastmod>2020-03-24T02:49:33.067Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.rycbar.club/2020/03/16/b01lersCTF-2020-wp/</loc>
-    
-    <lastmod>2020-03-24T02:49:25.039Z</lastmod>
     
   </url>
   
