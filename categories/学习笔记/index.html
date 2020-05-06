@@ -18,7 +18,7 @@
 
   <!-- 页面元数据 -->
   
-    <title>标签：BUUCTF - My Tiny Ideas</title>
+    <title>分类：学习笔记 - My Tiny Ideas</title>
   
   
 
@@ -376,8 +376,8 @@
         
           
   <h2 class="title">
-    <a href="/2020/01/11/BUUCTF-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3/">
-      BUUCTF-re部分题解
+    <a href="/2020/05/06/linux-%E9%A9%B1%E5%8A%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+      linux 驱动学习笔记
     </a>
   </h2>
 
@@ -402,9 +402,9 @@
               
   
   <div class='new-meta-item category'>
-    <a href='/categories/ctf/' rel="nofollow">
+    <a href='/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/' rel="nofollow">
       <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
-      <p>ctf</p>
+      <p>学习笔记</p>
     </a>
   </div>
 
@@ -415,7 +415,7 @@
               <div class="new-meta-item date">
   <a class='notlink'>
     <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
-    <p>发布于：2020年1月11日</p>
+    <p>发布于：2020年5月6日</p>
   </a>
 </div>
 
@@ -426,13 +426,13 @@
   <div class="new-meta-item wordcount">
     <a class='notlink'>
       <i class="fas fa-keyboard fa-fw" aria-hidden="true"></i>
-      <p>字数：2k字</p>
+      <p>字数：1.1k字</p>
     </a>
   </div>
   <div class="new-meta-item readtime">
     <a class='notlink'>
       <i class="fas fa-hourglass-half fa-fw" aria-hidden="true"></i>
-      <p>时长：9分钟</p>
+      <p>时长：4分钟</p>
     </a>
   </div>
 
@@ -456,16 +456,99 @@
   <section class="article typo">
     <div class="article-entry" itemprop="articleBody">
       
-        <p>看到有些大佬在做BUUCTF的题，看了一下，题目很多，但是感觉良莠不齐，并且开始的一些题目有些太简单了，就当是多做些题目了。</p>
+        <p>最近有想深入驱动和内核的想法，所以开始学习<em>ldd3</em>，参考着写一篇学习笔记</p>
+<h4 id="背景知识"><a href="#背景知识" class="headerlink" title="背景知识"></a>背景知识</h4><h5 id="什么是驱动"><a href="#什么是驱动" class="headerlink" title="什么是驱动"></a>什么是驱动</h5><p>驱动在Linux内核中担任着特殊的角色，像是一个黑箱，隐藏掉设备工作的具体细节，并且具有模块化的特点，可以和内核的其他部分分开编译，并且可以随时装载卸载。</p>
+<blockquote>
+<p>the role of a device driver is providing mechanism, not policy</p>
+</blockquote>
+<p><em>mechanism</em>指的是提供什么样的方法，<em>policy</em>指的是这些方法可以怎样使用，将这两个问题分开解决，用程序不同的部分甚至是不同的程序去实现，可以使开发变得更简单。</p>
+<p>书中举了一个很简单的例子可以帮助很好的理解，Linux图形界面显示就可以分为两部分，一部分是X Server用以驱动显卡并给替它程序提供接口，另一部分就是我们比较熟悉的窗口管理器(比如我现在用的gnome-session)，在之前安装arch linux的时候有很深的体会。</p>
+<blockquote>
+<p>When writing drivers, a programmer should pay particular attention to this fundamental concept: write kernel code to access the hardware, but don’t force particular policies on the user, since different users have different needs.</p>
+</blockquote>
+<p>这句话很关键，驱动程序只需要提供调用硬件的接口就可以了，并且越是<em>policy free</em>就越有利于实现应用可以在不同的环境下运行</p>
+<h5 id="内核浅析"><a href="#内核浅析" class="headerlink" title="内核浅析"></a>内核浅析</h5><p>在Unix系统中，进程会请求很多系统资源，比如cpu算力，内存，网络或者是其他资源，内核，简单来说，就是一堆可执行的代码，负责管理这些请求。内核大致可以分为以下几个部分：</p>
+<ul>
+<li><p>进程管理</p>
+<p>管理创建和销毁进程，进程之间的通信或者是cpu的分配</p>
+</li>
+<li><p>内存管理</p>
+<p>内存管理其负责为程序分配虚拟内存</p>
+</li>
+<li><p>文件系统</p>
+<p>以前看过这样一句话，几乎Unix系统中的一切都可以当作文件来看</p>
+</li>
+<li><p>设备控制</p>
+<p>提供驱动管理，就是目前学习的重点</p>
+</li>
+<li><p>网络</p>
+</li>
+</ul>
+<h5 id="模块化"><a href="#模块化" class="headerlink" title="模块化"></a>模块化</h5><blockquote>
+<p>Each piece of code that can be added to the kernel at runtime is called a module.</p>
+</blockquote>
+<p>模块可以通过<code>insmod</code>装载并且可以通过<code>rmmod</code>卸载</p>
+<p>模块也有很多种类，但分类的方式并不绝对，本书中分为了三类</p>
+<ul>
+<li><em>a char module</em></li>
+<li><em>a block module</em></li>
+<li><em>a network module</em></li>
+</ul>
+<p>内核中的各种功能，无论是硬件还是软件，都是模块化的</p>
+<h5 id="安全问题"><a href="#安全问题" class="headerlink" title="安全问题"></a>安全问题</h5><p>如果内核存在安全漏洞，整个系统就是不安全的。系统通过调用<em>init_module</em>来检测用户是否有权限，也只有有权限的用户才可以装载模块</p>
+<h4 id="从hello-world开始"><a href="#从hello-world开始" class="headerlink" title="从hello world开始"></a>从hello world开始</h4><p>第一个程序惯例从<code>hello world</code>开始，先写一个很简单的程序，即使没有任何内核基础也能看出大概意思来</p>
+<pre><code class="c">//hello.c
+#include&lt;linux/init.h&gt;
+#include&lt;linux/module.h&gt;
+MODULE_LICENSE(&quot;Dual BSD/GPL&quot;);
+
+static int hello_init(void){
+    printk(KERN_ALERT&quot;Hello,world\n&quot;);
+    return 0;
+}
+
+static void hello_exit(void){
+    printk(KERN_ALERT&quot;Goodbye,cruel world\n&quot;);
+}
+
+module_init(hello_init);
+module_exit(hello_exit);</code></pre>
+<p>这个模块定义了两个函数，一个在模块载入(通过<code>module_init</code>加载)的时候调用，一个在模块卸载(通过<code>module_exit</code>加载)的时候调用，<code>module_init</code>和<code>module_exit</code>是指定函数作用的两个宏定义。另外一个宏定义就是<code>MODULE_LICENSE</code>，这里用来指定的是<code>free license</code>，没有<code>license</code>的模块在装载的时候会因为安全问题被禁用，导致装载失败。</p>
+<p><code>printk</code>顾名思义就是打印，很像<code>printf</code>，但是是打印在<code>log</code>里，可以使用<code>dmesg</code>命令查看。</p>
+<blockquote>
+<p>注意在make的之前要先安装<code>linux-header</code>，我的环境是<code>kali</code>，使用的命令时是</p>
+<pre><code class="bash">sudo apt-get install linux-headers-$(uname -r)</code></pre>
+</blockquote>
+<p><code>Makefile</code>如下</p>
+<pre><code class="makefile">ifeq ($(KERNELRELEASE),)
+
+    # Assume the source tree is where the running kernel was built
+    # You should set KERNELDIR in the environment if it&#39;s elsewhere
+    KERNELDIR ?= /lib/modules/$(shell uname -r)/build
+    # The current directory is passed to sub-makes as argument
+    PWD := $(shell pwd)
+
+modules:
+    $(MAKE) -C $(KERNELDIR) M=$(PWD) modules
+
+modules_install:
+    $(MAKE) -C $(KERNELDIR) M=$(PWD) modules_install
+
+clean:
+    rm -rf *.o *~ core .depend .*.cmd *.ko *.mod.c .tmp_versions Module.symvers modules.order
+
+.PHONY: modules modules_install clean
+
+else
+    # called from kernel build system: just declare what our modules are
+    obj-m := hello.o
+endif</code></pre>
+<p><code>make</code>成功之后使用<code>sudo insmod hello.ko</code>加载模块，使用<code>sudo rmmod hello.ko</code>卸载模块，之后可以使用<code>sudo dmesg</code>查看打印出来的信息</p>
+<p><img src="/2020/05/06/linux-%E9%A9%B1%E5%8A%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/hello.png" alt="hello"></p>
+
       
     </div>
     
-      
-        <div class="button readmore">
-          <a href="/2020/01/11/BUUCTF-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3/">
-            Read More <i class="fas fa-chevron-right"></i>
-          </a>
-        </div>
       
     
   </section>
@@ -487,6 +570,7 @@
 
     
   
+
 </div>
 <aside class='l_side'>
   
