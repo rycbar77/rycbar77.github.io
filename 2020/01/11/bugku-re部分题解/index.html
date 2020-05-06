@@ -629,12 +629,6 @@ Hello,RE!打开程序，发现输入flag，用OD打开，注意到是将输入�
       
       
       
-        <section id="comments">
-          <div id="valine_container" class="valine_thread">
-            <i class="fas fa-cog fa-spin fa-fw fa-2x"></i>
-          </div>
-        </section>
-      
       
     </section>
   </article>
@@ -893,60 +887,6 @@ Hello,RE!打开程序，发现输入flag，用OD打开，注意到是将输入�
 
 
 
-
-  
-    
-<script src="https://cdn.jsdelivr.net/npm/valine@1.4/dist/Valine.min.js"></script>
-
-  
-  <script>
-  var GUEST_INFO = ['nick','mail','link'];
-  var meta = 'nick,mail,link'.split(',').filter(function(item){
-    return GUEST_INFO.indexOf(item) > -1
-  });
-  var REQUIRED_FIELDS = ['nick','mail','link'];
-  var requiredFields = 'nick,mail'.split(',').filter(function(item){
-    return REQUIRED_FIELDS.indexOf(item) > -1
-  });
-  var valine = new Valine();
-  function emoji(path, idx, ext) {
-      return path + "/" + path + "-" + idx + "." + ext;
-  }
-  var emojiMaps = {};
-  for (var i = 1; i <= 54; i++) {
-    emojiMaps['tieba-' + i] = emoji('tieba', i, 'png');
-  }
-  for (var i = 1; i <= 101; i++) {
-    emojiMaps['qq-' + i] = emoji('qq', i, 'gif');
-  }
-  for (var i = 1; i <= 116; i++) {
-    emojiMaps['aru-' + i] = emoji('aru', i, 'gif');
-  }
-  for (var i = 1; i <= 125; i++) {
-    emojiMaps['twemoji-' + i] = emoji('twemoji', i, 'png');
-  }
-  for (var i = 1; i <= 4; i++) {
-    emojiMaps['weibo-' + i] = emoji('weibo', i, 'png');
-  }
-  valine.init({
-    el: '#valine_container',
-    meta: meta,
-    
-    appId: "dogUA2FSKGTo029M1SEwGROT-MdYXbMMI",
-    appKey: "u0NdtQ8nvHoMdJPSYqm1LRxE",
-    placeholder: "快来评论吧~",
-    pageSize:'10',
-    avatar:'robohash',
-    lang:'zh-cn',
-    visitor: 'true',
-    highlight: 'true',
-    mathJax: 'false',
-    enableQQ: 'true',
-    requiredFields: requiredFields,
-    emojiCDN: 'https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/emoji/valine/',
-    emojiMaps: emojiMaps
-  })
-  </script>
 
 
 
