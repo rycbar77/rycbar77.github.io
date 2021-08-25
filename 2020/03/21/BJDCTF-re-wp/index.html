@@ -432,24 +432,27 @@ re选手做完两道题结束比赛……
           <p><del>这么长时间就出了两道这么简单的re出题人的良心不会痛吗</del></p>
 <p>re选手做完两道题结束比赛……</p>
 <p>本来还想做做pwn，有时间再说吧</p>
-<a id="more"></a>
+<span id="more"></span>
 
 <h4 id="guessgame"><a href="#guessgame" class="headerlink" title="guessgame"></a>guessgame</h4><p>随机数用时间种子初始化过了，猜是猜不对的，而且猜对了也没用，会输出flag不在这里，但是可以直接用IDA直接找到flag……</p>
-<pre><code>BJD{S1mple_ReV3r5e_W1th_0D_0r_IDA}</code></pre><h4 id="reverse-8086-ASM-DreamerJack"><a href="#reverse-8086-ASM-DreamerJack" class="headerlink" title="reverse-8086_ASM-DreamerJack"></a>reverse-8086_ASM-DreamerJack</h4><p>16位DOS……</p>
+<pre><code>BJD&#123;S1mple_ReV3r5e_W1th_0D_0r_IDA&#125;
+</code></pre>
+<h4 id="reverse-8086-ASM-DreamerJack"><a href="#reverse-8086-ASM-DreamerJack" class="headerlink" title="reverse-8086_ASM-DreamerJack"></a>reverse-8086_ASM-DreamerJack</h4><p>16位DOS……</p>
 <p>IDA打开，发现一段数据很奇怪，转换成code</p>
 <pre><code class="asm">mov     cx, 22h ; &#39;&quot;&#39;
-seg001:0005                 lea     bx, aUDuTZWjQGjzZWz ; &quot;]U[du~|t@{z@wj.}.~q@gjz{z@wzqW~/b;&quot;
+seg001:0005                 lea     bx, aUDuTZWjQGjzZWz ; &quot;]U[du~|t@&#123;z@wj.&#125;.~q@gjz&#123;z@wzqW~/b;&quot;
 seg001:0009
 seg001:0009 loc_10039:                              ; CODE XREF: seg001:000F↓j
 seg001:0009                 mov     di, cx
 seg001:000B                 dec     di
 seg001:000C                 xor     byte ptr [bx+di], 1Fh
 seg001:000F                 loop    loc_10039
-seg001:0011                 lea     dx, aUDuTZWjQGjzZWz ; &quot;]U[du~|t@{z@wj.}.~q@gjz{z@wzqW~/b;&quot;
+seg001:0011                 lea     dx, aUDuTZWjQGjzZWz ; &quot;]U[du~|t@&#123;z@wj.&#125;.~q@gjz&#123;z@wzqW~/b;&quot;
 seg001:0015                 mov     ah, 9
 seg001:0017                 int     21h             ; DOS - PRINT STRING
 seg001:0017                                         ; DS:DX -&gt; string terminated by &quot;$&quot;
-seg001:0019                 retn</code></pre>
+seg001:0019                 retn
+</code></pre>
 <p>异或，循环，输出……</p>
 <p>跑一下</p>
 <pre><code class="python">target = [0x5D, 0x55, 0x5B, 0x64, 0x75, 0x7E, 0x7C, 0x74, 0x40, 0x7B, 0x7A, 0x40, 0x77, 0x6A, 0x2E, 0x7D, 0x2E, 0x7E,
@@ -457,9 +460,12 @@ seg001:0019                 retn</code></pre>
 flag = &#39;&#39;
 for i in range(0x22):
     flag += chr(target[i] ^ 0x1F)
-print(flag)</code></pre>
-<p>输出flag，其中<strong><code>$</code>是DOS终止符</strong></p>
-<pre><code>BJD{jack_de_hu1b1an_xuede_henHa0}$</code></pre><h4 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h4><p>溜了，<del>刷攻防世界去了</del></p>
+print(flag)
+</code></pre>
+<p>输出flag，其中**<code>$</code>是DOS终止符**</p>
+<pre><code>BJD&#123;jack_de_hu1b1an_xuede_henHa0&#125;$
+</code></pre>
+<h4 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h4><p>溜了，<del>刷攻防世界去了</del></p>
 <p>补作业去了</p>
 
           
@@ -550,9 +556,9 @@ print(flag)</code></pre>
   <div class="-mob-share-list share-body">
     
       
-        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer"
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
           
-          href="http://connect.qq.com/widget/shareqq/index.html?url=http://blog.rycbar.club/2020/03/21/BJDCTF-re-wp/&title=BJDCTF-re-wp - My Tiny Ideas&summary=这么长时间就出了两道这么简单的re出题人的良心不会痛吗
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://blog.rycbar.club/2020/03/21/BJDCTF-re-wp/&title=BJDCTF-re-wp - My Tiny Ideas&summary=这么长时间就出了两道这么简单的re出题人的良心不会痛吗
 re选手做完两道题结束比赛……
 本来还想做做pwn，有时间再说吧"
           
@@ -564,9 +570,9 @@ re选手做完两道题结束比赛……
       
     
       
-        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer"
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
           
-          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://blog.rycbar.club/2020/03/21/BJDCTF-re-wp/&title=BJDCTF-re-wp - My Tiny Ideas&summary=这么长时间就出了两道这么简单的re出题人的良心不会痛吗
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://blog.rycbar.club/2020/03/21/BJDCTF-re-wp/&title=BJDCTF-re-wp - My Tiny Ideas&summary=这么长时间就出了两道这么简单的re出题人的良心不会痛吗
 re选手做完两道题结束比赛……
 本来还想做做pwn，有时间再说吧"
           
@@ -578,9 +584,9 @@ re选手做完两道题结束比赛……
       
     
       
-        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer"
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
           
-          href="http://service.weibo.com/share/share.php?url=http://blog.rycbar.club/2020/03/21/BJDCTF-re-wp/&title=BJDCTF-re-wp - My Tiny Ideas&summary=这么长时间就出了两道这么简单的re出题人的良心不会痛吗
+          target="_blank" href="http://service.weibo.com/share/share.php?url=http://blog.rycbar.club/2020/03/21/BJDCTF-re-wp/&title=BJDCTF-re-wp - My Tiny Ideas&summary=这么长时间就出了两道这么简单的re出题人的良心不会痛吗
 re选手做完两道题结束比赛……
 本来还想做做pwn，有时间再说吧"
           
@@ -694,7 +700,7 @@ IDA打开，脱壳怕是不可能的了，只能换其他方法。
 
 
     <div class='content'>
-      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#guessgame"><span class="toc-text">guessgame</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#reverse-8086-ASM-DreamerJack"><span class="toc-text">reverse-8086_ASM-DreamerJack</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#后记"><span class="toc-text">后记</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#guessgame"><span class="toc-text">guessgame</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#reverse-8086-ASM-DreamerJack"><span class="toc-text">reverse-8086_ASM-DreamerJack</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%90%8E%E8%AE%B0"><span class="toc-text">后记</span></a></li></ol>
     </div>
   </section>
 
@@ -765,13 +771,13 @@ IDA打开，脱壳怕是不可能的了，只能换其他方法。
       
     
       
-        <div><p>博客内容遵循 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</a></p>
+        <div><p>博客内容遵循 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</a></p>
 </div>
       
     
       
         <div class='copyright'>
-        <p><a href="https://blog.rycbar.club">Copyright © 2017-2020 rycbar</a></p>
+        <p><a href="https://blog.rycbar.club/">Copyright © 2017-2020 rycbar</a></p>
 
         </div>
       

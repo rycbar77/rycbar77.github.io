@@ -428,11 +428,11 @@
         <div class="article-entry" itemprop="articleBody">
           
           <p>攻防世界的题目质量还是比较高的，题目类型很多，难度也有一定的梯度，挺适合不断进阶学习。</p>
-<a id="more"></a>
+<span id="more"></span>
 
 <h4 id="insanity"><a href="#insanity" class="headerlink" title="insanity"></a>insanity</h4><p>IDA打开，进入main，发现程序在生成随机数，然后随便输出一系列字符串中的某一个，找到这一系列字符串，发现了flag</p>
 <pre><code class="c++">int __cdecl main(int argc, const char **argv, const char **envp)
-{
+&#123;
   unsigned int v3; // eax
   unsigned int v4; // eax
 
@@ -443,34 +443,37 @@
   v4 = rand();
   puts((&amp;strs)[v4 % 0xA]);
   return 0;
-}</code></pre>
+&#125;
+</code></pre>
 <p>找到strs，其中flag</p>
-<pre><code>9447{This_is_a_flag}</code></pre><h4 id="open-source"><a href="#open-source" class="headerlink" title="open-source"></a>open-source</h4><p>这题真就连源代码都给了</p>
+<pre><code>9447&#123;This_is_a_flag&#125;
+</code></pre>
+<h4 id="open-source"><a href="#open-source" class="headerlink" title="open-source"></a>open-source</h4><p>这题真就连源代码都给了</p>
 <pre><code class="c++">#include &lt;stdio.h&gt;
 #include &lt;string.h&gt;
 
-int main(int argc, char *argv[]) {
-    if (argc != 4) {
+int main(int argc, char *argv[]) &#123;
+    if (argc != 4) &#123;
         printf(&quot;what?\n&quot;);
         exit(1);
-    }
+    &#125;
 
     unsigned int first = atoi(argv[1]);
-    if (first != 0xcafe) {
+    if (first != 0xcafe) &#123;
         printf(&quot;you are wrong, sorry.\n&quot;);
         exit(2);
-    }
+    &#125;
 
     unsigned int second = atoi(argv[2]);
-    if (second % 5 == 3 || second % 17 != 8) {
+    if (second % 5 == 3 || second % 17 != 8) &#123;
         printf(&quot;ha, you won&#39;t get it!\n&quot;);
         exit(3);
-    }
+    &#125;
 
-    if (strcmp(&quot;h4cky0u&quot;, argv[3])) {
+    if (strcmp(&quot;h4cky0u&quot;, argv[3])) &#123;
         printf(&quot;so close, dude!\n&quot;);
         exit(4);
-    }
+    &#125;
 
     printf(&quot;Brr wrrr grr\n&quot;);
 
@@ -479,11 +482,16 @@ int main(int argc, char *argv[]) {
     printf(&quot;Get your key: &quot;);
     printf(&quot;%x\n&quot;, hash);
     return 0;
-}</code></pre>
+&#125;
+</code></pre>
 <p>看一下源码，发现运行时要有三个参数，第一个参数给出来了，是0xcafe，第二个没有给，但是知道second%17==8，直接带到下面计算就行了，第三个是字符串的长度，为7，直接算出来就行了。</p>
 <p>不过还需要注意，最后输出的时候是以16进制的形式输出</p>
-<pre><code>c0ffee</code></pre><h4 id="simple-unpack"><a href="#simple-unpack" class="headerlink" title="simple-unpack"></a>simple-unpack</h4><p>题如其名，拿到直接upx脱壳，毫无阻碍，IDA打开直接在main里看到flag</p>
-<pre><code>flag{Upx_1s_n0t_a_d3liv3r_c0mp4ny}</code></pre><h4 id="logmein"><a href="#logmein" class="headerlink" title="logmein"></a>logmein</h4><p>IDA打开，找到关键判断位置</p>
+<pre><code>c0ffee
+</code></pre>
+<h4 id="simple-unpack"><a href="#simple-unpack" class="headerlink" title="simple-unpack"></a>simple-unpack</h4><p>题如其名，拿到直接upx脱壳，毫无阻碍，IDA打开直接在main里看到flag</p>
+<pre><code>flag&#123;Upx_1s_n0t_a_d3liv3r_c0mp4ny&#125;
+</code></pre>
+<h4 id="logmein"><a href="#logmein" class="headerlink" title="logmein"></a>logmein</h4><p>IDA打开，找到关键判断位置</p>
 <pre><code class="c++">strcpy(v8, &quot;:\&quot;AL_RT^L*.?+6/46&quot;);
   v7 = &#39;ebmarah&#39;;
   v6 = 7;
@@ -495,28 +503,35 @@ int main(int argc, char *argv[]) {
   if ( v3 &lt; strlen(v8) )
     sub_4007C0(v8);
   for ( i = 0; i &lt; strlen(s); ++i )
-  {
+  &#123;
     if ( i &gt;= strlen(v8) )
       ((void (*)(void))sub_4007C0)();
     if ( s[i] != (char)(*((_BYTE *)&amp;v7 + i % v6) ^ v8[i]) )
       ((void (*)(void))sub_4007C0)();
-  }</code></pre>
+  &#125;
+</code></pre>
 <p>v7本身是一个长整型，但是作为字符读取，由于小端序，所以转换成的字符要反序，然后经过下面的计算就可以了</p>
 <pre><code class="python">v8 = &#39;:\&quot;AL_RT^L*.?+6/46&#39;
 v7 = &#39;harambe&#39;
 s = &#39;&#39;
 for i in range(len(v8)):
     s += chr(ord(v7[i % 7]) ^ ord(v8[i]))
-print(s)</code></pre>
+print(s)
+</code></pre>
 <p>输出结果</p>
-<pre><code>RC3-2016-XORISGUD</code></pre><h4 id="python-trade"><a href="#python-trade" class="headerlink" title="python-trade"></a>python-trade</h4><p>见CG-CTF py交易</p>
+<pre><code>RC3-2016-XORISGUD
+</code></pre>
+<h4 id="python-trade"><a href="#python-trade" class="headerlink" title="python-trade"></a>python-trade</h4><p>见CG-CTF py交易</p>
 <h4 id="game"><a href="#game" class="headerlink" title="game"></a>game</h4><p>见BUGKU 游戏过关</p>
 <h4 id="hello-ctf"><a href="#hello-ctf" class="headerlink" title="hello-ctf"></a>hello-ctf</h4><p>一串输入的字符串拷贝来拷贝去，实际上就是把输入的字符串变成16进制，所以直接从16进制转换成字符串就可以了</p>
 <pre><code class="python">s = &#39;437261636b4d654a757374466f7246756e&#39;
 flag = bytes.fromhex(s)
-print(flag)</code></pre>
+print(flag)
+</code></pre>
 <p>直接输出flag</p>
-<pre><code>CrackMeJustForFun</code></pre><h4 id="getit"><a href="#getit" class="headerlink" title="getit"></a>getit</h4><p>同样是一道简单题，写个简单的逆运算就可以了</p>
+<pre><code>CrackMeJustForFun
+</code></pre>
+<h4 id="getit"><a href="#getit" class="headerlink" title="getit"></a>getit</h4><p>同样是一道简单题，写个简单的逆运算就可以了</p>
 <pre><code class="python">s = &#39;c61b68366edeb7bdce3c6820314b7498&#39;
 t = &#39;&#39;
 v5 = 0
@@ -527,16 +542,25 @@ while (v5 &lt; len(s)):
         v3 = -1
     t += chr(ord(s[v5]) + v3)
     v5 = v5 + 1
-t=&#39;SharifCTF{&#39;+t+&#39;}&#39;
-print(t)</code></pre>
+t=&#39;SharifCTF&#123;&#39;+t+&#39;&#125;&#39;
+print(t)
+</code></pre>
 <p>输出flag</p>
-<pre><code>SharifCTF{b70c59275fcfa8aebf2d5911223c6589}</code></pre><h4 id="re1"><a href="#re1" class="headerlink" title="re1"></a>re1</h4><p>IDA打开追踪字符串，发现flag和输入直接进行比较，找到flag的位置，然后将16进制转换位字符串然后逆序即可</p>
-<pre><code>DUTCTF{We1c0met0DUTCTF}</code></pre><h4 id="no-strings-attached"><a href="#no-strings-attached" class="headerlink" title="no-strings-attached"></a>no-strings-attached</h4><p>这题有点意思，整个程序没有直接出现的字符串，先打开IDA看看，找到一个decrypt函数，一看就知道这个是最重要的部分，又不想再写脚本去算，所以干脆开虚拟机gdb动态调试，在decrypt处下断点，等运行完decrypt函数之后，发现程序把某个地址拷进了eax，所以用<code>x/6sw $eax</code>来查看，结果发现了flag</p>
-<pre><code>9447{you_are_an_international_mystery}</code></pre><h4 id="csaw2013reversing3"><a href="#csaw2013reversing3" class="headerlink" title="csaw2013reversing3"></a>csaw2013reversing3</h4><p>这题比较有意思，一打开输出的是乱码，用IDA打开发现这些代码没有解密，有一个解密程序但是没有运行，所以OD直接调试改汇编，先运行解密函数，然后跳转到MessageBoxA函数，在窗口中输出来的就是真正的flag，操作比较简单，就不赘述了。</p>
-<pre><code>flag{reversing_is_not_that_hard!}</code></pre><h4 id="maze"><a href="#maze" class="headerlink" title="maze"></a>maze</h4><p>见CG-CTF maze</p>
+<pre><code>SharifCTF&#123;b70c59275fcfa8aebf2d5911223c6589&#125;
+</code></pre>
+<h4 id="re1"><a href="#re1" class="headerlink" title="re1"></a>re1</h4><p>IDA打开追踪字符串，发现flag和输入直接进行比较，找到flag的位置，然后将16进制转换位字符串然后逆序即可</p>
+<pre><code>DUTCTF&#123;We1c0met0DUTCTF&#125;
+</code></pre>
+<h4 id="no-strings-attached"><a href="#no-strings-attached" class="headerlink" title="no-strings-attached"></a>no-strings-attached</h4><p>这题有点意思，整个程序没有直接出现的字符串，先打开IDA看看，找到一个decrypt函数，一看就知道这个是最重要的部分，又不想再写脚本去算，所以干脆开虚拟机gdb动态调试，在decrypt处下断点，等运行完decrypt函数之后，发现程序把某个地址拷进了eax，所以用<code>x/6sw $eax</code>来查看，结果发现了flag</p>
+<pre><code>9447&#123;you_are_an_international_mystery&#125;
+</code></pre>
+<h4 id="csaw2013reversing3"><a href="#csaw2013reversing3" class="headerlink" title="csaw2013reversing3"></a>csaw2013reversing3</h4><p>这题比较有意思，一打开输出的是乱码，用IDA打开发现这些代码没有解密，有一个解密程序但是没有运行，所以OD直接调试改汇编，先运行解密函数，然后跳转到MessageBoxA函数，在窗口中输出来的就是真正的flag，操作比较简单，就不赘述了。</p>
+<pre><code>flag&#123;reversing_is_not_that_hard!&#125;
+</code></pre>
+<h4 id="maze"><a href="#maze" class="headerlink" title="maze"></a>maze</h4><p>见CG-CTF maze</p>
 <h4 id="666"><a href="#666" class="headerlink" title="666"></a>666</h4><p>IDA打开看到了假flag，不管它，找到关键函数</p>
 <pre><code class="c++">int __fastcall encode(const char *a1, __int64 a2)
-{
+&#123;
   char v3[32]; // [rsp+10h] [rbp-70h]
   char v4[32]; // [rsp+30h] [rbp-50h]
   char v5[40]; // [rsp+50h] [rbp-30h]
@@ -548,42 +572,46 @@ print(t)</code></pre>
   if ( strlen(a1) != key )
     return puts(&quot;Your Length is Wrong&quot;);
   for ( i = 0; i &lt; key; i += 3 )
-  {
+  &#123;
     v5[i] = key ^ (a1[i] + 6);
     v4[i + 1] = (a1[i + 1] - 6) ^ key;
     v3[i + 2] = a1[i + 2] ^ 6 ^ key;
     *(_BYTE *)(a2 + i) = v5[i];
     *(_BYTE *)(a2 + i + 1LL) = v4[i + 1];
     *(_BYTE *)(a2 + i + 2LL) = v3[i + 2];
-  }
+  &#125;
   return a2;
-}</code></pre>
+&#125;
+</code></pre>
 <p>这里进行了一些运算，运算的结果要和一个已经定义的enflag字符串相同，所以很好逆，这里需要注意运算顺序，异或运算加括号，不然会先计算加减</p>
 <pre><code class="c++">#include &lt;iostream&gt;
 #include &lt;cstring&gt;
 #include &lt;string&gt;
 using namespace std;
-int main() {
+int main() &#123;
     int key = 0x12;
     unsigned char a2[] =
-            {
+            &#123;
                     0x69, 0x7A, 0x77, 0x68, 0x72, 0x6F, 0x7A, 0x22, 0x22, 0x77,
                     0x22, 0x76, 0x2E, 0x4B, 0x22, 0x2E, 0x4E, 0x69
-            };
+            &#125;;
     char a1[key+1];
     for (int i = 0; i &lt; key; i += 3 )
-    {
+    &#123;
         a1[i]=(a2[i]^key)-6;
         a1[i+1]=(a2[i+1]^key)+6;
         a1[i+2]=a2[i+2]^key^6;
-    }
+    &#125;
     cout&lt;&lt;a1&lt;&lt;endl;
     return 0;
-}</code></pre>
+&#125;
+</code></pre>
 <p>输出的flag为：</p>
-<pre><code>unctf{b66_6b6_66b}</code></pre><h4 id="Reversing-x64Elf-100"><a href="#Reversing-x64Elf-100" class="headerlink" title="Reversing-x64Elf-100"></a>Reversing-x64Elf-100</h4><p>没什么难度，找到关键函数</p>
+<pre><code>unctf&#123;b66_6b6_66b&#125;
+</code></pre>
+<h4 id="Reversing-x64Elf-100"><a href="#Reversing-x64Elf-100" class="headerlink" title="Reversing-x64Elf-100"></a>Reversing-x64Elf-100</h4><p>没什么难度，找到关键函数</p>
 <pre><code class="c++">signed __int64 __fastcall sub_4006FD(__int64 a1)
-{
+&#123;
   signed int i; // [rsp+14h] [rbp-24h]
   const char *v3; // [rsp+18h] [rbp-20h]
   const char *v4; // [rsp+20h] [rbp-18h]
@@ -593,12 +621,13 @@ int main() {
   v4 = &quot;pG`imos&quot;;
   v5 = &quot;ewUglpt&quot;;
   for ( i = 0; i &lt;= 11; ++i )
-  {
+  &#123;
     if ( (&amp;v3)[i % 3][2 * (i / 3)] - *(char *)(i + a1) != 1 )
       return 1LL;
-  }
+  &#125;
   return 0LL;
-}</code></pre>
+&#125;
+</code></pre>
 <p>a1就是我们需要的flag了</p>
 <pre><code class="c++">#include &lt;iostream&gt;
 #include &lt;cstring&gt;
@@ -606,17 +635,20 @@ int main() {
 
 using namespace std;
 
-int main() {
-    char v3[3][8] = {&quot;Dufhbmf&quot;, &quot;pG`imos&quot;, &quot;ewUglpt&quot;};
+int main() &#123;
+    char v3[3][8] = &#123;&quot;Dufhbmf&quot;, &quot;pG`imos&quot;, &quot;ewUglpt&quot;&#125;;
     char a1[13];
-    for (int i = 0; i &lt;= 11; ++i) {
+    for (int i = 0; i &lt;= 11; ++i) &#123;
         a1[i] = v3[i % 3][2 * (i / 3)] - 1;
-    }
+    &#125;
     cout&lt;&lt;a1&lt;&lt;endl;
     return 0;
-}</code></pre>
+&#125;
+</code></pre>
 <p>输出的flag为：</p>
-<pre><code>Code_Talkers</code></pre>
+<pre><code>Code_Talkers
+</code></pre>
+
           
             <div class='article_footer'>
               
@@ -705,9 +737,9 @@ int main() {
   <div class="-mob-share-list share-body">
     
       
-        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer"
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
           
-          href="http://connect.qq.com/widget/shareqq/index.html?url=http://blog.rycbar.club/2020/02/24/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3%EF%BC%88%E4%B8%80%EF%BC%89/&title=攻防世界-re部分题解（一） - My Tiny Ideas&summary=攻防世界的题目质量还是比较高的，题目类型很多，难度也有一定的梯度，挺适合不断进阶学习。"
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://blog.rycbar.club/2020/02/24/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3%EF%BC%88%E4%B8%80%EF%BC%89/&title=攻防世界-re部分题解（一） - My Tiny Ideas&summary=攻防世界的题目质量还是比较高的，题目类型很多，难度也有一定的梯度，挺适合不断进阶学习。"
           
           >
           
@@ -717,9 +749,9 @@ int main() {
       
     
       
-        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer"
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
           
-          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://blog.rycbar.club/2020/02/24/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3%EF%BC%88%E4%B8%80%EF%BC%89/&title=攻防世界-re部分题解（一） - My Tiny Ideas&summary=攻防世界的题目质量还是比较高的，题目类型很多，难度也有一定的梯度，挺适合不断进阶学习。"
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://blog.rycbar.club/2020/02/24/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3%EF%BC%88%E4%B8%80%EF%BC%89/&title=攻防世界-re部分题解（一） - My Tiny Ideas&summary=攻防世界的题目质量还是比较高的，题目类型很多，难度也有一定的梯度，挺适合不断进阶学习。"
           
           >
           
@@ -729,9 +761,9 @@ int main() {
       
     
       
-        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer"
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
           
-          href="http://service.weibo.com/share/share.php?url=http://blog.rycbar.club/2020/02/24/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3%EF%BC%88%E4%B8%80%EF%BC%89/&title=攻防世界-re部分题解（一） - My Tiny Ideas&summary=攻防世界的题目质量还是比较高的，题目类型很多，难度也有一定的梯度，挺适合不断进阶学习。"
+          target="_blank" href="http://service.weibo.com/share/share.php?url=http://blog.rycbar.club/2020/02/24/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3%EF%BC%88%E4%B8%80%EF%BC%89/&title=攻防世界-re部分题解（一） - My Tiny Ideas&summary=攻防世界的题目质量还是比较高的，题目类型很多，难度也有一定的梯度，挺适合不断进阶学习。"
           
           >
           
@@ -760,9 +792,9 @@ int main() {
                 <p class='content'>题目有点多，放在一篇里面太过臃肿，所以多分了几篇
 
 
-IgniteMeIDA打开，首先发现flag的格式，EIS{***}
+IgniteMeIDA打开，首先发现flag的格式，EIS&#123;***&#125;
 找到关键函数
-bool __cdecl sub_4011C0(char...</p>
+bool __cdecl sub_4...</p>
               </a>
             
             
@@ -912,13 +944,13 @@ bool __cdecl sub_4011C0(char...</p>
       
     
       
-        <div><p>博客内容遵循 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</a></p>
+        <div><p>博客内容遵循 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</a></p>
 </div>
       
     
       
         <div class='copyright'>
-        <p><a href="https://blog.rycbar.club">Copyright © 2017-2020 rycbar</a></p>
+        <p><a href="https://blog.rycbar.club/">Copyright © 2017-2020 rycbar</a></p>
 
         </div>
       

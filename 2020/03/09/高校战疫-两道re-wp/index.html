@@ -428,11 +428,11 @@
         <div class="article-entry" itemprop="articleBody">
           
           <p>这两天攻防世界有个比赛，上面的题目还不错，参与了一下，至于为什么是两道re，因为正好赶上数模美赛，没怎么有时间做（实际上就是因为菜</p>
-<a id="more"></a>
+<span id="more"></span>
 
 <h4 id="cyclegraph"><a href="#cyclegraph" class="headerlink" title="cyclegraph"></a>cyclegraph</h4><pre><code class="c++">void FUN_00401080(void)
 
-{
+&#123;
   char cVar1;
   char *pcVar2;
   undefined4 *puVar3;
@@ -443,120 +443,121 @@
   char acStack27 [16];
   char local_b;
   uint local_8;
-
+  
   local_8 = DAT_00403004 ^ (uint)&amp;stack0xfffffffc;
   DAT_00403370 = 0;
   puVar3 = &amp;DAT_00403384;
   DAT_00403374 = &#39;0&#39;;
   DAT_00403378 = &amp;DAT_00403380;
   iVar4 = 0;
-  do {
+  do &#123;
     puVar3[-1] = *(undefined4 *)((int)null_ARRAY_00402178 + iVar4);
     *(undefined4 **)puVar3 = &amp;DAT_00403380 + *(int *)((int)null_ARRAY_00402278 + iVar4) * 3;
     *(undefined4 **)(puVar3 + 1) = &amp;DAT_00403380 + *(int *)((int)null_ARRAY_004021f8 + iVar4) * 3;
     puVar3 = puVar3 + 3;
     iVar4 = iVar4 + 4;
-  } while ((int)puVar3 &lt; 0x403504);
+  &#125; while ((int)puVar3 &lt; 0x403504);
   print(&quot;You need a flag to get out of this:\n&quot;,unaff_DI);
   scan(&amp;DAT_0040214c,0xe0);
   iVar4 = 5;
-  do {
+  do &#123;
     cVar1 = local_20[iVar4];
-    if (*DAT_00403378 + (int)DAT_00403374 == (int)cVar1) {
+    if (*DAT_00403378 + (int)DAT_00403374 == (int)cVar1) &#123;
       DAT_00403378 = (int *)DAT_00403378[1];
-    }
-    else {
-      if ((int)DAT_00403374 - *DAT_00403378 != (int)cVar1) {
+    &#125;
+    else &#123;
+      if ((int)DAT_00403374 - *DAT_00403378 != (int)cVar1) &#123;
         print(&quot;This is not flag~\n&quot;,unaff_DI);
         system(&quot;pause&quot;);
                     /* WARNING: Subroutine does not return */
         exit(1);
-      }
+      &#125;
       DAT_00403378 = (int *)DAT_00403378[2];
-    }
+    &#125;
     DAT_00403374 = local_20[iVar4];
     DAT_00403370 = DAT_00403370 + 1;
     iVar4 = iVar4 + 1;
-  } while (iVar4 &lt; 0x15);
+  &#125; while (iVar4 &lt; 0x15);
   if (((((local_20[0] == &#39;f&#39;) &amp;&amp; (local_20[1] == &#39;l&#39;)) &amp;&amp; (local_20[2] == &#39;a&#39;)) &amp;&amp;
-      ((local_20[3] == &#39;g&#39; &amp;&amp; (local_1c == &#39;{&#39;)))) &amp;&amp; (local_b == &#39;}&#39;)) {
-    if ((DAT_00403370 &lt; 0x11) &amp;&amp; (DAT_00403378 == (int *)&amp;DAT_004034f4)) {
+      ((local_20[3] == &#39;g&#39; &amp;&amp; (local_1c == &#39;&#123;&#39;)))) &amp;&amp; (local_b == &#39;&#125;&#39;)) &#123;
+    if ((DAT_00403370 &lt; 0x11) &amp;&amp; (DAT_00403378 == (int *)&amp;DAT_004034f4)) &#123;
       pcVar2 = &quot;Congratulations!!\n&quot;;
-    }
-    else {
+    &#125;
+    else &#123;
       pcVar2 = &quot;This is not flag~\n&quot;;
-    }
-  }
-  else {
+    &#125;
+  &#125;
+  else &#123;
     pcVar2 = &quot;illegal input~\n&quot;;
-  }
+  &#125;
   print(pcVar2,cVar1);
   system(&quot;pause&quot;);
   FUN_004011f4();
   return;
-}</code></pre>
+&#125;
+</code></pre>
 <p>表面上看起来很复杂，仔细研究就会发现，开始的循环是在构造一个有向图，用到了一个结构体，而后面的部分是一个寻路的过程，正向的过程是根据输入的flag的值进行移动，最终走到最后一个位置，所以逆向的过程就是先寻找路径，然后通过找到的路径来计算flag的值</p>
 <pre><code class="c++">#include &lt;iostream&gt;
 
 using namespace std;
-struct a {
+struct a &#123;
     int val;
     a *loc1;
     a *loc2;
-};
+&#125;;
 
-bool dfs(a *ss, a *ee, int n, a *s[]) {
-    if (n == 0) {
+bool dfs(a *ss, a *ee, int n, a *s[]) &#123;
+    if (n == 0) &#123;
         return ss == ee;
-    }
-    if (dfs(ss-&gt;loc1, ee, n - 1, s)) {
-        for (int i = 0; i &lt; 0x11; i++) {
-            if (s[i] == nullptr) {
+    &#125;
+    if (dfs(ss-&gt;loc1, ee, n - 1, s)) &#123;
+        for (int i = 0; i &lt; 0x11; i++) &#123;
+            if (s[i] == nullptr) &#123;
                 s[i] = ss-&gt;loc1;
                 break;
-            }
-        }
+            &#125;
+        &#125;
         return true;
-    } else {
-        if (dfs(ss-&gt;loc2, ee, n - 1, s)) {
-            for (int i = 0; i &lt; 0x11; i++) {
-                if (s[i] == nullptr) {
+    &#125; else &#123;
+        if (dfs(ss-&gt;loc2, ee, n - 1, s)) &#123;
+            for (int i = 0; i &lt; 0x11; i++) &#123;
+                if (s[i] == nullptr) &#123;
                     s[i] = ss-&gt;loc2;
                     break;
-                }
-            }
+                &#125;
+            &#125;
             return true;
-        }
-    }
-}
+        &#125;
+    &#125;
+&#125;
 
-void fun() {
+void fun() &#123;
     int dword_402178[] =
-            {
+            &#123;
                     52, 2, 44, 42, 6, 42, 47, 42, 51, 3, 2, 50, 50, 50, 48, 3, 1, 50, 43, 2, 46, 1, 2, 45, 50, 4, 45,
                     48, 49, 47, 51, 5
-            };
+            &#125;;
     int dword_4021F8[] =
-            {
+            &#123;
                     1, 8, 7, 23, 9, 19, 31, 23, 9, 13, 12, 29, 10, 24, 9, 24, 25, 9, 26, 3, 22, 6, 17, 13, 7, 15, 20, 1,
                     16, 4, 11, 31
-            };
+            &#125;;
     int dword_402278[] =
-            {
+            &#123;
                     2, 2, 1, 18, 7, 2, 26, 13, 4, 10, 4, 21, 14, 1, 0, 14, 5, 7, 28, 12, 28, 15, 15, 2, 16, 23, 30, 23,
                     19, 9, 22, 31
-            };
+            &#125;;
 
     a puVar3[32];
     a *DAT_00403378 = puVar3;
-    a *s[0x12]= {nullptr};
+    a *s[0x12]= &#123;nullptr&#125;;
     int i = 0;
-    do {
+    do &#123;
         puVar3[i].val = dword_402178[i];
         puVar3[i].loc1 = &amp;puVar3[dword_402278[i]];
         puVar3[i].loc2 = &amp;puVar3[dword_4021F8[i]];
         i++;
-    } while (i &lt; 32);
+    &#125; while (i &lt; 32);
 
     dfs(DAT_00403378, &amp;puVar3[31], 0x10, s);
     DAT_00403378 = puVar3;
@@ -564,66 +565,69 @@ void fun() {
     int DAT_00403374 = 48;
     char tmp;
     for(int j=0; j &lt; 0x10; j++)
-    {
+    &#123;
         if(s[0xf-j]==DAT_00403378-&gt;loc1)
-        {
+        &#123;
             tmp=DAT_00403378-&gt;val + DAT_00403374;
             DAT_00403378=DAT_00403378-&gt;loc1;
 
-        } else{
+        &#125; else&#123;
             tmp=DAT_00403374 - DAT_00403378-&gt;val;
             DAT_00403378=DAT_00403378-&gt;loc2;
-        }
+        &#125;
         flag+=tmp;
         DAT_00403374 = tmp;
-    }
+    &#125;
     cout&lt;&lt;flag&lt;&lt;endl;
 //    int input[0x15];
 //    int iVar4 = 5;
 //    int DAT_00403374 = 48;
-//    do {
+//    do &#123;
 //        int cVar1 = input[iVar4];
-//        if (DAT_00403378-&gt;val + DAT_00403374 == cVar1) {
+//        if (DAT_00403378-&gt;val + DAT_00403374 == cVar1) &#123;
 //            DAT_00403378 = DAT_00403378-&gt;loc1;
-//        } else {
-//            if (DAT_00403374 - DAT_00403378-&gt;val == cVar1) {
+//        &#125; else &#123;
+//            if (DAT_00403374 - DAT_00403378-&gt;val == cVar1) &#123;
 //                DAT_00403378 = DAT_00403378-&gt;loc2;
-//            }
-//        }
+//            &#125;
+//        &#125;
 //        DAT_00403374 = input[iVar4];
 //        iVar4 = iVar4 + 1;
-//    } while (iVar4 &lt; 0x15);
+//    &#125; while (iVar4 &lt; 0x15);
 
 
 //    if (((((input[0] == &#39;f&#39;) &amp;&amp; (input[1] == &#39;l&#39;)) &amp;&amp; (input[2] == &#39;a&#39;)) &amp;&amp;
-//         ((input[3] == &#39;g&#39; &amp;&amp; (input[4] == &#39;{&#39;)))) &amp;&amp; (input[0x14] == &#39;}&#39;)) {
-//        if (DAT_00403378 == &amp;puVar3[31]) {
+//         ((input[3] == &#39;g&#39; &amp;&amp; (input[4] == &#39;&#123;&#39;)))) &amp;&amp; (input[0x14] == &#39;&#125;&#39;)) &#123;
+//        if (DAT_00403378 == &amp;puVar3[31]) &#123;
 //            string s = &quot;Congratulations!!\n&quot;;
-//        }
-//    }
+//        &#125;
+//    &#125;
 
-}
+&#125;
 
 int main()
-{
+&#123;
     fun();
     return 0;
-}</code></pre>
+&#125;
+</code></pre>
 <p>注释部分是对于程序的一个正向还原，寻路用到了<code>dfs</code>算法，不是很难。</p>
 <p>最后得到flag</p>
-<pre><code>flag{d8b0bc97a6c0ba27}</code></pre><h4 id="天津垓"><a href="#天津垓" class="headerlink" title="天津垓"></a>天津垓</h4><p>题目里所有的内容都是假面骑士……</p>
+<pre><code>flag&#123;d8b0bc97a6c0ba27&#125;
+</code></pre>
+<h4 id="天津垓"><a href="#天津垓" class="headerlink" title="天津垓"></a>天津垓</h4><p>题目里所有的内容都是假面骑士……</p>
 <p>首先可以关注到一个函数名为<code>f</code> 的函数，这个函数很简单</p>
 <pre><code class="c++">__int64 __fastcall f(__int64 a1, char **a2, char **a3)
-{
+&#123;
   _main(a1, (__int64)a2, (__int64)a3);
   printf(&quot;Authorize:&quot;);
   sub_1004011F6();
   sub_100401AA0();
   return 0i64;
-}
+&#125;
 
 int sub_1004011F6()
-{
+&#123;
   char v1; // [rsp+20h] [rbp-D0h]
   char v2; // [rsp+21h] [rbp-CFh]
   char v3; // [rsp+22h] [rbp-CEh]
@@ -713,39 +717,42 @@ int sub_1004011F6()
   v18 = 16;
   scanf(Format, Str);
   if ( strlen(Str) != 18 )
-  {
+  &#123;
     printf(v20, &amp;v25);
     exit(1);
-  }
+  &#125;
   for ( i = 0; i &lt;= 17; ++i )
-  {
+  &#123;
     v43 = ~(Str[i] &amp; *((_BYTE *)&amp;v39 + i % 14)) &amp; (Str[i] | *((_BYTE *)&amp;v39 + i % 14));
     if ( v43 != *(&amp;v1 + i) )
-    {
+    &#123;
       printf(v20, &amp;v25);
       exit(1);
-    }
-  }
+    &#125;
+  &#125;
   printf(v20, &amp;v31);
   return printf(v20, &amp;v21);
-}</code></pre>
+&#125;
+</code></pre>
 <p>这里进行了简单的验证，中间得处理过程不是很好逆，因为涉及到与或非三种运算符，但是通过列真值表可以发现，这一串运算实际上和一个异或是一样的，所以这一部分就很好处理了</p>
 <pre><code class="python">target = &#39;Rising_Hopper!&#39;
 flag = &#39;&#39;
 v1 = [17, 8, 6, 10, 15, 20, 42, 59, 47, 3, 47, 4, 16, 72, 62, 0, 7, 16]
 for i in range(18):
     flag += chr(v1[i] ^ ord(target[i % 14]))
-print(flag)</code></pre>
+print(flag)
+</code></pre>
 <p>输出<code>Caucasus@s_ability</code>，尝试提交发现不对，这题应该没这么简单，在找找有没有遗漏的地方，然后通过<code>Str</code>的交叉引用结果找到了遗漏的部分</p>
 <pre><code class="c++">int sub_100401A6C()
-{
+&#123;
   sub_100401506(sub_10040164D, 1045, (__int64)Str);
   sub_10040162B();
   return sub_10040164D();
-}</code></pre>
+&#125;
+</code></pre>
 <p>这个函数在输入并验证过<code>Str</code>之后又调用了我们的输入，肯定还会有后续的处理</p>
 <pre><code class="c++">BOOL __fastcall sub_100401506(void *a1, int a2, __int64 a3)
-{
+&#123;
   BOOL result; // eax
   DWORD flOldProtect; // [rsp+28h] [rbp-8h]
   int i; // [rsp+2Ch] [rbp-4h]
@@ -766,11 +773,12 @@ print(flag)</code></pre>
   if ( !result )
     exit(1);
   return result;
-}</code></pre>
+&#125;
+</code></pre>
 <p>这里是经过处理之后的内容，实际上是对一个地址上的数据进行了处理，显然是一个<code>SMC</code>的过程，这个地址里存储的应该是有用的处理代码，我们输入的内容实际上也只是对数据解密的密钥而已，所以接下来写个IDC脚本来解密一下</p>
 <pre><code class="c++">#include &lt;idc.idc&gt;
 
-static main() {
+static main() &#123;
     auto start, end, addr;
     auto v1 = 67;
     auto v2 = 97;
@@ -795,7 +803,7 @@ static main() {
 //    auto flag = &quot;Caucasus@s_ability&quot;;
     auto flag;
     auto i = 0;
-    for (addr = start; addr &lt; end; addr++) {
+    for (addr = start; addr &lt; end; addr++) &#123;
         if (i % 18 == 0)
             flag = v1;
         if (i % 18 == 1)
@@ -834,13 +842,14 @@ static main() {
             flag = v18;
         PatchByte(addr, Byte(addr) ^ flag);
         i++;
-    }
+    &#125;
     AnalyzeArea(start, end);
     Message(&quot;Down!&quot;);
-}</code></pre>
+&#125;
+</code></pre>
 <p>不是很会用IDC，而且还没有数组类型，只能这样用很多分支去判断，然后得到了新的汇编代码，如果是汇编很好的话就可以直接做了，我还是习惯了无脑<code>F5</code>，所以干脆<code>patch</code>了一下后面的垃圾数据，写了一个<code>retn</code>，然后创建函数，查看伪代码</p>
 <pre><code class="c++">int sub_10040164D()
-{
+&#123;
   int result; // eax
   char Str[74]; // [rsp+20h] [rbp-60h]
   char v2[8]; // [rsp+6Ah] [rbp-16h]
@@ -969,26 +978,27 @@ static main() {
   scanf(v5, Str);
   printf(v7);
   if ( strlen(Str) != 51 )
-  {
+  &#123;
     printf(v2);
     exit(0);
-  }
+  &#125;
   v61 = 19683;
   for ( i = 0; i &lt;= 0x32; ++i )
-  {
+  &#123;
     v60 = v61 * (unsigned int)(unsigned __int8)Str[i] % v62;
     if ( v60 != *(&amp;v9 + i) )
-    {
+    &#123;
       printf(v2);
       exit(0);
-    }
-  }
+    &#125;
+  &#125;
   printf(v6);
   getchar();
   result = getchar();
-  __asm { icebp }
+  __asm &#123; icebp &#125;
   return result;
-}</code></pre>
+&#125;
+</code></pre>
 <p>关键的处理只有一句，但是有个很烦的取余，仔细观察可以发现，<code>v62</code>这个数非常大，最后在计算的时候取不取这个余数都没关系，所以这一部分又变成了一个非常简单的除法，然后问题就很容易解决了</p>
 <pre><code class="python">v9 = [2007666, 2125764, 1909251, 2027349, 2421009, 1653372, 2047032, 2184813, 2302911, 2263545, 1909251, 2165130,
       1968300, 2243862, 2066715, 2322594, 1987983, 2243862, 1869885, 2066715, 2263545, 1869885, 964467, 944784, 944784,
@@ -1000,9 +1010,12 @@ v62 = 0x8000000B
 flag = &#39;&#39;
 for i in range(0x33):
     flag += chr(v9[i] // v61)
-print(flag)</code></pre>
+print(flag)
+</code></pre>
 <p>输出flag</p>
-<pre><code>flag{Thousandriver_is_1000%_stronger_than_zero-one}</code></pre><h4 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h4><p>然后这次比赛就没打算再做了，<code>mobile</code>的题，研究了一下，应该不是特别难，但是没太有时间，又是作业又是网课又是美赛，让人很烦，如果后面有wp放出来的话再去研究研究，复现一下，做个补充。</p>
+<pre><code>flag&#123;Thousandriver_is_1000%_stronger_than_zero-one&#125;
+</code></pre>
+<h4 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h4><p>然后这次比赛就没打算再做了，<code>mobile</code>的题，研究了一下，应该不是特别难，但是没太有时间，又是作业又是网课又是美赛，让人很烦，如果后面有wp放出来的话再去研究研究，复现一下，做个补充。</p>
 
           
             <div class='article_footer'>
@@ -1092,9 +1105,9 @@ print(flag)</code></pre>
   <div class="-mob-share-list share-body">
     
       
-        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer"
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
           
-          href="http://connect.qq.com/widget/shareqq/index.html?url=http://blog.rycbar.club/2020/03/09/%E9%AB%98%E6%A0%A1%E6%88%98%E7%96%AB-%E4%B8%A4%E9%81%93re-wp/&title=高校战疫-两道re-wp - My Tiny Ideas&summary=这两天攻防世界有个比赛，上面的题目还不错，参与了一下，至于为什么是两道re，因为正好赶上数模美赛，没怎么有时间做（实际上就是因为菜"
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://blog.rycbar.club/2020/03/09/%E9%AB%98%E6%A0%A1%E6%88%98%E7%96%AB-%E4%B8%A4%E9%81%93re-wp/&title=高校战疫-两道re-wp - My Tiny Ideas&summary=这两天攻防世界有个比赛，上面的题目还不错，参与了一下，至于为什么是两道re，因为正好赶上数模美赛，没怎么有时间做（实际上就是因为菜"
           
           >
           
@@ -1104,9 +1117,9 @@ print(flag)</code></pre>
       
     
       
-        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer"
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
           
-          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://blog.rycbar.club/2020/03/09/%E9%AB%98%E6%A0%A1%E6%88%98%E7%96%AB-%E4%B8%A4%E9%81%93re-wp/&title=高校战疫-两道re-wp - My Tiny Ideas&summary=这两天攻防世界有个比赛，上面的题目还不错，参与了一下，至于为什么是两道re，因为正好赶上数模美赛，没怎么有时间做（实际上就是因为菜"
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://blog.rycbar.club/2020/03/09/%E9%AB%98%E6%A0%A1%E6%88%98%E7%96%AB-%E4%B8%A4%E9%81%93re-wp/&title=高校战疫-两道re-wp - My Tiny Ideas&summary=这两天攻防世界有个比赛，上面的题目还不错，参与了一下，至于为什么是两道re，因为正好赶上数模美赛，没怎么有时间做（实际上就是因为菜"
           
           >
           
@@ -1116,9 +1129,9 @@ print(flag)</code></pre>
       
     
       
-        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer"
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
           
-          href="http://service.weibo.com/share/share.php?url=http://blog.rycbar.club/2020/03/09/%E9%AB%98%E6%A0%A1%E6%88%98%E7%96%AB-%E4%B8%A4%E9%81%93re-wp/&title=高校战疫-两道re-wp - My Tiny Ideas&summary=这两天攻防世界有个比赛，上面的题目还不错，参与了一下，至于为什么是两道re，因为正好赶上数模美赛，没怎么有时间做（实际上就是因为菜"
+          target="_blank" href="http://service.weibo.com/share/share.php?url=http://blog.rycbar.club/2020/03/09/%E9%AB%98%E6%A0%A1%E6%88%98%E7%96%AB-%E4%B8%A4%E9%81%93re-wp/&title=高校战疫-两道re-wp - My Tiny Ideas&summary=这两天攻防世界有个比赛，上面的题目还不错，参与了一下，至于为什么是两道re，因为正好赶上数模美赛，没怎么有时间做（实际上就是因为菜"
           
           >
           
@@ -1229,7 +1242,7 @@ int __cdecl main(int argc, const char **argv,...</p>
 
 
     <div class='content'>
-      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#cyclegraph"><span class="toc-text">cyclegraph</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#天津垓"><span class="toc-text">天津垓</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#后记"><span class="toc-text">后记</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#cyclegraph"><span class="toc-text">cyclegraph</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%A4%A9%E6%B4%A5%E5%9E%93"><span class="toc-text">天津垓</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%90%8E%E8%AE%B0"><span class="toc-text">后记</span></a></li></ol>
     </div>
   </section>
 
@@ -1300,13 +1313,13 @@ int __cdecl main(int argc, const char **argv,...</p>
       
     
       
-        <div><p>博客内容遵循 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</a></p>
+        <div><p>博客内容遵循 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</a></p>
 </div>
       
     
       
         <div class='copyright'>
-        <p><a href="https://blog.rycbar.club">Copyright © 2017-2020 rycbar</a></p>
+        <p><a href="https://blog.rycbar.club/">Copyright © 2017-2020 rycbar</a></p>
 
         </div>
       

@@ -428,27 +428,32 @@
         <div class="article-entry" itemprop="articleBody">
           
           <p>这题涉及到去花和patch，难度不是很大</p>
-<a id="more"></a>
+<span id="more"></span>
 
 <p>先file查看一下文件，32位ELF，运行一下</p>
 <pre><code>               **************
                Echo Server 0.3 ALPHA
-               **************</code></pre><p>等待输入，随便输入一句</p>
+               **************
+</code></pre>
+<p>等待输入，随便输入一句</p>
 <pre><code>hhh
-686868</code></pre><p>直接返回了ASCII码值</p>
+686868
+</code></pre>
+<p>直接返回了ASCII码值</p>
 <p>用IDA打开看看</p>
 <pre><code class="c++">int __cdecl main()
-{
+&#123;
   setbuf(stdin, 0);
   setbuf(stdout, 0);
   dword_804A088 = 1;
   puts(&quot;               **************\n               Echo Server 0.3 ALPHA\n               **************&quot;);
   ((void (*)(void))((char *)&amp;loc_80487C1 + 3))();
   return 0;
-}</code></pre>
+&#125;
+</code></pre>
 <p><code>main</code>函数没什么特别的，就是最后这个函数调用很古怪，所以进去看看</p>
 <pre><code class="c++">void __cdecl sub_804875D(unsigned __int8 *a1, unsigned int a2)
-{
+&#123;
   unsigned __int8 *v2; // eax
   char v3; // zf
   unsigned __int8 *v4; // [esp+18h] [ebp-10h]
@@ -456,26 +461,28 @@
 
   v4 = a1;
   if ( a1 )
-  {
+  &#123;
     for ( i = 0; i &lt; a2; ++i )
-    {
+    &#123;
       v2 = v4++;
       printf(&quot;%02X&quot;, *v2);
-    }
-  }
+    &#125;
+  &#125;
   else
-  {
+  &#123;
     printf(&quot;NULL&quot;);
-  }
+  &#125;
   putchar(10);
   JUMPOUT(v3, (char *)&amp;loc_80487C1 + 1);
   JUMPOUT(!v3, (char *)&amp;loc_80487C1 + 1);
   MEMORY[0x915A4B8F]();
   JUMPOUT(loc_80487C6);
-}</code></pre>
+&#125;
+</code></pre>
 <p>出现了访问内存越界的情况<code>MEMORY[0x915A4B8F]()</code>，看到上面两句更加古怪</p>
 <pre><code class="c++">JUMPOUT(v3, (char *)&amp;loc_80487C1 + 1);
-JUMPOUT(!v3, (char *)&amp;loc_80487C1 + 1);</code></pre>
+JUMPOUT(!v3, (char *)&amp;loc_80487C1 + 1);
+</code></pre>
 <p>这里很明显是强行创造多条分支，IDA使用递归行进算法，就会默认这条路径接这两个函数执行过后的指令是有效的而去扫描分析后面的指令，但实际上，后面是永远不会到达的指令，不管v3的值是多少，都会跳转到<code>(char *)&amp;loc_80487C1 + 1</code>这显然是一条花指令，所以查看一下汇编代码准备去花</p>
 <pre><code class="asm">.text:0804875D ; Attributes: bp-based frame
 .text:0804875D
@@ -486,7 +493,7 @@ JUMPOUT(!v3, (char *)&amp;loc_80487C1 + 1);</code></pre>
 .text:0804875D arg_0           = dword ptr  8
 .text:0804875D arg_4           = dword ptr  0Ch
 .text:0804875D
-.text:0804875D ; __unwind {
+.text:0804875D ; __unwind &#123;
 .text:0804875D                 push    ebp
 .text:0804875E                 mov     ebp, esp
 .text:08048760                 sub     esp, 28h
@@ -536,7 +543,8 @@ JUMPOUT(!v3, (char *)&amp;loc_80487C1 + 1);</code></pre>
 .text:080487C6                 in      eax, 81h        ; Channel 2 (diskette DMA)  (address bits 16-23)
 .text:080487C8                 in      al, dx
 .text:080487C9                 mov     [eax], al
-.text:080487C9 ; ---------------------------------------------------------------------------</code></pre>
+.text:080487C9 ; ---------------------------------------------------------------------------
+</code></pre>
 <p>这个函数显然是不对的，堆栈本身并没有平衡，<code>main</code>函数里跳到的地方是<code>0x080487C4</code>已经被其它指令占了，这里去花一下，多余的指令码干脆用<code>nop</code>patch掉</p>
 <pre><code class="asm">sub_804875D     proc near
 .text:0804875D
@@ -545,7 +553,7 @@ JUMPOUT(!v3, (char *)&amp;loc_80487C1 + 1);</code></pre>
 .text:0804875D arg_0           = dword ptr  8
 .text:0804875D arg_4           = dword ptr  0Ch
 .text:0804875D
-.text:0804875D ; __unwind {
+.text:0804875D ; __unwind &#123;
 .text:0804875D                 push    ebp
 .text:0804875E                 mov     ebp, esp
 .text:08048760                 sub     esp, 28h
@@ -591,11 +599,12 @@ JUMPOUT(!v3, (char *)&amp;loc_80487C1 + 1);</code></pre>
 .text:080487C2                                         ; sub_804875D+62↑j
 .text:080487C2                 leave
 .text:080487C3                 retn
-.text:080487C3 ; } // starts at 804875D
-.text:080487C3 sub_804875D     endp</code></pre>
+.text:080487C3 ; &#125; // starts at 804875D
+.text:080487C3 sub_804875D     endp
+</code></pre>
 <p>这是这个函数本来的样子，而<code>main</code>函数里面调用的根本就不是这个函数，而是下面</p>
 <pre><code class="asm">.text:080487C4 ; ---------------------------------------------------------------------------
-.text:080487C4 ; __unwind {
+.text:080487C4 ; __unwind &#123;
 .text:080487C4                 push    ebp             ; CODE XREF: main+49↓p
 .text:080487C5                 mov     ebp, esp
 .text:080487C7                 sub     esp, 88h
@@ -613,9 +622,11 @@ JUMPOUT(!v3, (char *)&amp;loc_80487C1 + 1);</code></pre>
 .text:080487F3 ; ---------------------------------------------------------------------------
 .text:080487F5                 db 0C0h
 .text:080487F6                 db  48h ; H
-.text:080487F7                 db 0C7h</code></pre>
+.text:080487F7                 db 0C7h
+</code></pre>
 <p>下面并没有分析，因为又遇到了一个花指令</p>
-<pre><code class="asm">.text:080487F3                 jmp     short near ptr loc_80487F3+1</code></pre>
+<pre><code class="asm">.text:080487F3                 jmp     short near ptr loc_80487F3+1
+</code></pre>
 <p>代码重叠，分析一下本来的指令是什么</p>
 <pre><code class="asm">text:080487F4 ; ---------------------------------------------------------------------------
 .text:080487F4                 inc     eax
@@ -627,10 +638,12 @@ JUMPOUT(!v3, (char *)&amp;loc_80487C1 + 1);</code></pre>
 .text:0804880D                 call    _read
 .text:08048812                 xor     eax, eax
 .text:08048814                 jz      short loc_804881D
-.text:08048816                 jmp     near ptr 6F44B961h</code></pre>
+.text:08048816                 jmp     near ptr 6F44B961h
+</code></pre>
 <p>又来</p>
 <pre><code class="asm">.text:08048812                 xor     eax, eax
-.text:08048814                 jz      short loc_804881D</code></pre>
+.text:08048814                 jz      short loc_804881D
+</code></pre>
 <p>自己和自己异或肯定是0，这个跳转是一定会实现的，后面的语句并没有什么用但是IDA还是进行了分析然后出错，patch掉继续看</p>
 <pre><code class="asm">.text:08048816                 nop                     ; Keypatch modified this from:
 .text:08048816                                         ;   db 0E9h
@@ -650,23 +663,28 @@ JUMPOUT(!v3, (char *)&amp;loc_80487C1 + 1);</code></pre>
 .text:08048843                 call    _puts
 .text:08048848                 mov     eax, ds:dword_804A088
 .text:0804884D                 test    eax, eax
-.text:0804884F                 jz      short loc_8048866</code></pre>
+.text:0804884F                 jz      short loc_8048866
+</code></pre>
 <p>去花之后变成了一个字符串，后面还有一个比较操作，如果输入这个字符串，就会输出<code>You are very close! Now patch me~</code></p>
 <p>后面肯定还有操作，往后面看</p>
 <pre><code class="asm">.text:08048848                 mov     eax, ds:dword_804A088
 .text:0804884D                 test    eax, eax
-.text:0804884F                 jz      short loc_8048866</code></pre>
+.text:0804884F                 jz      short loc_8048866
+</code></pre>
 <p>这三句很关键，如果<code>eax</code>是0，就会进行后面的跳转，所以查找一下<code>ds:dword_804A088</code>交叉引用，在<code>main</code>里面发现</p>
-<pre><code class="asm">.text:08048913                 mov     ds:dword_804A088, 1</code></pre>
+<pre><code class="asm">.text:08048913                 mov     ds:dword_804A088, 1
+</code></pre>
 <p>所以这个跳转是永远不会实现的，先看看不跳转后面会执行什么</p>
 <pre><code class="asm">.text:08048851 loc_8048851:                            ; CODE XREF: .text:08048857↓j
 .text:08048851                 mov     ax, 5EBh
 .text:08048855                 xor     eax, eax
-.text:08048857                 jz      short near ptr loc_8048851+1</code></pre>
+.text:08048857                 jz      short near ptr loc_8048851+1
+</code></pre>
 <p>又是一个花指令，重新分析这几句</p>
 <pre><code class="asm">.text:08048852 loc_8048852:                            ; CODE XREF: .text:08048857↓j
 .text:08048852                 mov     eax, 0C03105EBh
-.text:08048857                 jz      short loc_8048852</code></pre>
+.text:08048857                 jz      short loc_8048852
+</code></pre>
 <p>发现进入了一个死循环，所以题目让我们patch的意思是不走这个循环，也就是真正应该执行的是前面没走的那个分支</p>
 <pre><code class="asm">loc_8048866:                            ; CODE XREF: .text:0804884F↑j
 .text:08048866                 lea     eax, [ebp-70h]
@@ -709,7 +727,8 @@ JUMPOUT(!v3, (char *)&amp;loc_80487C1 + 1);</code></pre>
 .text:080488DE locret_80488DE:                         ; CODE XREF: .text:080488D7↑j
 .text:080488DE                 leave
 .text:080488DF                 retn
-.text:080488DF ; } // starts at 80487C4</code></pre>
+.text:080488DF ; &#125; // starts at 80487C4
+</code></pre>
 <p>执行到结束，计算了一个<code>md5</code>然后调用最开始分析的<code>sub_804875D</code>函数以16进制的形式输出，所以这里有两个选择，有linux环境可以直接patch跳转语句然后执行得到flag</p>
 <pre><code class="bash">-&gt;./echo-server 
                **************
@@ -717,7 +736,8 @@ JUMPOUT(!v3, (char *)&amp;loc_80487C1 + 1);</code></pre>
                **************
 F1@gA
 You are very close! Now patch me~
-F8C60EB40BF66919A77C4BD88D45DEF4</code></pre>
+F8C60EB40BF66919A77C4BD88D45DEF4
+</code></pre>
 <p>当然也可以自己算<code>md5</code>，看看关键函数</p>
 <pre><code class="asm">.text:08048866                 lea     eax, [ebp-70h]
 .text:08048869                 mov     [esp], eax
@@ -727,15 +747,19 @@ F8C60EB40BF66919A77C4BD88D45DEF4</code></pre>
 .text:0804887D                 lea     eax, [ebp-70h]
 .text:08048880                 add     eax, 1
 .text:08048883                 mov     [esp], eax
-.text:08048886                 call    _MD5</code></pre>
+.text:08048886                 call    _MD5
+</code></pre>
 <p>首先是把我们输入的字符串的地址拷贝到<code>eax</code>中，把该地址写到栈顶，调用<code>_strlen</code>，求的就是我们输入的字符串的长度，我们输入的是<code>&#39;F1@gA\n&#39;</code>，返回的值是<code>0x06</code>，储存在eax中，写到了栈顶的第二个位置（第三个位置的0并不知道什么意思，或许是第三个参数，没查到函数原型，暂时先不管了），但是栈顶元素并不是我们输入的字符串，而是首地址加1的位置，长度还是6，所以要用<code>md5</code>加密的字符串应该是<code>&#39;1@gA\x0a\x00&#39;</code>，<code>python</code>调用<code>hashlib</code>算一下</p>
 <pre><code class="python">import hashlib
 m=hashlib.md5()
 m.update(b&#39;1@gA\x0a\x00&#39;)
 m.hexdigest().upper()
-#&#39;F8C60EB40BF66919A77C4BD88D45DEF4&#39;</code></pre>
+#&#39;F8C60EB40BF66919A77C4BD88D45DEF4&#39;
+</code></pre>
 <p>两种方法都可以得到flag</p>
-<pre><code>F8C60EB40BF66919A77C4BD88D45DEF4</code></pre><p>其实这题并没有什么难度，为什么写这么长呢？</p>
+<pre><code>F8C60EB40BF66919A77C4BD88D45DEF4
+</code></pre>
+<p>其实这题并没有什么难度，为什么写这么长呢？</p>
 <p><del>(实在不想写数据结构作业)</del></p>
 
           
@@ -826,9 +850,9 @@ m.hexdigest().upper()
   <div class="-mob-share-list share-body">
     
       
-        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer"
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
           
-          href="http://connect.qq.com/widget/shareqq/index.html?url=http://blog.rycbar.club/2020/03/19/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-echo-server-wp/&title=攻防世界_echo-server_wp - My Tiny Ideas&summary=这题涉及到去花和patch，难度不是很大"
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://blog.rycbar.club/2020/03/19/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-echo-server-wp/&title=攻防世界_echo-server_wp - My Tiny Ideas&summary=这题涉及到去花和patch，难度不是很大"
           
           >
           
@@ -838,9 +862,9 @@ m.hexdigest().upper()
       
     
       
-        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer"
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
           
-          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://blog.rycbar.club/2020/03/19/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-echo-server-wp/&title=攻防世界_echo-server_wp - My Tiny Ideas&summary=这题涉及到去花和patch，难度不是很大"
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://blog.rycbar.club/2020/03/19/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-echo-server-wp/&title=攻防世界_echo-server_wp - My Tiny Ideas&summary=这题涉及到去花和patch，难度不是很大"
           
           >
           
@@ -850,9 +874,9 @@ m.hexdigest().upper()
       
     
       
-        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer"
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
           
-          href="http://service.weibo.com/share/share.php?url=http://blog.rycbar.club/2020/03/19/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-echo-server-wp/&title=攻防世界_echo-server_wp - My Tiny Ideas&summary=这题涉及到去花和patch，难度不是很大"
+          target="_blank" href="http://service.weibo.com/share/share.php?url=http://blog.rycbar.club/2020/03/19/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-echo-server-wp/&title=攻防世界_echo-server_wp - My Tiny Ideas&summary=这题涉及到去花和patch，难度不是很大"
           
           >
           
@@ -1019,13 +1043,13 @@ guessgame随机数用时间种子初始化过了，猜是猜不对的，而且�
       
     
       
-        <div><p>博客内容遵循 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</a></p>
+        <div><p>博客内容遵循 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</a></p>
 </div>
       
     
       
         <div class='copyright'>
-        <p><a href="https://blog.rycbar.club">Copyright © 2017-2020 rycbar</a></p>
+        <p><a href="https://blog.rycbar.club/">Copyright © 2017-2020 rycbar</a></p>
 
         </div>
       

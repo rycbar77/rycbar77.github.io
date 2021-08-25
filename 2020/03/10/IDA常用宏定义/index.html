@@ -428,7 +428,7 @@
         <div class="article-entry" itemprop="articleBody">
           
           <p>保存一下便于查询。</p>
-<a id="more"></a>
+<span id="more"></span>
 
 <pre><code class="c++">/*
 
@@ -572,23 +572,23 @@ typedef int bool;       // we want to use bool in our C programs
 
 // Fill memory block with an integer value
 inline void memset32(void *ptr, uint32 value, int count)
-{
+&#123;
   uint32 *p = (uint32 *)ptr;
   for ( int i=0; i &lt; count; i++ )
     *p++ = value;
-}
+&#125;
 
 // Generate a reference to pair of operands
-template&lt;class T&gt;  int16 __PAIR__( int8  high, T low) { return ((( int16)high) &lt;&lt; sizeof(high)*8) | uint8(low); }
-template&lt;class T&gt;  int32 __PAIR__( int16 high, T low) { return ((( int32)high) &lt;&lt; sizeof(high)*8) | uint16(low); }
-template&lt;class T&gt;  int64 __PAIR__( int32 high, T low) { return ((( int64)high) &lt;&lt; sizeof(high)*8) | uint32(low); }
-template&lt;class T&gt; uint16 __PAIR__(uint8  high, T low) { return (((uint16)high) &lt;&lt; sizeof(high)*8) | uint8(low); }
-template&lt;class T&gt; uint32 __PAIR__(uint16 high, T low) { return (((uint32)high) &lt;&lt; sizeof(high)*8) | uint16(low); }
-template&lt;class T&gt; uint64 __PAIR__(uint32 high, T low) { return (((uint64)high) &lt;&lt; sizeof(high)*8) | uint32(low); }
+template&lt;class T&gt;  int16 __PAIR__( int8  high, T low) &#123; return ((( int16)high) &lt;&lt; sizeof(high)*8) | uint8(low); &#125;
+template&lt;class T&gt;  int32 __PAIR__( int16 high, T low) &#123; return ((( int32)high) &lt;&lt; sizeof(high)*8) | uint16(low); &#125;
+template&lt;class T&gt;  int64 __PAIR__( int32 high, T low) &#123; return ((( int64)high) &lt;&lt; sizeof(high)*8) | uint32(low); &#125;
+template&lt;class T&gt; uint16 __PAIR__(uint8  high, T low) &#123; return (((uint16)high) &lt;&lt; sizeof(high)*8) | uint8(low); &#125;
+template&lt;class T&gt; uint32 __PAIR__(uint16 high, T low) &#123; return (((uint32)high) &lt;&lt; sizeof(high)*8) | uint16(low); &#125;
+template&lt;class T&gt; uint64 __PAIR__(uint32 high, T low) &#123; return (((uint64)high) &lt;&lt; sizeof(high)*8) | uint32(low); &#125;
 
 // rotate left
 template&lt;class T&gt; T __ROL__(T value, uint count)
-{
+&#123;
   const uint nbits = sizeof(T) * 8;
   count %= nbits;
 
@@ -596,11 +596,11 @@ template&lt;class T&gt; T __ROL__(T value, uint count)
   value &lt;&lt;= count;
   value |= high;
   return value;
-}
+&#125;
 
 // rotate right
 template&lt;class T&gt; T __ROR__(T value, uint count)
-{
+&#123;
   const uint nbits = sizeof(T) * 8;
   count %= nbits;
 
@@ -608,26 +608,26 @@ template&lt;class T&gt; T __ROR__(T value, uint count)
   value &gt;&gt;= count;
   value |= low;
   return value;
-}
+&#125;
 
 // carry flag of left shift
 template&lt;class T&gt; int8 __MKCSHL__(T value, uint count)
-{
+&#123;
   const uint nbits = sizeof(T) * 8;
   count %= nbits;
 
   return (value &gt;&gt; (nbits-count)) &amp; 1;
-}
+&#125;
 
 // carry flag of right shift
 template&lt;class T&gt; int8 __MKCSHR__(T value, uint count)
-{
+&#123;
   return (value &gt;&gt; (count-1)) &amp; 1;
-}
+&#125;
 
 // sign flag
 template&lt;class T&gt; int8 __SETS__(T x)
-{
+&#123;
   if ( sizeof(T) == 1 )
     return int8(x) &lt; 0;
   if ( sizeof(T) == 2 )
@@ -635,45 +635,45 @@ template&lt;class T&gt; int8 __SETS__(T x)
   if ( sizeof(T) == 4 )
     return int32(x) &lt; 0;
   return int64(x) &lt; 0;
-}
+&#125;
 
 // overflow flag of subtraction (x-y)
 template&lt;class T, class U&gt; int8 __OFSUB__(T x, U y)
-{
+&#123;
   if ( sizeof(T) &lt; sizeof(U) )
-  {
+  &#123;
     U x2 = x;
     int8 sx = __SETS__(x2);
     return (sx ^ __SETS__(y)) &amp; (sx ^ __SETS__(x2-y));
-  }
+  &#125;
   else
-  {
+  &#123;
     T y2 = y;
     int8 sx = __SETS__(x);
     return (sx ^ __SETS__(y2)) &amp; (sx ^ __SETS__(x-y2));
-  }
-}
+  &#125;
+&#125;
 
 // overflow flag of addition (x+y)
 template&lt;class T, class U&gt; int8 __OFADD__(T x, U y)
-{
+&#123;
   if ( sizeof(T) &lt; sizeof(U) )
-  {
+  &#123;
     U x2 = x;
     int8 sx = __SETS__(x2);
     return ((1 ^ sx) ^ __SETS__(y)) &amp; (sx ^ __SETS__(x2+y));
-  }
+  &#125;
   else
-  {
+  &#123;
     T y2 = y;
     int8 sx = __SETS__(x);
     return ((1 ^ sx) ^ __SETS__(y2)) &amp; (sx ^ __SETS__(x+y2));
-  }
-}
+  &#125;
+&#125;
 
 // carry flag of subtraction (x-y)
 template&lt;class T, class U&gt; int8 __CFSUB__(T x, U y)
-{
+&#123;
   int size = sizeof(T) &gt; sizeof(U) ? sizeof(T) : sizeof(U);
   if ( size == 1 )
     return uint8(x) &lt; uint8(y);
@@ -682,11 +682,11 @@ template&lt;class T, class U&gt; int8 __CFSUB__(T x, U y)
   if ( size == 4 )
     return uint32(x) &lt; uint32(y);
   return uint64(x) &lt; uint64(y);
-}
+&#125;
 
 // carry flag of addition (x+y)
 template&lt;class T, class U&gt; int8 __CFADD__(T x, U y)
-{
+&#123;
   int size = sizeof(T) &gt; sizeof(U) ? sizeof(T) : sizeof(U);
   if ( size == 1 )
     return uint8(x) &gt; uint8(x+y);
@@ -695,7 +695,7 @@ template&lt;class T, class U&gt; int8 __CFADD__(T x, U y)
   if ( size == 4 )
     return uint32(x) &gt; uint32(x+y);
   return uint64(x) &gt; uint64(x+y);
-}
+&#125;
 
 #else
 // The following definition is not quite correct because it always returns
@@ -729,7 +729,8 @@ template&lt;class T, class U&gt; int8 __CFADD__(T x, U y)
 #ifdef _MSC_VER
 #define snprintf _snprintf
 #define vsnprintf _vsnprintf
-#endif</code></pre>
+#endif
+</code></pre>
 
           
             <div class='article_footer'>
@@ -819,9 +820,9 @@ template&lt;class T, class U&gt; int8 __CFADD__(T x, U y)
   <div class="-mob-share-list share-body">
     
       
-        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer"
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
           
-          href="http://connect.qq.com/widget/shareqq/index.html?url=http://blog.rycbar.club/2020/03/10/IDA%E5%B8%B8%E7%94%A8%E5%AE%8F%E5%AE%9A%E4%B9%89/&title=IDA常用宏定义 - My Tiny Ideas&summary=保存一下便于查询。"
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://blog.rycbar.club/2020/03/10/IDA%E5%B8%B8%E7%94%A8%E5%AE%8F%E5%AE%9A%E4%B9%89/&title=IDA常用宏定义 - My Tiny Ideas&summary=保存一下便于查询。"
           
           >
           
@@ -831,9 +832,9 @@ template&lt;class T, class U&gt; int8 __CFADD__(T x, U y)
       
     
       
-        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer"
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
           
-          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://blog.rycbar.club/2020/03/10/IDA%E5%B8%B8%E7%94%A8%E5%AE%8F%E5%AE%9A%E4%B9%89/&title=IDA常用宏定义 - My Tiny Ideas&summary=保存一下便于查询。"
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://blog.rycbar.club/2020/03/10/IDA%E5%B8%B8%E7%94%A8%E5%AE%8F%E5%AE%9A%E4%B9%89/&title=IDA常用宏定义 - My Tiny Ideas&summary=保存一下便于查询。"
           
           >
           
@@ -843,9 +844,9 @@ template&lt;class T, class U&gt; int8 __CFADD__(T x, U y)
       
     
       
-        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer"
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
           
-          href="http://service.weibo.com/share/share.php?url=http://blog.rycbar.club/2020/03/10/IDA%E5%B8%B8%E7%94%A8%E5%AE%8F%E5%AE%9A%E4%B9%89/&title=IDA常用宏定义 - My Tiny Ideas&summary=保存一下便于查询。"
+          target="_blank" href="http://service.weibo.com/share/share.php?url=http://blog.rycbar.club/2020/03/10/IDA%E5%B8%B8%E7%94%A8%E5%AE%8F%E5%AE%9A%E4%B9%89/&title=IDA常用宏定义 - My Tiny Ideas&summary=保存一下便于查询。"
           
           >
           
@@ -1010,13 +1011,13 @@ cyclegraphvoid FUN_00401080(v...</p>
       
     
       
-        <div><p>博客内容遵循 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</a></p>
+        <div><p>博客内容遵循 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</a></p>
 </div>
       
     
       
         <div class='copyright'>
-        <p><a href="https://blog.rycbar.club">Copyright © 2017-2020 rycbar</a></p>
+        <p><a href="https://blog.rycbar.club/">Copyright © 2017-2020 rycbar</a></p>
 
         </div>
       

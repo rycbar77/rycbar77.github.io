@@ -428,7 +428,7 @@
         <div class="article-entry" itemprop="articleBody">
           
           <p>很早以前就想写一篇关于python的字节码的文章，但是一直没什么时间，借着刚好做到这一题，写一写我对相关内容的理解。</p>
-<a id="more"></a>
+<span id="more"></span>
 
 <h4 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h4><p>拿到的题目并不是一个pyc格式的文件</p>
 <pre><code class="python">#!/usr/bin/env python
@@ -446,10 +446,11 @@ b64d = base64.b64decode(&#39;eJyNVktv00AQXm/eL0igiaFA01IO4cIVCUGFBBJwqRAckLhEIQm
 zd = zlib.decompress(b64d)
 ml = marshal.loads(zd)
 with open(&#39;crackme.pyc&#39;,&#39;wb&#39;) as f:
-    f.write(imp.get_magic() + b&#39;\0&#39; * 4 + zd)</code></pre>
+    f.write(imp.get_magic() + b&#39;\0&#39; * 4 + zd)
+</code></pre>
 <p>具体写入的内容是什么在后面介绍。</p>
 <h4 id="文件格式"><a href="#文件格式" class="headerlink" title="文件格式"></a>文件格式</h4><p><em>PyCodeObject</em>定义如下</p>
-<pre><code class="c++">typedef struct {
+<pre><code class="c++">typedef struct &#123;
     PyObject_HEAD
     int co_argcount;        /* #arguments, except *args */
     int co_nlocals;     /* #local variables */
@@ -466,14 +467,17 @@ with open(&#39;crackme.pyc&#39;,&#39;wb&#39;) as f:
     PyObject *co_name;      /* string (name, for reference) */
     int co_firstlineno;     /* first source line number */
     PyObject *co_lnotab;    /* string (encoding addr&lt;-&gt;lineno mapping) */
-} PyCodeObject;</code></pre>
+&#125; PyCodeObject;
+</code></pre>
 <p>以本题为例</p>
 <pre><code>-&gt; hexdump -C crackme.pyc 
 00000000  03 f3 0d 0a 00 00 00 00  63 00 00 00 00 00 00 00  |........c.......|
 00000010  00 02 00 00 00 40 00 00  00 73 23 00 00 00 64 01  |.....@...s#...d.|
 00000020  00 84 00 00 5a 00 00 65  01 00 64 02 00 6b 02 00  |....Z..e..d..k..|
 00000030  72 1f 00 65 00 00 83 00  00 01 6e 00 00 64 00 00  |r..e......n..d..|
-00000040  53</code></pre><p>首先几个字节是文件头，首先的四个字节是 <code>MagicNumber</code> ， 接下来的四个字节是 <code>时间戳</code> ，采用<code>小端序</code>，不过写入的都是0，也无所谓，和<code>PE</code>文件格式里的时间一样，这一项实际上并没有什么用，这里对应的是之前写入的<code>imp.get_magic() + b&#39;\0&#39; * 4</code>，只有包含这样的文件头才是一个合法的<code>pyc</code>文件。</p>
+00000040  53
+</code></pre>
+<p>首先几个字节是文件头，首先的四个字节是 <code>MagicNumber</code> ， 接下来的四个字节是 <code>时间戳</code> ，采用<code>小端序</code>，不过写入的都是0，也无所谓，和<code>PE</code>文件格式里的时间一样，这一项实际上并没有什么用，这里对应的是之前写入的<code>imp.get_magic() + b&#39;\0&#39; * 4</code>，只有包含这样的文件头才是一个合法的<code>pyc</code>文件。</p>
 <p>后面是 <code>PyCodeObject</code> 。首先会有一个 <code>TYPE_CODE</code> ， 这里是字符 ， 所以是 <code>C</code> ， 即<code>0x63</code> 。后面是参数个数 <code>co_argcount</code> ， 局部变量个数 <code>co_nlocals</code> ， 栈空间 <code>co_stacksize</code> ， 和 <code>co_flags</code> ，每项均占用4个字节。</p>
 <p>我们可以解析出来这样的一个结构（需要注意是小端序）</p>
 <pre><code>magic 03f30d0a
@@ -485,12 +489,14 @@ code
    flags 0040
    code
       6401008400005a00006501006402006b0200721f00650000830000016e00
-      0064000053</code></pre><p><code>co_flags</code>后面是<code>co_code</code>，把它单独拿出来，因为它也有一些自己的结构</p>
-<h5 id="co-code"><a href="#co-code" class="headerlink" title="co_code"></a>co_code</h5><p>同样先是 <code>TYPE_CODE</code> , 类型标识 ， 这里是 <code>s</code> ， 即 <code>0x73</code> 。后面的四个字节用来标识指令的 <code>长度</code> ， 这里是 <code>0x23</code> 。紧跟在后面的是具体的字节码，包含<code>指令</code>和<code>操作数</code>，有些指令是没有操作数的，指令占用一个字节，操作数占用两个字节，字节码和指令的对应关系和指令的作用可以查阅<a href="https://rycbar.xyz/2020/03/13/python-opcode/" target="_blank" rel="noopener">这篇文章</a>或者直接去查阅<code>dis</code>的手册。</p>
+      0064000053
+</code></pre>
+<p><code>co_flags</code>后面是<code>co_code</code>，把它单独拿出来，因为它也有一些自己的结构</p>
+<h5 id="co-code"><a href="#co-code" class="headerlink" title="co_code"></a>co_code</h5><p>同样先是 <code>TYPE_CODE</code> , 类型标识 ， 这里是 <code>s</code> ， 即 <code>0x73</code> 。后面的四个字节用来标识指令的 <code>长度</code> ， 这里是 <code>0x23</code> 。紧跟在后面的是具体的字节码，包含<code>指令</code>和<code>操作数</code>，有些指令是没有操作数的，指令占用一个字节，操作数占用两个字节，字节码和指令的对应关系和指令的作用可以查阅<a target="_blank" rel="noopener" href="https://rycbar.xyz/2020/03/13/python-opcode/">这篇文章</a>或者直接去查阅<code>dis</code>的手册。</p>
 <blockquote>
 <p>给出链接</p>
-<p><a href="https://docs.python.org/2/library/dis.html" target="_blank" rel="noopener">https://docs.python.org/2/library/dis.html</a></p>
-<p><a href="https://github.com/python/cpython/blob/master/Include/opcode.h" target="_blank" rel="noopener">https://github.com/python/cpython/blob/master/Include/opcode.h</a></p>
+<p><a target="_blank" rel="noopener" href="https://docs.python.org/2/library/dis.html">https://docs.python.org/2/library/dis.html</a></p>
+<p><a target="_blank" rel="noopener" href="https://github.com/python/cpython/blob/master/Include/opcode.h">https://github.com/python/cpython/blob/master/Include/opcode.h</a></p>
 </blockquote>
 <p>用<code>dis</code>模块来解析一下这段字节码</p>
 <pre><code>  1           0 LOAD_CONST               1 (&lt;code object main at 0000000003656E30, file &quot;&lt;string&gt;&quot;, line 1&gt;)
@@ -507,13 +513,17 @@ code
              27 POP_TOP
              28 JUMP_FORWARD             0 (to 31)
         &gt;&gt;   31 LOAD_CONST               0 (None)
-             34 RETURN_VALUE</code></pre><p>第一列数字是这个代码块在源码中的行数 ， 第二列数字表示该指令在 <code>co_code</code> 中的偏移 ， 第三列表示具体操作 ， 第四列是操作数。 </p>
+             34 RETURN_VALUE
+</code></pre>
+<p>第一列数字是这个代码块在源码中的行数 ， 第二列数字表示该指令在 <code>co_code</code> 中的偏移 ， 第三列表示具体操作 ， 第四列是操作数。 </p>
 <p>这道题目可以看出来又调用了一个<em>PyCodeObject</em>，这个在后面在分析，先关注一个问题，这个</p>
 <p><em>PyCodeObject</em>是通过<code>LOAD_CONST</code>指令调用的，是储存在co_const中的常量</p>
 <h5 id="co-const"><a href="#co-const" class="headerlink" title="co_const"></a>co_const</h5><p>既然单拉出来就说明它也有自己的结构</p>
 <p>每一项都是以<code>0x28</code> 开头，为 <code>TYPE_TUPLE</code>， 即 <code>&#39;(&#39;</code> 。接下来的四个字节为元素个数，这里是<code>0x03</code>。</p>
 <pre><code>&gt;&gt;&gt; code.co_consts
-(None, &lt;code object main at 0x7fa4909ea530, file &quot;&lt;string&gt;&quot;, line 1&gt;, &#39;__main__&#39;)</code></pre><h5 id="其它"><a href="#其它" class="headerlink" title="其它"></a>其它</h5><p>后面为<code>co_names</code>，标识<code>0x28</code>，接着四个字节为元素个数 ， 然后字符类型 ， 字符内容。</p>
+(None, &lt;code object main at 0x7fa4909ea530, file &quot;&lt;string&gt;&quot;, line 1&gt;, &#39;__main__&#39;)
+</code></pre>
+<h5 id="其它"><a href="#其它" class="headerlink" title="其它"></a>其它</h5><p>后面为<code>co_names</code>，标识<code>0x28</code>，接着四个字节为元素个数 ， 然后字符类型 ， 字符内容。</p>
 <p><code>co_varnames</code> , <code>co_freevars</code> , <code>co_cellvars</code> 结构与上面相同。</p>
 <p>然后是<code>co_filename</code>，标识类型，路径长度 ，路径 。</p>
 <p>然后是<code>co_name</code>，同样是标识类型，长度，内容。</p>
@@ -527,7 +537,8 @@ code
    filename &#39;&lt;string&gt;&#39;
    name &#39;&lt;module&gt;&#39;
    firstlineno 1
-   lnotab 000009030c01</code></pre>
+   lnotab 000009030c01
+</code></pre>
 <p><code>pyc</code>文件格式的粗略解析就差不多了，可以看出来比<code>ELF</code>，<code>PE</code>都要简单得多。</p>
 <h4 id="题目分析"><a href="#题目分析" class="headerlink" title="题目分析"></a>题目分析</h4><p>前面看到，本题还有一个<em>PyCodeObject</em> <em>main</em>是主要操作，所以用上面的方法再来解析一下<code>main</code>函数（太长了，就不全放出来了）</p>
 <p>主要关注输入操作</p>
@@ -545,13 +556,16 @@ code
             764 JUMP_ABSOLUTE          744
         &gt;&gt;  767 POP_JUMP_IF_FALSE     1591
             770 LOAD_GLOBAL              0 (chr)
-            773 LOAD_CONST              17 (99)</code></pre><p>发现这里只是经过一个简单的比较，完全可以<code>bypass</code>，以16进制打开，修改<code>POP_JUMP_IF_FALSE     1591</code>成<code>nop</code>就可以了</p>
+            773 LOAD_CONST              17 (99)
+</code></pre>
+<p>发现这里只是经过一个简单的比较，完全可以<code>bypass</code>，以16进制打开，修改<code>POP_JUMP_IF_FALSE     1591</code>成<code>nop</code>就可以了</p>
 <p>所以开始查表<code>POP_JUMP_IF_FALSE</code>对应的值为<code>114</code>（0x72），<code>1591</code>（0x637）is <code>\x37\x06</code> （小端序）</p>
 <p>所以要查找<code>72 37 06</code> ，<code>nop</code>对应的值为<code>09</code>，所以需要改成<code>09 09 09</code></p>
 <p>然后直接运行，输入任何值都可以输出flag</p>
 <pre><code class="bash">-&gt; ./crackme.pyc 
 password: 0
-hitcon{Now you can compile and run Python bytecode in your brain!}</code></pre>
+hitcon&#123;Now you can compile and run Python bytecode in your brain!&#125;
+</code></pre>
 <p>当然也可以逐步分析</p>
 <pre><code>        &gt;&gt;  767 POP_JUMP_IF_FALSE     1591
             770 LOAD_GLOBAL              0 (chr)
@@ -571,27 +585,36 @@ hitcon{Now you can compile and run Python bytecode in your brain!}</code></pre>
             808 ROT_TWO
             809 BINARY_ADD
             810 ROT_TWO
-            811 BINARY_ADD</code></pre><p>这是后面的一部分操作，分析一下，调用<code>chr()</code>函数，把存储的几个数字转成字符，此时的栈</p>
+            811 BINARY_ADD
+</code></pre>
+<p>这是后面的一部分操作，分析一下，调用<code>chr()</code>函数，把存储的几个数字转成字符，此时的栈</p>
 <pre><code>|--------high--------|
 |--------&#39;c&#39;---------|
 |--------&#39;t&#39;---------|
 |--------&#39;i&#39;---------|
 |--------&#39;h&#39;---------|
-|--------...---------|</code></pre><p>执行一次<code>ROT_TWO</code>，栈顶两个元素换位，然后<code>BINARY_ADD</code>，经过几次，然后进行下一组</p>
+|--------...---------|
+</code></pre>
+<p>执行一次<code>ROT_TWO</code>，栈顶两个元素换位，然后<code>BINARY_ADD</code>，经过几次，然后进行下一组</p>
 <pre><code>|--------high--------|            |--------high--------|            |--------high--------|
 |--------&#39;c&#39;---------|            |--------&#39;c&#39;---------|            |--------&#39;hitc&#39;------|
 |--------&#39;t&#39;---------|            |--------&#39;t&#39;---------|            |--------...---------|
 |--------&#39;i&#39;---------|            |--------&#39;hi&#39;--------|
 |--------&#39;h&#39;---------|            |--------...---------|
-|--------...---------|</code></pre><p>大概的变化过程就是这样，仔细分析，每四个字符一组，每组做一个倒序处理</p>
+|--------...---------|
+</code></pre>
+<p>大概的变化过程就是这样，仔细分析，每四个字符一组，每组做一个倒序处理</p>
 <p>然后跳转到最后</p>
 <pre><code>        &gt;&gt; 2212 PRINT_ITEM
            2213 PRINT_NEWLINE
            2214 LOAD_CONST               0 (None)
-           2217 RETURN_VALUE</code></pre><p>直接输出，这样就得到需要的flag</p>
-<h4 id="混淆"><a href="#混淆" class="headerlink" title="混淆"></a>混淆</h4><p>从上面也可以看出来，一个不经过处理的pyc文件是没有任何安全性可言的，甚至可以被一些工具如uncompyle6或者<a href="https://tool.lu/pyc/" target="_blank" rel="noopener">在线工具</a>直接反编译成python代码，并且从代码风格来看准确率还是很高的，这时候就需要掌握一些简单的混淆/反混淆的技巧</p>
+           2217 RETURN_VALUE
+</code></pre>
+<p>直接输出，这样就得到需要的flag</p>
+<h4 id="混淆"><a href="#混淆" class="headerlink" title="混淆"></a>混淆</h4><p>从上面也可以看出来，一个不经过处理的pyc文件是没有任何安全性可言的，甚至可以被一些工具如uncompyle6或者<a target="_blank" rel="noopener" href="https://tool.lu/pyc/">在线工具</a>直接反编译成python代码，并且从代码风格来看准确率还是很高的，这时候就需要掌握一些简单的混淆/反混淆的技巧</p>
 <h5 id="uncompyle6"><a href="#uncompyle6" class="headerlink" title="uncompyle6"></a>uncompyle6</h5><p>这个工具还是很好用的，但是一旦报错就停止对文件的分析，而且想让uncompyle6等工具报错也很简单，只需要在开头添加一个绝对跳转就可以了，<code>JUMP_ABSOLUTE 3</code>对应的字节码为 <code>71 03 00</code>，同时修改<code>co_code</code>的长度，这个时候使用一些工具就会报错</p>
-<pre><code class="bash">&lt;&lt;&lt; Error: Decompiling stopped due to &lt;class &#39;uncompyle6.semantics.pysource.ParserError&#39;&gt;</code></pre>
+<pre><code class="bash">&lt;&lt;&lt; Error: Decompiling stopped due to &lt;class &#39;uncompyle6.semantics.pysource.ParserError&#39;&gt;
+</code></pre>
 <p>但是<code>dis</code>还是可以正常工作的，程序也是可以正常执行的，因为我们自己加入了3个字节，然后跳转到第四个字节（编号为3）的位置，只是多了一个执行周期，对程序的执行流程没有任何影响。</p>
 <h5 id="dis"><a href="#dis" class="headerlink" title="dis"></a>dis</h5><p>对于一些新手来说，没法使用工具就基本上束手无策了，但是对于熟练掌握汇编语言的人来说，读懂<code>dis</code>解析出来的代码太容易了，就像刚刚我们就很容易的读懂了这道题目的执行逻辑<del>（虽然很简单）</del></p>
 <p>所以还需要一定的方法阻止破解者使用<code>dis</code>进行分析</p>
@@ -600,11 +623,14 @@ hitcon{Now you can compile and run Python bytecode in your brain!}</code></pre>
 <p>这段指令的意义很简单</p>
 <pre><code>  0 JUMP_ABSOLUTE            6
   3 LOAD_CONST              65535 
-  6 ...</code></pre><p>直接跳到了编号为6的位置，中间一句是不执行的，但是<code>dis</code>解析的时候会判断这句报错，因为不存在第65535项常量，这是条非法指令。但由于第一条绝对跳转的存在，第二条指令永远都不会被执行。通常的反汇编器如dis并不能理解实际执行的控制流，当反汇编器尝试反汇编第二条指令时，会去读取<code>co_const</code>的第65535项并且抛出一个异常。然后<code>dis</code>就会相应报错：</p>
-<pre><code class="python">IndexError: tuple index out of range</code></pre>
+  6 ...
+</code></pre>
+<p>直接跳到了编号为6的位置，中间一句是不执行的，但是<code>dis</code>解析的时候会判断这句报错，因为不存在第65535项常量，这是条非法指令。但由于第一条绝对跳转的存在，第二条指令永远都不会被执行。通常的反汇编器如dis并不能理解实际执行的控制流，当反汇编器尝试反汇编第二条指令时，会去读取<code>co_const</code>的第65535项并且抛出一个异常。然后<code>dis</code>就会相应报错：</p>
+<pre><code class="python">IndexError: tuple index out of range
+</code></pre>
 <p>这比骗过IDA要容易得多</p>
 <h5 id="虚假分支"><a href="#虚假分支" class="headerlink" title="虚假分支"></a>虚假分支</h5><p>合理设置条件，创造出很多程序不可能执行的分支，但是逆向者需要认真鉴别每一条分支是否被执行。</p>
-<p>这不会使逆向者反汇编失败，但是会对分析造成极大的困难，就像是可恨的<a href="https://security.tencent.com/index.php/blog/msg/112" target="_blank" rel="noopener">控制流平坦化</a>，属实劝退。</p>
+<p>这不会使逆向者反汇编失败，但是会对分析造成极大的困难，就像是可恨的<a target="_blank" rel="noopener" href="https://security.tencent.com/index.php/blog/msg/112">控制流平坦化</a>，属实劝退。</p>
 <p><del>而且也没什么好办法，只能慢慢分析</del></p>
 <h5 id="重叠指令"><a href="#重叠指令" class="headerlink" title="重叠指令"></a>重叠指令</h5><p>重叠指令在有变长指令的机器（如X86)上有广泛应用。直接在网上找了一些x86重叠指令：</p>
 <pre><code class="asm">;单重叠
@@ -613,7 +639,8 @@ hitcon{Now you can compile and run Python bytecode in your brain!}</code></pre>
 
 ;实际执行
 00: EB 01           jmp  3
-03: C3              retn</code></pre>
+03: C3              retn
+</code></pre>
 <pre><code class="asm">;多重叠指令
 00: EB02                    jmp  4
 02: 69846A40682C104000EB02  imul eax, [edx + ebp*2 + 0102C6840], 0x002EB0040
@@ -622,7 +649,8 @@ hitcon{Now you can compile and run Python bytecode in your brain!}</code></pre>
 00: EB02       jmp  4
 04: 6A40       push 040
 06: 682C104000 push 0x40102C
-0B: EB02       jmp  0xF</code></pre>
+0B: EB02       jmp  0xF
+</code></pre>
 <pre><code class="asm">;跳转至自身
 00: EBFF    jmp 1
 02: C0C300  rol bl, 0
@@ -630,17 +658,20 @@ hitcon{Now you can compile and run Python bytecode in your brain!}</code></pre>
 ;实际执行
 00: EBFF    jmp 1
 01: FFC0    inc eax
-03: C3      retn</code></pre>
+03: C3      retn
+</code></pre>
 <p>在python上也同样适用</p>
 <pre><code>0 JUMP_ABSOLUTE        [71 05 00]     5 
 3 NOP                   [09 -- --]
 4 LOAD_CONST           [64 64 00]     64
-7 STOP_CODE            [00 -- --]</code></pre><p>一个简单的例子，进行了跳转之后，该位置是64，是有效指令所以读取了两个字节的操作数，实际上这段只执行了一句有效指令<code>LOAD_CONST 0</code></p>
+7 STOP_CODE            [00 -- --]
+</code></pre>
+<p>一个简单的例子，进行了跳转之后，该位置是64，是有效指令所以读取了两个字节的操作数，实际上这段只执行了一句有效指令<code>LOAD_CONST 0</code></p>
 <h5 id="指令集"><a href="#指令集" class="headerlink" title="指令集"></a>指令集</h5><p>现有的指令集是有定义的，但是如果有人修改了原有的定义，按照新的方式去赋值，就完全无法解析，遇见的不多，这样的情况似乎就只能通过函数的逻辑去猜测指令的意义</p>
 <p><del>万恶的VM，万恶的出题人</del></p>
 <h5 id="SMC"><a href="#SMC" class="headerlink" title="SMC"></a>SMC</h5><p>程序在循行开始的时候按照自己设定的加解密方式对真正的代码进行加密，然后再执行真正的代码部分，这样的方式利用python也可以实现</p>
 <h4 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h4><p>本来是由一个题发散出来，结果写了很多，都只是一些个人的理解，整理整理才觉得还有很多需要学的东西。</p>
-<p>解析的时候借用了一个国外大佬写的<code>dis</code>的代码，输出的层次很清晰，非常适合学习，<a href="http://nedbatchelder.com/blog/200804/the_structure_of_pyc_files.html" target="_blank" rel="noopener">原文</a>写的也很不错。</p>
+<p>解析的时候借用了一个国外大佬写的<code>dis</code>的代码，输出的层次很清晰，非常适合学习，<a target="_blank" rel="noopener" href="http://nedbatchelder.com/blog/200804/the_structure_of_pyc_files.html">原文</a>写的也很不错。</p>
 <pre><code class="python">import dis, marshal, struct, sys, time, types
 
 
@@ -690,7 +721,8 @@ def show_hex(label, h, indent):
             print &quot;%s   %s&quot; % (indent, h[i:i + 60])
 
 
-show_file(sys.argv[1])</code></pre>
+show_file(sys.argv[1])
+</code></pre>
 
           
             <div class='article_footer'>
@@ -780,9 +812,9 @@ show_file(sys.argv[1])</code></pre>
   <div class="-mob-share-list share-body">
     
       
-        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer"
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
           
-          href="http://connect.qq.com/widget/shareqq/index.html?url=http://blog.rycbar.club/2020/03/16/handcrafted-pyc-%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C/&title=handcrafted-pyc-攻防世界 - My Tiny Ideas&summary=很早以前就想写一篇关于python的字节码的文章，但是一直没什么时间，借着刚好做到这一题，写一写我对相关内容的理解。"
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://blog.rycbar.club/2020/03/16/handcrafted-pyc-%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C/&title=handcrafted-pyc-攻防世界 - My Tiny Ideas&summary=很早以前就想写一篇关于python的字节码的文章，但是一直没什么时间，借着刚好做到这一题，写一写我对相关内容的理解。"
           
           >
           
@@ -792,9 +824,9 @@ show_file(sys.argv[1])</code></pre>
       
     
       
-        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer"
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
           
-          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://blog.rycbar.club/2020/03/16/handcrafted-pyc-%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C/&title=handcrafted-pyc-攻防世界 - My Tiny Ideas&summary=很早以前就想写一篇关于python的字节码的文章，但是一直没什么时间，借着刚好做到这一题，写一写我对相关内容的理解。"
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://blog.rycbar.club/2020/03/16/handcrafted-pyc-%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C/&title=handcrafted-pyc-攻防世界 - My Tiny Ideas&summary=很早以前就想写一篇关于python的字节码的文章，但是一直没什么时间，借着刚好做到这一题，写一写我对相关内容的理解。"
           
           >
           
@@ -804,9 +836,9 @@ show_file(sys.argv[1])</code></pre>
       
     
       
-        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer"
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
           
-          href="http://service.weibo.com/share/share.php?url=http://blog.rycbar.club/2020/03/16/handcrafted-pyc-%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C/&title=handcrafted-pyc-攻防世界 - My Tiny Ideas&summary=很早以前就想写一篇关于python的字节码的文章，但是一直没什么时间，借着刚好做到这一题，写一写我对相关内容的理解。"
+          target="_blank" href="http://service.weibo.com/share/share.php?url=http://blog.rycbar.club/2020/03/16/handcrafted-pyc-%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C/&title=handcrafted-pyc-攻防世界 - My Tiny Ideas&summary=很早以前就想写一篇关于python的字节码的文章，但是一直没什么时间，借着刚好做到这一题，写一写我对相关内容的理解。"
           
           >
           
@@ -915,7 +947,7 @@ webWelcome to ...</p>
 
 
     <div class='content'>
-      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#准备工作"><span class="toc-text">准备工作</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#文件格式"><span class="toc-text">文件格式</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#co-code"><span class="toc-text">co_code</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#co-const"><span class="toc-text">co_const</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#其它"><span class="toc-text">其它</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#题目分析"><span class="toc-text">题目分析</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#混淆"><span class="toc-text">混淆</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#uncompyle6"><span class="toc-text">uncompyle6</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#dis"><span class="toc-text">dis</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#虚假分支"><span class="toc-text">虚假分支</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#重叠指令"><span class="toc-text">重叠指令</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#指令集"><span class="toc-text">指令集</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#SMC"><span class="toc-text">SMC</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#后记"><span class="toc-text">后记</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%87%86%E5%A4%87%E5%B7%A5%E4%BD%9C"><span class="toc-text">准备工作</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F"><span class="toc-text">文件格式</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#co-code"><span class="toc-text">co_code</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#co-const"><span class="toc-text">co_const</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%85%B6%E5%AE%83"><span class="toc-text">其它</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%A2%98%E7%9B%AE%E5%88%86%E6%9E%90"><span class="toc-text">题目分析</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B7%B7%E6%B7%86"><span class="toc-text">混淆</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#uncompyle6"><span class="toc-text">uncompyle6</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#dis"><span class="toc-text">dis</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E8%99%9A%E5%81%87%E5%88%86%E6%94%AF"><span class="toc-text">虚假分支</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E9%87%8D%E5%8F%A0%E6%8C%87%E4%BB%A4"><span class="toc-text">重叠指令</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%8C%87%E4%BB%A4%E9%9B%86"><span class="toc-text">指令集</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#SMC"><span class="toc-text">SMC</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%90%8E%E8%AE%B0"><span class="toc-text">后记</span></a></li></ol>
     </div>
   </section>
 
@@ -986,13 +1018,13 @@ webWelcome to ...</p>
       
     
       
-        <div><p>博客内容遵循 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</a></p>
+        <div><p>博客内容遵循 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</a></p>
 </div>
       
     
       
         <div class='copyright'>
-        <p><a href="https://blog.rycbar.club">Copyright © 2017-2020 rycbar</a></p>
+        <p><a href="https://blog.rycbar.club/">Copyright © 2017-2020 rycbar</a></p>
 
         </div>
       

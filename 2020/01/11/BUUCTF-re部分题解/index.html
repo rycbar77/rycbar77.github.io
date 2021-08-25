@@ -428,65 +428,78 @@
         <div class="article-entry" itemprop="articleBody">
           
           <p>看到有些大佬在做BUUCTF的题，看了一下，题目很多，但是感觉良莠不齐，并且开始的一些题目有些太简单了，就当是多做些题目了。</p>
-<a id="more"></a>
+<span id="more"></span>
 
 <h4 id="easyre"><a href="#easyre" class="headerlink" title="easyre"></a>easyre</h4><p>确实非常easy，直接拖进IDA看到flag</p>
-<pre><code class="flag">flag{this_Is_a_EaSyRe}</code></pre>
+<pre><code class="flag">flag&#123;this_Is_a_EaSyRe&#125;
+</code></pre>
 <h4 id="reverse1"><a href="#reverse1" class="headerlink" title="reverse1"></a>reverse1</h4><p>IDA打开，通过字符串窗口找到主程序，整个程序流程很简单</p>
 <pre><code class="c++">for ( j = 0; ; ++j )
-  {
+  &#123;
     v8 = j;
     v2 = j_strlen(Str2);
     if ( v8 &gt; v2 )
       break;
     if ( Str2[j] == &#39;o&#39; )
       Str2[j] = &#39;0&#39;;
-  }
+  &#125;
   sub_1400111D1(&quot;input the flag:&quot;);
   sub_14001128F(&quot;%20s&quot;, &amp;Str1);
   v3 = j_strlen(Str2);
   if ( !strncmp(&amp;Str1, Str2, v3) )
     sub_1400111D1(&quot;this is the right flag!\n&quot;);
   else
-    sub_1400111D1(&quot;wrong flag\n&quot;);</code></pre>
+    sub_1400111D1(&quot;wrong flag\n&quot;);
+</code></pre>
 <p>只有这一部分有用，str2时内存中的一个字符串，只是将输入的字符串和变换过后的str2进行一个简单的对比，一样则输出正确</p>
 <p>str2的变换就是将所有的o变换成0，str2为‘{hello_world}’，所以flag为</p>
-<pre><code class="flag">flag{hell0_w0rld}</code></pre>
+<pre><code class="flag">flag&#123;hell0_w0rld&#125;
+</code></pre>
 <h4 id="reverse2"><a href="#reverse2" class="headerlink" title="reverse2"></a>reverse2</h4><p>和上一题完全一样，只不过时ELF64文件，把i和r全部替换成了1</p>
-<pre><code class="flag">flag{hack1ng_fo1_fun}</code></pre>
+<pre><code class="flag">flag&#123;hack1ng_fo1_fun&#125;
+</code></pre>
 <h4 id="helloworld"><a href="#helloworld" class="headerlink" title="helloworld"></a>helloworld</h4><p>安卓逆向，直接apktool反编译，在MainActivity.smail文件里找到了flag</p>
-<pre><code class="flag">flag{7631a988259a00816deda84afb29430a}</code></pre>
+<pre><code class="flag">flag&#123;7631a988259a00816deda84afb29430a&#125;
+</code></pre>
 <h4 id="新年快乐"><a href="#新年快乐" class="headerlink" title="新年快乐"></a>新年快乐</h4><p>简单加壳软件，在加壳时没做任何的修改，直接upx脱壳，IDA反编译，通过字符串直接找到flag</p>
-<pre><code>flag{HappyNewYear!}</code></pre><h4 id="内涵的软件"><a href="#内涵的软件" class="headerlink" title="内涵的软件"></a>内涵的软件</h4><p>IDA反编译可以直接发现flag，把花括号里的放进flag{}里即可</p>
-<pre><code>flag{49d3c93df25caad81232130f3d2ebfad}</code></pre><h4 id="xor"><a href="#xor" class="headerlink" title="xor"></a>xor</h4><p>一看题目就是到要逆运算异或，反编译之后发现关键运算</p>
+<pre><code>flag&#123;HappyNewYear!&#125;
+</code></pre>
+<h4 id="内涵的软件"><a href="#内涵的软件" class="headerlink" title="内涵的软件"></a>内涵的软件</h4><p>IDA反编译可以直接发现flag，把花括号里的放进flag{}里即可</p>
+<pre><code>flag&#123;49d3c93df25caad81232130f3d2ebfad&#125;
+</code></pre>
+<h4 id="xor"><a href="#xor" class="headerlink" title="xor"></a>xor</h4><p>一看题目就是到要逆运算异或，反编译之后发现关键运算</p>
 <pre><code class="c++">for ( i = 1; i &lt; 33; ++i )
     v6[i] ^= v6[i - 1];
   v3 = global;
   if ( !strncmp(v6, global, 0x21uLL) )
-    printf(&quot;Success&quot;, v3);</code></pre>
+    printf(&quot;Success&quot;, v3);
+</code></pre>
 <p>所以逆运算就好了</p>
 <pre><code class="c++">#include &lt;iostream&gt;
 #include &lt;string&gt;
 using namespace std;
-int main() {
+int main() &#123;
     unsigned char ida_chars[] =
-            {
+            &#123;
                     0x66, 0x0A, 0x6B, 0x0C, 0x77, 0x26, 0x4F, 0x2E, 0x40, 0x11,
                     0x78, 0x0D, 0x5A, 0x3B, 0x55, 0x11, 0x70, 0x19, 0x46, 0x1F,
                     0x76, 0x22, 0x4D, 0x23, 0x44, 0x0E, 0x67, 0x06, 0x68, 0x0F,
                     0x47, 0x32, 0x4F
-            };
+            &#125;;
     string flag;
     flag+=ida_chars[0];
     for(int i=1;i&lt;33;i++)
-        {
+        &#123;
             flag+=(ida_chars[i]^ida_chars[i-1]);
-        }
+        &#125;
     cout&lt;&lt;flag&lt;&lt;endl;
     return 0;
-}</code></pre>
+&#125;
+</code></pre>
 <p>直接输出flag</p>
-<pre><code>flag{QianQiuWanDai_YiTongJiangHu}</code></pre><h4 id="reverse3"><a href="#reverse3" class="headerlink" title="reverse3"></a>reverse3</h4><p>和bugku的love是同一个题，不再赘述</p>
+<pre><code>flag&#123;QianQiuWanDai_YiTongJiangHu&#125;
+</code></pre>
+<h4 id="reverse3"><a href="#reverse3" class="headerlink" title="reverse3"></a>reverse3</h4><p>和bugku的love是同一个题，不再赘述</p>
 <h4 id="不一样的flag"><a href="#不一样的flag" class="headerlink" title="不一样的flag"></a>不一样的flag</h4><p>比较简单的的迷宫题，上下左右全部都标示的清清楚楚</p>
 <p><img src="https://s2.ax1x.com/2020/02/13/1q9kRI.png" alt="不一样的flag-1"></p>
 <p>迷宫如下图</p>
@@ -495,8 +508,12 @@ int main() {
 01000
 01010
 00010
-1111#</code></pre><p>转换成5*5的方阵，*走到#即可</p>
-<pre><code>flag{222441144222}</code></pre><h4 id="刮开有奖"><a href="#刮开有奖" class="headerlink" title="刮开有奖"></a>刮开有奖</h4><p>IDA反编译出来，发现需要输入8位，经过sub_4010F0这个函数的变换后，在经过两个base64变换（查看函数内部自己发现），满足条件即正确</p>
+1111#
+</code></pre>
+<p>转换成5*5的方阵，*走到#即可</p>
+<pre><code>flag&#123;222441144222&#125;
+</code></pre>
+<h4 id="刮开有奖"><a href="#刮开有奖" class="headerlink" title="刮开有奖"></a>刮开有奖</h4><p>IDA反编译出来，发现需要输入8位，经过sub_4010F0这个函数的变换后，在经过两个base64变换（查看函数内部自己发现），满足条件即正确</p>
 <p><img src="https://s2.ax1x.com/2020/02/13/1qpTZF.png" alt="刮开有奖-1"></p>
 <p>sub_4010F0这个函数内容比较多，但是和输入的字符串无关，所以直接直接把函数实现然后求出来正确的取值就可以了（后面的条件略多，这里的变换实际上只需要第一位和第五位）</p>
 <pre><code class="c++">#include &lt;iostream&gt;
@@ -504,55 +521,56 @@ int main() {
 
 using namespace std;
 
-int __cdecl decrypt(char *a1, int a2, int a3) {
+int __cdecl decrypt(char *a1, int a2, int a3) &#123;
     int result; // eax
     int i; // esi
     int v5; // ecx
     int v6; // edx
 
     result = a3;
-    for (i = a2; i &lt;= a3; a2 = i) {
+    for (i = a2; i &lt;= a3; a2 = i) &#123;
         v5 = i;
         v6 = a1[i];
-        if (a2 &lt; result &amp;&amp; i &lt; result) {
-            do {
-                if (v6 &gt; a1[result]) {
+        if (a2 &lt; result &amp;&amp; i &lt; result) &#123;
+            do &#123;
+                if (v6 &gt; a1[result]) &#123;
                     if (i &gt;= result)
                         break;
                     ++i;
                     a1[v5] = a1[result];
                     if (i &gt;= result)
                         break;
-                    while (a1[result] &lt;= v6) {
+                    while (a1[result] &lt;= v6) &#123;
                         if (++i &gt;= result)
                             goto LABEL_13;
-                    }
+                    &#125;
                     if (i &gt;= result)
                         break;
                     v5 = i;
                     a1[result] = a1[i];
-                }
+                &#125;
                 --result;
-            } while (i &lt; result);
-        }
+            &#125; while (i &lt; result);
+        &#125;
         LABEL_13:
         a1[result] = v6;
         decrypt(a1, a2, i - 1);
         result = a3;
         ++i;
-    }
+    &#125;
     return result;
-}
+&#125;
 
-char v9[20] = {90, 74, 83, 69, 67, 97, 78, 72, 51, 110, 103};
+char v9[20] = &#123;90, 74, 83, 69, 67, 97, 78, 72, 51, 110, 103&#125;;
 
-int main() {
+int main() &#123;
     cout &lt;&lt; v9 &lt;&lt; endl;
     decrypt(v9, 0, 10);
 
     cout &lt;&lt; v9 &lt;&lt; endl;
     return 0;
-}</code></pre>
+&#125;
+</code></pre>
 <p>输出如图所示</p>
 <p><img src="https://s2.ax1x.com/2020/02/13/1qpIqU.png" alt="刮开有奖-2"></p>
 <p>接着分析下面的部分</p>
@@ -563,37 +581,41 @@ int main() {
         &amp;&amp; !strcmp(v6, &quot;ak1w&quot;)       // 第6,7,8个字符base64之后，等于ak1w
         &amp;&amp; !strcmp(v7,&quot;V1Ax&quot;)        // 第3,4,5个字符，base64之后等于V1Ax
    )
-      {
+      &#123;
         MessageBoxA(hDlg, &quot;U g3t 1T!&quot;, &quot;@_@&quot;, 0);
-      }</code></pre>
+      &#125;
+</code></pre>
 <p>还多了两个条件就检验正确就可以了</p>
 <p>得到flag</p>
-<pre><code>flag{UJWP1jMp}</code></pre><h4 id="SimpleRev"><a href="#SimpleRev" class="headerlink" title="SimpleRev"></a>SimpleRev</h4><p>这题没什么难度，IDA打开</p>
+<pre><code>flag&#123;UJWP1jMp&#125;
+</code></pre>
+<h4 id="SimpleRev"><a href="#SimpleRev" class="headerlink" title="SimpleRev"></a>SimpleRev</h4><p>这题没什么难度，IDA打开</p>
 <pre><code class="c++">int __cdecl __noreturn main(int argc, const char **argv, const char **envp)
-{
+&#123;
   int v3; // eax
   char v4; // [rsp+Fh] [rbp-1h]
 
   while ( 1 )
-  {
+  &#123;
     while ( 1 )
-    {
+    &#123;
       printf(&quot;Welcome to CTF game!\nPlease input d/D to start or input q/Q to quit this program: &quot;, argv, envp);
       v4 = getchar();
       if ( v4 != &#39;d&#39; &amp;&amp; v4 != &#39;D&#39; )
         break;
       Decry();
-    }
+    &#125;
     if ( v4 == &#39;q&#39; || v4 == &#39;Q&#39; )
       Exit();
     puts(&quot;Input fault format!&quot;);
     v3 = getchar();
     putchar(v3);
-  }
-}</code></pre>
+  &#125;
+&#125;
+</code></pre>
 <p>main函数里面没有什么需要注意的东西，解决问题的重点就都放在Decry()这个函数里了</p>
 <pre><code class="c++">unsigned __int64 Decry()
-{
+&#123;
   char v1; // [rsp+Fh] [rbp-51h]
   int v2; // [rsp+10h] [rbp-50h]
   int v3; // [rsp+14h] [rbp-4Ch]
@@ -622,44 +644,45 @@ int main() {
   getchar();
   v5 = strlen(key);
   for ( i = 0; i &lt; v5; ++i )
-  {
+  &#123;
     if ( key[v3 % v5] &gt; &#39;@&#39; &amp;&amp; key[v3 % v5] &lt;= &#39;Z&#39; )
       key[i] = key[v3 % v5] + 32;
     ++v3;
-  }                                             // 转换为小写
+  &#125;                                             // 转换为小写
                                                 // key=&#39;adsfkndcls&#39;
   printf(&quot;Please input your flag:&quot;, src);
   while ( 1 )
-  {
+  &#123;
     v1 = getchar();
     if ( v1 == &#39;\n&#39; )                           // 遇到回车结束
       break;
     if ( v1 == &#39; &#39; )                            // 跳过空格
-    {
+    &#123;
       ++v2;
-    }
+    &#125;
     else
-    {
+    &#123;
       if ( v1 &lt;= 96 || v1 &gt; 122 )
-      {
+      &#123;
         if ( v1 &gt; 64 &amp;&amp; v1 &lt;= 90 )              // 大写字母
           str2[v2] = (v1 - 39 - key[v3++ % v5] + 97) % 26 + 97;
-      }
+      &#125;
       else                                      // 小写字母
-      {
+      &#123;
         str2[v2] = (v1 - 39 - key[v3++ % v5] + 97) % 26 + 97;
-      }
+      &#125;
       if ( !(v3 % v5) )
         putchar(32);
       ++v2;
-    }
-  }
+    &#125;
+  &#125;
   if ( !strcmp(text, str2) )
     puts(&quot;Congratulation!\n&quot;);
   else
     puts(&quot;Try again!\n&quot;);
   return __readfsqword(0x28u) ^ v12;
-}</code></pre>
+&#125;
+</code></pre>
 <p>需要注意src和v9本身是以long long类型赋值，转换成字符串要记得逆序，接下来的过程就很简单了，程序的过程很清楚，直接逆向运算就可以算出来结果了</p>
 <pre><code class="c++">#include &lt;iostream&gt;
 #include &lt;string&gt;
@@ -667,39 +690,42 @@ int main() {
 using namespace std;
 
 
-int main(void) {
+int main(void) &#123;
     int n = 0, v5 = 10, v3 = 10, v2 = 0;
     char v1;
-    char flag[11] = {0};
+    char flag[11] = &#123;0&#125;;
     char key[] = &quot;adsfkndcls&quot;;
     char text[] = &quot;killshadow&quot;;
 //通过放缩，j只能取0-3之间
-    for (int j = 0; j &lt; 4; ++j) {
-        for (v2 = 0; v2 &lt; 10; ++v2) {
+    for (int j = 0; j &lt; 4; ++j) &#123;
+        for (v2 = 0; v2 &lt; 10; ++v2) &#123;
             v1 = text[v2] - 97 + 26 * j - 97 + key[v3++ % v5] + 39;
-            if ((v1 &gt;= 65 &amp;&amp; v1 &lt;= 90) || (v1 &gt;= 97 &amp;&amp; v1 &lt;= 122)) {
+            if ((v1 &gt;= 65 &amp;&amp; v1 &lt;= 90) || (v1 &gt;= 97 &amp;&amp; v1 &lt;= 122)) &#123;
                 flag[v2] = v1;
-                if (++n == 10) {
-                    printf(&quot;flag{%s}\n&quot;, flag);
+                if (++n == 10) &#123;
+                    printf(&quot;flag&#123;%s&#125;\n&quot;, flag);
                     return 0;
-                }
-            }
-        }
-    }
+                &#125;
+            &#125;
+        &#125;
+    &#125;
 
     return 0;
-}</code></pre>
+&#125;
+</code></pre>
 <p>这里的j是用来逆向取余运算时候遍历，放缩之后得到一个范围，然后计算就可以了</p>
-<pre><code>flag{KLDQCUDFZO}</code></pre><h4 id="Java逆向解密"><a href="#Java逆向解密" class="headerlink" title="Java逆向解密"></a>Java逆向解密</h4><p>第一次做Java逆向，顺便也熟悉熟悉Java，所以逆向程序也是用Java写的</p>
+<pre><code>flag&#123;KLDQCUDFZO&#125;
+</code></pre>
+<h4 id="Java逆向解密"><a href="#Java逆向解密" class="headerlink" title="Java逆向解密"></a>Java逆向解密</h4><p>第一次做Java逆向，顺便也熟悉熟悉Java，所以逆向程序也是用Java写的</p>
 <p>附件打开是class文件，IDEA直接可以反编译，反编译出来的代码很简单</p>
 <pre><code class="java">import java.util.ArrayList;
 import java.util.Scanner;
 
-public class Reverse {
-    public Reverse() {
-    }
+public class Reverse &#123;
+    public Reverse() &#123;
+    &#125;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) &#123;
         Scanner s = new Scanner(System.in);
         System.out.println(&quot;Please input the flag ：&quot;);
         String str = s.next();
@@ -707,57 +733,65 @@ public class Reverse {
         System.out.println(str);
         char[] stringArr = str.toCharArray();
         Encrypt(stringArr);
-    }
+    &#125;
 
-    public static void Encrypt(char[] arr) {
+    public static void Encrypt(char[] arr) &#123;
         ArrayList&lt;Integer&gt; Resultlist = new ArrayList();
 
-        for(int i = 0; i &lt; arr.length; ++i) {
+        for(int i = 0; i &lt; arr.length; ++i) &#123;
             int result = arr[i] + 64 ^ 32;
             Resultlist.add(result);
-        }
+        &#125;
 
-        int[] KEY = new int[]{180, 136, 137, 147, 191, 137, 147, 191, 148, 136, 133, 191, 134, 140, 129, 135, 191, 65};
+        int[] KEY = new int[]&#123;180, 136, 137, 147, 191, 137, 147, 191, 148, 136, 133, 191, 134, 140, 129, 135, 191, 65&#125;;
         ArrayList&lt;Integer&gt; KEYList = new ArrayList();
 
-        for(int j = 0; j &lt; KEY.length; ++j) {
+        for(int j = 0; j &lt; KEY.length; ++j) &#123;
             KEYList.add(KEY[j]);
-        }
+        &#125;
 
         System.out.println(&quot;Result:&quot;);
-        if (Resultlist.equals(KEYList)) {
+        if (Resultlist.equals(KEYList)) &#123;
             System.out.println(&quot;Congratulations！&quot;);
-        } else {
+        &#125; else &#123;
             System.err.println(&quot;Error！&quot;);
-        }
+        &#125;
 
-    }
-}</code></pre>
+    &#125;
+&#125;
+</code></pre>
 <p>把KEY每个值都减去64^32就好了，没什么难度，所以试试用Java写，练练手</p>
 <pre><code class="java">package com.company;
 
 import java.util.ArrayList;
 
-public class Main {
+public class Main &#123;
 
-    public static void main(String[] args) {
-        int[] KEY = new int[]{180, 136, 137, 147, 191, 137, 147, 191, 148, 136, 133, 191, 134, 140, 129, 135, 191, 65};
+    public static void main(String[] args) &#123;
+        int[] KEY = new int[]&#123;180, 136, 137, 147, 191, 137, 147, 191, 148, 136, 133, 191, 134, 140, 129, 135, 191, 65&#125;;
         ArrayList&lt;Integer&gt; resultList = new ArrayList&lt;&gt;();
-        for (int value : KEY) {
+        for (int value : KEY) &#123;
             resultList.add(value - 64 ^ 32);
-        }
+        &#125;
 //        System.out.println(resultList);
         StringBuilder s = new StringBuilder();
-        for (int value:resultList){
+        for (int value:resultList)&#123;
             s.append((char)value);
-        }
-        System.out.println(&quot;flag{&quot;+s+&quot;}&quot;);
-    }
-}</code></pre>
+        &#125;
+        System.out.println(&quot;flag&#123;&quot;+s+&quot;&#125;&quot;);
+    &#125;
+&#125;
+</code></pre>
 <p>直接输出flag</p>
-<pre><code>flag{This_is_the_flag_!}</code></pre><h4 id="findit"><a href="#findit" class="headerlink" title="findit"></a>findit</h4><p>不管是apktool反编译还是直接cfr反编译到代码，都可以找到一串很像flag的字符数组</p>
-<pre><code>pvkq{m164675262033l4m49lnp7p9mnk28k75}</code></pre><p>直接凯撒密码解密，a与k之间相差10，所以key=10</p>
-<pre><code>flag{c164675262033b4c49bdf7f9cda28a75}</code></pre><h4 id="rsa"><a href="#rsa" class="headerlink" title="rsa"></a>rsa</h4><p>直接<a href="http://tool.chacuo.net/cryptrsakeyparse" target="_blank" rel="noopener">解析公钥</a>，然后暴力分解解密就可以了</p>
+<pre><code>flag&#123;This_is_the_flag_!&#125;
+</code></pre>
+<h4 id="findit"><a href="#findit" class="headerlink" title="findit"></a>findit</h4><p>不管是apktool反编译还是直接cfr反编译到代码，都可以找到一串很像flag的字符数组</p>
+<pre><code>pvkq&#123;m164675262033l4m49lnp7p9mnk28k75&#125;
+</code></pre>
+<p>直接凯撒密码解密，a与k之间相差10，所以key=10</p>
+<pre><code>flag&#123;c164675262033b4c49bdf7f9cda28a75&#125;
+</code></pre>
+<h4 id="rsa"><a href="#rsa" class="headerlink" title="rsa"></a>rsa</h4><p>直接<a target="_blank" rel="noopener" href="http://tool.chacuo.net/cryptrsakeyparse">解析公钥</a>，然后暴力分解解密就可以了</p>
 
           
             <div class='article_footer'>
@@ -847,9 +881,9 @@ public class Main {
   <div class="-mob-share-list share-body">
     
       
-        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer"
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
           
-          href="http://connect.qq.com/widget/shareqq/index.html?url=http://blog.rycbar.club/2020/01/11/BUUCTF-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3/&title=BUUCTF-re部分题解 - My Tiny Ideas&summary=看到有些大佬在做BUUCTF的题，看了一下，题目很多，但是感觉良莠不齐，并且开始的一些题目有些太简单了，就当是多做些题目了。"
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://blog.rycbar.club/2020/01/11/BUUCTF-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3/&title=BUUCTF-re部分题解 - My Tiny Ideas&summary=看到有些大佬在做BUUCTF的题，看了一下，题目很多，但是感觉良莠不齐，并且开始的一些题目有些太简单了，就当是多做些题目了。"
           
           >
           
@@ -859,9 +893,9 @@ public class Main {
       
     
       
-        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer"
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
           
-          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://blog.rycbar.club/2020/01/11/BUUCTF-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3/&title=BUUCTF-re部分题解 - My Tiny Ideas&summary=看到有些大佬在做BUUCTF的题，看了一下，题目很多，但是感觉良莠不齐，并且开始的一些题目有些太简单了，就当是多做些题目了。"
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://blog.rycbar.club/2020/01/11/BUUCTF-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3/&title=BUUCTF-re部分题解 - My Tiny Ideas&summary=看到有些大佬在做BUUCTF的题，看了一下，题目很多，但是感觉良莠不齐，并且开始的一些题目有些太简单了，就当是多做些题目了。"
           
           >
           
@@ -871,9 +905,9 @@ public class Main {
       
     
       
-        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer"
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
           
-          href="http://service.weibo.com/share/share.php?url=http://blog.rycbar.club/2020/01/11/BUUCTF-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3/&title=BUUCTF-re部分题解 - My Tiny Ideas&summary=看到有些大佬在做BUUCTF的题，看了一下，题目很多，但是感觉良莠不齐，并且开始的一些题目有些太简单了，就当是多做些题目了。"
+          target="_blank" href="http://service.weibo.com/share/share.php?url=http://blog.rycbar.club/2020/01/11/BUUCTF-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3/&title=BUUCTF-re部分题解 - My Tiny Ideas&summary=看到有些大佬在做BUUCTF的题，看了一下，题目很多，但是感觉良莠不齐，并且开始的一些题目有些太简单了，就当是多做些题目了。"
           
           >
           
@@ -981,7 +1015,7 @@ Hello,RE!打开程序，发现输入flag，用OD打开，注意到是将输入�
 
 
     <div class='content'>
-      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#easyre"><span class="toc-text">easyre</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#reverse1"><span class="toc-text">reverse1</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#reverse2"><span class="toc-text">reverse2</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#helloworld"><span class="toc-text">helloworld</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#新年快乐"><span class="toc-text">新年快乐</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#内涵的软件"><span class="toc-text">内涵的软件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#xor"><span class="toc-text">xor</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#reverse3"><span class="toc-text">reverse3</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#不一样的flag"><span class="toc-text">不一样的flag</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#刮开有奖"><span class="toc-text">刮开有奖</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#SimpleRev"><span class="toc-text">SimpleRev</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Java逆向解密"><span class="toc-text">Java逆向解密</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#findit"><span class="toc-text">findit</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#rsa"><span class="toc-text">rsa</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#easyre"><span class="toc-text">easyre</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#reverse1"><span class="toc-text">reverse1</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#reverse2"><span class="toc-text">reverse2</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#helloworld"><span class="toc-text">helloworld</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%96%B0%E5%B9%B4%E5%BF%AB%E4%B9%90"><span class="toc-text">新年快乐</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%86%85%E6%B6%B5%E7%9A%84%E8%BD%AF%E4%BB%B6"><span class="toc-text">内涵的软件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#xor"><span class="toc-text">xor</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#reverse3"><span class="toc-text">reverse3</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%8D%E4%B8%80%E6%A0%B7%E7%9A%84flag"><span class="toc-text">不一样的flag</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%AE%E5%BC%80%E6%9C%89%E5%A5%96"><span class="toc-text">刮开有奖</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#SimpleRev"><span class="toc-text">SimpleRev</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Java%E9%80%86%E5%90%91%E8%A7%A3%E5%AF%86"><span class="toc-text">Java逆向解密</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#findit"><span class="toc-text">findit</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#rsa"><span class="toc-text">rsa</span></a></li></ol>
     </div>
   </section>
 
@@ -1052,13 +1086,13 @@ Hello,RE!打开程序，发现输入flag，用OD打开，注意到是将输入�
       
     
       
-        <div><p>博客内容遵循 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</a></p>
+        <div><p>博客内容遵循 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</a></p>
 </div>
       
     
       
         <div class='copyright'>
-        <p><a href="https://blog.rycbar.club">Copyright © 2017-2020 rycbar</a></p>
+        <p><a href="https://blog.rycbar.club/">Copyright © 2017-2020 rycbar</a></p>
 
         </div>
       

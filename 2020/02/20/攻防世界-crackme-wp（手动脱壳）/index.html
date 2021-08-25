@@ -428,7 +428,7 @@
         <div class="article-entry" itemprop="articleBody">
           
           <p>这里以攻防世界的一道简单的题目来记录一下手动脱壳相关内容，其实理解了原理之后也是非常简单的一件事。</p>
-<a id="more"></a>
+<span id="more"></span>
 
 <p>首先看看攻防世界的这道crackme。</p>
 <h4 id="查壳"><a href="#查壳" class="headerlink" title="查壳"></a>查壳</h4><p>PEiD查一查，发现有壳，nSpack，并不是常见的upx，也懒得去找工具，这样一道简单的题目肯定不会用很复杂的壳，所以开始徒手脱壳。</p>
@@ -458,7 +458,7 @@
 <p>这个时候点<code>Get Imports</code>，中间窗口会显示出来，但是注意有时候会出现无效的值，这个时候可能需要手动修复或者是删除，如果全都显示有效，就可以<code>Fix Dump</code>，选择刚刚Dump出来的文件，成功的话会生成一个新的文件，这个文件是可以执行的程序，到这里脱壳的过程就结束了。</p>
 <h4 id="解题"><a href="#解题" class="headerlink" title="解题"></a>解题</h4><p>回到题目本身，IDA打开</p>
 <pre><code class="c++">signed int start()
-{
+&#123;
   signed int result; // eax
   int v1; // eax
   char Buf; // [esp+4h] [ebp-38h]
@@ -469,48 +469,51 @@
   printf(&quot;Please Input Flag:&quot;);
   gets_s(&amp;Buf, 0x2Cu);
   if ( strlen(&amp;Buf) == 42 )
-  {
+  &#123;
     v1 = 0;
     while ( (*(&amp;Buf + v1) ^ byte_402130[v1 % 16]) == dword_402150[v1] )
-    {
+    &#123;
       if ( ++v1 &gt;= 42 )
-      {
+      &#123;
         printf(&quot;right!\n&quot;);
         goto LABEL_8;
-      }
-    }
+      &#125;
+    &#125;
     printf(&quot;error!\n&quot;);
 LABEL_8:
     result = 0;
-  }
+  &#125;
   else
-  {
+  &#123;
     printf(&quot;error!\n&quot;);
     result = -1;
-  }
+  &#125;
   return result;
-}</code></pre>
+&#125;
+</code></pre>
 <p>发现程序的判断非常简单，可见这题的主要目的是为了考脱壳，把需要的数据导出之后，直接简单逆向输出flag</p>
 <pre><code class="c++">#include &lt;iostream&gt;
 #include &lt;string&gt;
 
 using namespace std;
 
-int main() {
-    int dword_402150[] = { 18, 4, 8, 20, 36, 92, 74, 61, 86, 10, 16, 103, 0, 65, 0, 1, 70, 90, 68, 66, 110, 12, 68, 114, 12, 13, 64, 62, 75, 95, 2, 1, 76, 94, 91, 23, 110, 12, 22, 104, 91, 18};
+int main() &#123;
+    int dword_402150[] = &#123; 18, 4, 8, 20, 36, 92, 74, 61, 86, 10, 16, 103, 0, 65, 0, 1, 70, 90, 68, 66, 110, 12, 68, 114, 12, 13, 64, 62, 75, 95, 2, 1, 76, 94, 91, 23, 110, 12, 22, 104, 91, 18&#125;;
     char aThisIsNotFlag[] =
             &quot;this_is_not_flag&quot;;
     string flag;
     for(int i =0;i&lt;42;i++)
-    {
+    &#123;
         flag+=(dword_402150[i]^aThisIsNotFlag[i%16]);
-    }
+    &#125;
     cout&lt;&lt;flag&lt;&lt;endl;
     return 0;
-}
+&#125;
 </code></pre>
 <p>输出得到flag</p>
-<pre><code>flag{59b8ed8f-af22-11e7-bb4a-3cf862d1ee75}</code></pre>
+<pre><code>flag&#123;59b8ed8f-af22-11e7-bb4a-3cf862d1ee75&#125;
+</code></pre>
+
           
             <div class='article_footer'>
               
@@ -599,9 +602,9 @@ int main() {
   <div class="-mob-share-list share-body">
     
       
-        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer"
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
           
-          href="http://connect.qq.com/widget/shareqq/index.html?url=http://blog.rycbar.club/2020/02/20/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-crackme-wp%EF%BC%88%E6%89%8B%E5%8A%A8%E8%84%B1%E5%A3%B3%EF%BC%89/&title=攻防世界-crackme-wp（手动脱壳） - My Tiny Ideas&summary=这里以攻防世界的一道简单的题目来记录一下手动脱壳相关内容，其实理解了原理之后也是非常简单的一件事。"
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://blog.rycbar.club/2020/02/20/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-crackme-wp%EF%BC%88%E6%89%8B%E5%8A%A8%E8%84%B1%E5%A3%B3%EF%BC%89/&title=攻防世界-crackme-wp（手动脱壳） - My Tiny Ideas&summary=这里以攻防世界的一道简单的题目来记录一下手动脱壳相关内容，其实理解了原理之后也是非常简单的一件事。"
           
           >
           
@@ -611,9 +614,9 @@ int main() {
       
     
       
-        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer"
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
           
-          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://blog.rycbar.club/2020/02/20/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-crackme-wp%EF%BC%88%E6%89%8B%E5%8A%A8%E8%84%B1%E5%A3%B3%EF%BC%89/&title=攻防世界-crackme-wp（手动脱壳） - My Tiny Ideas&summary=这里以攻防世界的一道简单的题目来记录一下手动脱壳相关内容，其实理解了原理之后也是非常简单的一件事。"
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://blog.rycbar.club/2020/02/20/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-crackme-wp%EF%BC%88%E6%89%8B%E5%8A%A8%E8%84%B1%E5%A3%B3%EF%BC%89/&title=攻防世界-crackme-wp（手动脱壳） - My Tiny Ideas&summary=这里以攻防世界的一道简单的题目来记录一下手动脱壳相关内容，其实理解了原理之后也是非常简单的一件事。"
           
           >
           
@@ -623,9 +626,9 @@ int main() {
       
     
       
-        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer"
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
           
-          href="http://service.weibo.com/share/share.php?url=http://blog.rycbar.club/2020/02/20/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-crackme-wp%EF%BC%88%E6%89%8B%E5%8A%A8%E8%84%B1%E5%A3%B3%EF%BC%89/&title=攻防世界-crackme-wp（手动脱壳） - My Tiny Ideas&summary=这里以攻防世界的一道简单的题目来记录一下手动脱壳相关内容，其实理解了原理之后也是非常简单的一件事。"
+          target="_blank" href="http://service.weibo.com/share/share.php?url=http://blog.rycbar.club/2020/02/20/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-crackme-wp%EF%BC%88%E6%89%8B%E5%8A%A8%E8%84%B1%E5%A3%B3%EF%BC%89/&title=攻防世界-crackme-wp（手动脱壳） - My Tiny Ideas&summary=这里以攻防世界的一道简单的题目来记录一下手动脱壳相关内容，其实理解了原理之后也是非常简单的一件事。"
           
           >
           
@@ -733,7 +736,7 @@ insanityIDA打开，进入main，发现程序在生成随机数，然后随便�
 
 
     <div class='content'>
-      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#查壳"><span class="toc-text">查壳</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#找OEP"><span class="toc-text">找OEP</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Dump"><span class="toc-text">Dump</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#修正IAT"><span class="toc-text">修正IAT</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#解题"><span class="toc-text">解题</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%9F%A5%E5%A3%B3"><span class="toc-text">查壳</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%89%BEOEP"><span class="toc-text">找OEP</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Dump"><span class="toc-text">Dump</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BF%AE%E6%AD%A3IAT"><span class="toc-text">修正IAT</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%A7%A3%E9%A2%98"><span class="toc-text">解题</span></a></li></ol>
     </div>
   </section>
 
@@ -804,13 +807,13 @@ insanityIDA打开，进入main，发现程序在生成随机数，然后随便�
       
     
       
-        <div><p>博客内容遵循 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</a></p>
+        <div><p>博客内容遵循 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</a></p>
 </div>
       
     
       
         <div class='copyright'>
-        <p><a href="https://blog.rycbar.club">Copyright © 2017-2020 rycbar</a></p>
+        <p><a href="https://blog.rycbar.club/">Copyright © 2017-2020 rycbar</a></p>
 
         </div>
       

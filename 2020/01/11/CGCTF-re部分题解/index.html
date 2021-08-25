@@ -428,19 +428,20 @@
         <div class="article-entry" itemprop="articleBody">
           
           <p>CG-CTF是南邮的平台，题目都很不错，这里记录一下部分题解决题目的思路和方法</p>
-<a id="more"></a>
+<span id="more"></span>
 
 <h4 id="Hello-RE"><a href="#Hello-RE" class="headerlink" title="Hello,RE!"></a>Hello,RE!</h4><p>打开程序，发现输入flag，用OD打开，注意到是将输入的字符串和flag直接进行比较，所以单步调试直接找到flag<br><img src="https://s2.ax1x.com/2020/02/13/1qp7a4.png" alt="Hello,RE!-1"></p>
 <h4 id="ReadAsm2"><a href="#ReadAsm2" class="headerlink" title="ReadAsm2"></a>ReadAsm2</h4><p>这题考的是直接读汇编的能力，代码贴在下面</p>
 <pre><code class="c++">int main(int argc, char const *argv[])
-{
-  char input[] = {0x0,  0x67, 0x6e, 0x62, 0x63, 0x7e, 0x74, 0x62, 0x69, 0x6d,
+&#123;
+  char input[] = &#123;0x0,  0x67, 0x6e, 0x62, 0x63, 0x7e, 0x74, 0x62, 0x69, 0x6d,
                   0x55, 0x6a, 0x7f, 0x60, 0x51, 0x66, 0x63, 0x4e, 0x66, 0x7b,
-                  0x71, 0x4a, 0x74, 0x76, 0x6b, 0x70, 0x79, 0x66 , 0x1c};
+                  0x71, 0x4a, 0x74, 0x76, 0x6b, 0x70, 0x79, 0x66 , 0x1c&#125;;
   func(input, 28);
   printf(&quot;%s\n&quot;,input+1);
   return 0;
-}</code></pre>
+&#125;
+</code></pre>
 <pre><code class="asm">00000000004004e6 &lt;func&gt;:
   4004e6: 55                    push   rbp
   4004e7: 48 89 e5              mov    rbp,rsp
@@ -466,7 +467,8 @@
   400528: 7e d0                 jle    4004fa &lt;func+0x14&gt;
   40052a: 90                    nop
   40052b: 5d                    pop    rbp
-  40052c: c3                    ret</code></pre>
+  40052c: c3                    ret
+</code></pre>
 <p>发现这段汇编的作用就是实现input[i]^i，所以实现上面代码输出得到flag</p>
 <pre><code class="python">s = [0x0, 0x67, 0x6e, 0x62, 0x63, 0x7e, 0x74, 0x62, 0x69, 0x6d,
      0x55, 0x6a, 0x7f, 0x60, 0x51, 0x66, 0x63, 0x4e, 0x66, 0x7b,
@@ -478,9 +480,11 @@ out = &#39;&#39;
 for i in range(len(s)):
     out += chr(s[i])
 
-print(out)</code></pre>
+print(out)
+</code></pre>
 <p>输出flag为：</p>
-<pre><code class="flag">flag{read_asm_is_the_basic}</code></pre>
+<pre><code class="flag">flag&#123;read_asm_is_the_basic&#125;
+</code></pre>
 <h4 id="Py交易"><a href="#Py交易" class="headerlink" title="Py交易"></a>Py交易</h4><p>本题是python的反编译，使用在线工具或uncompyle6将pyc文件反编译，得到代码</p>
 <pre><code class="python">import base64
 
@@ -523,7 +527,8 @@ flag = raw_input()
 if encode(flag) == correct:
     print &#39;correct&#39;
 else:
-    print &#39;wrong&#39;</code></pre>
+    print &#39;wrong&#39;
+</code></pre>
 <p>研究代码，发现我们只要将correct逆向解密，就可以得到正确的flag，所以得到如下exp：</p>
 <pre><code class="python">import base64
 
@@ -538,12 +543,14 @@ for s in correct:
     x -= 16
     i = chr(x ^ 32)
     flag += i
-print(flag)</code></pre>
+print(flag)
+</code></pre>
 <p>输出flag为：</p>
-<pre><code class="flag">nctf{d3c0mpil1n9_PyC}</code></pre>
+<pre><code class="flag">nctf&#123;d3c0mpil1n9_PyC&#125;
+</code></pre>
 <h4 id="WxyVM"><a href="#WxyVM" class="headerlink" title="WxyVM"></a>WxyVM</h4><p>下载下来不知道是什么文件，记事本打开，开头ELF，所以直接拖进IDA反编译，main函数如下：</p>
 <pre><code class="c++">__int64 __fastcall main(__int64 a1, char **a2, char **a3)
-{
+&#123;
   char v4; // [rsp+Bh] [rbp-5h]
   signed int i; // [rsp+Ch] [rbp-4h]
 
@@ -555,32 +562,33 @@ print(flag)</code></pre>
   if ( strlen(&amp;byte_604B80) != 24 )
     v4 = 0;
   for ( i = 0; i &lt;= 23; ++i )
-  {
+  &#123;
     if ( *(&amp;byte_604B80 + i) != dword_601060[i] )
       v4 = 0;
-  }
+  &#125;
   if ( v4 )
     puts(&quot;correct&quot;);
   else
     puts(&quot;wrong&quot;);
   return 0LL;
-}</code></pre>
+&#125;
+</code></pre>
 <p>一开始认为需要输入一个24位的flag，然后和dword_601060每一位都相等即可，但是中间的sub_4005B6()函数对我们输入的flag还进行了一些变换，所以需要把dword_601060对应的进行反变换才能得到应该输入的正确的flag</p>
 <p>sub_4005B6()函数如下：</p>
 <pre><code class="c++">__int64 sub_4005B6()
-{
+&#123;
   unsigned int v0; // ST04_4
   __int64 result; // rax
   signed int i; // [rsp+0h] [rbp-10h]
   char v3; // [rsp+8h] [rbp-8h]
 
   for ( i = 0; i &lt;= 14999; i += 3 )
-  {
+  &#123;
     v0 = byte_6010C0[i];
     v3 = byte_6010C0[i + 2];
     result = v0;
     switch ( v0 )
-    {
+    &#123;
       case 1u:
         result = byte_6010C0[i + 1];
         *(&amp;byte_604B80 + result) += v3;
@@ -603,10 +611,11 @@ print(flag)</code></pre>
         break;
       default:
         continue;
-    }
-  }
+    &#125;
+  &#125;
   return result;
-}</code></pre>
+&#125;
+</code></pre>
 <p>用IDA将byte_6010C0导出，用python进行逆向处理</p>
 <pre><code class="python">s = [0xc4, 0x34, 0x22, 0xb1, 0xd3, 0x11, 0x97, 0x7, 0xdb, 0x37, 0xc4, 0x6, 0x1d, 0xfc, 0x5b, 0xed, 0x98, 0xdf, 0x94,0xd8, 0xb3, 0x84, 0xcc, 0x8]
 # dword与char比较，只取最后一位一个字节
@@ -630,22 +639,27 @@ for i in range(5000):
         s[result] ^= s[v3]
     else:
         continue
-print(&#39;&#39;.join([str(chr(int(i) % 128)) for i in s]))</code></pre>
+print(&#39;&#39;.join([str(chr(int(i) % 128)) for i in s]))
+</code></pre>
 <p>这里有两件事需要注意，第一是dword只需要取最后一个字节，第二是逆运算时要从最后三位向前计算，最后输出flag: </p>
-<pre><code class="flag">nctf{Embr4ce_Vm_j0in_R3}</code></pre>
+<pre><code class="flag">nctf&#123;Embr4ce_Vm_j0in_R3&#125;
+</code></pre>
 <h4 id="maze"><a href="#maze" class="headerlink" title="maze"></a>maze</h4><p>极其无聊的迷宫题……</p>
 <p>找到地图、起点终点和上下左右分别对应的键就可以了</p>
-<pre><code>nctf{o0oo00O000oooo..OO}</code></pre><h4 id="WxyVM2"><a href="#WxyVM2" class="headerlink" title="WxyVM2"></a>WxyVM2</h4><p>拖进IDA反编译，发现函数非常大，操作特别多，但是仔细看发现最后要验证的都是byte类型，所有对dword的操作都是无效的，所以把所有操作拷贝到文件(export_results.txt)中，先进行过滤操作，过滤出需要的操作,最后的验证过程如下：</p>
+<pre><code>nctf&#123;o0oo00O000oooo..OO&#125;
+</code></pre>
+<h4 id="WxyVM2"><a href="#WxyVM2" class="headerlink" title="WxyVM2"></a>WxyVM2</h4><p>拖进IDA反编译，发现函数非常大，操作特别多，但是仔细看发现最后要验证的都是byte类型，所有对dword的操作都是无效的，所以把所有操作拷贝到文件(export_results.txt)中，先进行过滤操作，过滤出需要的操作,最后的验证过程如下：</p>
 <pre><code class="C++">for ( i = 0; i &lt;= 24; ++i )
-  {
+  &#123;
     if ( *(&amp;byte_694100 + i) != dword_694060[i] )
       v4 = 0;
-  }
+  &#125;
   if ( v4 )
     puts(&quot;correct&quot;);
   else
     puts(&quot;wrong&quot;);
-  return 0LL;</code></pre>
+  return 0LL;
+</code></pre>
 <p>所以操作之后的数组和dword_694060数组的每个数的最后一位相同，将数组导出，进行逆运算得到原来输入的flag，python代码如下：</p>
 <pre><code class="python">import re
 
@@ -704,18 +718,20 @@ with open(&#39;s.txt&#39;) as f:
             ss[i] = eval(exp) % 128
         a = f.readline()
     # print(ss)
-print(&#39;&#39;.join([str(chr(i % 128)) for i in ss]))</code></pre>
+print(&#39;&#39;.join([str(chr(i % 128)) for i in ss]))
+</code></pre>
 <p>这里要注意一点，python没有++和–操作，所以直接++和–的传唤算不出正确值，在这里卡了一会儿才发现问题。</p>
 <p>运行程序输出flag：</p>
-<pre><code class="flag">nctf{th3_vM_w1th0ut_dAta}</code></pre>
+<pre><code class="flag">nctf&#123;th3_vM_w1th0ut_dAta&#125;
+</code></pre>
 <h4 id="你大概需要一个优秀的mac"><a href="#你大概需要一个优秀的mac" class="headerlink" title="你大概需要一个优秀的mac"></a>你大概需要一个优秀的mac</h4><p>这是一个macos程序，没法直接打开，所以还是拖进IDA反编译，发现需要输入一个56位的flag，然后经过几个函数处理之后与一个数组进行比较，相同则输入的是正确的flag，所以还是一样进行一个逆运算</p>
 <p>反编译出来的代码如下：</p>
 <pre><code class="c++">  scanf(&quot;%s&quot;, &amp;v4);
   if ( strlen(&amp;v4) != 56 )
-  {
+  &#123;
     puts((const char *)err);
     exit(0);
-  }
+  &#125;
   __strcpy_chk(input, &amp;v4, 100LL);
   func1((__int64)input);
   xfun1();
@@ -726,44 +742,45 @@ print(&#39;&#39;.join([str(chr(i % 128)) for i in ss]))</code></pre>
   check();
 //func1
   for ( i = 0; i &lt; 57; ++i ) //这里应该是56？
-  {
+  &#123;
     *(_BYTE *)(a1 + i) ^= 0xDEu;
-  }
+  &#125;
 //xfun1
   for ( i = 0; i &lt; 10; ++i )
-  {
+  &#123;
     input[i] ^= 0xADu;
-  }
+  &#125;
 //xfun2
   for ( i = 0; i &lt; 10; ++i )
-  {
+  &#123;
     input[i + 10] ^= 0xBEu;
-  }
+  &#125;
 //xfun3
   for ( i = 0; i &lt; 10; ++i )
-  {
+  &#123;
     input[i + 20] ^= 0xEFu;
-  }
+  &#125;
 //xfun4
   for ( i = 0; i &lt; 10; ++i )
-  {
+  &#123;
     input[i + 30] ^= 0xABu;
-  }
+  &#125;
 //xfun5
   for ( i = 0; i &lt; 16; ++i )
-  {
+  &#123;
     input[i + 40] ^= 0xEFu;
-  }
+  &#125;
 //check
   memcpy(v2, &amp;byte_100000ED0, 0xE0uLL);
   for ( i = 0; i &lt; 56; ++i )
-  {
+  &#123;
     if ( (char)input[i] != v2[i] )
-    {
+    &#123;
       puts((const char *)err);
       exit(0);
-    }
-  }</code></pre>
+    &#125;
+  &#125;
+</code></pre>
 <p>所以将byte_100000ED0处的数组导出，进行逆运算，代码如下：</p>
 <pre><code class="python">s = [0x15, 0x1F, 0x12, 0x14, 0x08, 0x3A, 0x46, 0x2C, 0x07, 0x1B, 0x51, 0x13, 0x3F, 0x57, 0x08, 0x05, 0x3F, 0x30, 0x32,
      0x51, 0x52, 0x02, 0x6E, 0x78, 0x16, 0x7C, 0x6E, 0x61, 0x70, 0x48, 0x1C, 0x3B, 0x32, 0x2A, 0x13, 0x45, 0x07, 0x2A,
@@ -780,9 +797,11 @@ for i in range(40,56):
     s[i]^=0xEF
 for i in range(56):
     s[i]^=0xDE
-print(&#39;&#39;.join([str(chr(i%128)) for i in s]))</code></pre>
+print(&#39;&#39;.join([str(chr(i%128)) for i in s]))
+</code></pre>
 <p>运行程序输出flag：</p>
-<pre><code class="flag">flag{I5_th1s_7he_PR1c3_I&#39;M_PAyiNG_f0r_my_pA57_m1stAk35?}</code></pre>
+<pre><code class="flag">flag&#123;I5_th1s_7he_PR1c3_I&#39;M_PAyiNG_f0r_my_pA57_m1stAk35?&#125;
+</code></pre>
 
           
             <div class='article_footer'>
@@ -872,9 +891,9 @@ print(&#39;&#39;.join([str(chr(i%128)) for i in s]))</code></pre>
   <div class="-mob-share-list share-body">
     
       
-        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer"
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
           
-          href="http://connect.qq.com/widget/shareqq/index.html?url=http://blog.rycbar.club/2020/01/11/CGCTF-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3/&title=CGCTF-re部分题解 - My Tiny Ideas&summary=CG-CTF是南邮的平台，题目都很不错，这里记录一下部分题解决题目的思路和方法"
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://blog.rycbar.club/2020/01/11/CGCTF-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3/&title=CGCTF-re部分题解 - My Tiny Ideas&summary=CG-CTF是南邮的平台，题目都很不错，这里记录一下部分题解决题目的思路和方法"
           
           >
           
@@ -884,9 +903,9 @@ print(&#39;&#39;.join([str(chr(i%128)) for i in s]))</code></pre>
       
     
       
-        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer"
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
           
-          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://blog.rycbar.club/2020/01/11/CGCTF-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3/&title=CGCTF-re部分题解 - My Tiny Ideas&summary=CG-CTF是南邮的平台，题目都很不错，这里记录一下部分题解决题目的思路和方法"
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://blog.rycbar.club/2020/01/11/CGCTF-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3/&title=CGCTF-re部分题解 - My Tiny Ideas&summary=CG-CTF是南邮的平台，题目都很不错，这里记录一下部分题解决题目的思路和方法"
           
           >
           
@@ -896,9 +915,9 @@ print(&#39;&#39;.join([str(chr(i%128)) for i in s]))</code></pre>
       
     
       
-        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer"
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
           
-          href="http://service.weibo.com/share/share.php?url=http://blog.rycbar.club/2020/01/11/CGCTF-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3/&title=CGCTF-re部分题解 - My Tiny Ideas&summary=CG-CTF是南邮的平台，题目都很不错，这里记录一下部分题解决题目的思路和方法"
+          target="_blank" href="http://service.weibo.com/share/share.php?url=http://blog.rycbar.club/2020/01/11/CGCTF-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3/&title=CGCTF-re部分题解 - My Tiny Ideas&summary=CG-CTF是南邮的平台，题目都很不错，这里记录一下部分题解决题目的思路和方法"
           
           >
           
@@ -1010,7 +1029,7 @@ Easy_vbIDA或OD反编译，搜索字符串
 
 
     <div class='content'>
-      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#Hello-RE"><span class="toc-text">Hello,RE!</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ReadAsm2"><span class="toc-text">ReadAsm2</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Py交易"><span class="toc-text">Py交易</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#WxyVM"><span class="toc-text">WxyVM</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#maze"><span class="toc-text">maze</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#WxyVM2"><span class="toc-text">WxyVM2</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#你大概需要一个优秀的mac"><span class="toc-text">你大概需要一个优秀的mac</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#Hello-RE"><span class="toc-text">Hello,RE!</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ReadAsm2"><span class="toc-text">ReadAsm2</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Py%E4%BA%A4%E6%98%93"><span class="toc-text">Py交易</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#WxyVM"><span class="toc-text">WxyVM</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#maze"><span class="toc-text">maze</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#WxyVM2"><span class="toc-text">WxyVM2</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BD%A0%E5%A4%A7%E6%A6%82%E9%9C%80%E8%A6%81%E4%B8%80%E4%B8%AA%E4%BC%98%E7%A7%80%E7%9A%84mac"><span class="toc-text">你大概需要一个优秀的mac</span></a></li></ol>
     </div>
   </section>
 
@@ -1081,13 +1100,13 @@ Easy_vbIDA或OD反编译，搜索字符串
       
     
       
-        <div><p>博客内容遵循 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</a></p>
+        <div><p>博客内容遵循 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</a></p>
 </div>
       
     
       
         <div class='copyright'>
-        <p><a href="https://blog.rycbar.club">Copyright © 2017-2020 rycbar</a></p>
+        <p><a href="https://blog.rycbar.club/">Copyright © 2017-2020 rycbar</a></p>
 
         </div>
       

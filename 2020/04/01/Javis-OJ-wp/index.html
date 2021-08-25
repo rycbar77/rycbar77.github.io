@@ -428,7 +428,7 @@
         <div class="article-entry" itemprop="articleBody">
           
           <p>Javis OJ的题目还是很不错的，可以仔细研究研究</p>
-<a id="more"></a>
+<span id="more"></span>
 
 <h3 id="re"><a href="#re" class="headerlink" title="re"></a>re</h3><h4 id="Findkey"><a href="#Findkey" class="headerlink" title="Findkey"></a>Findkey</h4><p><code>DIE</code>看看发现是<code>pyc</code>文件，试一下<code>uncompyle6</code>发现直接成功没加任何保护，看看代码</p>
 <pre><code class="python">import sys
@@ -447,7 +447,8 @@ for i in range(0, len(flag)):
         print &#39;Wrong Key!!&#39;
         sys.exit(1)
 
-print &#39;Congratulations!!&#39;</code></pre>
+print &#39;Congratulations!!&#39;
+</code></pre>
 <p>简单写个脚本逆一下</p>
 <pre><code class="python">lookup = [
     196, 153, 149, 206, 17, 221, 10, 217, 167, 18, 36, 135, 103, 61, 111, 31, 92, 152, 21, 228, 105, 191, 173, 41, 2,
@@ -470,23 +471,25 @@ for i in range(17):
     flag += chr((lookup[(index + pwdb[index])] - pwda[index])&amp;255)
 print(flag)
 
-# PCTF{PyC_Cr4ck3r}</code></pre>
+# PCTF&#123;PyC_Cr4ck3r&#125;
+</code></pre>
 <h4 id="Classical-Crackme"><a href="#Classical-Crackme" class="headerlink" title="Classical Crackme"></a>Classical Crackme</h4><p>这题有<code>confuser</code>的混淆，想脱掉这个壳有点困难，所以先看看代码</p>
 <pre><code class="c#">private void \u202C\u200B\u206A\u202A\u206D\u206B\u202D\u206F\u202D\u200C\u200E\u206B\u202E\u202E\u202C\u202B\u206A\u206D\u206E\u202B\u206E\u200F\u202D\u200E\u202C\u200F\u200D\u200F\u202B\u200C\u202A\u206D\u206A\u206E\u202D\u200D\u200C\u206B\u202A\u202D\u202E(object A_1, EventArgs A_2)
-    {
+    &#123;
         string s = this.\u200E\u206F\u206A\u200F\u206E\u202C\u206C\u200C\u206A\u200B\u206E\u202D\u206B\u202D\u200F\u206B\u202B\u200C\u206B\u202D\u206D\u202B\u206B\u200C\u206F\u206D\u206A\u202D\u200F\u202E\u200B\u206D\u202C\u200D\u200D\u202C\u200F\u202E\u202E\u206A\u202E.Text.ToString();
         byte[] bytes = Encoding.Default.GetBytes(s);
         string a = Convert.ToBase64String(bytes);
         string b = &quot;UENURntFYTV5X0RvX05ldF9DcjRjazNyfQ==&quot;;
         if (a == b)
-        {
+        &#123;
             MessageBox.Show(&quot;注册成功！&quot;, &quot;提示&quot;, MessageBoxButtons.OK);
-        }
+        &#125;
         else
-        {
+        &#123;
             MessageBox.Show(&quot;注册失败！&quot;, &quot;提示&quot;, MessageBoxButtons.OK, MessageBoxIcon.Hand);
-        }
-    }</code></pre>
+        &#125;
+    &#125;
+</code></pre>
 <p>找到关键部分，发现是简单对输入<code>base64</code>处理，然后直接对比，所以<code>base64</code>解码之后就可以了</p>
 <h4 id="Classic-Crackme2"><a href="#Classic-Crackme2" class="headerlink" title="Classic Crackme2"></a>Classic Crackme2</h4><p>这题和上一个基本相似，也是<code>c#</code>+<code>confuser</code>，不过这次想直接找到关键代码有点困难，所以调试解决，在主函数下断点</p>
 <p><img src="/2020/04/01/Javis-OJ-wp/Classic_Crackme-1.png" alt="Classic_Crackme-1"></p>
@@ -508,7 +511,8 @@ cryptor = AES.new(key, AES.MODE_ECB)
 plain_text = cryptor.decrypt(cipher)
 print(plain_text)
 
-#b&#39;PCTF{Dot_Net_UnPack3r_yoo}\x06\x06\x06\x06\x06\x06&#39;</code></pre>
+#b&#39;PCTF&#123;Dot_Net_UnPack3r_yoo&#125;\x06\x06\x06\x06\x06\x06&#39;
+</code></pre>
 <h4 id="Smali"><a href="#Smali" class="headerlink" title="Smali"></a>Smali</h4><p><code>Smali</code>的语法我还是不是很会，不过这题比较简单，可以很容易看出来，也是简单的AES加密</p>
 <pre><code class="python">import base64
 from Crypto.Cipher import AES
@@ -521,7 +525,8 @@ cryptor = AES.new(key, AES.MODE_ECB)
 plain_text = cryptor.decrypt(cipher)
 print(plain_text)
 
-#b&#39;PCTF{Sm4liRiver}&#39;</code></pre>
+#b&#39;PCTF&#123;Sm4liRiver&#125;&#39;
+</code></pre>
 
           
             <div class='article_footer'>
@@ -611,9 +616,9 @@ print(plain_text)
   <div class="-mob-share-list share-body">
     
       
-        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer"
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
           
-          href="http://connect.qq.com/widget/shareqq/index.html?url=http://blog.rycbar.club/2020/04/01/Javis-OJ-wp/&title=Javis-OJ-wp - My Tiny Ideas&summary=Javis OJ的题目还是很不错的，可以仔细研究研究"
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://blog.rycbar.club/2020/04/01/Javis-OJ-wp/&title=Javis-OJ-wp - My Tiny Ideas&summary=Javis OJ的题目还是很不错的，可以仔细研究研究"
           
           >
           
@@ -623,9 +628,9 @@ print(plain_text)
       
     
       
-        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer"
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
           
-          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://blog.rycbar.club/2020/04/01/Javis-OJ-wp/&title=Javis-OJ-wp - My Tiny Ideas&summary=Javis OJ的题目还是很不错的，可以仔细研究研究"
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://blog.rycbar.club/2020/04/01/Javis-OJ-wp/&title=Javis-OJ-wp - My Tiny Ideas&summary=Javis OJ的题目还是很不错的，可以仔细研究研究"
           
           >
           
@@ -635,9 +640,9 @@ print(plain_text)
       
     
       
-        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer"
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
           
-          href="http://service.weibo.com/share/share.php?url=http://blog.rycbar.club/2020/04/01/Javis-OJ-wp/&title=Javis-OJ-wp - My Tiny Ideas&summary=Javis OJ的题目还是很不错的，可以仔细研究研究"
+          target="_blank" href="http://service.weibo.com/share/share.php?url=http://blog.rycbar.club/2020/04/01/Javis-OJ-wp/&title=Javis-OJ-wp - My Tiny Ideas&summary=Javis OJ的题目还是很不错的，可以仔细研究研究"
           
           >
           
@@ -818,13 +823,13 @@ retransform太简单了没什么好说的，直接上代码
       
     
       
-        <div><p>博客内容遵循 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</a></p>
+        <div><p>博客内容遵循 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</a></p>
 </div>
       
     
       
         <div class='copyright'>
-        <p><a href="https://blog.rycbar.club">Copyright © 2017-2020 rycbar</a></p>
+        <p><a href="https://blog.rycbar.club/">Copyright © 2017-2020 rycbar</a></p>
 
         </div>
       

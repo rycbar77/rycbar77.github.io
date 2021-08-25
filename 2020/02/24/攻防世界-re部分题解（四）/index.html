@@ -428,36 +428,46 @@
         <div class="article-entry" itemprop="articleBody">
           
           <p>最近比较忙，而且题目越做越快，平时的练习除非特别值得注意的，都不会写的太详细了</p>
-<a id="more"></a>
+<span id="more"></span>
 
 <h4 id="serial-150"><a href="#serial-150" class="headerlink" title="serial-150"></a>serial-150</h4><p>这题本身的算法没什么难度，主要就是花指令的去除，去除之后就只是简单的字符串比较了，很容易。</p>
-<pre><code>EZ9dmq4c8g9G7bAV</code></pre><h4 id="testre"><a href="#testre" class="headerlink" title="testre"></a>testre</h4><p>主要就是一个base58，很好做，尝试了一下ghidra的效果发现不尽如人意，所以主要还是采用IDA做题。</p>
-<pre><code>flag{base58_is_boring}</code></pre><h4 id="simple-check-100"><a href="#simple-check-100" class="headerlink" title="simple-check-100"></a>simple-check-100</h4><p>这题没什么好写的，虽然前面的check函数进行了检测，但是后面的计算和前面的输入没什么关系，并且直接把flag给输出了，所以直接gdb调试改了<code>eax</code>的值直接输出flag就好了</p>
-<pre><code>flag_is_you_know_cracking!!!</code></pre><h4 id="secret-string-400"><a href="#secret-string-400" class="headerlink" title="secret-string-400"></a>secret-string-400</h4><p>一直不知道这是什么，后来发现这竟然是个压缩包，里面有个网页和调用的js，js里面可以看到把机器码转成了命令然后执行，所以在执行之前输出一下</p>
-<pre><code>console.log(command);</code></pre><p>在console里找到了关键判断</p>
+<pre><code>EZ9dmq4c8g9G7bAV
+</code></pre>
+<h4 id="testre"><a href="#testre" class="headerlink" title="testre"></a>testre</h4><p>主要就是一个base58，很好做，尝试了一下ghidra的效果发现不尽如人意，所以主要还是采用IDA做题。</p>
+<pre><code>flag&#123;base58_is_boring&#125;
+</code></pre>
+<h4 id="simple-check-100"><a href="#simple-check-100" class="headerlink" title="simple-check-100"></a>simple-check-100</h4><p>这题没什么好写的，虽然前面的check函数进行了检测，但是后面的计算和前面的输入没什么关系，并且直接把flag给输出了，所以直接gdb调试改了<code>eax</code>的值直接输出flag就好了</p>
+<pre><code>flag_is_you_know_cracking!!!
+</code></pre>
+<h4 id="secret-string-400"><a href="#secret-string-400" class="headerlink" title="secret-string-400"></a>secret-string-400</h4><p>一直不知道这是什么，后来发现这竟然是个压缩包，里面有个网页和调用的js，js里面可以看到把机器码转成了命令然后执行，所以在执行之前输出一下</p>
+<pre><code>console.log(command);
+</code></pre>
+<p>在console里找到了关键判断</p>
 <pre><code>var f=window.machine.registers[1].userinput
 var i = f.length
 var nonce = &#39;groke&#39;;
 var j = 0;
 var out = [];
 var eq = true;
-while(j &lt; i){
+while(j &lt; i)&#123;
     out.push(f.charCodeAt(j) ^ nonce.charCodeAt(j%5))
     j++;
-}
+&#125;
 var ex =  [1, 30, 14, 12, 69, 14, 1, 85, 75, 50, 40, 37, 48, 24, 10, 56, 55, 46, 56, 60];
-if (ex.length == out.length) {
+if (ex.length == out.length) &#123;
     j = 0;
-    while(j &lt; ex.length){
+    while(j &lt; ex.length)&#123;
         if(ex[j] != out[j])
         eq = false;
         j += 1;
-    }
-if(eq){
+    &#125;
+if(eq)&#123;
     alert(&#39;YOU WIN!&#39;);
-}else{
+&#125;else&#123;
     alert(&#39;NOPE!&#39;);
-}}else{alert(&#39;NOPE!&#39;);}</code></pre><p>过程非常简单，也是闲着无聊，写了个什么都没有的网页</p>
+&#125;&#125;else&#123;alert(&#39;NOPE!&#39;);&#125;
+</code></pre>
+<p>过程非常简单，也是闲着无聊，写了个什么都没有的网页</p>
 <pre><code class="html">&lt;!DOCTYPE html&gt;
 &lt;html lang=&quot;en&quot;&gt;
 &lt;head&gt;
@@ -469,42 +479,48 @@ if(eq){
     &lt;br/&gt;
     &lt;input type=&#39;button&#39; onclick=&quot;run()&quot; value=&#39;decode&#39;&gt;&lt;/button&gt;
 &lt;/body&gt;
-&lt;/html&gt;</code></pre>
-<pre><code class="javascript">function run() {
+&lt;/html&gt;
+</code></pre>
+<pre><code class="javascript">function run() &#123;
     const nonce = &#39;groke&#39;;
     let j = 0;
     let flag =&#39;&#39;;
     const ex = [1, 30, 14, 12, 69, 14, 1, 85, 75, 50, 40, 37, 48, 24, 10, 56, 55, 46, 56, 60];
     let i = ex.length;
-    while (j &lt; i) {
+    while (j &lt; i) &#123;
         flag+=String.fromCharCode(ex[j] ^ nonce.charCodeAt(j % 5));
         j++;
-    }
+    &#125;
     alert(flag);
-}</code></pre>
+&#125;
+</code></pre>
 <p>点击按钮获得flag</p>
-<pre><code>flag is: WOW_so_EASY</code></pre><h4 id="windows-reverse2"><a href="#windows-reverse2" class="headerlink" title="windows_reverse2"></a>windows_reverse2</h4><p>首先是脱壳，看雪脱壳工具就可以，也可以手动脱壳，IDA研究之后发现中间一个函数的作用不是很明朗，OD调试一下根据结果猜测可能是16进制转base64，试了一下就对了。</p>
-<pre><code>ADEBDEAEC7BE</code></pre><h4 id="Newbie-calculations"><a href="#Newbie-calculations" class="headerlink" title="Newbie_calculations"></a>Newbie_calculations</h4><p>这题的就是直接会输出flag，但是进行了大量费事而且毫无意义的计算，需要仔细分析一下每一部分的函数作用，简化计算的过程，总共只有三个运算函数，很简单，就不一一分析了，直接计算flag：</p>
+<pre><code>flag is: WOW_so_EASY
+</code></pre>
+<h4 id="windows-reverse2"><a href="#windows-reverse2" class="headerlink" title="windows_reverse2"></a>windows_reverse2</h4><p>首先是脱壳，看雪脱壳工具就可以，也可以手动脱壳，IDA研究之后发现中间一个函数的作用不是很明朗，OD调试一下根据结果猜测可能是16进制转base64，试了一下就对了。</p>
+<pre><code>ADEBDEAEC7BE
+</code></pre>
+<h4 id="Newbie-calculations"><a href="#Newbie-calculations" class="headerlink" title="Newbie_calculations"></a>Newbie_calculations</h4><p>这题的就是直接会输出flag，但是进行了大量费事而且毫无意义的计算，需要仔细分析一下每一部分的函数作用，简化计算的过程，总共只有三个运算函数，很简单，就不一一分析了，直接计算flag：</p>
 <pre><code class="c++">#include&lt;iostream&gt;
 
 using namespace std;
 
-int* sub(int *a, int b) {
+int* sub(int *a, int b) &#123;
      *a -= b;
      return a;
-}
+&#125;
 
-int* add(int *a, int b) {
+int* add(int *a, int b) &#123;
     *a += b;
     return a;
-}
+&#125;
 
-int* mul(int *a, int b) {
+int* mul(int *a, int b) &#123;
     *a *= b;
     return a;
-}
+&#125;
 
-int __cdecl main(int argc, const char **argv, const char **envp) {
+int __cdecl main(int argc, const char **argv, const char **envp) &#123;
     int *v3; // eax
     int *v4; // eax
     int *v5; // eax
@@ -772,18 +788,20 @@ int __cdecl main(int argc, const char **argv, const char **envp) {
     v116 = add(&amp;flag[30], 1);
     mul(v116, v115);
     add(&amp;flag[31], flag[30]);
-    printf(&quot;CTF{&quot;);
+    printf(&quot;CTF&#123;&quot;);
     for (int j = 0; j &lt; 32; ++j)
         printf(&quot;%c&quot;, char(flag[j]));
-    puts(&quot;}&quot;);
+    puts(&quot;&#125;&quot;);
     return 0;
-}</code></pre>
+&#125;
+</code></pre>
 <p>直接输出flag</p>
 <pre><code class="c++">Your flag is:
-CTF{daf8f4d816261a41a115052a1bc21ade}</code></pre>
+CTF&#123;daf8f4d816261a41a115052a1bc21ade&#125;
+</code></pre>
 <h4 id="easyre-153"><a href="#easyre-153" class="headerlink" title="easyre-153"></a>easyre-153</h4><p>先查壳，发现是upx，脱壳</p>
 <pre><code class="c++">int __cdecl main(int argc, const char **argv, const char **envp)
-{
+&#123;
   int pipedes[2]; // [esp+18h] [ebp-38h]
   __pid_t v5; // [esp+20h] [ebp-30h]
   int v6; // [esp+24h] [ebp-2Ch]
@@ -794,31 +812,32 @@ CTF{daf8f4d816261a41a115052a1bc21ade}</code></pre>
   pipe(pipedes);
   v5 = fork();
   if ( !v5 )
-  {
+  &#123;
     puts(&quot;\nOMG!!!! I forgot kid&#39;s id&quot;);
     write(pipedes[1], &quot;69800876143568214356928753&quot;, 29u);
     puts(&quot;Ready to exit     &quot;);
     exit(0);
-  }
+  &#125;
   read(pipedes[0], &amp;buf, 29u);
   __isoc99_scanf(&quot;%d&quot;, &amp;v6);
   if ( v6 == v5 )
-  {
+  &#123;
     if ( (*(_DWORD *)((_BYTE *)lol + 3) &amp; 0xFF) == 204 )
-    {
+    &#123;
       puts(&quot;:D&quot;);
       exit(1);
-    }
+    &#125;
     printf(&quot;\nYou got the key\n &quot;);
     lol(&amp;buf);
-  }
+  &#125;
   wait(0);
   return 0;
-}</code></pre>
+&#125;
+</code></pre>
 <p>发现用到了简单的子进程和pipe。</p>
 <p>pipe的作用就和名字一样，建立一个管道，这个管道一端是读，一端是写，按照规定，<code>pipe[0]</code>是读，<code>pipe[1]</code>是写，然后fork了一个子进程，在子进程中，返回值为0，进入if分支通过管道写入了一个字符串，然后退出子进程。在父进程中，返回的是fork出来的子进程的id，跳过if分支，在下面读取了刚刚子进程写入的字符串，关键就是lol这个函数</p>
 <pre><code class="c++">int __cdecl lol(_BYTE *a1)
-{
+&#123;
   char v2; // [esp+15h] [ebp-13h]
   char v3; // [esp+16h] [ebp-12h]
   char v4; // [esp+17h] [ebp-11h]
@@ -835,7 +854,8 @@ CTF{daf8f4d816261a41a115052a1bc21ade}</code></pre>
   v7 = a1[10] + a1[21];
   v8 = a1[9] + a1[25];
   return printf(&quot;flag_is_not_here&quot;);
-}</code></pre>
+&#125;
+</code></pre>
 <p>这里的处理过程非常简单，还是正向的处理，但是最后输出的是一个没用的字符串，所以即使是输入子进程的pid，也不会输出真正的flag，所以还是自己动手算出来</p>
 <pre><code class="python">a1 = &quot;69800876143568214356928753&quot;
 v2 = 2 * ord(a1[1])
@@ -846,13 +866,16 @@ v6 = ord(a1[18]) + ord(a1[17])
 v7 = ord(a1[10]) + ord(a1[21])
 v8 = ord(a1[9]) + ord(a1[25])
 
-print(chr(v2)+chr(v3)+chr(v4)+chr(v5)+chr(v6)+chr(v7)+chr(v8))</code></pre>
+print(chr(v2)+chr(v3)+chr(v4)+chr(v5)+chr(v6)+chr(v7)+chr(v8))
+</code></pre>
 <p>输出结果</p>
-<pre><code>rhelheg</code></pre><p>直接提交不对，要套上外面的格式，试了一下比赛的名称，通过。</p>
+<pre><code>rhelheg
+</code></pre>
+<p>直接提交不对，要套上外面的格式，试了一下比赛的名称，通过。</p>
 <h4 id="asong"><a href="#asong" class="headerlink" title="asong"></a>asong</h4><p>这题还是很考验对于算法的逆向能力的</p>
 <p>首先IDA打开</p>
 <pre><code class="c++">__int64 __fastcall main(__int64 a1, char **a2, char **a3)
-{
+&#123;
   void *that_girl; // ST00_8
   const char *flag; // ST08_8
 
@@ -860,14 +883,15 @@ print(chr(v2)+chr(v3)+chr(v4)+chr(v5)+chr(v6)+chr(v7)+chr(v8))</code></pre>
   flag = (const char *)malloc(80uLL);
   sub_400BBF();
   read_0((__int64)flag);
-  sub_400C02((__int64)flag);                   // 输入的是QCTF{***}的格式，在这里取出中间的部分
+  sub_400C02((__int64)flag);                   // 输入的是QCTF&#123;***&#125;的格式，在这里取出中间的部分
   readfile(&quot;that_girl&quot;, (__int64)that_girl);
   sub_400E54(flag, (__int64)that_girl);
   return 0LL;
-}</code></pre>
+&#125;
+</code></pre>
 <p>程序流程是这样，先输入flag，然后验证格式，取中间部分，然后读取另一个文件中的内容进行一些处理，然后将输入的flag和读取出来的内容进行一个比较，输出到out里面，重点来看一下几个函数</p>
 <pre><code class="c++">int __fastcall readfile(const char *a1, __int64 a2)
-{
+&#123;
   int v2; // eax
   __int64 v4; // [rsp+0h] [rbp-20h]
   char buf; // [rsp+13h] [rbp-Dh]
@@ -877,12 +901,13 @@ print(chr(v2)+chr(v3)+chr(v4)+chr(v5)+chr(v6)+chr(v7)+chr(v8))</code></pre>
   v7 = __readfsqword(0x28u);
   fd = open(a1, 0, a2, a1);
   while ( read(fd, &amp;buf, 1uLL) == 1 )
-  {
+  &#123;
     v2 = sub_400936(buf);
     ++*(_DWORD *)(4LL * v2 + v4);
-  }
+  &#125;
   return close(fd);
-}</code></pre>
+&#125;
+</code></pre>
 <p>这里明显看到进行了一个词频统计，但是看这个伪代码完全看不出来处理之后的v4和分配出来的a2有什么关联，这点在C伪代码里面不是很明显，但是在汇编里面可以看的很清楚</p>
 <pre><code class="asm">call    sub_400936
 cdqe
@@ -891,11 +916,12 @@ mov     rax, [rbp+var_20]
 add     rax, rdx
 mov     edx, [rax]
 add     edx, 1
-mov     [rax], edx</code></pre>
+mov     [rax], edx
+</code></pre>
 <p>这里其实很清楚，<code>sub_400936</code>就是我们用来处理的函数，它的返回值放到了<code>rax</code>，<code>cdqe</code>的拓展在这里可以不用考虑，差不多算是个类型转换，<code>ds:0</code>是之前分配的空间，把<code>ds:0[rax*4]</code>的地址复制进<code>rdx</code>，后面的一句并没有什么意义，将这个地址中的值赋给<code>rax</code>，就是0，<code>add</code>之后rax的值就是我们需要的地址，接下来把该地址内存的的值取出来，加一然后再放回去，这个操作逻辑很容易理解。</p>
 <p>这个函数过后构建了一个词频表，然后进行关键的变换。</p>
 <pre><code class="c++">unsigned __int64 __fastcall sub_400E54(const char *flag, __int64 that_girl)
-{
+&#123;
   int i; // [rsp+18h] [rbp-48h]
   int v4; // [rsp+1Ch] [rbp-44h]
   char v5[56]; // [rsp+20h] [rbp-40h]
@@ -909,27 +935,29 @@ mov     [rax], edx</code></pre>
   sub_400DB4(v5, v4);
   writefile((__int64)v5, &quot;out&quot;, v4);
   return __readfsqword(0x28u) ^ v6;
-}</code></pre>
+&#125;
+</code></pre>
 <p>首先就是一个换表，然后就是两个函数的操作之后输出到了<code>out</code>文件里面，这个是我们已知的，再去看看两个关键函数</p>
 <pre><code class="c++">__int64 __fastcall sub_400D33(unsigned __int8 *a1)
-{
+&#123;
   __int64 result; // rax
   _BYTE v2[5]; // [rsp+13h] [rbp-5h]
 
   v2[4] = 0;
   *(_DWORD *)v2 = *a1;
   while ( dword_6020A0[*(signed int *)&amp;v2[1]] )
-  {
+  &#123;
     a1[*(signed int *)&amp;v2[1]] = a1[dword_6020A0[*(signed int *)&amp;v2[1]]];
     *(_DWORD *)&amp;v2[1] = dword_6020A0[*(signed int *)&amp;v2[1]];
-  }
+  &#125;
   result = v2[0];
   a1[*(signed int *)&amp;v2[1]] = v2[0];
   return result;
-}</code></pre>
+&#125;
+</code></pre>
 <p>这是一个简单的次序上的调整，可以很快的逆出来</p>
 <pre><code class="c++">_BYTE *__fastcall sub_400DB4(_BYTE *a1, int a2)
-{
+&#123;
   _BYTE *result; // rax
   char v3; // [rsp+17h] [rbp-5h]
   int i; // [rsp+18h] [rbp-4h]
@@ -940,7 +968,8 @@ mov     [rax], edx</code></pre>
   result = &amp;a1[i];
   *result = 8 * *result | v3;
   return result;
-}</code></pre>
+&#125;
+</code></pre>
 <p>这个函数里有些很有意思的操作，这个或操作看着很熟悉，这是显然是一个换位的操作，但是这里用了前一个数和后一个数之间的交错换位，逆起来就有了一些难度。</p>
 <p>我也看过一些其他大佬的wp，这里普遍都是采用了爆破的方法，我不是很喜欢，虽然爆破可能更加省时省力，我还是想更加加深一下逆向位运算的熟练程度。</p>
 <p>经过观察我们可以很轻松的发现，只需要将所有的数拆成两部分，再按照反方向运算回去就可以了，非常简单。</p>
@@ -976,7 +1005,7 @@ mov     [rax], edx</code></pre>
 
 
 def get_that_girl():
-    adic = {}
+    adic = &#123;&#125;
     fp = open(&quot;that_girl&quot;, &quot;r&quot;)
     while True:
         data = fp.read(1)
@@ -993,7 +1022,7 @@ def get_that_girl():
 
 
 def table():
-    t = {}
+    t = &#123;&#125;
     for ia in range(256):
         t[sub_400936(ia)] = ia
     return t
@@ -1029,22 +1058,24 @@ for i in index:
     a2[i] = target[dword_6020A0.index(i)]
 
 dic = get_that_girl()
-dic_ = {v: k for k, v in dic.items()}
+dic_ = &#123;v: k for k, v in dic.items()&#125;
 
-flag = &#39;QCTF{&#39;
+flag = &#39;QCTF&#123;&#39;
 for i in a2:
     flag += chr(table()[dic_[i]])
-flag += &#39;}&#39;
+flag += &#39;&#125;&#39;
 
 print(flag)
 </code></pre>
 <p>最后一部分最开始是打算爆破，但是想到了一种更简便的方法，就是先把所有的ASCII码值遍历一遍，制作一个表，可以避免双重循环爆破，虽然实际上爆破也并不麻烦。</p>
 <p>最后输出flag</p>
-<pre><code>QCTF{that_girl_saying_no_for_your_vindicate}</code></pre><h4 id="signin"><a href="#signin" class="headerlink" title="signin"></a>signin</h4><p>找一道比较简单的题目保持一下做题的感觉</p>
+<pre><code>QCTF&#123;that_girl_saying_no_for_your_vindicate&#125;
+</code></pre>
+<h4 id="signin"><a href="#signin" class="headerlink" title="signin"></a>signin</h4><p>找一道比较简单的题目保持一下做题的感觉</p>
 <p>用Ghidra打开，部分函数的签名有问题，有时候将RDX误当作函数的参数，但是函数只需要两个参数，这里我打开IDA看了一下，IDA做的要比Ghidra好很多，根据汇编修改了一下函数签名，看一下主要的函数部分。</p>
 <pre><code class="c++">undefined8 FUN_00100a21(void)
 
-{
+&#123;
   int iVar1;
   long in_FS_OFFSET;
   undefined local_4a8 [16];
@@ -1054,7 +1085,7 @@ print(flag)
   undefined local_468 [112];
   undefined local_3f8 [1000];
   long local_10;
-
+  
   local_10 = *(long *)(in_FS_OFFSET + 0x28);
   puts(&quot;[sign in]&quot;);
   printf(&quot;[input your flag]: &quot;);
@@ -1065,35 +1096,36 @@ print(flag)
                       0x10);
   __gmpz_init_set_str(local_488,local_3f8,0x10);
   __gmpz_init_set_str(local_4a8,
-
+                                            
                       &quot;103461035900816914121390101299049044413950405173712170434161686539878160984549&quot;
                       ,10);
   __gmpz_init_set_str(local_498,&quot;65537&quot;,10);
   __gmpz_powm(local_488,local_488,local_498,local_4a8);
   iVar1 = __gmpz_cmp(local_488,local_478);
-  if (iVar1 == 0) {
+  if (iVar1 == 0) &#123;
     puts(&quot;TTTTTTTTTTql!&quot;);
-  }
-  else {
+  &#125;
+  else &#123;
     puts(&quot;GG!&quot;);
-  }
-  if (local_10 != *(long *)(in_FS_OFFSET + 0x28)) {
+  &#125;
+  if (local_10 != *(long *)(in_FS_OFFSET + 0x28)) &#123;
                     /* WARNING: Subroutine does not return */
     __stack_chk_fail();
-  }
+  &#125;
   return 0;
-}</code></pre>
+&#125;
+</code></pre>
 <p>首先是需要我们输入字符串，然后进行了一些大数的操作，这里是利用了一个库，查了一下mannual，很好理解，输入之后有一个函数对我们输入的字符串进行了一些操作，进入这个函数</p>
 <pre><code class="c++">void FUN_0010096a(char *param_1,long param_2)
 
-{
+&#123;
   size_t sVar1;
   int local_20;
   int local_1c;
-
+  
   local_20 = 0;
   local_1c = 0;
-  while( true ) {
+  while( true ) &#123;
     sVar1 = strlen(param_1);
     if (sVar1 &lt;= (ulong)(long)local_20) break;
     *(undefined *)(local_1c + param_2) = (&amp;DAT_00302010)[(int)(param_1[local_20] &gt;&gt; 4)];
@@ -1101,16 +1133,23 @@ print(flag)
          (&amp;DAT_00302010)[(int)((int)param_1[local_20] &amp; 0xf)];
     local_20 = local_20 + 1;
     local_1c = local_1c + 2;
-  }
+  &#125;
   return;
-}</code></pre>
+&#125;
+</code></pre>
 <p>看到分别取低四位和高四位的操作之后立刻反应过来是把字符串转换为16进制串，耐心看一下很好理解。</p>
 <p>回到主函数，看到乘幂取模操作，发现是RSA，用yafu分解一下<code>103461035900816914121390101299049044413950405173712170434161686539878160984549</code></p>
 <p>分解的也很快，这个数还是不够大</p>
 <pre><code>prp39 = 282164587459512124844245113950593348271
-prp39 = 366669102002966856876605669837014229419</code></pre><p>然后可以直接在线解密也是可以解出来的，由于gmpy2安装不上，直接在线解密了</p>
-<pre><code>suctf{Pwn_@_hundred_years}</code></pre><h4 id="key"><a href="#key" class="headerlink" title="key"></a>key</h4><p>过程很复杂，动态调试绕过文件检测之后调试出flag</p>
-<pre><code>idg_cni~bjbfi|gsxb</code></pre><h4 id="notsequence"><a href="#notsequence" class="headerlink" title="notsequence"></a>notsequence</h4><p>题目还是很不错，逻辑很清楚，仔细观察可以看出来杨辉三角就解决了，一共20层，全部组合起来取md5就可以了</p>
+prp39 = 366669102002966856876605669837014229419
+</code></pre>
+<p>然后可以直接在线解密也是可以解出来的，由于gmpy2安装不上，直接在线解密了</p>
+<pre><code>suctf&#123;Pwn_@_hundred_years&#125;
+</code></pre>
+<h4 id="key"><a href="#key" class="headerlink" title="key"></a>key</h4><p>过程很复杂，动态调试绕过文件检测之后调试出flag</p>
+<pre><code>idg_cni~bjbfi|gsxb
+</code></pre>
+<h4 id="notsequence"><a href="#notsequence" class="headerlink" title="notsequence"></a>notsequence</h4><p>题目还是很不错，逻辑很清楚，仔细观察可以看出来杨辉三角就解决了，一共20层，全部组合起来取md5就可以了</p>
 <pre><code class="python">import hashlib
 
 
@@ -1130,9 +1169,12 @@ for x in range(19):
 # print(raw_flag)
 m = hashlib.md5(raw_flag.encode()).hexdigest()
 
-print(&#39;RCTF{&#39; + m + &#39;}&#39;)</code></pre>
+print(&#39;RCTF&#123;&#39; + m + &#39;&#125;&#39;)
+</code></pre>
 <p>输出flag</p>
-<pre><code>RCTF{37894beff1c632010dd6d524aa9604db}</code></pre><h4 id="zorropub"><a href="#zorropub" class="headerlink" title="zorropub"></a>zorropub</h4><p>没想到会用pwntools去爆破一道逆向题……</p>
+<pre><code>RCTF&#123;37894beff1c632010dd6d524aa9604db&#125;
+</code></pre>
+<h4 id="zorropub"><a href="#zorropub" class="headerlink" title="zorropub"></a>zorropub</h4><p>没想到会用pwntools去爆破一道逆向题……</p>
 <p>感觉有些复杂，无脑爆破得到结果</p>
 <h4 id="catch-me"><a href="#catch-me" class="headerlink" title="catch-me"></a>catch-me</h4><p>这题用了<code>sse</code>算法，而且整个过程非常复杂，所以猜测了一下其中的两个数相同，然后得到了flag</p>
 <h4 id="BabyXor"><a href="#BabyXor" class="headerlink" title="BabyXor"></a>BabyXor</h4><p>首先脱壳，然后观察IDA，发现函数很多进行了很多次的异或运算，因此选择直接动态调试，调试到关键函数的最后发现几个运算是算出了flag的三个部分，拼接得到flag</p>
@@ -1225,9 +1267,9 @@ print(&#39;RCTF{&#39; + m + &#39;}&#39;)</code></pre>
   <div class="-mob-share-list share-body">
     
       
-        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer"
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
           
-          href="http://connect.qq.com/widget/shareqq/index.html?url=http://blog.rycbar.club/2020/02/24/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3%EF%BC%88%E5%9B%9B%EF%BC%89/&title=攻防世界-re部分题解（四） - My Tiny Ideas&summary=最近比较忙，而且题目越做越快，平时的练习除非特别值得注意的，都不会写的太详细了"
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://blog.rycbar.club/2020/02/24/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3%EF%BC%88%E5%9B%9B%EF%BC%89/&title=攻防世界-re部分题解（四） - My Tiny Ideas&summary=最近比较忙，而且题目越做越快，平时的练习除非特别值得注意的，都不会写的太详细了"
           
           >
           
@@ -1237,9 +1279,9 @@ print(&#39;RCTF{&#39; + m + &#39;}&#39;)</code></pre>
       
     
       
-        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer"
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
           
-          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://blog.rycbar.club/2020/02/24/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3%EF%BC%88%E5%9B%9B%EF%BC%89/&title=攻防世界-re部分题解（四） - My Tiny Ideas&summary=最近比较忙，而且题目越做越快，平时的练习除非特别值得注意的，都不会写的太详细了"
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://blog.rycbar.club/2020/02/24/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3%EF%BC%88%E5%9B%9B%EF%BC%89/&title=攻防世界-re部分题解（四） - My Tiny Ideas&summary=最近比较忙，而且题目越做越快，平时的练习除非特别值得注意的，都不会写的太详细了"
           
           >
           
@@ -1249,9 +1291,9 @@ print(&#39;RCTF{&#39; + m + &#39;}&#39;)</code></pre>
       
     
       
-        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer"
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
           
-          href="http://service.weibo.com/share/share.php?url=http://blog.rycbar.club/2020/02/24/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3%EF%BC%88%E5%9B%9B%EF%BC%89/&title=攻防世界-re部分题解（四） - My Tiny Ideas&summary=最近比较忙，而且题目越做越快，平时的练习除非特别值得注意的，都不会写的太详细了"
+          target="_blank" href="http://service.weibo.com/share/share.php?url=http://blog.rycbar.club/2020/02/24/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3%EF%BC%88%E5%9B%9B%EF%BC%89/&title=攻防世界-re部分题解（四） - My Tiny Ideas&summary=最近比较忙，而且题目越做越快，平时的练习除非特别值得注意的，都不会写的太详细了"
           
           >
           
@@ -1430,13 +1472,13 @@ tt3441810这题并不知道是在干什么，IDA打开是个dumpfile，打开给
       
     
       
-        <div><p>博客内容遵循 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</a></p>
+        <div><p>博客内容遵循 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</a></p>
 </div>
       
     
       
         <div class='copyright'>
-        <p><a href="https://blog.rycbar.club">Copyright © 2017-2020 rycbar</a></p>
+        <p><a href="https://blog.rycbar.club/">Copyright © 2017-2020 rycbar</a></p>
 
         </div>
       

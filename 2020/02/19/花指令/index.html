@@ -428,12 +428,12 @@
       <section class="article typo">
         <div class="article-entry" itemprop="articleBody">
           
-          <p><strong><em>年轻人的第一个花指令</em></strong></p>
+          <p><em><strong>年轻人的第一个花指令</strong></em></p>
 <p>这里写一下有关花指令的内容，自己的理解也很有限，只能以后再多学学再补充，现在只能把自己知道的写下来。  </p>
-<a id="more"></a>
+<span id="more"></span>
 
 <h4 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h4><p>首先反汇编有一个很关键的问题，就是怎么样区分数据和代码，由于x86和x64架构的每条指令是不等长的，区分数据和代码就变得很困难，反汇编的算法必须要对汇编指令长度和各种各样的跳转进行适当的处理，不然就会发生错误，导致反汇编失败，这也是花指令的作用。  </p>
-<p>目前主要的反汇编算法主要还是线性扫描<em>(Linear Sweep)*和较高级的递归行进</em>(Recursive Traversal)*，目前我比较常用的就是OD和IDA，它们的工作原理列在下面，此外还尝试了Ghidra，这个工具比较神奇，可以在有花指令的情况下抛掉很多无用的指令，反汇编出函数的大概，目前工作的原理还没有详细地了解，这里先提一下，了解之后再补充。</p>
+<p>目前主要的反汇编算法主要还是线性扫描*(Linear Sweep)<em>和较高级的递归行进</em>(Recursive Traversal)*，目前我比较常用的就是OD和IDA，它们的工作原理列在下面，此外还尝试了Ghidra，这个工具比较神奇，可以在有花指令的情况下抛掉很多无用的指令，反汇编出函数的大概，目前工作的原理还没有详细地了解，这里先提一下，了解之后再补充。</p>
 <blockquote>
 <p>线性扫描本身的技术含量不是很高，反汇编工具将整个模块中的每一条指令都反汇编成汇编指令，每一个遇到的机器码都会当作汇编指令处理（不加判断），所以线性扫描根本不能把代码和数据区分开来，而一旦一条指令开始出错，整个反汇编都开始出错。</p>
 </blockquote>
@@ -472,7 +472,8 @@ text:00401067            jnz short near ptr loc_40107C
 text:00401069
 text:00401069 loc_401069:
 text:00401069            db 36h  ;junk code here
-text:0040107C            ……</code></pre>
+text:0040107C            ……
+</code></pre>
 <p>​    这里只是一个随便编写的例子，但是差不多所有的处理都是这个样子，两个互补指令代替了一个强制跳转，但是在IDA这里，没有成功跳转的分支也是默认有效的，所以会去解析<code>junk code</code>，后面的指令也就跟着出错了。</p>
 <ul>
 <li><p><code>call+pop/(add esp)+return</code></p>
@@ -483,7 +484,8 @@ text:0040103B
 text:00401040        cmp cl,dl
 text:00401042
 text:00401042 loc_401042:
-text:00401042        add esp,4</code></pre>
+text:00401042        add esp,4
+</code></pre>
 <p><code>call</code>指令相当于<code>jmp</code>+<code>push eip</code>，所以用<code>add esp,4</code>指令可以消除入栈的<code>eip</code>的影响，此时<code>call</code>就相当于<code>jmp</code>，但是IDA还是会把<code>0x401042</code>当作新函数的首地址，所以当前函数的识别就会出错，IDA会找不到结束位置，因此没法继续反汇编。</p>
 </li>
 <li><p><code>jx</code></p>
@@ -496,7 +498,8 @@ text:00401042        add esp,4</code></pre>
 .text:00000000004009F9                 jz      short loc_4009F5
 .text:00000000004009FB
 .text:00000000004009FB loc_4009FB:                             
-.text:00000000004009FB                 call    near ptr 0C59748h</code></pre>
+.text:00000000004009FB                 call    near ptr 0C59748h
+</code></pre>
 <p>最下面这个<code>0c59748</code>的地址显然是无效的，这里肯定是出了问题，仔细观察一下代码，<code>xor  eax, eax</code>这句得到的是0，所以下一个跳转是一定可以实现的，但是IDA判断不出来，他会对所有可能的分支进行解析，所以会从<code>0x4009FB</code>出开始解析新的命令，然后这个跳转并不存在，就会提示地址不存在，但是真正让反汇编进行不下去的是接下来的操作，另一条可能的路径，即正常的执行流程，进入到<code>0x4009F5</code>之后跳转到了<code>0x4009FC</code>的位置，但是这里已经解析过了，被一条假的命令占用了，IDA就会停止反汇编，然后报错。</p>
 </li>
 <li><p><code>call</code>+一些巧妙的处理</p>
@@ -593,9 +596,9 @@ text:00401042        add esp,4</code></pre>
   <div class="-mob-share-list share-body">
     
       
-        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer"
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
           
-          href="http://connect.qq.com/widget/shareqq/index.html?url=http://blog.rycbar.club/2020/02/19/%E8%8A%B1%E6%8C%87%E4%BB%A4/&title=花指令 - My Tiny Ideas&summary=年轻人的第一个花指令
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://blog.rycbar.club/2020/02/19/%E8%8A%B1%E6%8C%87%E4%BB%A4/&title=花指令 - My Tiny Ideas&summary=年轻人的第一个花指令
 这里写一下有关花指令的内容，自己的理解也很有限，只能以后再多学学再补充，现在只能把自己知道的写下来。  "
           
           >
@@ -606,9 +609,9 @@ text:00401042        add esp,4</code></pre>
       
     
       
-        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer"
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
           
-          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://blog.rycbar.club/2020/02/19/%E8%8A%B1%E6%8C%87%E4%BB%A4/&title=花指令 - My Tiny Ideas&summary=年轻人的第一个花指令
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://blog.rycbar.club/2020/02/19/%E8%8A%B1%E6%8C%87%E4%BB%A4/&title=花指令 - My Tiny Ideas&summary=年轻人的第一个花指令
 这里写一下有关花指令的内容，自己的理解也很有限，只能以后再多学学再补充，现在只能把自己知道的写下来。  "
           
           >
@@ -619,9 +622,9 @@ text:00401042        add esp,4</code></pre>
       
     
       
-        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer"
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
           
-          href="http://service.weibo.com/share/share.php?url=http://blog.rycbar.club/2020/02/19/%E8%8A%B1%E6%8C%87%E4%BB%A4/&title=花指令 - My Tiny Ideas&summary=年轻人的第一个花指令
+          target="_blank" href="http://service.weibo.com/share/share.php?url=http://blog.rycbar.club/2020/02/19/%E8%8A%B1%E6%8C%87%E4%BB%A4/&title=花指令 - My Tiny Ideas&summary=年轻人的第一个花指令
 这里写一下有关花指令的内容，自己的理解也很有限，只能以后再多学学再补充，现在只能把自己知道的写下来。  "
           
           >
@@ -731,7 +734,7 @@ Refere...</p>
 
 
     <div class='content'>
-      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#原理"><span class="toc-text">原理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#常见花指令"><span class="toc-text">常见花指令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#后记"><span class="toc-text">后记</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8E%9F%E7%90%86"><span class="toc-text">原理</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B8%B8%E8%A7%81%E8%8A%B1%E6%8C%87%E4%BB%A4"><span class="toc-text">常见花指令</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%90%8E%E8%AE%B0"><span class="toc-text">后记</span></a></li></ol>
     </div>
   </section>
 
@@ -802,13 +805,13 @@ Refere...</p>
       
     
       
-        <div><p>博客内容遵循 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</a></p>
+        <div><p>博客内容遵循 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</a></p>
 </div>
       
     
       
         <div class='copyright'>
-        <p><a href="https://blog.rycbar.club">Copyright © 2017-2020 rycbar</a></p>
+        <p><a href="https://blog.rycbar.club/">Copyright © 2017-2020 rycbar</a></p>
 
         </div>
       

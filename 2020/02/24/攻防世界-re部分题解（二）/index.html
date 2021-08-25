@@ -428,12 +428,12 @@
         <div class="article-entry" itemprop="articleBody">
           
           <p>题目有点多，放在一篇里面太过臃肿，所以多分了几篇</p>
-<a id="more"></a>
+<span id="more"></span>
 
-<h4 id="IgniteMe"><a href="#IgniteMe" class="headerlink" title="IgniteMe"></a>IgniteMe</h4><p>IDA打开，首先发现flag的格式，<code>EIS{***}</code></p>
+<h4 id="IgniteMe"><a href="#IgniteMe" class="headerlink" title="IgniteMe"></a>IgniteMe</h4><p>IDA打开，首先发现flag的格式，<code>EIS&#123;***&#125;</code></p>
 <p>找到关键函数</p>
 <pre><code class="c++">bool __cdecl sub_4011C0(char *a1)
-{
+&#123;
   size_t v2; // eax
   signed int v3; // [esp+50h] [ebp-B0h]
   char v4[32]; // [esp+54h] [ebp-ACh]
@@ -453,21 +453,22 @@
   v3 = 0;                                       // v8=a1
   memset(v4, 0, 0x20u);
   for ( i = 0; ; ++i )
-  {
+  &#123;
     v2 = strlen(v8);
     if ( i &gt;= v2 )
       break;
     if ( v8[i] &gt;= &#39;a&#39; &amp;&amp; v8[i] &lt;= &#39;z&#39; )
-    {
+    &#123;
       v8[i] -= 32;
       v3 = 1;
-    }
+    &#125;
     if ( !v3 &amp;&amp; v8[i] &gt;= &#39;A&#39; &amp;&amp; v8[i] &lt;= &#39;Z&#39; )
       v8[i] += 32;                                //大小写互换
     v4[i] = byte_4420B0[i] ^ sub_4013C0(v8[i]);    //唯一一步有用的计算
     v3 = 0;
-  }
-  return strcmp(&quot;GONDPHyGjPEKruv{{pj]X@rF&quot;, v4) == 0;</code></pre>
+  &#125;
+  return strcmp(&quot;GONDPHyGjPEKruv&#123;&#123;pj]X@rF&quot;, v4) == 0;
+</code></pre>
 <p>据此写脚本逆向</p>
 <pre><code class="c++">#include &lt;iostream&gt;
 #include &lt;cstring&gt;
@@ -475,37 +476,40 @@
 
 using namespace std;
 
-int main() {
-    string v4=&quot;GONDPHyGjPEKruv{{pj]X@rF&quot;;
+int main() &#123;
+    string v4=&quot;GONDPHyGjPEKruv&#123;&#123;pj]X@rF&quot;;
     unsigned char byte_4420B0[] =
-            {
+            &#123;
                     13,  19,  23,  17,   2,   1,  32,  29,  12,   2,
                     25,  47,  23,  43,  36,  31,  30,  22,   9,  15,
                     21,  39,  19,  38,  10,  47,  30,  26,  45,  12,
                     34,   4
-            };
+            &#125;;
 
     char v8[v4.length()];
     for (int i = 0;i&lt;v4.length() ; ++i )
-    {
+    &#123;
         v8[i]=((v4[i]^byte_4420B0[i])-72)^0x55;
         if ( v8[i] &gt;= &#39;a&#39; &amp;&amp; v8[i] &lt;= &#39;z&#39; )
-        {
+        &#123;
             v8[i] -= 32;
-        } else if(v8[i] &gt;= &#39;A&#39; &amp;&amp; v8[i] &lt;= &#39;Z&#39;){
+        &#125; else if(v8[i] &gt;= &#39;A&#39; &amp;&amp; v8[i] &lt;= &#39;Z&#39;)&#123;
             v8[i] += 32;
-        }
-        else{
+        &#125;
+        else&#123;
             continue;
-        }
-    }
+        &#125;
+    &#125;
     cout&lt;&lt;v8&lt;&lt;endl;
     return 0;
-}</code></pre>
+&#125;
+</code></pre>
 <p>把输出和我们已知的部分结合起来得到flag</p>
-<pre><code>EIS{wadx_tdgk_aihc_ihkn_pjlm}</code></pre><h4 id="hackme"><a href="#hackme" class="headerlink" title="hackme"></a>hackme</h4><p>通过字符串找到关键部分</p>
+<pre><code>EIS&#123;wadx_tdgk_aihc_ihkn_pjlm&#125;
+</code></pre>
+<h4 id="hackme"><a href="#hackme" class="headerlink" title="hackme"></a>hackme</h4><p>通过字符串找到关键部分</p>
 <pre><code class="c++">__int64 __fastcall sub_400F8E(__int64 a1, __int64 a2)
-{
+&#123;
   __int64 v2; // rdx
   __int64 v3; // rcx
   __int64 v4; // r8
@@ -531,7 +535,7 @@ int main() {
   v18 = i == 22;
   v17 = 10;
   do
-  {
+  &#123;
     index = rand((__int64)&quot;%s&quot;, (__int64)v8, v2, v3, v4, v5);
     v3 = (unsigned int)(index % 22);
     v14 = index % 22;
@@ -541,23 +545,24 @@ int main() {
     v11 = index % 22 + 1;
     v15 = 0;
     while ( v15 &lt; v11 )
-    {
+    &#123;
       ++v15;
       v16 = 1828812941 * v16 + 12345;
-    }
+    &#125;
     v2 = v16;
     v10 = v16 ^ v12;
     if ( v13 != ((unsigned __int8)v16 ^ v12) )
       v18 = 0;
     --v17;
-  }
+  &#125;
   while ( v17 );
   if ( v18 )
     v9 = printf((unsigned __int64)&quot;Congras\n&quot;);
   else
     v9 = printf((unsigned __int64)&quot;Oh no!\n&quot;);
   return 0LL;
-}</code></pre>
+&#125;
+</code></pre>
 <p>就是个简单的运算，写个脚本逆运算一下就出来了</p>
 <pre><code class="c++">#include &lt;iostream&gt;
 #include &lt;cstring&gt;
@@ -565,36 +570,39 @@ int main() {
 
 using namespace std;
 
-int main() {
+int main() &#123;
     unsigned char byte_6B4270[] =
-            {
+            &#123;
                     95, 242,  94, 139,  78,  14, 163, 170, 199, 147,
                     129,  61,  95, 116, 163,   9, 145,  43,  73,  40,
                     147, 103
-            };
+            &#125;;
     char v13;
     char v12;
     char v8[23];
     unsigned int v16=0;
     for(int i=0;i&lt;22;i++)
-    {
+    &#123;
         v16=0;
         v13=byte_6B4270[i];
         int v11=i+1;
         int v15=0;
-        while(v15&lt;v11){
+        while(v15&lt;v11)&#123;
             ++v15;
             v16=1828812941 * v16 + 12345;
-        }
+        &#125;
         v8[i]=v13^v16;
-    }
+    &#125;
     cout&lt;&lt;v8&lt;&lt;endl;
     return 0;
-}</code></pre>
+&#125;
+</code></pre>
 <p>输出flag</p>
-<pre><code>flag{d826e6926098ef46}</code></pre><h4 id="easyre"><a href="#easyre" class="headerlink" title="easyre"></a>easyre</h4><p>还是通过字符串找到关键函数</p>
+<pre><code>flag&#123;d826e6926098ef46&#125;
+</code></pre>
+<h4 id="easyre"><a href="#easyre" class="headerlink" title="easyre"></a>easyre</h4><p>还是通过字符串找到关键函数</p>
 <pre><code class="c++">int sub_401080()
-{
+&#123;
   unsigned int v0; // kr00_4
   signed int v1; // edx
   char *v2; // esi
@@ -614,123 +622,133 @@ int main() {
   scanf((const char *)&amp;dword_402158, (unsigned int)&amp;v7);
   v0 = strlen((const char *)&amp;v7);
   if ( v0 &gt;= 16 &amp;&amp; v0 == 24 )                   // flag共24位
-  {
+  &#123;
     v1 = 0;
     v2 = (char *)&amp;v8 + 7;
     do
-    {
+    &#123;
       v3 = *v2--;
       byte_40336C[v1++] = v3;                   // 输入的flag倒序
-    }
+    &#125;
     while ( v1 &lt; 24 );
     v4 = 0;
     do
-    {
+    &#123;
       byte_40336C[v4] = (byte_40336C[v4] + 1) ^ 6;
       ++v4;
-    }
+    &#125;
     while ( v4 &lt; 24 );
     v5 = strcmp(byte_40336C, &quot;xIrCj~&lt;r|2tWsv3PtI\x7Fzndka&quot;);
     if ( v5 )
       v5 = -(v5 &lt; 0) | 1;
     if ( !v5 )
-    {
+    &#123;
       printf(&quot;right\n&quot;, v7);
       system(&quot;pause&quot;);
-    }
-  }
+    &#125;
+  &#125;
   return 0;
-}</code></pre>
+&#125;
+</code></pre>
 <p>里面的算法变得复杂而毫无意义，真正实现的功能就两个，首先将输入的字符串逆序，然后进行一个变换，最后得到已知的字符串</p>
 <pre><code class="python">target=&#39;xIrCj~&lt;r|2tWsv3PtI\x7Fzndka&#39;
 flag=&#39;&#39;
 for i in target:
     flag+=chr((ord(i)^6)-1)
-print(flag[::-1])</code></pre>
+print(flag[::-1])
+</code></pre>
 <p>输出flag</p>
-<pre><code>flag{xNqU4otPq3ys9wkDsN}</code></pre><h4 id="shuffle"><a href="#shuffle" class="headerlink" title="shuffle"></a>shuffle</h4><p>打开把所有的整数转换为字符就看到了flag</p>
-<pre><code>SECCON{Welcome to the SECCON 2014 CTF!}</code></pre><h4 id="re-for-50-plz-50"><a href="#re-for-50-plz-50" class="headerlink" title="re-for-50-plz-50"></a>re-for-50-plz-50</h4><p>这题是MIPS，IDA直接反编译不出来，MIPS指令学的也不是很好，所以直接用retdec插件</p>
+<pre><code>flag&#123;xNqU4otPq3ys9wkDsN&#125;
+</code></pre>
+<h4 id="shuffle"><a href="#shuffle" class="headerlink" title="shuffle"></a>shuffle</h4><p>打开把所有的整数转换为字符就看到了flag</p>
+<pre><code>SECCON&#123;Welcome to the SECCON 2014 CTF!&#125;
+</code></pre>
+<h4 id="re-for-50-plz-50"><a href="#re-for-50-plz-50" class="headerlink" title="re-for-50-plz-50"></a>re-for-50-plz-50</h4><p>这题是MIPS，IDA直接反编译不出来，MIPS指令学的也不是很好，所以直接用retdec插件</p>
 <p>retdec直接反编译出来</p>
-<pre><code class="c++">int main(int argc, char ** argv) {
+<pre><code class="c++">int main(int argc, char ** argv) &#123;
     // 0x401398
-    for (int32_t i = 0; i &lt; 31; i++) {
+    for (int32_t i = 0; i &lt; 31; i++) &#123;
         char v1 = *(char *)(i + (int32_t)&quot;cbtcqLUBChERV[[Nh@_X^D]X_YPV[CJ&quot;); // 0x4013d8
         char v2 = *(char *)(*(int32_t *)((int32_t)argv + 4) + i); // 0x4013f0
-        if ((int32_t)v1 != ((int32_t)v2 ^ 55)) {
+        if ((int32_t)v1 != ((int32_t)v2 ^ 55)) &#123;
             // 0x401408
             print();
             exit_funct();
-        }
-    }
+        &#125;
+    &#125;
     // 0x401444
     exit_funct();
     return 1;
-}</code></pre>
+&#125;
+</code></pre>
 <p>可以发现只有一个异或操作</p>
 <pre><code class="python">target=&quot;cbtcqLUBChERV[[Nh@_X^D]X_YPV[CJ&quot;
 flag=&#39;&#39;
 for i in target:
     flag+=chr((ord(i)^55))
-print(flag)</code></pre>
+print(flag)
+</code></pre>
 <p>输出flag</p>
-<pre><code>TUCTF{but_really_whoisjohngalt}</code></pre><h4 id="parallel-comparator-200"><a href="#parallel-comparator-200" class="headerlink" title="parallel-comparator-200"></a>parallel-comparator-200</h4><p>代码审计，直接给出了源码</p>
+<pre><code>TUCTF&#123;but_really_whoisjohngalt&#125;
+</code></pre>
+<h4 id="parallel-comparator-200"><a href="#parallel-comparator-200" class="headerlink" title="parallel-comparator-200"></a>parallel-comparator-200</h4><p>代码审计，直接给出了源码</p>
 <pre><code class="c++">#include &lt;stdlib.h&gt;
 #include &lt;stdio.h&gt;
 #include &lt;pthread.h&gt;
 
 #define FLAG_LEN 20
 
-void * checking(void *arg) {
+void * checking(void *arg) &#123;
     char *result = malloc(sizeof(char));
     char *argument = (char *)arg;
     *result = (argument[0]+argument[1]) ^ argument[2];
     return result;
-}
+&#125;
 
 int highly_optimized_parallel_comparsion(char *user_string)
-{
+&#123;
     int initialization_number;
     int i;
     char generated_string[FLAG_LEN + 1];
     generated_string[FLAG_LEN] = &#39;\0&#39;;
 
     while ((initialization_number = random()) &gt;= 64);
-
+    
     int first_letter;
     first_letter = (initialization_number % 26) + 97;
 
     pthread_t thread[FLAG_LEN];
-    char differences[FLAG_LEN] = {0, 9, -9, -1, 13, -13, -4, -11, -9, -1, -7, 6, -13, 13, 3, 9, -13, -11, 6, -7};
+    char differences[FLAG_LEN] = &#123;0, 9, -9, -1, 13, -13, -4, -11, -9, -1, -7, 6, -13, 13, 3, 9, -13, -11, 6, -7&#125;;
     char *arguments[20];
-    for (i = 0; i &lt; FLAG_LEN; i++) {
+    for (i = 0; i &lt; FLAG_LEN; i++) &#123;
         arguments[i] = (char *)malloc(3*sizeof(char));
         arguments[i][0] = first_letter;
         arguments[i][1] = differences[i];
         arguments[i][2] = user_string[i];
 
         pthread_create((pthread_t*)(thread+i), NULL, checking, arguments[i]);
-    }
+    &#125;
 
     void *result;
-    int just_a_string[FLAG_LEN] = {115, 116, 114, 97, 110, 103, 101, 95, 115, 116, 114, 105, 110, 103, 95, 105, 116, 95, 105, 115};
-    for (i = 0; i &lt; FLAG_LEN; i++) {
+    int just_a_string[FLAG_LEN] = &#123;115, 116, 114, 97, 110, 103, 101, 95, 115, 116, 114, 105, 110, 103, 95, 105, 116, 95, 105, 115&#125;;
+    for (i = 0; i &lt; FLAG_LEN; i++) &#123;
         pthread_join(*(thread+i), &amp;result);
         generated_string[i] = *(char *)result + just_a_string[i];
         free(result);
         free(arguments[i]);
-    }
+    &#125;
 
     int is_ok = 1;
-    for (i = 0; i &lt; FLAG_LEN; i++) {
+    for (i = 0; i &lt; FLAG_LEN; i++) &#123;
         if (generated_string[i] != just_a_string[i])
             return 0;
-    }
+    &#125;
 
     return 1;
-}
+&#125;
 
 int main()
-{
+&#123;
     char *user_string = (char *)calloc(FLAG_LEN+1, sizeof(char));
     fgets(user_string, FLAG_LEN+1, stdin);
     int is_ok = highly_optimized_parallel_comparsion(user_string);
@@ -739,13 +757,16 @@ int main()
     else
         printf(&quot;Wrong!\n&quot;);
     return 0;
-}</code></pre>
+&#125;
+</code></pre>
 <p>源码比较长，但是做的事情不多，需要注意三个函数的用法</p>
 <p>第一个是<code>pthread_create()</code>用来创建一个新的线程</p>
-<pre><code class="c++">int pthread_create(pthread_t *tidp,const pthread_attr_t *attr,(void*)(*start_rtn)(void*),void *arg);</code></pre>
+<pre><code class="c++">int pthread_create(pthread_t *tidp,const pthread_attr_t *attr,(void*)(*start_rtn)(void*),void *arg);
+</code></pre>
 <p>几个参数分别是，指向线程的指针，线程的属性，调用的函数和参数，在这段代码里实际上就是调用<code>checking()</code>函数，并把之前设定好的参数传给函数</p>
 <p>第二个是<code>pthread_join()</code>用来传递返回结果</p>
-<pre><code class="c++">int pthread_join(pthread_t thread, void **retval);</code></pre>
+<pre><code class="c++">int pthread_join(pthread_t thread, void **retval);
+</code></pre>
 <p>所以result就是指向返回结果的指针，所以最终的目的就是让<code>checking()</code>函数返回的值为0</p>
 <p>第三个是<code>random()</code>函数，在这之前没有用随机种子初始化生成器，所以随机数生成的结果不管怎么运行都是一样的，但是需要注意linux下<code>random()</code>和windows下<code>rand()</code>生成的数据并不一样</p>
 <p>此外还需要注意一点，在c++里面，赋值语句的返回值是赋的值而不是布尔值</p>
@@ -758,26 +779,31 @@ int main()
 
 using namespace std;
 
-int main() {
-    char differences[FLAG_LEN] = {0, 9, -9, -1, 13, -13, -4, -11, -9, -1, -7, 6, -13, 13, 3, 9, -13, -11, 6, -7};
+int main() &#123;
+    char differences[FLAG_LEN] = &#123;0, 9, -9, -1, 13, -13, -4, -11, -9, -1, -7, 6, -13, 13, 3, 9, -13, -11, 6, -7&#125;;
 
 
     int first_letter;
     first_letter = 108;
 
     char flag[FLAG_LEN];
-    for (int i = 0; i &lt; FLAG_LEN; i++) {
+    for (int i = 0; i &lt; FLAG_LEN; i++) &#123;
         flag[i] = first_letter + differences[i];
-    }
+    &#125;
     cout &lt;&lt; flag &lt;&lt; endl;
 
     return 0;
-}</code></pre>
+&#125;
+</code></pre>
 <p>输出flag</p>
-<pre><code>lucky_hacker_you_are</code></pre><h4 id="secret-galaxy-300"><a href="#secret-galaxy-300" class="headerlink" title="secret-galaxy-300"></a>secret-galaxy-300</h4><p>题目里面只有一个结构体，运行了一遍什么都没发现，OD调试的时候查找字符串找到flag</p>
-<pre><code>aliens_are_around_us</code></pre><h4 id="srm-50"><a href="#srm-50" class="headerlink" title="srm-50"></a>srm-50</h4><p>这题是个简单的注册机，找到关键函数</p>
+<pre><code>lucky_hacker_you_are
+</code></pre>
+<h4 id="secret-galaxy-300"><a href="#secret-galaxy-300" class="headerlink" title="secret-galaxy-300"></a>secret-galaxy-300</h4><p>题目里面只有一个结构体，运行了一遍什么都没发现，OD调试的时候查找字符串找到flag</p>
+<pre><code>aliens_are_around_us
+</code></pre>
+<h4 id="srm-50"><a href="#srm-50" class="headerlink" title="srm-50"></a>srm-50</h4><p>这题是个简单的注册机，找到关键函数</p>
 <pre><code class="c++">BOOL __stdcall DialogFunc(HWND hDlg, UINT a2, WPARAM a3, LPARAM a4)
-{
+&#123;
   HMODULE v5; // eax
   HICON v6; // eax
   HMODULE v7; // eax
@@ -806,12 +832,12 @@ int main() {
   __int16 v30; // [esp+340h] [ebp-8h]
 
   if ( a2 == 16 )
-  {
+  &#123;
     EndDialog(hDlg, 0);
     return 0;
-  }
+  &#125;
   if ( a2 == 272 )
-  {
+  &#123;
     v5 = GetModuleHandleW(0);
     v6 = LoadIconW(v5, (LPCWSTR)0x67);
     SetClassLongA(hDlg, -14, (LONG)v6);
@@ -820,7 +846,7 @@ int main() {
     v9 = GetDlgItem(hDlg, 1);
     SetClassLongA(v9, -12, (LONG)v8);
     return 1;
-  }
+  &#125;
   if ( a2 != 273 || (unsigned __int16)a3 != 1 )
     return 0;
   memset(&amp;String, (unsigned __int16)a3 - 1, 0x100u);
@@ -829,7 +855,7 @@ int main() {
   GetDlgItemTextA(hDlg, 1001, &amp;String, 256);
   GetDlgItemTextA(hDlg, 1002, v11, 256);
   if ( strstr(&amp;String, &quot;@&quot;) &amp;&amp; strstr(&amp;String, &quot;.&quot;) &amp;&amp; strstr(&amp;String, &quot;.&quot;)[1] &amp;&amp; strstr(&amp;String, &quot;@&quot;)[1] != 46 )
-  {
+  &#123;
     v28 = xmmword_410AA0;
     v29 = 1701999980;
     *(_OWORD *)Src = xmmword_410A90;
@@ -853,22 +879,23 @@ int main() {
       || v17 != 103
       || v15 != 99
       || v16 != 56 )
-    {
+    &#123;
       strcpy_s(&amp;Text, 0x100u, (const char *)&amp;v28);
-    }
+    &#125;
     else
-    {
+    &#123;
       strcpy_s(&amp;Text, 0x100u, Src);
       strcat_s(&amp;Text, 0x100u, v11);
-    }
-  }
+    &#125;
+  &#125;
   else
-  {
+  &#123;
     strcpy_s(&amp;Text, 0x100u, &quot;Your E-mail address in not valid.&quot;);
-  }
+  &#125;
   MessageBoxA(hDlg, &amp;Text, &quot;Registeration&quot;, 0x40u);
   return 1;
-}</code></pre>
+&#125;
+</code></pre>
 <p>过程十分简单，先简单判断邮箱是不是符合格式，如果符合进入序列号的判断，序列号的判断关键也就只有一个if条件，然后就会输出注册有没有成功</p>
 <pre><code class="c++">#include &lt;iostream&gt;
 #include &lt;cstring&gt;
@@ -877,8 +904,8 @@ int main() {
 
 using namespace std;
 
-int main() {
-    char v11[17]={0};
+int main() &#123;
+    char v11[17]=&#123;0&#125;;
     v11[0] = &#39;C&#39;;
     v11[15] = &#39;X&#39;;
     v11[1] = &#39;Z&#39;;
@@ -898,11 +925,14 @@ int main() {
     cout&lt;&lt;v11&lt;&lt;endl;
 
     return 0;
-}</code></pre>
+&#125;
+</code></pre>
 <p>输出结果为</p>
-<pre><code>CZ9dmq4c8g9G7bAX</code></pre><h4 id="Mysterious"><a href="#Mysterious" class="headerlink" title="Mysterious"></a>Mysterious</h4><p>通过字符串找到关键函数</p>
+<pre><code>CZ9dmq4c8g9G7bAX
+</code></pre>
+<h4 id="Mysterious"><a href="#Mysterious" class="headerlink" title="Mysterious"></a>Mysterious</h4><p>通过字符串找到关键函数</p>
 <pre><code class="c++">int __stdcall sub_401090(HWND hWnd, int a2, int a3, int a4)
-{
+&#123;
   char v5; // [esp+50h] [ebp-310h]
   CHAR Text[4]; // [esp+154h] [ebp-20Ch]
   char v7; // [esp+159h] [ebp-207h]
@@ -917,80 +947,84 @@ int main() {
   memset(&amp;String, 0, 0x104u);
   v10 = 0;
   if ( a2 == 16 )
-  {
+  &#123;
     DestroyWindow(hWnd);
     PostQuitMessage(0);
-  }
+  &#125;
   else if ( a2 == 273 )
-  {
+  &#123;
     if ( a3 == 1000 )
-    {
+    &#123;
       GetDlgItemTextA(hWnd, 1002, &amp;String, 260);
       strlen(&amp;String);
       if ( strlen(&amp;String) &gt; 6 )
         ExitProcess(0);
       v10 = atoi(&amp;String) + 1;
       if ( v10 == 123 &amp;&amp; v12 == &#39;x&#39; &amp;&amp; v14 == &#39;z&#39; &amp;&amp; v13 == &#39;y&#39; )
-      {
+      &#123;
         strcpy(Text, &quot;flag&quot;);
         memset(&amp;v7, 0, 0xFCu);
         v8 = 0;
         v9 = 0;
         _itoa(v10, &amp;v5, 10);
-        strcat(Text, &quot;{&quot;);
+        strcat(Text, &quot;&#123;&quot;);
         strcat(Text, &amp;v5);
         strcat(Text, &quot;_&quot;);
         strcat(Text, &quot;Buff3r_0v3rf|0w&quot;);
-        strcat(Text, &quot;}&quot;);
+        strcat(Text, &quot;&#125;&quot;);
         MessageBoxA(0, Text, &quot;well done&quot;, 0);
-      }
+      &#125;
       SetTimer(hWnd, 1u, 0x3E8u, TimerFunc);
-    }
+    &#125;
     if ( a3 == 1001 )
       KillTimer(hWnd, 1u);
-  }
+  &#125;
   return 0;
-}</code></pre>
+&#125;
+</code></pre>
 <p>发现我们只要输入122xyz，就会输出flag，而且flag也可以直接拼凑出来</p>
-<pre><code>flag{123_Buff3r_0v3rf|0w}</code></pre><h4 id="re1-100"><a href="#re1-100" class="headerlink" title="re1-100"></a>re1-100</h4><p>这题题目里面的if实在是太多了，主要是为了判断是不是有debugger，所以不能通过调试的方式获得flag，所以还是要研究一下代码</p>
+<pre><code>flag&#123;123_Buff3r_0v3rf|0w&#125;
+</code></pre>
+<h4 id="re1-100"><a href="#re1-100" class="headerlink" title="re1-100"></a>re1-100</h4><p>这题题目里面的if实在是太多了，主要是为了判断是不是有debugger，所以不能通过调试的方式获得flag，所以还是要研究一下代码</p>
 <pre><code class="c++">if ( strlen(bufParentRead) == 42 )
-          {
+          &#123;
             if ( !strncmp(&amp;bufParentRead[1], &quot;53fc275d81&quot;, 10uLL) )
-            {
-              if ( bufParentRead[strlen(bufParentRead) - 1] == &#39;}&#39; )
-              {
+            &#123;
+              if ( bufParentRead[strlen(bufParentRead) - 1] == &#39;&#125;&#39; )
+              &#123;
                 if ( !strncmp(&amp;bufParentRead[31], &quot;4938ae4efd&quot;, 10uLL) )
-                {
+                &#123;
                   if ( !confuseKey(bufParentRead, 42) )
-                  {
+                  &#123;
                     responseFalse();
-                  }
-                  else if ( !strncmp(bufParentRead, &quot;{daf29f59034938ae4efd53fc275d81053ed5be8c}&quot;, 42uLL) )
-                  {
+                  &#125;
+                  else if ( !strncmp(bufParentRead, &quot;&#123;daf29f59034938ae4efd53fc275d81053ed5be8c&#125;&quot;, 42uLL) )
+                  &#123;
                     responseTrue();
-                  }
+                  &#125;
                   else
-                  {
+                  &#123;
                     responseFalse();
-                  }
-                }
+                  &#125;
+                &#125;
                 else
-                {
+                &#123;
                   responseFalse();
-                }
-              }
+                &#125;
+              &#125;
               else
-              {
+              &#123;
                 responseFalse();
-              }
-            }
+              &#125;
+            &#125;
             else
-            {
+            &#123;
               responseFalse();
-            }</code></pre>
+            &#125;
+</code></pre>
 <p>截取了其中一段，这里把flag分成了4个部分，每段10个字符，已经知道第一段地最后一段，但是也知道经过<code>confuseKey()</code>之后flag是什么，所以我们只要研究一下<code>confusekey()</code>就可以了</p>
 <pre><code class="c++">bool __cdecl confuseKey(char *szKey, int iKeyLength)
-{
+&#123;
   char szPart1[15]; // [rsp+10h] [rbp-50h]
   char szPart2[15]; // [rsp+20h] [rbp-40h]
   char szPart3[15]; // [rsp+30h] [rbp-30h]
@@ -1020,7 +1054,7 @@ int main() {
     return 0;
   if ( strlen(szKey) != 42 )
     return 0;
-  if ( *szKey != &#39;{&#39; )
+  if ( *szKey != &#39;&#123;&#39; )
     return 0;
   strncpy(szPart1, szKey + 1, 0xAuLL);
   strncpy(szPart2, szKey + 11, 0xAuLL);
@@ -1034,12 +1068,15 @@ int main() {
   strcat(szKey, szPart2);
   szKey[41] = 125;
   return 1;
-}</code></pre>
+&#125;
+</code></pre>
 <p>内容挺多，实际上只实现了一件事情，把四段调换了一个顺序，变成了3421的顺序，所以调整一下顺序就出来了</p>
-<pre><code>53fc275d81053ed5be8cdaf29f59034938ae4efd</code></pre><h4 id="crazy"><a href="#crazy" class="headerlink" title="crazy"></a>crazy</h4><p>这题c++17编写，还有类，乍一看有点复杂，但实际上不是很难</p>
+<pre><code>53fc275d81053ed5be8cdaf29f59034938ae4efd
+</code></pre>
+<h4 id="crazy"><a href="#crazy" class="headerlink" title="crazy"></a>crazy</h4><p>这题c++17编写，还有类，乍一看有点复杂，但实际上不是很难</p>
 <p>还是先看关键函数，这里在main函数里就进行了处理</p>
 <pre><code class="c++">int __cdecl main(int argc, const char **argv, const char **envp)
-{
+&#123;
   __int64 v3; // rax
   __int64 v4; // rax
   __int64 v5; // rax
@@ -1095,7 +1132,7 @@ int main() {
   std::__cxx11::basic_string&lt;char,std::char_traits&lt;char&gt;,std::allocator&lt;char&gt;&gt;::~basic_string(&amp;v19);
   HighTemplar::calculate((HighTemplar *)&amp;v23);
   if ( (unsigned int)HighTemplar::getSerial((HighTemplar *)&amp;v23) == 0 )
-  {
+  &#123;
     v11 = std::operator&lt;&lt;&lt;std::char_traits&lt;char&gt;&gt;(&amp;std::cout, &quot;/////////////////////////////////&quot;);
     std::ostream::operator&lt;&lt;(v11, &amp;std::endl&lt;char,std::char_traits&lt;char&gt;&gt;);
     v12 = std::operator&lt;&lt;&lt;std::char_traits&lt;char&gt;&gt;(&amp;std::cout, &quot;Do not be angry. Happy Hacking :)&quot;);
@@ -1103,19 +1140,20 @@ int main() {
     v13 = std::operator&lt;&lt;&lt;std::char_traits&lt;char&gt;&gt;(&amp;std::cout, &quot;/////////////////////////////////&quot;);
     std::ostream::operator&lt;&lt;(v13, &amp;std::endl&lt;char,std::char_traits&lt;char&gt;&gt;);
     ZN11HighTemplar7getFlagB5cxx11Ev((__int64)&amp;v22, (__int64)&amp;v23);
-    v14 = std::operator&lt;&lt;&lt;std::char_traits&lt;char&gt;&gt;(&amp;std::cout, &quot;flag{&quot;);
+    v14 = std::operator&lt;&lt;&lt;std::char_traits&lt;char&gt;&gt;(&amp;std::cout, &quot;flag&#123;&quot;);
     v15 = std::operator&lt;&lt;&lt;char,std::char_traits&lt;char&gt;,std::allocator&lt;char&gt;&gt;(v14, &amp;v22);
-    v16 = std::operator&lt;&lt;&lt;std::char_traits&lt;char&gt;&gt;(v15, &quot;}&quot;);
+    v16 = std::operator&lt;&lt;&lt;std::char_traits&lt;char&gt;&gt;(v15, &quot;&#125;&quot;);
     std::ostream::operator&lt;&lt;(v16, &amp;std::endl&lt;char,std::char_traits&lt;char&gt;&gt;);
     std::__cxx11::basic_string&lt;char,std::char_traits&lt;char&gt;,std::allocator&lt;char&gt;&gt;::~basic_string(&amp;v22);
-  }
+  &#125;
   HighTemplar::~HighTemplar((HighTemplar *)&amp;v23);
   std::__cxx11::basic_string&lt;char,std::char_traits&lt;char&gt;,std::allocator&lt;char&gt;&gt;::~basic_string(&amp;v18);
   return 0;
-}</code></pre>
+&#125;
+</code></pre>
 <p>乍一看很复杂，慢慢分析，发现了一个输入，被赋值给了<code>v18</code>，然后发现一个类的构造函数调用了我们输入的字符串，可以理解为，用我们的字符串初始化了类中的数据成员，进去仔细看看</p>
 <pre><code class="c++">nsigned __int64 __fastcall HighTemplar::HighTemplar(DarkTemplar *a1, __int64 a2)
-{
+&#123;
   char v3; // [rsp+17h] [rbp-19h]
   unsigned __int64 v4; // [rsp+18h] [rbp-18h]
 
@@ -1132,10 +1170,11 @@ int main() {
     &amp;v3);
   std::allocator&lt;char&gt;::~allocator(&amp;v3);
   return __readfsqword(0x28u) ^ v4;
-}</code></pre>
+&#125;
+</code></pre>
 <p>从这里看，类里面至少应该有一个<code>getSerial()</code>函数在<code>off_401EA0</code>处，三个字符串，偏移量分别为16，48，80，长度都是32位，还有一个布尔型变量，偏移量位3，并且我们还知道，我们的数据被传入了一个变量<code>v23</code>里，然后返回去，跟踪<code>v23</code>，找到剩下的关键函数</p>
 <pre><code class="c++">bool __fastcall HighTemplar::calculate(HighTemplar *this)
-{
+&#123;
   __int64 v1; // rax
   _BYTE *v2; // rbx
   bool result; // al
@@ -1144,15 +1183,15 @@ int main() {
   int j; // [rsp+1Ch] [rbp-14h]
 
   if ( std::__cxx11::basic_string&lt;char,std::char_traits&lt;char&gt;,std::allocator&lt;char&gt;&gt;::length((char *)this + 16) != 32 )
-  {
+  &#123;
     v1 = std::operator&lt;&lt;&lt;std::char_traits&lt;char&gt;&gt;(&amp;std::cout, &quot;Too short or too long&quot;);
     std::ostream::operator&lt;&lt;(v1, &amp;std::endl&lt;char,std::char_traits&lt;char&gt;&gt;);
     exit(-1);
-  }
+  &#125;
   for ( i = 0;
         i &lt;= (unsigned __int64)std::__cxx11::basic_string&lt;char,std::char_traits&lt;char&gt;,std::allocator&lt;char&gt;&gt;::length((char *)this + 16);
         ++i )
-  {
+  &#123;
     v2 = (_BYTE *)std::__cxx11::basic_string&lt;char,std::char_traits&lt;char&gt;,std::allocator&lt;char&gt;&gt;::operator[](
                     (char *)this + 16,
                     i);
@@ -1160,9 +1199,9 @@ int main() {
                        (char *)this + 16,
                        i) ^ 0x50)
         + 23;
-  }
+  &#125;
   for ( j = 0; ; ++j )
-  {
+  &#123;
     result = j &lt;= (unsigned __int64)std::__cxx11::basic_string&lt;char,std::char_traits&lt;char&gt;,std::allocator&lt;char&gt;&gt;::length((char *)this + 16);
     if ( !result )
       break;
@@ -1173,12 +1212,13 @@ int main() {
                        (char *)this + 16,
                        j) ^ 0x13)
         + 11;
-  }
+  &#125;
   return result;
-}</code></pre>
+&#125;
+</code></pre>
 <p>这一看就是个加密函数，并且只对偏移量位16处的字符串进行了操作，这里正好是我们输入的字符串，虽然有两个for循环，但是都是对同一个字符串的同一个位置进行操作，很好逆向，加密完之后应该还会有一个验证，找到下面的验证函数</p>
 <pre><code class="c++">__int64 __fastcall HighTemplar::getSerial(HighTemplar *this)
-{
+&#123;
   __int64 v1; // rbx
   __int64 v2; // rax
   __int64 v3; // rax
@@ -1189,34 +1229,38 @@ int main() {
   for ( i = 0;
         (signed int)i &lt; (unsigned __int64)std::__cxx11::basic_string&lt;char,std::char_traits&lt;char&gt;,std::allocator&lt;char&gt;&gt;::length((char *)this + 16);
         ++i )
-  {
+  &#123;
     v1 = *(unsigned __int8 *)std::__cxx11::basic_string&lt;char,std::char_traits&lt;char&gt;,std::allocator&lt;char&gt;&gt;::operator[](
                                (char *)this + 80,
                                (signed int)i);
     if ( (_BYTE)v1 != *(_BYTE *)std::__cxx11::basic_string&lt;char,std::char_traits&lt;char&gt;,std::allocator&lt;char&gt;&gt;::operator[](
                                   (char *)this + 16,
                                   (signed int)i) )
-    {
+    &#123;
       v4 = std::operator&lt;&lt;&lt;std::char_traits&lt;char&gt;&gt;(&amp;std::cout, &quot;You did not pass &quot;);
       v5 = std::ostream::operator&lt;&lt;(v4, i);
       std::ostream::operator&lt;&lt;(v5, &amp;std::endl&lt;char,std::char_traits&lt;char&gt;&gt;);
       *((_DWORD *)this + 3) = 1;
       return *((unsigned int *)this + 3);
-    }
+    &#125;
     v2 = std::operator&lt;&lt;&lt;std::char_traits&lt;char&gt;&gt;(&amp;std::cout, &quot;Pass &quot;);
     v3 = std::ostream::operator&lt;&lt;(v2, i);
     std::ostream::operator&lt;&lt;(v3, &amp;std::endl&lt;char,std::char_traits&lt;char&gt;&gt;);
-  }
+  &#125;
   return *((unsigned int *)this + 3);
-}</code></pre>
+&#125;
+</code></pre>
 <p>这个函数不长，很简单的验证了加密过后的字符串和偏移量位80的字符串是不是一样，用偏移量位3处的布尔值作为返回值，如果相同返回0，回到主函数，接下来就成功了，没有其他的变换和判断，所以这个程序实际上非常简单</p>
 <pre><code class="python">target = &quot;327a6c4304ad5938eaf0efb6cc3e53dc&quot;
 flag = &#39;&#39;
 for i in target:
     flag += chr((((ord(i) - 11) ^ 0x13) - 23) ^ 0x50)
-print(flag)</code></pre>
-<p>很简单就可以逆向出，套上<code>flag{}</code>提交即可（这个flag长得实在不像是正确的）</p>
-<pre><code>flag{tMx~qdstOs~crvtwb~aOba}qddtbrtcd}</code></pre><h4 id="re4-unvm-me"><a href="#re4-unvm-me" class="headerlink" title="re4-unvm-me"></a>re4-unvm-me</h4><p>pyc格式，直接uncompyle6反编译，成功，没有对pyc文件动什么手脚，反编译后的源代码如下</p>
+print(flag)
+</code></pre>
+<p>很简单就可以逆向出，套上<code>flag&#123;&#125;</code>提交即可（这个flag长得实在不像是正确的）</p>
+<pre><code>flag&#123;tMx~qdstOs~crvtwb~aOba&#125;qddtbrtcd&#125;
+</code></pre>
+<h4 id="re4-unvm-me"><a href="#re4-unvm-me" class="headerlink" title="re4-unvm-me"></a>re4-unvm-me</h4><p>pyc格式，直接uncompyle6反编译，成功，没有对pyc文件动什么手脚，反编译后的源代码如下</p>
 <pre><code class="python">import md5
 md5s = [
  174282896860968005525213562254350376167, 137092044126081477479435678296496849608, 126300127609096051658061491018211963916, 314989972419727999226545215739316729360, 256525866025901597224592941642385934114, 115141138810151571209618282728408211053, 8705973470942652577929336993839061582, 256697681645515528548061291580728800189, 39818552652170274340851144295913091599, 65313561977812018046200997898904313350, 230909080238053318105407334248228870753, 196125799557195268866757688147870815374, 74874145132345503095307276614727915885]
@@ -1234,52 +1278,59 @@ for i in range(0, len(flag), 5):
         print &#39;nice try&#39;
         exit()
 
-print &#39;Congratz now you have the flag&#39;</code></pre>
-<p>发现给出了很多md5，把flag每5个字符一组，算出md5要和给出的相同，所以用这些<a href="https://www.somd5.com/" target="_blank" rel="noopener">md5在线解密</a></p>
+print &#39;Congratz now you have the flag&#39;
+</code></pre>
+<p>发现给出了很多md5，把flag每5个字符一组，算出md5要和给出的相同，所以用这些<a target="_blank" rel="noopener" href="https://www.somd5.com/">md5在线解密</a></p>
 <p>组合起来就是flag</p>
-<pre><code>ALEXCTF{dv5d4s2vj8nk43s8d8l6m1n5l67ds9v41n52nv37j481h3d28n4b6v3k}</code></pre><h4 id="anser-to-everything"><a href="#anser-to-everything" class="headerlink" title="anser_to_everything"></a>anser_to_everything</h4><p>IDA打开</p>
+<pre><code>ALEXCTF&#123;dv5d4s2vj8nk43s8d8l6m1n5l67ds9v41n52nv37j481h3d28n4b6v3k&#125;
+</code></pre>
+<h4 id="anser-to-everything"><a href="#anser-to-everything" class="headerlink" title="anser_to_everything"></a>anser_to_everything</h4><p>IDA打开</p>
 <pre><code class="c++">int __cdecl main(int argc, const char **argv, const char **envp)
-{
+&#123;
   int v4; // [rsp+Ch] [rbp-4h]
 
   printf(&quot;Gimme: &quot;, argv, envp);
   __isoc99_scanf(&quot;%d&quot;, &amp;v4);
   not_the_flag(v4);
   return 0;
-}
+&#125;
 
 //not_the_flag
 __int64 __fastcall not_the_flag(int a1)
-{
+&#123;
   if ( a1 == &#39;*&#39; )
     puts(&quot;Cipher from Bill \nSubmit without any tags\n#kdudpeh&quot;);
   else
     puts(&quot;YOUSUCK&quot;);
   return 0LL;
-}</code></pre>
+&#125;
+</code></pre>
 <p>找到了一个字符串<code>kdudpeh</code>，根据题目提示，sha1加密得<code>80ee2a3fe31da904c596d993f7f1de4827c1450a</code></p>
 <p>套上flag得</p>
-<pre><code>flag{80ee2a3fe31da904c596d993f7f1de4827c1450a}</code></pre><h4 id="elrond32"><a href="#elrond32" class="headerlink" title="elrond32"></a>elrond32</h4><p>IDA打开，main函数如下</p>
+<pre><code>flag&#123;80ee2a3fe31da904c596d993f7f1de4827c1450a&#125;
+</code></pre>
+<h4 id="elrond32"><a href="#elrond32" class="headerlink" title="elrond32"></a>elrond32</h4><p>IDA打开，main函数如下</p>
 <pre><code class="c++">int __cdecl main(int a1, char **a2)
-{
+&#123;
   if ( a1 &gt; 1 &amp;&amp; sub_8048414(a2[1], 0) )
-  {
+  &#123;
     puts(unk_80487E4);
     sub_8048538((int)a2[1]);
-  }
+  &#125;
   else
-  {
+  &#123;
     puts(&quot;Access denied&quot;);
-  }
+  &#125;
   return 0;
-}</code></pre>
+&#125;
+</code></pre>
 <p>我们得输入作为main函数得参数传入，在<code>sub_8048414()</code>函数中进行了一个判断，然后进入<code>sub_8048538()</code>函数处理后输出flag</p>
 <pre><code class="c++">signed int __cdecl sub_8048414(_BYTE *a1, int a2)
-{
+&#123;
   signed int result; // eax
 
   switch ( a2 )
-  {
+  &#123;
     case 0:
       if ( *a1 == &#39;i&#39; )
         goto LABEL_19;
@@ -1325,12 +1376,13 @@ LABEL_19:
     default:
       result = 1;
       break;
-  }
+  &#125;
   return result;
-}</code></pre>
+&#125;
+</code></pre>
 <p>判断得过程是一个递归，因为返回值要为1，所以递归过程中得每一个if都需要满足，所以很好得到输入的字符串是什么</p>
 <pre><code class="c++">int __cdecl sub_8048538(int a1)
-{
+&#123;
   int v2[33]; // [esp+18h] [ebp-A0h]
   int i; // [esp+9Ch] [ebp-1Ch]
 
@@ -1338,7 +1390,8 @@ LABEL_19:
   for ( i = 0; i &lt;= 32; ++i )
     putchar(v2[i] ^ *(char *)(a1 + i % 8));
   return putchar(10);
-}</code></pre>
+&#125;
+</code></pre>
 <p>输出部分只进行了一个很简单的处理，而且不需要逆向，直接用同样的方式处理即可</p>
 <pre><code class="python">targrt = &#39;ie_ndags_r&#39;
 f = &#39;&#39;
@@ -1354,9 +1407,12 @@ a2 = [0x0F, 0x1F, 0x04, 0x09, 0x1C, 0x12, 0x42, 0x09, 0x0C, 0x44, 0x0D, 0x07, 0x
 
 for i in range(33):
     flag += chr(a2[i] ^ ord(f[i % 8]))
-print(flag)</code></pre>
+print(flag)
+</code></pre>
 <p>输出flag</p>
-<pre><code>flag{s0me7hing_S0me7hinG_t0lki3n}</code></pre>
+<pre><code>flag&#123;s0me7hing_S0me7hinG_t0lki3n&#125;
+</code></pre>
+
           
             <div class='article_footer'>
               
@@ -1445,9 +1501,9 @@ print(flag)</code></pre>
   <div class="-mob-share-list share-body">
     
       
-        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer"
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
           
-          href="http://connect.qq.com/widget/shareqq/index.html?url=http://blog.rycbar.club/2020/02/24/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3%EF%BC%88%E4%BA%8C%EF%BC%89/&title=攻防世界-re部分题解（二） - My Tiny Ideas&summary=题目有点多，放在一篇里面太过臃肿，所以多分了几篇"
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://blog.rycbar.club/2020/02/24/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3%EF%BC%88%E4%BA%8C%EF%BC%89/&title=攻防世界-re部分题解（二） - My Tiny Ideas&summary=题目有点多，放在一篇里面太过臃肿，所以多分了几篇"
           
           >
           
@@ -1457,9 +1513,9 @@ print(flag)</code></pre>
       
     
       
-        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer"
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
           
-          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://blog.rycbar.club/2020/02/24/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3%EF%BC%88%E4%BA%8C%EF%BC%89/&title=攻防世界-re部分题解（二） - My Tiny Ideas&summary=题目有点多，放在一篇里面太过臃肿，所以多分了几篇"
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://blog.rycbar.club/2020/02/24/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3%EF%BC%88%E4%BA%8C%EF%BC%89/&title=攻防世界-re部分题解（二） - My Tiny Ideas&summary=题目有点多，放在一篇里面太过臃肿，所以多分了几篇"
           
           >
           
@@ -1469,9 +1525,9 @@ print(flag)</code></pre>
       
     
       
-        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer"
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
           
-          href="http://service.weibo.com/share/share.php?url=http://blog.rycbar.club/2020/02/24/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3%EF%BC%88%E4%BA%8C%EF%BC%89/&title=攻防世界-re部分题解（二） - My Tiny Ideas&summary=题目有点多，放在一篇里面太过臃肿，所以多分了几篇"
+          target="_blank" href="http://service.weibo.com/share/share.php?url=http://blog.rycbar.club/2020/02/24/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3%EF%BC%88%E4%BA%8C%EF%BC%89/&title=攻防世界-re部分题解（二） - My Tiny Ideas&summary=题目有点多，放在一篇里面太过臃肿，所以多分了几篇"
           
           >
           
@@ -1649,13 +1705,13 @@ insanityIDA打开，进入main，发现程序在生成随机数，然后随便�
       
     
       
-        <div><p>博客内容遵循 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</a></p>
+        <div><p>博客内容遵循 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</a></p>
 </div>
       
     
       
         <div class='copyright'>
-        <p><a href="https://blog.rycbar.club">Copyright © 2017-2020 rycbar</a></p>
+        <p><a href="https://blog.rycbar.club/">Copyright © 2017-2020 rycbar</a></p>
 
         </div>
       

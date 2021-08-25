@@ -428,76 +428,85 @@
         <div class="article-entry" itemprop="articleBody">
           
           <p>开始学<code>Crypto</code>主要有两个原因，第一还是受了最近两场比赛的影响，安恒月赛的时候真就提前<code>ak</code>了<code>re</code>之后看着掉排名，<code>GKCTF</code>也是只上了单榜；第二就是最近做<code>re</code>的时候，经常会做到最后遇到加密算法还是抓瞎，所以开始接触了密码学的东西，拿<code>Crypto</code>练习练习</p>
-<a id="more"></a>
+<span id="more"></span>
 
 <h3 id="新手区"><a href="#新手区" class="headerlink" title="新手区"></a>新手区</h3><h4 id="base64"><a href="#base64" class="headerlink" title="base64"></a>base64</h4><p>密文</p>
-<pre><code>Y3liZXJwZWFjZXtXZWxjb21lX3RvX25ld19Xb3JsZCF9</code></pre><p>直接<code>base64</code>解一下就出来了</p>
-<pre><code>cyberpeace{Welcome_to_new_World!}</code></pre><h4 id="Caeser"><a href="#Caeser" class="headerlink" title="Caeser"></a>Caeser</h4><p>密文</p>
-<pre><code>oknqdbqmoq{kag_tmhq_xqmdzqp_omqemd_qzodkbfuaz}</code></pre><p>凯撒密码，正好用到之前信安导论的大作业，<code>Rust is the future!</code></p>
+<pre><code>Y3liZXJwZWFjZXtXZWxjb21lX3RvX25ld19Xb3JsZCF9
+</code></pre>
+<p>直接<code>base64</code>解一下就出来了</p>
+<pre><code>cyberpeace&#123;Welcome_to_new_World!&#125;
+</code></pre>
+<h4 id="Caeser"><a href="#Caeser" class="headerlink" title="Caeser"></a>Caeser</h4><p>密文</p>
+<pre><code>oknqdbqmoq&#123;kag_tmhq_xqmdzqp_omqemd_qzodkbfuaz&#125;
+</code></pre>
+<p>凯撒密码，正好用到之前信安导论的大作业，<code>Rust is the future!</code></p>
 <pre><code class="rust">#![allow(dead_code)]
 #![allow(unused)]
 
 fn encrypt(s: &amp;str,rot: u8) -&gt; String
-{
+&#123;
     let mut s_ret=String::new();
-    for c in s.chars(){
+    for c in s.chars()&#123;
         if  (&#39;a&#39; as u8) &lt;= c as u8 &amp;&amp; (c as u8) &lt;= &#39;z&#39; as u8
-        {
+        &#123;
             let mut tmp =(c as u8) -(&#39;a&#39; as u8);
             tmp=(26+tmp+rot)%26+&#39;a&#39; as u8;
             let ch=tmp as char;
             s_ret.push(ch);
-        }
+        &#125;
         else if (&#39;A&#39; as u8) &lt;= (c as u8) &amp;&amp; (c as u8) &lt;= (&#39;Z&#39; as u8)
-        {
+        &#123;
             let mut tmp =(c as u8)-(&#39;A&#39; as u8);
             tmp=(26+tmp+rot)%26+&#39;A&#39; as u8;
             let ch=tmp as char;
             s_ret.push(ch);
-        }
-        else {
+        &#125;
+        else &#123;
             s_ret.push(c);
             continue;
-        }
-    }
+        &#125;
+    &#125;
     s_ret
-}
+&#125;
 
 fn decrypt(s: &amp;str,rot: u8) -&gt; String
-{
+&#123;
     let mut s_ret=String::new();
-    for c in s.chars(){
+    for c in s.chars()&#123;
         if  (&#39;a&#39; as u8) &lt;= (c as u8) &amp;&amp; (c as u8) &lt;= (&#39;z&#39; as u8)
-        {
+        &#123;
             let mut tmp =(c as u8) -(&#39;a&#39; as u8);
             tmp=(26+tmp-rot)%26+&#39;a&#39; as u8;
             // plus 26 to avoid &#39;attempt to subtract with overflow&#39; error since u8 is unsigned
             let ch=tmp as char;
             s_ret.push(ch);
-        }
+        &#125;
         else if (&#39;A&#39; as u8) &lt;= (c as u8) &amp;&amp; (c as u8) &lt;= (&#39;Z&#39; as u8)
-        {
+        &#123;
             let mut tmp =(c as u8)-(&#39;A&#39; as u8);
             tmp=(26+tmp-rot)%26+&#39;A&#39; as u8;
             // plus 26 to avoid &#39;attempt to subtract with overflow&#39; error since u8 is unsigned
             let ch=tmp as char;
             s_ret.push(ch);
-        }
-        else {
+        &#125;
+        else &#123;
             s_ret.push(c);
             continue;
-        }
-    }
+        &#125;
+    &#125;
     s_ret
-}
+&#125;
 
-fn main() {
-    let s=decrypt(&quot;oknqdbqmoq{kag_tmhq_xqmdzqp_omqemd_qzodkbfuaz}&quot;,12);
-    println!(&quot;{:?}&quot;,s);
-}</code></pre>
+fn main() &#123;
+    let s=decrypt(&quot;oknqdbqmoq&#123;kag_tmhq_xqmdzqp_omqemd_qzodkbfuaz&#125;&quot;,12);
+    println!(&quot;&#123;:?&#125;&quot;,s);
+&#125;
+</code></pre>
 <p>得到<code>flag</code></p>
-<pre><code>cyberpeace{you_have_learned_caesar_encryption}</code></pre><h4 id="Morse"><a href="#Morse" class="headerlink" title="Morse"></a>Morse</h4><p>题目是摩斯密码但是内容全是0和1，所以应该是0对应<code>.</code>，1对应<code>-</code></p>
-<pre><code class="python">CODE = {&#39;A&#39;: &#39;.-&#39;, &#39;B&#39;: &#39;-...&#39;, &#39;C&#39;: &#39;-.-.&#39;,
+<pre><code>cyberpeace&#123;you_have_learned_caesar_encryption&#125;
+</code></pre>
+<h4 id="Morse"><a href="#Morse" class="headerlink" title="Morse"></a>Morse</h4><p>题目是摩斯密码但是内容全是0和1，所以应该是0对应<code>.</code>，1对应<code>-</code></p>
+<pre><code class="python">CODE = &#123;&#39;A&#39;: &#39;.-&#39;, &#39;B&#39;: &#39;-...&#39;, &#39;C&#39;: &#39;-.-.&#39;,
         &#39;D&#39;: &#39;-..&#39;, &#39;E&#39;: &#39;.&#39;, &#39;F&#39;: &#39;..-.&#39;,
         &#39;G&#39;: &#39;--.&#39;, &#39;H&#39;: &#39;....&#39;, &#39;I&#39;: &#39;..&#39;,
         &#39;J&#39;: &#39;.---&#39;, &#39;K&#39;: &#39;-.-&#39;, &#39;L&#39;: &#39;.-..&#39;,
@@ -518,7 +527,7 @@ fn main() {
         &#39;(&#39;: &#39;-.--.&#39;, &#39;)&#39;: &#39;-.--.-&#39;, &#39;$&#39;: &#39;...-..-&#39;, &#39;&amp;&#39;: &#39;.-...&#39;,
         &#39;@&#39;: &#39;.--.-.&#39;
 
-        }
+        &#125;
 
 
 def Decode(str):
@@ -537,24 +546,41 @@ def Decode(str):
     return text
 
 str=&#39;11 111 010 000 0 1010 111 100 0 00 000 000 111 00 10 1 0 010 0 000 1 00 10 110&#39;
-print(Decode(str).lower())</code></pre>
+print(Decode(str).lower())
+</code></pre>
 <p>得到<code>flag</code></p>
-<pre><code>morsecodeissointeresting</code></pre><h4 id="混合编码"><a href="#混合编码" class="headerlink" title="混合编码"></a>混合编码</h4><p>密文</p>
-<pre><code>JiM3NjsmIzEyMjsmIzY5OyYjMTIwOyYjNzk7JiM4MzsmIzU2OyYjMTIwOyYjNzc7JiM2ODsmIzY5OyYjMTE4OyYjNzc7JiM4NDsmIzY1OyYjNTI7JiM3NjsmIzEyMjsmIzEwNzsmIzUzOyYjNzY7JiMxMjI7JiM2OTsmIzEyMDsmIzc3OyYjODM7JiM1NjsmIzEyMDsmIzc3OyYjNjg7JiMxMDc7JiMxMTg7JiM3NzsmIzg0OyYjNjU7JiMxMjA7JiM3NjsmIzEyMjsmIzY5OyYjMTIwOyYjNzg7JiMxMDU7JiM1NjsmIzEyMDsmIzc3OyYjODQ7JiM2OTsmIzExODsmIzc5OyYjODQ7JiM5OTsmIzExODsmIzc3OyYjODQ7JiM2OTsmIzUwOyYjNzY7JiMxMjI7JiM2OTsmIzEyMDsmIzc4OyYjMTA1OyYjNTY7JiM1MzsmIzc4OyYjMTIxOyYjNTY7JiM1MzsmIzc5OyYjODM7JiM1NjsmIzEyMDsmIzc3OyYjNjg7JiM5OTsmIzExODsmIzc5OyYjODQ7JiM5OTsmIzExODsmIzc3OyYjODQ7JiM2OTsmIzExOTsmIzc2OyYjMTIyOyYjNjk7JiMxMTk7JiM3NzsmIzY3OyYjNTY7JiMxMjA7JiM3NzsmIzY4OyYjNjU7JiMxMTg7JiM3NzsmIzg0OyYjNjU7JiMxMjA7JiM3NjsmIzEyMjsmIzY5OyYjMTE5OyYjNzc7JiMxMDU7JiM1NjsmIzEyMDsmIzc3OyYjNjg7JiM2OTsmIzExODsmIzc3OyYjODQ7JiM2OTsmIzExOTsmIzc2OyYjMTIyOyYjMTA3OyYjNTM7JiM3NjsmIzEyMjsmIzY5OyYjMTE5OyYjNzc7JiM4MzsmIzU2OyYjMTIwOyYjNzc7JiM4NDsmIzEwNzsmIzExODsmIzc3OyYjODQ7JiM2OTsmIzEyMDsmIzc2OyYjMTIyOyYjNjk7JiMxMjA7JiM3ODsmIzY3OyYjNTY7JiMxMjA7JiM3NzsmIzY4OyYjMTAzOyYjMTE4OyYjNzc7JiM4NDsmIzY1OyYjMTE5Ow==</code></pre><p><code>base64</code>解一下</p>
-<pre><code class="html">&amp;#76;&amp;#122;&amp;#69;&amp;#120;&amp;#79;&amp;#83;&amp;#56;&amp;#120;&amp;#77;&amp;#68;&amp;#69;&amp;#118;&amp;#77;&amp;#84;&amp;#65;&amp;#52;&amp;#76;&amp;#122;&amp;#107;&amp;#53;&amp;#76;&amp;#122;&amp;#69;&amp;#120;&amp;#77;&amp;#83;&amp;#56;&amp;#120;&amp;#77;&amp;#68;&amp;#107;&amp;#118;&amp;#77;&amp;#84;&amp;#65;&amp;#120;&amp;#76;&amp;#122;&amp;#69;&amp;#120;&amp;#78;&amp;#105;&amp;#56;&amp;#120;&amp;#77;&amp;#84;&amp;#69;&amp;#118;&amp;#79;&amp;#84;&amp;#99;&amp;#118;&amp;#77;&amp;#84;&amp;#69;&amp;#50;&amp;#76;&amp;#122;&amp;#69;&amp;#120;&amp;#78;&amp;#105;&amp;#56;&amp;#53;&amp;#78;&amp;#121;&amp;#56;&amp;#53;&amp;#79;&amp;#83;&amp;#56;&amp;#120;&amp;#77;&amp;#68;&amp;#99;&amp;#118;&amp;#79;&amp;#84;&amp;#99;&amp;#118;&amp;#77;&amp;#84;&amp;#69;&amp;#119;&amp;#76;&amp;#122;&amp;#69;&amp;#119;&amp;#77;&amp;#67;&amp;#56;&amp;#120;&amp;#77;&amp;#68;&amp;#65;&amp;#118;&amp;#77;&amp;#84;&amp;#65;&amp;#120;&amp;#76;&amp;#122;&amp;#69;&amp;#119;&amp;#77;&amp;#105;&amp;#56;&amp;#120;&amp;#77;&amp;#68;&amp;#69;&amp;#118;&amp;#77;&amp;#84;&amp;#69;&amp;#119;&amp;#76;&amp;#122;&amp;#107;&amp;#53;&amp;#76;&amp;#122;&amp;#69;&amp;#119;&amp;#77;&amp;#83;&amp;#56;&amp;#120;&amp;#77;&amp;#84;&amp;#107;&amp;#118;&amp;#77;&amp;#84;&amp;#69;&amp;#120;&amp;#76;&amp;#122;&amp;#69;&amp;#120;&amp;#78;&amp;#67;&amp;#56;&amp;#120;&amp;#77;&amp;#68;&amp;#103;&amp;#118;&amp;#77;&amp;#84;&amp;#65;&amp;#119;</code></pre>
+<pre><code>morsecodeissointeresting
+</code></pre>
+<h4 id="混合编码"><a href="#混合编码" class="headerlink" title="混合编码"></a>混合编码</h4><p>密文</p>
+<pre><code>JiM3NjsmIzEyMjsmIzY5OyYjMTIwOyYjNzk7JiM4MzsmIzU2OyYjMTIwOyYjNzc7JiM2ODsmIzY5OyYjMTE4OyYjNzc7JiM4NDsmIzY1OyYjNTI7JiM3NjsmIzEyMjsmIzEwNzsmIzUzOyYjNzY7JiMxMjI7JiM2OTsmIzEyMDsmIzc3OyYjODM7JiM1NjsmIzEyMDsmIzc3OyYjNjg7JiMxMDc7JiMxMTg7JiM3NzsmIzg0OyYjNjU7JiMxMjA7JiM3NjsmIzEyMjsmIzY5OyYjMTIwOyYjNzg7JiMxMDU7JiM1NjsmIzEyMDsmIzc3OyYjODQ7JiM2OTsmIzExODsmIzc5OyYjODQ7JiM5OTsmIzExODsmIzc3OyYjODQ7JiM2OTsmIzUwOyYjNzY7JiMxMjI7JiM2OTsmIzEyMDsmIzc4OyYjMTA1OyYjNTY7JiM1MzsmIzc4OyYjMTIxOyYjNTY7JiM1MzsmIzc5OyYjODM7JiM1NjsmIzEyMDsmIzc3OyYjNjg7JiM5OTsmIzExODsmIzc5OyYjODQ7JiM5OTsmIzExODsmIzc3OyYjODQ7JiM2OTsmIzExOTsmIzc2OyYjMTIyOyYjNjk7JiMxMTk7JiM3NzsmIzY3OyYjNTY7JiMxMjA7JiM3NzsmIzY4OyYjNjU7JiMxMTg7JiM3NzsmIzg0OyYjNjU7JiMxMjA7JiM3NjsmIzEyMjsmIzY5OyYjMTE5OyYjNzc7JiMxMDU7JiM1NjsmIzEyMDsmIzc3OyYjNjg7JiM2OTsmIzExODsmIzc3OyYjODQ7JiM2OTsmIzExOTsmIzc2OyYjMTIyOyYjMTA3OyYjNTM7JiM3NjsmIzEyMjsmIzY5OyYjMTE5OyYjNzc7JiM4MzsmIzU2OyYjMTIwOyYjNzc7JiM4NDsmIzEwNzsmIzExODsmIzc3OyYjODQ7JiM2OTsmIzEyMDsmIzc2OyYjMTIyOyYjNjk7JiMxMjA7JiM3ODsmIzY3OyYjNTY7JiMxMjA7JiM3NzsmIzY4OyYjMTAzOyYjMTE4OyYjNzc7JiM4NDsmIzY1OyYjMTE5Ow==
+</code></pre>
+<p><code>base64</code>解一下</p>
+<pre><code class="html">&amp;#76;&amp;#122;&amp;#69;&amp;#120;&amp;#79;&amp;#83;&amp;#56;&amp;#120;&amp;#77;&amp;#68;&amp;#69;&amp;#118;&amp;#77;&amp;#84;&amp;#65;&amp;#52;&amp;#76;&amp;#122;&amp;#107;&amp;#53;&amp;#76;&amp;#122;&amp;#69;&amp;#120;&amp;#77;&amp;#83;&amp;#56;&amp;#120;&amp;#77;&amp;#68;&amp;#107;&amp;#118;&amp;#77;&amp;#84;&amp;#65;&amp;#120;&amp;#76;&amp;#122;&amp;#69;&amp;#120;&amp;#78;&amp;#105;&amp;#56;&amp;#120;&amp;#77;&amp;#84;&amp;#69;&amp;#118;&amp;#79;&amp;#84;&amp;#99;&amp;#118;&amp;#77;&amp;#84;&amp;#69;&amp;#50;&amp;#76;&amp;#122;&amp;#69;&amp;#120;&amp;#78;&amp;#105;&amp;#56;&amp;#53;&amp;#78;&amp;#121;&amp;#56;&amp;#53;&amp;#79;&amp;#83;&amp;#56;&amp;#120;&amp;#77;&amp;#68;&amp;#99;&amp;#118;&amp;#79;&amp;#84;&amp;#99;&amp;#118;&amp;#77;&amp;#84;&amp;#69;&amp;#119;&amp;#76;&amp;#122;&amp;#69;&amp;#119;&amp;#77;&amp;#67;&amp;#56;&amp;#120;&amp;#77;&amp;#68;&amp;#65;&amp;#118;&amp;#77;&amp;#84;&amp;#65;&amp;#120;&amp;#76;&amp;#122;&amp;#69;&amp;#119;&amp;#77;&amp;#105;&amp;#56;&amp;#120;&amp;#77;&amp;#68;&amp;#69;&amp;#118;&amp;#77;&amp;#84;&amp;#69;&amp;#119;&amp;#76;&amp;#122;&amp;#107;&amp;#53;&amp;#76;&amp;#122;&amp;#69;&amp;#119;&amp;#77;&amp;#83;&amp;#56;&amp;#120;&amp;#77;&amp;#84;&amp;#107;&amp;#118;&amp;#77;&amp;#84;&amp;#69;&amp;#120;&amp;#76;&amp;#122;&amp;#69;&amp;#120;&amp;#78;&amp;#67;&amp;#56;&amp;#120;&amp;#77;&amp;#68;&amp;#103;&amp;#118;&amp;#77;&amp;#84;&amp;#65;&amp;#119;
+</code></pre>
 <p><code>Unicode</code>码，新建一个<code>html</code>写进去，浏览器打开得到</p>
-<pre><code>LzExOS8xMDEvMTA4Lzk5LzExMS8xMDkvMTAxLzExNi8xMTEvOTcvMTE2LzExNi85Ny85OS8xMDcvOTcvMTEwLzEwMC8xMDAvMTAxLzEwMi8xMDEvMTEwLzk5LzEwMS8xMTkvMTExLzExNC8xMDgvMTAw</code></pre><p>接着<code>base64</code></p>
-<pre><code>/119/101/108/99/111/109/101/116/111/97/116/116/97/99/107/97/110/100/100/101/102/101/110/99/101/119/111/114/108/100</code></pre><p>应该是ASCII码，写脚本跑一波</p>
+<pre><code>LzExOS8xMDEvMTA4Lzk5LzExMS8xMDkvMTAxLzExNi8xMTEvOTcvMTE2LzExNi85Ny85OS8xMDcvOTcvMTEwLzEwMC8xMDAvMTAxLzEwMi8xMDEvMTEwLzk5LzEwMS8xMTkvMTExLzExNC8xMDgvMTAw
+</code></pre>
+<p>接着<code>base64</code></p>
+<pre><code>/119/101/108/99/111/109/101/116/111/97/116/116/97/99/107/97/110/100/100/101/102/101/110/99/101/119/111/114/108/100
+</code></pre>
+<p>应该是ASCII码，写脚本跑一波</p>
 <pre><code class="python">import base64
 str=b&quot;LzExOS8xMDEvMTA4Lzk5LzExMS8xMDkvMTAxLzExNi8xMTEvOTcvMTE2LzExNi85Ny85OS8xMDcvOTcvMTEwLzEwMC8xMDAvMTAxLzEwMi8xMDEvMTEwLzk5LzEwMS8xMTkvMTExLzExNC8xMDgvMTAw&quot;
 t=base64.b64decode(str).decode().split(&#39;/&#39;)[1:]
 # print(t)
 flag=&quot;&quot;.join([chr(int(i)) for i in t])
-print(flag)</code></pre>
+print(flag)
+</code></pre>
 <p>得到<code>flag</code></p>
-<pre><code>welcometoattackanddefenceworld</code></pre><h4 id="幂数加密"><a href="#幂数加密" class="headerlink" title="幂数加密"></a>幂数加密</h4><p>拿到密文</p>
-<pre><code>8842101220480224404014224202480122</code></pre><p>一串数字，题目提示8个字，看到7个0，猜测0是分隔符，了解以下幂数加密，把每一位加起来得到索引</p>
-<pre><code>WELLDOWN</code></pre><h4 id="Railfence"><a href="#Railfence" class="headerlink" title="Railfence"></a>Railfence</h4><p>题目提示栅栏密码，key是5，但是解出来发现不对，报读之后才知道还有一种w模式的栅栏密码，网上找了段代码</p>
+<pre><code>welcometoattackanddefenceworld
+</code></pre>
+<h4 id="幂数加密"><a href="#幂数加密" class="headerlink" title="幂数加密"></a>幂数加密</h4><p>拿到密文</p>
+<pre><code>8842101220480224404014224202480122
+</code></pre>
+<p>一串数字，题目提示8个字，看到7个0，猜测0是分隔符，了解以下幂数加密，把每一位加起来得到索引</p>
+<pre><code>WELLDOWN
+</code></pre>
+<h4 id="Railfence"><a href="#Railfence" class="headerlink" title="Railfence"></a>Railfence</h4><p>题目提示栅栏密码，key是5，但是解出来发现不对，报读之后才知道还有一种w模式的栅栏密码，网上找了段代码</p>
 <pre><code class="python">def enc(plain, num):
     matrix = [([0] * len(plain)) for i in range(num)]
 
@@ -611,11 +637,270 @@ def dec(encrypted, num):
     return decrypted
 
 
-encrypted = &#39;ccehgyaefnpeoobe{lcirg}epriec_ora_g&#39;
+encrypted = &#39;ccehgyaefnpeoobe&#123;lcirg&#125;epriec_ora_g&#39;
 num = 5
-print(dec(encrypted, num))</code></pre>
+print(dec(encrypted, num))
+</code></pre>
 <p>得到flag</p>
-<pre><code>cyberpeace{railfence_cipher_gogogo}</code></pre>
+<pre><code>cyberpeace&#123;railfence_cipher_gogogo&#125;
+</code></pre>
+<h4 id="easy-RSA"><a href="#easy-RSA" class="headerlink" title="easy_RSA"></a>easy_RSA</h4><p>题目描述非常直接</p>
+<pre><code>在一次RSA密钥对生成中，假设p=473398607161，q=4511491，e=17
+求解出d
+</code></pre>
+<p>甚至不用求解<code>rsa</code>，找到d就可以了</p>
+<pre><code class="python">def gcdext(a, b):
+    &quot;&quot;&quot;
+    a: 模的取值
+    b: 想求逆的值
+    &quot;&quot;&quot;
+    if b == 0:
+        return 1, 0, a
+    x, y, gcd = gcdext(b, a % b)
+    return y, x - a // b * y, gcd
+
+
+c = 169169912654178
+p = 473398607161
+q = 4511491
+e = 17
+n = p * q
+# print(k)
+fai = (p - 1) * (q - 1)
+(d, k, g) = gcdext(e, fai)
+print(d)
+# 125631357777427553
+</code></pre>
+<h4 id="不仅仅是Morse"><a href="#不仅仅是Morse" class="headerlink" title="不仅仅是Morse"></a>不仅仅是Morse</h4><p>拿到一段摩斯密码，解一下</p>
+<pre><code class="python">CODE = &#123;
+    &#39;A&#39;: &#39;.-&#39;,
+    &#39;B&#39;: &#39;-...&#39;,
+    &#39;C&#39;: &#39;-.-.&#39;,
+    &#39;D&#39;: &#39;-..&#39;,
+    &#39;E&#39;: &#39;.&#39;,
+    &#39;F&#39;: &#39;..-.&#39;,
+    &#39;G&#39;: &#39;--.&#39;,
+    &#39;H&#39;: &#39;....&#39;,
+    &#39;I&#39;: &#39;..&#39;,
+    &#39;J&#39;: &#39;.---&#39;,
+    &#39;K&#39;: &#39;-.-&#39;,
+    &#39;L&#39;: &#39;.-..&#39;,
+    &#39;M&#39;: &#39;--&#39;,
+    &#39;N&#39;: &#39;-.&#39;,
+    &#39;O&#39;: &#39;---&#39;,
+    &#39;P&#39;: &#39;.--.&#39;,
+    &#39;Q&#39;: &#39;--.-&#39;,
+    &#39;R&#39;: &#39;.-.&#39;,
+    &#39;S&#39;: &#39;...&#39;,
+    &#39;T&#39;: &#39;-&#39;,
+    &#39;U&#39;: &#39;..-&#39;,
+    &#39;V&#39;: &#39;...-&#39;,
+    &#39;W&#39;: &#39;.--&#39;,
+    &#39;X&#39;: &#39;-..-&#39;,
+    &#39;Y&#39;: &#39;-.--&#39;,
+    &#39;Z&#39;: &#39;--..&#39;,
+    &#39;0&#39;: &#39;-----&#39;,
+    &#39;1&#39;: &#39;.----&#39;,
+    &#39;2&#39;: &#39;..---&#39;,
+    &#39;3&#39;: &#39;...--&#39;,
+    &#39;4&#39;: &#39;....-&#39;,
+    &#39;5&#39;: &#39;.....&#39;,
+    &#39;6&#39;: &#39;-....&#39;,
+    &#39;7&#39;: &#39;--...&#39;,
+    &#39;8&#39;: &#39;---..&#39;,
+    &#39;9&#39;: &#39;----.&#39;,
+    &#39;.&#39;: &#39;.-.-.-&#39;,
+    &#39;:&#39;: &#39;---...&#39;,
+    &#39;,&#39;: &#39;--..--&#39;,
+    &#39;;&#39;: &#39;-.-.-.&#39;,
+    &#39;?&#39;: &#39;..--..&#39;,
+    &#39;=&#39;: &#39;-...-&#39;,
+    &#39;\&#39;&#39;: &#39;.----.&#39;,
+    &#39;/&#39;: &#39;-..-.&#39;,
+    &#39;!&#39;: &#39;-.-.--&#39;,
+    &#39;-&#39;: &#39;-....-&#39;,
+    &#39;_&#39;: &#39;..--.-&#39;,
+    &#39;&quot;&#39;: &#39;.-..-.&#39;,
+    &#39;(&#39;: &#39;-.--.&#39;,
+    &#39;)&#39;: &#39;-.--.-&#39;,
+    &#39;$&#39;: &#39;...-..-&#39;,
+    &#39;&amp;&#39;: &#39;.-...&#39;,
+    &#39;@&#39;: &#39;.--.-.&#39;
+&#125;
+
+
+def Decode(str):
+    Decode_value = CODE.keys()
+    Decode_key = CODE.values()
+    Decode_dict = dict(zip(Decode_key, Decode_value))
+
+    text = &#39;&#39;
+    # print(str)
+    msg = str.split(&#39;/&#39;)
+    for s in msg:
+        if s in Decode_dict.keys():
+            text += Decode_dict[s]
+    return text
+
+
+str = &#39;--/.-/-.--/..--.-/-..././..--.-/..../.-/...-/./..--.-/.-/-./---/-/...././.-./..--.-/-.././-.-./---/-.././..../..../..../..../.-/.-/.-/.-/.-/-.../.-/.-/-.../-.../-.../.-/.-/-.../-.../.-/.-/.-/.-/.-/.-/.-/.-/-.../.-/.-/-.../.-/-.../.-/.-/.-/.-/.-/.-/.-/-.../-.../.-/-.../.-/.-/.-/-.../-.../.-/.-/.-/-.../-.../.-/.-/-.../.-/.-/.-/.-/-.../.-/-.../.-/.-/-.../.-/.-/.-/-.../-.../.-/-.../.-/.-/.-/-.../.-/.-/.-/-.../.-/.-/-.../.-/-.../-.../.-/.-/-.../-.../-.../.-/-.../.-/.-/.-/-.../.-/-.../.-/-.../-.../.-/.-/.-/-.../-.../.-/-.../.-/.-/.-/-.../.-/.-/-.../.-/.-/-.../.-/.-/.-/.-/-.../-.../.-/-.../-.../.-/.-/-.../-.../.-/.-/-.../.-/.-/-.../.-/.-/.-/-.../.-/.-/-.../.-/.-/-.../.-/.-/-.../.-/-.../.-/.-/-.../-.../.-/-.../.-/.-/.-/.-/-.../-.../.-/-.../.-/.-/-.../-.../.-&#39;
+print(Decode(str).lower())
+# may_be_have_another_decodehhhhaaaaabaabbbaabbaaaaaaaabaababaaaaaaabbabaaabbaaabbaabaaaababaabaaabbabaaabaaabaababbaabbbabaaabababbaaabbabaaabaabaabaaaabbabbaabbaabaabaaabaabaabaababaabbabaaaabbabaabba
+</code></pre>
+<p>这一段ab组成的密文是培根密码，写脚本解一下培根密码</p>
+<pre><code class="python">import re
+
+s = &#39;aaaaabaabbbaabbaaaaaaaabaababaaaaaaabbabaaabbaaabbaabaaaababaabaaabbabaaabaaabaababbaabbbabaaabababbaaabbabaaabaabaabaaaabbabbaabbaabaabaaabaabaabaababaabbabaaaabbabaabba&#39;
+
+CODE_TABLE = &#123;
+    &#39;a&#39;: &#39;aaaaa&#39;,
+    &#39;b&#39;: &#39;aaaab&#39;,
+    &#39;c&#39;: &#39;aaaba&#39;,
+    &#39;d&#39;: &#39;aaabb&#39;,
+    &#39;e&#39;: &#39;aabaa&#39;,
+    &#39;f&#39;: &#39;aabab&#39;,
+    &#39;g&#39;: &#39;aabba&#39;,
+    &#39;h&#39;: &#39;aabbb&#39;,
+    &#39;i&#39;: &#39;abaaa&#39;,
+    &#39;j&#39;: &#39;abaab&#39;,
+    &#39;k&#39;: &#39;ababa&#39;,
+    &#39;l&#39;: &#39;ababb&#39;,
+    &#39;m&#39;: &#39;abbaa&#39;,
+    &#39;n&#39;: &#39;abbab&#39;,
+    &#39;o&#39;: &#39;abbba&#39;,
+    &#39;p&#39;: &#39;abbbb&#39;,
+    &#39;q&#39;: &#39;baaaa&#39;,
+    &#39;r&#39;: &#39;baaab&#39;,
+    &#39;s&#39;: &#39;baaba&#39;,
+    &#39;t&#39;: &#39;baabb&#39;,
+    &#39;u&#39;: &#39;babaa&#39;,
+    &#39;v&#39;: &#39;babab&#39;,
+    &#39;w&#39;: &#39;babba&#39;,
+    &#39;x&#39;: &#39;babbb&#39;,
+    &#39;y&#39;: &#39;bbaaa&#39;,
+    &#39;z&#39;: &#39;bbaab&#39;
+&#125;
+
+
+def bacondecode(bacon):
+    msg = &#39;&#39;
+    codes = re.findall(r&#39;.&#123;5&#125;&#39;, bacon)
+    for code in codes:
+        if code == &#39;&#39;:
+            msg += &#39; &#39;
+        else:
+            UNCODE = dict(map(lambda t: (t[1], t[0]), CODE_TABLE.items()))
+            msg += UNCODE[code]
+    return msg
+
+
+flag = bacondecode(s)
+print(&#39;flag is &#39;, flag)
+# flag is  attackanddefenceworldisinteresting
+</code></pre>
+<h4 id="easychallenge"><a href="#easychallenge" class="headerlink" title="easychallenge"></a>easychallenge</h4><p><code>re</code>和<code>crypto</code>一家石锤</p>
+<p><code>pyc</code>没做任何修改，直接<code>uncompyle6</code>反编译，得到结果改一下算法逆向计算一下得到结果</p>
+<pre><code class="python">import base64
+
+
+def encode1(ans):
+    s = &#39;&#39;
+    for i in ans:
+        x = ord(i) - 25
+        x = x ^ 36
+        s += chr(x)
+
+    return s
+
+
+def encode2(ans):
+    s = &#39;&#39;
+    for i in ans:
+        x = i ^ 36
+        x = x - 36
+        s += chr(x)
+
+    return s
+
+
+def encode3(ans):
+    return base64.b32decode(ans)
+
+
+flag = &#39; &#39;
+final = &#39;UC7KOWVXWVNKNIC2XCXKHKK2W5NLBKNOUOSK3LNNVWW3E===&#39;
+print(encode1(encode2(encode3(final))))
+# cyberpeace&#123;interestinghhhhh&#125;
+</code></pre>
+<h4 id="Normal-RSA"><a href="#Normal-RSA" class="headerlink" title="Normal_RSA"></a>Normal_RSA</h4><p>这题算是进入了基本的<code>crypto</code>领域了</p>
+<p>首先作为一个脚本小子，直接拿别人的工具就可以跑出结果</p>
+<p><a target="_blank" rel="noopener" href="https://github.com/3summer/CTF-RSA-tool">CTF-RSA-tool</a>很不错，虽然里面大部分的解法目前我还都不会</p>
+<hr>
+<p>正常解法</p>
+<p>首先用<code>openssl</code>解析一下公钥</p>
+<pre><code class="bash">-&gt; openssl rsa -pubin -text -modulus -in pubkey.pem
+RSA Public-Key: (256 bit)
+Modulus:
+    00:c2:63:6a:e5:c3:d8:e4:3f:fb:97:ab:09:02:8f:
+    1a:ac:6c:0b:f6:cd:3d:70:eb:ca:28:1b:ff:e9:7f:
+    be:30:dd
+Exponent: 65537 (0x10001)
+Modulus=C2636AE5C3D8E43FFB97AB09028F1AAC6C0BF6CD3D70EBCA281BFFE97FBE30DD
+writing RSA key
+-----BEGIN PUBLIC KEY-----
+MDwwDQYJKoZIhvcNAQEBBQADKwAwKAIhAMJjauXD2OQ/+5erCQKPGqxsC/bNPXDr
+yigb/+l/vjDdAgMBAAE=
+-----END PUBLIC KEY-----
+</code></pre>
+<p>得到了<code>n=0xC2636AE5C3D8E43FFB97AB09028F1AAC6C0BF6CD3D70EBCA281BFFE97FBE30DD</code>，<code>e=65537</code>，这个n不是很大，所以<code>yafu</code>直接分解，很快得到<code>p</code>和<code>q</code></p>
+<pre><code class="bash">P39 = 319576316814478949870590164193048041239
+P39 = 275127860351348928173285174381581152299
+</code></pre>
+<p>然后正常<code>rsa</code>的套路跑一边很快就可以得到结果</p>
+<pre><code class="python">import gmpy2
+
+
+def bytes2num(b):
+    s = &#39;0x&#39;
+    for x in b:
+        tmp = str(hex(x))[2:]
+        if len(tmp) == 2:
+            pass
+        else:
+            tmp = &#39;0&#39; + tmp
+        #print(tmp)
+        s += tmp
+        num = int(s, 16)
+    return num
+
+
+def num2str(n):
+    tmp = str(hex(n))[2:]
+    if len(tmp) % 2 == 0:
+        pass
+    else:
+        tmp = &#39;0&#39; + tmp
+    s = &#39;&#39;
+    for i in range(0, len(tmp), 2):
+        temp = tmp[i] + tmp[i + 1]
+        s += chr(int(temp, 16))
+    return s
+
+
+r = open(&quot;flag.enc&quot;, &quot;rb&quot;)
+r = r.read()
+r = bytes2num(r)
+e = 65537
+n = 87924348264132406875276140514499937145050893665602592992418171647042491658461
+p = 275127860351348928173285174381581152299
+q = 319576316814478949870590164193048041239
+d = gmpy2.invert(e, (p - 1) * (q - 1))
+#print(d)
+m = pow(r, int(d), n)
+print(num2str(m))
+# PCTF&#123;256b_i5_m3dium&#125;
+</code></pre>
+
           
             <div class='article_footer'>
               
@@ -676,10 +961,10 @@ print(dec(encrypted, num))</code></pre>
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-05-27T14:08:38+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-05-28T17:22:43+08:00">
   <a class='notlink'>
     <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
-    <p>更新于：2020年5月27日</p>
+    <p>更新于：2020年5月28日</p>
   </a>
 </div>
 
@@ -704,9 +989,9 @@ print(dec(encrypted, num))</code></pre>
   <div class="-mob-share-list share-body">
     
       
-        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer"
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
           
-          href="http://connect.qq.com/widget/shareqq/index.html?url=http://blog.rycbar.club/2020/05/27/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-Crypto-wp/&title=攻防世界_Crypto_wp - My Tiny Ideas&summary=开始学Crypto主要有两个原因，第一还是受了最近两场比赛的影响，安恒月赛的时候真就提前ak了re之后看着掉排名，GKCTF也是只上了单榜；第二就是最近做re的时候，经常会做到最后遇到加密算法还是抓瞎，所以开始接触了密码学的东西，拿Crypto练习练习"
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://blog.rycbar.club/2020/05/27/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-Crypto-wp/&title=攻防世界_Crypto_wp - My Tiny Ideas&summary=开始学Crypto主要有两个原因，第一还是受了最近两场比赛的影响，安恒月赛的时候真就提前ak了re之后看着掉排名，GKCTF也是只上了单榜；第二就是最近做re的时候，经常会做到最后遇到加密算法还是抓瞎，所以开始接触了密码学的东西，拿Crypto练习练习"
           
           >
           
@@ -716,9 +1001,9 @@ print(dec(encrypted, num))</code></pre>
       
     
       
-        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer"
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
           
-          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://blog.rycbar.club/2020/05/27/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-Crypto-wp/&title=攻防世界_Crypto_wp - My Tiny Ideas&summary=开始学Crypto主要有两个原因，第一还是受了最近两场比赛的影响，安恒月赛的时候真就提前ak了re之后看着掉排名，GKCTF也是只上了单榜；第二就是最近做re的时候，经常会做到最后遇到加密算法还是抓瞎，所以开始接触了密码学的东西，拿Crypto练习练习"
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://blog.rycbar.club/2020/05/27/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-Crypto-wp/&title=攻防世界_Crypto_wp - My Tiny Ideas&summary=开始学Crypto主要有两个原因，第一还是受了最近两场比赛的影响，安恒月赛的时候真就提前ak了re之后看着掉排名，GKCTF也是只上了单榜；第二就是最近做re的时候，经常会做到最后遇到加密算法还是抓瞎，所以开始接触了密码学的东西，拿Crypto练习练习"
           
           >
           
@@ -728,9 +1013,9 @@ print(dec(encrypted, num))</code></pre>
       
     
       
-        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer"
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
           
-          href="http://service.weibo.com/share/share.php?url=http://blog.rycbar.club/2020/05/27/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-Crypto-wp/&title=攻防世界_Crypto_wp - My Tiny Ideas&summary=开始学Crypto主要有两个原因，第一还是受了最近两场比赛的影响，安恒月赛的时候真就提前ak了re之后看着掉排名，GKCTF也是只上了单榜；第二就是最近做re的时候，经常会做到最后遇到加密算法还是抓瞎，所以开始接触了密码学的东西，拿Crypto练习练习"
+          target="_blank" href="http://service.weibo.com/share/share.php?url=http://blog.rycbar.club/2020/05/27/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-Crypto-wp/&title=攻防世界_Crypto_wp - My Tiny Ideas&summary=开始学Crypto主要有两个原因，第一还是受了最近两场比赛的影响，安恒月赛的时候真就提前ak了re之后看着掉排名，GKCTF也是只上了单榜；第二就是最近做re的时候，经常会做到最后遇到加密算法还是抓瞎，所以开始接触了密码学的东西，拿Crypto练习练习"
           
           >
           
@@ -829,7 +1114,7 @@ print(dec(encrypted, num))</code></pre>
 
 
     <div class='content'>
-      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#新手区"><span class="toc-text">新手区</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#base64"><span class="toc-text">base64</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Caeser"><span class="toc-text">Caeser</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Morse"><span class="toc-text">Morse</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#混合编码"><span class="toc-text">混合编码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#幂数加密"><span class="toc-text">幂数加密</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Railfence"><span class="toc-text">Railfence</span></a></li></ol></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%96%B0%E6%89%8B%E5%8C%BA"><span class="toc-text">新手区</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#base64"><span class="toc-text">base64</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Caeser"><span class="toc-text">Caeser</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Morse"><span class="toc-text">Morse</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B7%B7%E5%90%88%E7%BC%96%E7%A0%81"><span class="toc-text">混合编码</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%B9%82%E6%95%B0%E5%8A%A0%E5%AF%86"><span class="toc-text">幂数加密</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Railfence"><span class="toc-text">Railfence</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#easy-RSA"><span class="toc-text">easy_RSA</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%8D%E4%BB%85%E4%BB%85%E6%98%AFMorse"><span class="toc-text">不仅仅是Morse</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#easychallenge"><span class="toc-text">easychallenge</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Normal-RSA"><span class="toc-text">Normal_RSA</span></a></li></ol></li></ol>
     </div>
   </section>
 
@@ -900,13 +1185,13 @@ print(dec(encrypted, num))</code></pre>
       
     
       
-        <div><p>博客内容遵循 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</a></p>
+        <div><p>博客内容遵循 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</a></p>
 </div>
       
     
       
         <div class='copyright'>
-        <p><a href="https://blog.rycbar.club">Copyright © 2017-2020 rycbar</a></p>
+        <p><a href="https://blog.rycbar.club/">Copyright © 2017-2020 rycbar</a></p>
 
         </div>
       

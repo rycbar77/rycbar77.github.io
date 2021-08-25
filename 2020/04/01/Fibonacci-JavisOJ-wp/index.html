@@ -428,7 +428,7 @@
         <div class="article-entry" itemprop="articleBody">
           
           <p>这题涉及到<code>jar2exe</code>的知识，所以单独拿出来写一下，顺便写一写<code>jar2exe</code>怎么入手</p>
-<a id="more"></a>
+<span id="more"></span>
 
 <blockquote>
 <p>这种方法并不适用于<code>jar2exe</code>当前的最新版(2.1.7)，经过我的测试2.1.2试可用的，而且由于2.1.2的第三种加密方式还没有这么激进，后续其它版本应该也是支持的，还需要再试验。</p>
@@ -463,17 +463,17 @@ package top.phrack.ctf.Fibonacci;
 
 import java.util.Scanner;
 
-public class Fibonacci {
-    public Fibonacci() {
-    }
+public class Fibonacci &#123;
+    public Fibonacci() &#123;
+    &#125;
 
-    private static void heheda() {
+    private static void heheda() &#123;
         String bb = new String(b.x);
         String cb = new String(b.y);
         hello(cb, bb);
-    }
+    &#125;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) &#123;
         System.out.println(&quot;来让我们玩一个数列游戏：&quot;);
         System.out.println(&quot;a[0]=0,a[1]=1&quot;);
         System.out.println(&quot;a[2]=1,a[3]=2&quot;);
@@ -483,38 +483,38 @@ public class Fibonacci {
         Scanner scan = new Scanner(System.in);
         String read = scan.nextLine();
         System.out.println(&quot;答案错误！！&quot;);
-    }
+    &#125;
 
-    private static String hello(String aaa, String bbb) {
+    private static String hello(String aaa, String bbb) &#123;
         int[] iS = new int[256];
         byte[] iK = new byte[256];
 
         int j;
-        for(j = 0; j &lt; 256; iS[j] = j++) {
-        }
+        for(j = 0; j &lt; 256; iS[j] = j++) &#123;
+        &#125;
 
         int j = true;
 
-        for(short i = 0; i &lt; 256; ++i) {
+        for(short i = 0; i &lt; 256; ++i) &#123;
             iK[i] = (byte)bbb.charAt(i % bbb.length());
-        }
+        &#125;
 
         j = 0;
 
         int i;
-        for(i = 0; i &lt; 255; ++i) {
+        for(i = 0; i &lt; 255; ++i) &#123;
             j = (j + iS[i] + iK[i]) % 256;
             int temp = iS[i];
             iS[i] = iS[j];
             iS[j] = temp;
-        }
+        &#125;
 
         i = 0;
         j = 0;
         char[] iInputChar = aaa.toCharArray();
         char[] iOutputChar = new char[iInputChar.length];
 
-        for(short x = 0; x &lt; iInputChar.length; ++x) {
+        for(short x = 0; x &lt; iInputChar.length; ++x) &#123;
             i = (i + 1) % 256;
             j = (j + iS[i]) % 256;
             int temp = iS[i];
@@ -524,11 +524,12 @@ public class Fibonacci {
             int iY = iS[t];
             char iCY = (char)iY;
             iOutputChar[x] = (char)(iInputChar[x] ^ iCY);
-        }
+        &#125;
 
         return new String(iOutputChar);
-    }
-}</code></pre>
+    &#125;
+&#125;
+</code></pre>
 <p>由此可见什么斐波那契数列并没有什么用，真正有用的是<code>heheda()</code>和<code>hello()</code>，其中调用了<code>b</code>类的数据</p>
 <pre><code class="java">//
 // Source code recreated from a .class file by IntelliJ IDEA
@@ -537,55 +538,56 @@ public class Fibonacci {
 
 package top.phrack.ctf.Fibonacci;
 
-public class b {
-    public static char[] x = new char[]{&#39;}&#39;, &#39;\u0010&#39;, &#39;ý&#39;, &#39;É&#39;, &#39;\u000b&#39;, &#39;\u0016&#39;, &#39;9&#39;, &#39;D&#39;, &#39;7&#39;, &#39;,&#39;, &#39; &#39;, &#39;Í&#39;};
-    public static char[] y = new char[]{&#39;t&#39;, &#39;\u0096&#39;, &#39;®&#39;, &#39;D&#39;, &#39;´&#39;, &#39;Z&#39;, &#39;Ö&#39;, &#39;½&#39;, &#39;O&#39;, &#39;5&#39;, &#39;\u0085&#39;, &#39;\n&#39;, &#39;+&#39;, &#39;+&#39;, &#39;½&#39;, &#39;Ù&#39;, &#39;O&#39;, &#39;`&#39;, &#39;\u0013&#39;, &#39;\u008a&#39;, &#39;Ç&#39;, &#39;\u0080&#39;, &#39;@&#39;, &#39;Ü&#39;, &#39;Þ&#39;, &#39;ê&#39;, &#39;\u000b&#39;, &#39;¯&#39;, &#39;ä&#39;, &#39;\u0081&#39;};
+public class b &#123;
+    public static char[] x = new char[]&#123;&#39;&#125;&#39;, &#39;\u0010&#39;, &#39;ý&#39;, &#39;É&#39;, &#39;\u000b&#39;, &#39;\u0016&#39;, &#39;9&#39;, &#39;D&#39;, &#39;7&#39;, &#39;,&#39;, &#39; &#39;, &#39;Í&#39;&#125;;
+    public static char[] y = new char[]&#123;&#39;t&#39;, &#39;\u0096&#39;, &#39;®&#39;, &#39;D&#39;, &#39;´&#39;, &#39;Z&#39;, &#39;Ö&#39;, &#39;½&#39;, &#39;O&#39;, &#39;5&#39;, &#39;\u0085&#39;, &#39;\n&#39;, &#39;+&#39;, &#39;+&#39;, &#39;½&#39;, &#39;Ù&#39;, &#39;O&#39;, &#39;`&#39;, &#39;\u0013&#39;, &#39;\u008a&#39;, &#39;Ç&#39;, &#39;\u0080&#39;, &#39;@&#39;, &#39;Ü&#39;, &#39;Þ&#39;, &#39;ê&#39;, &#39;\u000b&#39;, &#39;¯&#39;, &#39;ä&#39;, &#39;\u0081&#39;&#125;;
 
-    public b() {
-    }
-}</code></pre>
+    public b() &#123;
+    &#125;
+&#125;
+</code></pre>
 <p>所以直接在<code>java</code>环境里运行一下就可以了</p>
 <pre><code class="java">//Main.java
 package com.company;
 
-public class Main {
-    private static void heheda() {
+public class Main &#123;
+    private static void heheda() &#123;
         String bb = new String(b.x);
         String cb = new String(b.y);
         System.out.println(hello(cb, bb));
-    }
+    &#125;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) &#123;
         heheda();
-    }
+    &#125;
 
-    private static String hello(String aaa, String bbb) {
+    private static String hello(String aaa, String bbb) &#123;
         int[] iS = new int[256];
         byte[] iK = new byte[256];
         int j;
-        for (j = 0; j &lt; 256; iS[j] = j++) {
-        }
+        for (j = 0; j &lt; 256; iS[j] = j++) &#123;
+        &#125;
 
-        for (short i = 0; i &lt; 256; ++i) {
+        for (short i = 0; i &lt; 256; ++i) &#123;
             iK[i] = (byte) bbb.charAt(i % bbb.length());
-        }
+        &#125;
 
         j = 0;
 
         int i;
-        for (i = 0; i &lt; 255; ++i) {
+        for (i = 0; i &lt; 255; ++i) &#123;
             j = (j + iS[i] + iK[i]) % 256;
             int temp = iS[i];
             iS[i] = iS[j];
             iS[j] = temp;
-        }
+        &#125;
 
         i = 0;
         j = 0;
         char[] iInputChar = aaa.toCharArray();
         char[] iOutputChar = new char[iInputChar.length];
 
-        for (short x = 0; x &lt; iInputChar.length; ++x) {
+        for (short x = 0; x &lt; iInputChar.length; ++x) &#123;
             i = (i + 1) % 256;
             j = (j + iS[i]) % 256;
             int temp = iS[i];
@@ -595,24 +597,27 @@ public class Main {
             int iY = iS[t];
             char iCY = (char) iY;
             iOutputChar[x] = (char) (iInputChar[x] ^ iCY);
-        }
+        &#125;
 
         return new String(iOutputChar);
-    }
-}
+    &#125;
+&#125;
 
 //b.java
 package com.company;
 
-public class b {
-    public static char[] x = new char[]{&#39;}&#39;, &#39;\u0010&#39;, &#39;ý&#39;, &#39;É&#39;, &#39;\u000b&#39;, &#39;\u0016&#39;, &#39;9&#39;, &#39;D&#39;, &#39;7&#39;, &#39;,&#39;, &#39; &#39;, &#39;Í&#39;};
-    public static char[] y = new char[]{&#39;t&#39;, &#39;\u0096&#39;, &#39;®&#39;, &#39;D&#39;, &#39;´&#39;, &#39;Z&#39;, &#39;Ö&#39;, &#39;½&#39;, &#39;O&#39;, &#39;5&#39;, &#39;\u0085&#39;, &#39;\n&#39;, &#39;+&#39;, &#39;+&#39;, &#39;½&#39;, &#39;Ù&#39;, &#39;O&#39;, &#39;`&#39;, &#39;\u0013&#39;, &#39;\u008a&#39;, &#39;Ç&#39;, &#39;\u0080&#39;, &#39;@&#39;, &#39;Ü&#39;, &#39;Þ&#39;, &#39;ê&#39;, &#39;\u000b&#39;, &#39;¯&#39;, &#39;ä&#39;, &#39;\u0081&#39;};
+public class b &#123;
+    public static char[] x = new char[]&#123;&#39;&#125;&#39;, &#39;\u0010&#39;, &#39;ý&#39;, &#39;É&#39;, &#39;\u000b&#39;, &#39;\u0016&#39;, &#39;9&#39;, &#39;D&#39;, &#39;7&#39;, &#39;,&#39;, &#39; &#39;, &#39;Í&#39;&#125;;
+    public static char[] y = new char[]&#123;&#39;t&#39;, &#39;\u0096&#39;, &#39;®&#39;, &#39;D&#39;, &#39;´&#39;, &#39;Z&#39;, &#39;Ö&#39;, &#39;½&#39;, &#39;O&#39;, &#39;5&#39;, &#39;\u0085&#39;, &#39;\n&#39;, &#39;+&#39;, &#39;+&#39;, &#39;½&#39;, &#39;Ù&#39;, &#39;O&#39;, &#39;`&#39;, &#39;\u0013&#39;, &#39;\u008a&#39;, &#39;Ç&#39;, &#39;\u0080&#39;, &#39;@&#39;, &#39;Ü&#39;, &#39;Þ&#39;, &#39;ê&#39;, &#39;\u000b&#39;, &#39;¯&#39;, &#39;ä&#39;, &#39;\u0081&#39;&#125;;
 
-    public b() {
-    }
-}</code></pre>
+    public b() &#123;
+    &#125;
+&#125;
+</code></pre>
 <p>运行直接输出flag</p>
-<pre><code>PCTF{1ts_not_5c2ipt_Chall3nge}</code></pre>
+<pre><code>PCTF&#123;1ts_not_5c2ipt_Chall3nge&#125;
+</code></pre>
+
           
             <div class='article_footer'>
               
@@ -701,9 +706,9 @@ public class b {
   <div class="-mob-share-list share-body">
     
       
-        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer"
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
           
-          href="http://connect.qq.com/widget/shareqq/index.html?url=http://blog.rycbar.club/2020/04/01/Fibonacci-JavisOJ-wp/&title=Fibonacci-JavisOJ-wp - My Tiny Ideas&summary=这题涉及到jar2exe的知识，所以单独拿出来写一下，顺便写一写jar2exe怎么入手"
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://blog.rycbar.club/2020/04/01/Fibonacci-JavisOJ-wp/&title=Fibonacci-JavisOJ-wp - My Tiny Ideas&summary=这题涉及到jar2exe的知识，所以单独拿出来写一下，顺便写一写jar2exe怎么入手"
           
           >
           
@@ -713,9 +718,9 @@ public class b {
       
     
       
-        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer"
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
           
-          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://blog.rycbar.club/2020/04/01/Fibonacci-JavisOJ-wp/&title=Fibonacci-JavisOJ-wp - My Tiny Ideas&summary=这题涉及到jar2exe的知识，所以单独拿出来写一下，顺便写一写jar2exe怎么入手"
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://blog.rycbar.club/2020/04/01/Fibonacci-JavisOJ-wp/&title=Fibonacci-JavisOJ-wp - My Tiny Ideas&summary=这题涉及到jar2exe的知识，所以单独拿出来写一下，顺便写一写jar2exe怎么入手"
           
           >
           
@@ -725,9 +730,9 @@ public class b {
       
     
       
-        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer"
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
           
-          href="http://service.weibo.com/share/share.php?url=http://blog.rycbar.club/2020/04/01/Fibonacci-JavisOJ-wp/&title=Fibonacci-JavisOJ-wp - My Tiny Ideas&summary=这题涉及到jar2exe的知识，所以单独拿出来写一下，顺便写一写jar2exe怎么入手"
+          target="_blank" href="http://service.weibo.com/share/share.php?url=http://blog.rycbar.club/2020/04/01/Fibonacci-JavisOJ-wp/&title=Fibonacci-JavisOJ-wp - My Tiny Ideas&summary=这题涉及到jar2exe的知识，所以单独拿出来写一下，顺便写一写jar2exe怎么入手"
           
           >
           
@@ -836,7 +841,7 @@ loo...</p>
 
 
     <div class='content'>
-      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#准备工作"><span class="toc-text">准备工作</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Jar2Exe"><span class="toc-text">Jar2Exe</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Level1"><span class="toc-text">Level1</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Level2"><span class="toc-text">Level2</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Level3"><span class="toc-text">Level3</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Dump"><span class="toc-text">Dump</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#逆向"><span class="toc-text">逆向</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%87%86%E5%A4%87%E5%B7%A5%E4%BD%9C"><span class="toc-text">准备工作</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Jar2Exe"><span class="toc-text">Jar2Exe</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#Level1"><span class="toc-text">Level1</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Level2"><span class="toc-text">Level2</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#Level3"><span class="toc-text">Level3</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Dump"><span class="toc-text">Dump</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E9%80%86%E5%90%91"><span class="toc-text">逆向</span></a></li></ol>
     </div>
   </section>
 
@@ -907,13 +912,13 @@ loo...</p>
       
     
       
-        <div><p>博客内容遵循 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</a></p>
+        <div><p>博客内容遵循 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</a></p>
 </div>
       
     
       
         <div class='copyright'>
-        <p><a href="https://blog.rycbar.club">Copyright © 2017-2020 rycbar</a></p>
+        <p><a href="https://blog.rycbar.club/">Copyright © 2017-2020 rycbar</a></p>
 
         </div>
       

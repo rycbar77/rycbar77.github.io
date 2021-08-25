@@ -428,31 +428,34 @@
         <div class="article-entry" itemprop="articleBody">
           
           <p>tar-tar-binks-攻防世界</p>
-<a id="more"></a>
+<span id="more"></span>
 
 <p>IDA打开发现函数很多，发现一个函数<code>base64_encode</code>，尝试对损坏的tar文件里面的部分进行base64解码，找到一串奇怪的字符</p>
-<pre><code>F5D1,4D6B,ED6A,08A6,38DD,F7FA,609E,EBC4,E55F,E6D1,7C89,ED5B,0871,1A69,5D58,72DE,224B,3AA6,0845,7DD6,58FB,E9CC,0A2D,76B8,ED60,251A,1F6B,32CC,E78D,12FA,201A,E889,2D25,922A,4BC5,F5FF,F8E5,C79B,3A77,4BDB,EA11,5941,58BD,3A95,F5C9,A225,AD40,F8BD,095D,70B6,458C,E7A9,EA68,252F,094B,5E41,0969,6015,5ED5,F6E5,59B9,7CAF,66DF,265B,7837,57B4,7CAF,AED9,F707,6A3C,F8E5,F509,7C8B,0915,2235,336F,33E9,2D14,7C91,5804,83E5,E78D,F4EA,0874,ED6B,4B35,E839,57B4,E77C,EA68,2525,AD41,ED6F,3A4A,4BCC,6015,F440,0858,3AA6,7809,671D,0874,EA77,63AF,2E91,5845,F6C4,086D,7795,3939,57B4,7C89,82DC,32ED,B994,C7AF,9135,0E65,1B66,ED5B,3235,6577,5A80,3AD3,E776,1EE5,AD41,ED59,864C,70B4,3876,ED67,64D6,F8E5,F505,EAD9,7C9C,32ED,B994,B4EF,0C6C,F665,F5F5,9047,521A,E99E,EA68,252F,9D09,76B7,E776,1ED0,095D,0D4D,5D5A,087B,2005,1526,7E76,85AD,78B9,E8B6,782C,251C,32ED,7F68,EBE3,EA41,57FD,ED59,846D,7A05,B994,BB78,ED6A,08A6,38DD,3B5D,7E45,E839,738C,E9CC,0A2D,764A,609E,E8B6,EA68,2524,E6BB,7C9C,639F,3A95,0895,F40F,8328,EA69,7EE5,F8BD,7F7D,0D6D,70B6,458C,E8B6,EA68,251C,6065,B35F,C789,5845,7F7D,6D89,4C6E,A20E,60B5,7E45,ED59,F707,69EF,922A,4BC5,F6EF,8635,F4B9,57B4,7CF8,ED60,2510,095D,20AF,3545,F40F,8328,EA41,58A4,225D,7E7C,4BDB,F8BD,082C,EAE7,5D57,5D50,0914,E7C7,8624,7CF8,ED60,2511,7C8E,7159,8416,7EF9,E7E5,774A,3895,1EC9,7C90,09B9,58BD,5FF5,E99E,EA68,250A,224C,EA3D,73F5,7C89,53A6,3190,3B5D,1526,7DD5,666A,0919,225F,CDEF,79E1,7E7B,7E6B,082C,A277,E885,E8BB,E775,5FF7,EA68,251B,7FDF,589D,7A05,779A,8A5A,7C91,5D5C,32ED,F628,2195,F49A,0C77,EAE1,59B9,58BD,E570,E99E,EA3D,73F9,13AD,2BF5,225D,7F7D,70B6,4A9C,337A,1EC9,4D05,7E75,2578,ED59,38E5,1ECA,A210,3B5D,779A,8A6F,C790,2518,4B41,7C89,5D49,4D05,152D,73C5,79F9,4BED,913C,37C9,5D4D,53C8,0941,7C97,5D5B,346A,82D8,5F36,801F,C800,</code></pre><p>最后的一个<code>,</code>很可疑，应该是输出的时候按照固定格式输出的，所以搜索一下字符串</p>
+<pre><code>F5D1,4D6B,ED6A,08A6,38DD,F7FA,609E,EBC4,E55F,E6D1,7C89,ED5B,0871,1A69,5D58,72DE,224B,3AA6,0845,7DD6,58FB,E9CC,0A2D,76B8,ED60,251A,1F6B,32CC,E78D,12FA,201A,E889,2D25,922A,4BC5,F5FF,F8E5,C79B,3A77,4BDB,EA11,5941,58BD,3A95,F5C9,A225,AD40,F8BD,095D,70B6,458C,E7A9,EA68,252F,094B,5E41,0969,6015,5ED5,F6E5,59B9,7CAF,66DF,265B,7837,57B4,7CAF,AED9,F707,6A3C,F8E5,F509,7C8B,0915,2235,336F,33E9,2D14,7C91,5804,83E5,E78D,F4EA,0874,ED6B,4B35,E839,57B4,E77C,EA68,2525,AD41,ED6F,3A4A,4BCC,6015,F440,0858,3AA6,7809,671D,0874,EA77,63AF,2E91,5845,F6C4,086D,7795,3939,57B4,7C89,82DC,32ED,B994,C7AF,9135,0E65,1B66,ED5B,3235,6577,5A80,3AD3,E776,1EE5,AD41,ED59,864C,70B4,3876,ED67,64D6,F8E5,F505,EAD9,7C9C,32ED,B994,B4EF,0C6C,F665,F5F5,9047,521A,E99E,EA68,252F,9D09,76B7,E776,1ED0,095D,0D4D,5D5A,087B,2005,1526,7E76,85AD,78B9,E8B6,782C,251C,32ED,7F68,EBE3,EA41,57FD,ED59,846D,7A05,B994,BB78,ED6A,08A6,38DD,3B5D,7E45,E839,738C,E9CC,0A2D,764A,609E,E8B6,EA68,2524,E6BB,7C9C,639F,3A95,0895,F40F,8328,EA69,7EE5,F8BD,7F7D,0D6D,70B6,458C,E8B6,EA68,251C,6065,B35F,C789,5845,7F7D,6D89,4C6E,A20E,60B5,7E45,ED59,F707,69EF,922A,4BC5,F6EF,8635,F4B9,57B4,7CF8,ED60,2510,095D,20AF,3545,F40F,8328,EA41,58A4,225D,7E7C,4BDB,F8BD,082C,EAE7,5D57,5D50,0914,E7C7,8624,7CF8,ED60,2511,7C8E,7159,8416,7EF9,E7E5,774A,3895,1EC9,7C90,09B9,58BD,5FF5,E99E,EA68,250A,224C,EA3D,73F5,7C89,53A6,3190,3B5D,1526,7DD5,666A,0919,225F,CDEF,79E1,7E7B,7E6B,082C,A277,E885,E8BB,E775,5FF7,EA68,251B,7FDF,589D,7A05,779A,8A5A,7C91,5D5C,32ED,F628,2195,F49A,0C77,EAE1,59B9,58BD,E570,E99E,EA3D,73F9,13AD,2BF5,225D,7F7D,70B6,4A9C,337A,1EC9,4D05,7E75,2578,ED59,38E5,1ECA,A210,3B5D,779A,8A6F,C790,2518,4B41,7C89,5D49,4D05,152D,73C5,79F9,4BED,913C,37C9,5D4D,53C8,0941,7C97,5D5B,346A,82D8,5F36,801F,C800,
+</code></pre>
+<p>最后的一个<code>,</code>很可疑，应该是输出的时候按照固定格式输出的，所以搜索一下字符串</p>
 <p><img src="https://s1.ax1x.com/2020/03/25/8jEkqS.png" alt="tar-tar-binks"></p>
 <p>找到可疑的<code>%04X</code>，查一下交叉引用</p>
 <pre><code class="c++"> v10 = (char *)malloc(0x2710uLL);
   __memcpy_chk(v10, a2, v18, -1LL);
   if ( v18 &gt; 0x200 )
-  {
+  &#123;
     sub_1023457(v10, v18);
     v9 = (char *)malloc(0x2710uLL);
     __memset_chk(v10, 0LL, 10000LL, -1LL);
     v8 = 0;
     __memset_chk(v9, 0LL, 10000LL, -1LL);
     while ( v8 &lt; posi )
-    {
+    &#123;
       v3 = strlen(v9);
       __sprintf_chk(&amp;v9[v3], 0, 0xFFFFFFFFFFFFFFFFLL, &quot;%04X,&quot;, sub_101[v8++]);
-    }
+    &#125;
     __memcpy_chk(v10, v9, v18, -1LL);
-  }</code></pre>
+  &#125;
+</code></pre>
 <p>只有在这一处引用了，输出出来的奇怪的16进制数应该是<code>sub_101</code>里面的数，再查看一下<code>sub_101</code>的交叉引用</p>
 <pre><code class="c++">unsigned int *__fastcall sub_1023458(_DWORD *a1)
-{
+&#123;
   unsigned int *result; // rax
   int v2; // ST04_4
   int v3; // esi
@@ -462,10 +465,11 @@
   v3 = posi++;
   sub_101[v3] = v2;
   return result;
-}</code></pre>
+&#125;
+</code></pre>
 <p>在这里进行了计算并写入，再一次查看交叉引用看看<code>a1</code>是什么</p>
 <pre><code class="c++">__int64 __fastcall sub_1023457(char *a1, int a2)
-{
+&#123;
   int v2; // eax
   char *v3; // rax
   int v5; // [rsp+4h] [rbp-2Ch]
@@ -478,7 +482,7 @@
   v7 = a2;
   v6 = 3;
   while ( 1 )
-  {
+  &#123;
     v2 = v7--;
     if ( !v2 )
       break;
@@ -486,26 +490,27 @@
     v5 = *v3;
     pending = 1;
     while ( pending )
-    {
+    &#123;
       v9[--v6] = sub_1023456(v5);
       if ( !v6 )
-      {
+      &#123;
         sub_1023458(v9);
         v6 = 3;
-      }
-    }
-  }
+      &#125;
+    &#125;
+  &#125;
   if ( v6 != 3 )
-  {
+  &#123;
     while ( v6 != -1 )
       v9[--v6] = 0;
     sub_1023458(v9);
-  }
+  &#125;
   return __stack_chk_guard;
-}</code></pre>
+&#125;
+</code></pre>
 <p><code>v9</code>每三位进行上面函数的操作，所以看看<code>v9</code>是怎么得到的</p>
 <pre><code class="c++">__int64 __fastcall sub_1023456(int a1)
-{
+&#123;
   int v1; // ST04_4
   int i; // [rsp+0h] [rbp-Ch]
   int v4; // [rsp+4h] [rbp-8h]
@@ -513,35 +518,36 @@
 
   v4 = a1;
   if ( sub_1023456_shifted == -1 )
-  {
+  &#123;
     if ( a1 == 126 )
       v4 = 0;
     for ( i = 0; i &lt; 39; ++i )
-    {
+    &#123;
       if ( ctable[i] == v4 )
-      {
+      &#123;
         pending = 0;
         return (unsigned int)i;
-      }
+      &#125;
       if ( ctable[i + 39] == v4 )
-      {
+      &#123;
         pending = 1;
         sub_1023456_shifted = i;
         return 39;
-      }
-    }
+      &#125;
+    &#125;
     pending = 0;
     v5 = 37;
-  }
+  &#125;
   else
-  {
+  &#123;
     v1 = sub_1023456_shifted;
     sub_1023456_shifted = -1;
     pending = 0;
     v5 = v1;
-  }
+  &#125;
   return v5;
-}</code></pre>
+&#125;
+</code></pre>
 <p>有一个字母表<code>ctable</code>，找到其中的索引，39以下直接返回索引值，39往上返回值分为两部分，一部分是39，另一部分是索引值<code>i</code>，之所以这么做其实是为了降低难度，使前面的三元一次方程有唯一解，把整个过程逆过来就得到了真正的<code>flag.txt</code></p>
 <p><del>这里用来批评攻防世界，题目明明有说明最后使md5值怎么到这就没了</del></p>
 <pre><code class="python">target = [0xF5D1, 0x4D6B, 0xED6A, 0x08A6, 0x38DD, 0xF7FA, 0x609E, 0xEBC4, 0xE55F, 0xE6D1, 0x7C89, 0xED5B, 0x0871,
@@ -604,12 +610,16 @@ for i in t2:
     if ctable[i] != 0x00:
         flag += chr(ctable[i])
 
-print(flag)</code></pre>
+print(flag)
+</code></pre>
 <p>输出的内容为</p>
-<pre><code>Milos Raonic (born 1990) is a Canadian professional tennis player. He reached a career high world No. 4 singles ranking in May 2015, as ranked by the Association of Tennis Professionals (ATP). His career highlights include a Grand Slam final at the 2016 Wimbledon Championships and two Grand Slam semifinals at the 2014 Wimbledon Championships and 2016 Australian Open. He was the 2011 ATP Newcomer of the Year, and has been ranked continuously inside the top 20 since August 2012. Raonic is the first player born in the 1990s to win an ATP title, to be ranked in the top 10, and to qualify for the ATP World Tour Finals. He has eight ATP singles titles, all won on hard courts. He is frequently described as having one of the best serves among his contemporaries. Statistically, he is among the strongest servers in the Open Era, winning 91p of service games to rank third all time. Aided by his serve, he plays an all court style with an emphasis on short points.</code></pre><p>找到原题发现是求<code>md5</code>，然后发现求<code>md5</code>还求出来好几个……</p>
+<pre><code>Milos Raonic (born 1990) is a Canadian professional tennis player. He reached a career high world No. 4 singles ranking in May 2015, as ranked by the Association of Tennis Professionals (ATP). His career highlights include a Grand Slam final at the 2016 Wimbledon Championships and two Grand Slam semifinals at the 2014 Wimbledon Championships and 2016 Australian Open. He was the 2011 ATP Newcomer of the Year, and has been ranked continuously inside the top 20 since August 2012. Raonic is the first player born in the 1990s to win an ATP title, to be ranked in the top 10, and to qualify for the ATP World Tour Finals. He has eight ATP singles titles, all won on hard courts. He is frequently described as having one of the best serves among his contemporaries. Statistically, he is among the strongest servers in the Open Era, winning 91p of service games to rank third all time. Aided by his serve, he plays an all court style with an emphasis on short points.
+</code></pre>
+<p>找到原题发现是求<code>md5</code>，然后发现求<code>md5</code>还求出来好几个……</p>
 <p>正确的那一个</p>
 <pre><code class="bash">-&gt; python3 common.py | md5sum
-2c8cd31daeba8753815851f13e6370b3  -</code></pre>
+2c8cd31daeba8753815851f13e6370b3  -
+</code></pre>
 <p><del>这种时候应该找出题人py一个flag</del></p>
 
           
@@ -700,9 +710,9 @@ print(flag)</code></pre>
   <div class="-mob-share-list share-body">
     
       
-        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer"
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
           
-          href="http://connect.qq.com/widget/shareqq/index.html?url=http://blog.rycbar.club/2020/03/25/tar-tar-binks-%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C/&title=tar-tar-binks-攻防世界 - My Tiny Ideas&summary=tar-tar-binks-攻防世界"
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://blog.rycbar.club/2020/03/25/tar-tar-binks-%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C/&title=tar-tar-binks-攻防世界 - My Tiny Ideas&summary=tar-tar-binks-攻防世界"
           
           >
           
@@ -712,9 +722,9 @@ print(flag)</code></pre>
       
     
       
-        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer"
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
           
-          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://blog.rycbar.club/2020/03/25/tar-tar-binks-%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C/&title=tar-tar-binks-攻防世界 - My Tiny Ideas&summary=tar-tar-binks-攻防世界"
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://blog.rycbar.club/2020/03/25/tar-tar-binks-%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C/&title=tar-tar-binks-攻防世界 - My Tiny Ideas&summary=tar-tar-binks-攻防世界"
           
           >
           
@@ -724,9 +734,9 @@ print(flag)</code></pre>
       
     
       
-        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer"
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
           
-          href="http://service.weibo.com/share/share.php?url=http://blog.rycbar.club/2020/03/25/tar-tar-binks-%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C/&title=tar-tar-binks-攻防世界 - My Tiny Ideas&summary=tar-tar-binks-攻防世界"
+          target="_blank" href="http://service.weibo.com/share/share.php?url=http://blog.rycbar.club/2020/03/25/tar-tar-binks-%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C/&title=tar-tar-binks-攻防世界 - My Tiny Ideas&summary=tar-tar-binks-攻防世界"
           
           >
           
@@ -751,16 +761,16 @@ print(flag)</code></pre>
           <div class="prev-next">
             
               <a class='prev' href='/2020/03/27/CrackRTF-buuctf/'>
-                <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>CrackRTF-buuctf</p>
+                <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i></p>
                 <p class='content'>这一题用到了一些windows加密算法中的东西
 
 
 根据字符串找到了关键的部分函数
 void FUN_00401690(void)
 
-{
+&#123;
   size_t sVar1;
-  uint uVar2...</p>
+  uint ...</p>
               </a>
             
             
@@ -898,13 +908,13 @@ IDA打开，脱壳怕是不可能的了，只能换其他方法。
       
     
       
-        <div><p>博客内容遵循 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</a></p>
+        <div><p>博客内容遵循 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</a></p>
 </div>
       
     
       
         <div class='copyright'>
-        <p><a href="https://blog.rycbar.club">Copyright © 2017-2020 rycbar</a></p>
+        <p><a href="https://blog.rycbar.club/">Copyright © 2017-2020 rycbar</a></p>
 
         </div>
       

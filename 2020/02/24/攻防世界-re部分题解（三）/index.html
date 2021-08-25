@@ -428,7 +428,7 @@
         <div class="article-entry" itemprop="articleBody">
           
           <p>题目还不是很难，所以还是放在一起来写</p>
-<a id="more"></a>
+<span id="more"></span>
 
 <h4 id="tt3441810"><a href="#tt3441810" class="headerlink" title="tt3441810"></a>tt3441810</h4><p>这题并不知道是在干什么，IDA打开是个dumpfile，打开给了很多16进制，看到了<code>0x68</code>这个经典数字（<code>push</code>指令的编码)，后面接了两个字符，看到<code>fl</code>，感觉有问题，找到后面很多个<code>0x68</code>，每个后买你都跟了两个字符，像是把flag<code>push</code>进栈的操作，所以把这些数据导出，然后写个脚本跑一下，验证猜想</p>
 <pre><code class="c++">#include &lt;iostream&gt;
@@ -439,10 +439,10 @@
 using namespace std;
 
 
-int main() {
+int main() &#123;
 
     unsigned char ida_chars[] =
-            {
+            &#123;
                     0x68, 0x66, 0x6C, 0x00, 0x00, 0x48, 0xBF, 0x01, 0x00, 0x00,
                     0x00, 0x00, 0x00, 0x00, 0x00, 0x48, 0x8D, 0x34, 0x24, 0x48,
                     0xBA, 0x02, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x48,
@@ -478,31 +478,34 @@ int main() {
                     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x0F, 0x05, 0x48, 0x31,
                     0xFF, 0x48, 0xB8, 0x3C, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
                     0x00, 0x0F, 0x05
-            };
+            &#125;;
     int len = sizeof(ida_chars)/ sizeof(ida_chars[0]);
     string flag;
     int i =0;
-    while(i!=len) {
+    while(i!=len) &#123;
         if(ida_chars[i]==0x68)
-        {
+        &#123;
             while(ida_chars[++i]!=0x00)
-            {
+            &#123;
                 flag+=ida_chars[i];
-            }
-        }
+            &#125;
+        &#125;
         else
-        {
+        &#123;
             i++;
-        }
-    }
+        &#125;
+    &#125;
     cout&lt;&lt;flag&lt;&lt;endl;
     return 0;
-}</code></pre>
+&#125;
+</code></pre>
 <p>输出flag</p>
-<pre><code>flag{poppopret}</code></pre><p>提交的时候只需要中间的部分</p>
+<pre><code>flag&#123;poppopret&#125;
+</code></pre>
+<p>提交的时候只需要中间的部分</p>
 <h4 id="re2-cpp-is-awesome"><a href="#re2-cpp-is-awesome" class="headerlink" title="re2-cpp-is-awesome"></a>re2-cpp-is-awesome</h4><p>这题有很多string类，所以还是要慢慢分析</p>
 <pre><code class="c++">__int64 __fastcall main(int a1, char **a2, char **a3)
-{
+&#123;
   char *v3; // rbx
   __int64 v4; // rax
   __int64 v5; // rdx
@@ -517,19 +520,19 @@ int main() {
   int v15; // [rsp+5Ch] [rbp-14h]
 
   if ( a1 != 2 )
-  {
+  &#123;
     v3 = *a2;
     v4 = std::operator&lt;&lt;&lt;std::char_traits&lt;char&gt;&gt;(&amp;std::cout, &quot;Usage: &quot;, a3);
     v6 = std::operator&lt;&lt;&lt;std::char_traits&lt;char&gt;&gt;(v4, v3, v5);
     std::operator&lt;&lt;&lt;std::char_traits&lt;char&gt;&gt;(v6, &quot; flag\n&quot;, v7);
     exit(0);
-  }
+  &#125;
   std::allocator&lt;char&gt;::allocator(&amp;v13, a2, a3);
   std::__cxx11::basic_string&lt;char,std::char_traits&lt;char&gt;,std::allocator&lt;char&gt;&gt;::basic_string(&amp;v12, a2[1], &amp;v13);
   std::allocator&lt;char&gt;::~allocator(&amp;v13);
   v15 = 0;
   for ( i = std::__cxx11::basic_string&lt;char,std::char_traits&lt;char&gt;,std::allocator&lt;char&gt;&gt;::begin(&amp;v12); ; sub_400D7A(&amp;i) )
-  {
+  &#123;
     v14 = std::__cxx11::basic_string&lt;char,std::char_traits&lt;char&gt;,std::allocator&lt;char&gt;&gt;::end(&amp;v12);
     if ( !sub_400D3D((__int64)&amp;i, (__int64)&amp;v14) )
       break;
@@ -537,24 +540,28 @@ int main() {
     if ( (_BYTE)v9 != off_6020A0[dword_6020C0[v15]] )
       sub_400B56((__int64)&amp;i, (__int64)&amp;v14, v9);
     ++v15;
-  }
+  &#125;
   sub_400B73((__int64)&amp;i, (__int64)&amp;v14, v8);
   std::__cxx11::basic_string&lt;char,std::char_traits&lt;char&gt;,std::allocator&lt;char&gt;&gt;::~basic_string(&amp;v12);
   return 0LL;
-}</code></pre>
+&#125;
+</code></pre>
 <p>真正有用的内容只有一个for循环，在这之前我们输入的字符串被传入了<code>v12</code>，然后用迭代器进行循环，遍历整个字符串，每个字符被赋值给了<code>v9</code>，然后进行判断，如果判断可以通过，我们输入的就是正确的flag，判断的条件是<code>v9 = off_6020A0[dword_6020C0[v15]]</code>，一个嵌套索引，把数据导出之后很容易得到结果</p>
-<pre><code class="python">target = &quot;L3t_ME_T3ll_Y0u_S0m3th1ng_1mp0rtant_A_{FL4G}_W0nt_b3_3X4ctly_th4t_345y_t0_c4ptur3_H0wev3r_1T_w1ll_b3_C00l_1F_Y0u_g0t_1t&quot;
+<pre><code class="python">target = &quot;L3t_ME_T3ll_Y0u_S0m3th1ng_1mp0rtant_A_&#123;FL4G&#125;_W0nt_b3_3X4ctly_th4t_345y_t0_c4ptur3_H0wev3r_1T_w1ll_b3_C00l_1F_Y0u_g0t_1t&quot;
 dword_6020C0 = [36, 0, 5, 54, 101, 7, 39, 38, 45, 1, 3, 0, 13, 86, 1, 3, 101, 3, 45, 22, 2, 21, 3, 101, 0, 41, 68, 68,
                 1, 68, 43]
 flag = &#39;&#39;
 for i in dword_6020C0:
     # print(i)
     flag += target[i]
-print(flag)</code></pre>
+print(flag)
+</code></pre>
 <p>输出结果</p>
-<pre><code>ALEXCTF{W3_L0v3_C_W1th_CL45535}</code></pre><h4 id="流浪者"><a href="#流浪者" class="headerlink" title="流浪者"></a>流浪者</h4><p>这题是MFC，题目中的函数很多，打开发现输入有错误提示，还是从字符串入手，找到了几个很有用的函数</p>
+<pre><code>ALEXCTF&#123;W3_L0v3_C_W1th_CL45535&#125;
+</code></pre>
+<h4 id="流浪者"><a href="#流浪者" class="headerlink" title="流浪者"></a>流浪者</h4><p>这题是MFC，题目中的函数很多，打开发现输入有错误提示，还是从字符串入手，找到了几个很有用的函数</p>
 <pre><code class="c++">BOOL __cdecl sub_4017F0(int a1)
-{
+&#123;
   BOOL result; // eax
   char Str1[28]; // [esp+D8h] [ebp-24h]
   int v3; // [esp+F4h] [ebp-8h]
@@ -563,20 +570,21 @@ print(flag)</code></pre>
   v4 = 0;
   v3 = 0;
   while ( *(_DWORD *)(a1 + 4 * v4) &lt; 62 &amp;&amp; *(_DWORD *)(a1 + 4 * v4) &gt;= 0 )
-  {
+  &#123;
     Str1[v4] = alphabet[*(_DWORD *)(a1 + 4 * v4)];
     ++v4;
-  }
+  &#125;
   Str1[v4] = 0;
   if ( !strcmp(Str1, &quot;KanXueCTF2019JustForhappy&quot;) )
     result = pass();
   else
     result = fail();
   return result;
-}</code></pre>
+&#125;
+</code></pre>
 <p>更改了一些函数和变量名，更容易辨认，这个函数传入了<code>a1</code>之后，对<code>a1</code>之后的地址上的内容作为索引值依次连接组成了一个新的字符串，所以<code>a1</code>显然应该是一个地址，或者说是一个数组的首地址，而这个数组的内容我们很容易就可以得到，接着再看到底在哪里引用了这个函数</p>
 <pre><code class="c++">int __thiscall sub_401890(CWnd *this)
-{
+&#123;
   struct CString *v1; // ST08_4
   CWnd *v2; // eax
   int v3; // eax
@@ -594,28 +602,29 @@ print(flag)</code></pre>
   if ( !strlen(Str) )
     return CWnd::MessageBoxA(v8, &amp;Qingshuru, 0, 0);
   for ( i = 0; Str[i]; ++i )
-  {
+  &#123;
     if ( Str[i] &gt; 57 || Str[i] &lt; 48 )
-    {
+    &#123;
       if ( Str[i] &gt; 122 || Str[i] &lt; 97 )
-      {
+      &#123;
         if ( Str[i] &gt; 90 || Str[i] &lt; 65 )
           fail();
         else
           v5[i] = Str[i] - 29;
-      }
+      &#125;
       else
-      {
+      &#123;
         v5[i] = Str[i] - 87;
-      }
-    }
+      &#125;
+    &#125;
     else
-    {
+    &#123;
       v5[i] = Str[i] - 48;
-    }
-  }
+    &#125;
+  &#125;
   return sub_4017F0((int)v5);
-}</code></pre>
+&#125;
+</code></pre>
 <p>这个函数也很简单，把输入的内容赋给<code>Str</code>，然后对str里面的字符进行一个变换，把变换后的数组传给刚刚分析的那个函数，所以想要逆向解出输入的字符就很简单了</p>
 <pre><code class="python">str1 = &#39;KanXueCTF2019JustForhappy&#39;
 alphabet = &#39;abcdefghiABCDEFGHIJKLMNjklmn0123456789opqrstuvwxyzOPQRSTUVWXYZ&#39;
@@ -632,63 +641,72 @@ for i in a1:
         flag += chr(i + 87)
     else:
         flag += chr(i + 29)
-print(flag)</code></pre>
+print(flag)
+</code></pre>
 <p>根据题目要求把输出的内容套上flag</p>
-<pre><code>flag{j0rXI4bTeustBiIGHeCF70DDM}</code></pre><h4 id="easyRE1"><a href="#easyRE1" class="headerlink" title="easyRE1"></a>easyRE1</h4><p>毫无意义的题目，打开就能看到flag，套上<code>flag{}</code>直接交上去就行了</p>
+<pre><code>flag&#123;j0rXI4bTeustBiIGHeCF70DDM&#125;
+</code></pre>
+<h4 id="easyRE1"><a href="#easyRE1" class="headerlink" title="easyRE1"></a>easyRE1</h4><p>毫无意义的题目，打开就能看到flag，套上<code>flag&#123;&#125;</code>直接交上去就行了</p>
 <h4 id="debug"><a href="#debug" class="headerlink" title="debug"></a>debug</h4><p>题如其名，peid打开发现是c#，所以直接dnspy打开，发现flag是直接计算出来的，并且没有进行任何的反调试，所以直接调试运行几步就得到了flag</p>
-<pre><code>flag{967DDDFBCD32C1F53527C221D9E40A0B}</code></pre><h4 id="Guess-the-Number"><a href="#Guess-the-Number" class="headerlink" title="Guess-the-Number"></a>Guess-the-Number</h4><p>这题是java逆向，cfr反编译之后，查看源代码</p>
+<pre><code>flag&#123;967DDDFBCD32C1F53527C221D9E40A0B&#125;
+</code></pre>
+<h4 id="Guess-the-Number"><a href="#Guess-the-Number" class="headerlink" title="Guess-the-Number"></a>Guess-the-Number</h4><p>这题是java逆向，cfr反编译之后，查看源代码</p>
 <pre><code class="java">import java.io.PrintStream;
 import java.math.BigInteger;
 
-public class guess {
-    static String XOR(String _str_one, String _str_two) {
+public class guess &#123;
+    static String XOR(String _str_one, String _str_two) &#123;
         BigInteger i1 = new BigInteger(_str_one, 16);
         BigInteger i2 = new BigInteger(_str_two, 16);
         BigInteger res = i1.xor(i2);
         String result = res.toString(16);
         return result;
-    }
+    &#125;
 
-    public static void main(String[] args) {
-        block5: {
+    public static void main(String[] args) &#123;
+        block5: &#123;
             int guess_number = 0;
             int my_num = 349763335;
             int my_number = 1545686892;
             int flag = 345736730;
-            if (args.length &gt; 0) {
-                try {
+            if (args.length &gt; 0) &#123;
+                try &#123;
                     guess_number = Integer.parseInt(args[0]);
-                    if (my_number / 5 == guess_number) {
+                    if (my_number / 5 == guess_number) &#123;
                         String str_one = &quot;4b64ca12ace755516c178f72d05d7061&quot;;
                         String str_two = &quot;ecd44646cfe5994ebeb35bf922e25dba&quot;;
                         my_num += flag;
                         String answer = guess.XOR(str_one, str_two);
                         System.out.println(&quot;your flag is: &quot; + answer);
                         break block5;
-                    }
+                    &#125;
                     System.err.println(&quot;wrong guess!&quot;);
                     System.exit(1);
-                }
-                catch (NumberFormatException e) {
+                &#125;
+                catch (NumberFormatException e) &#123;
                     System.err.println(&quot;please enter an integer \nexample: java -jar guess 12&quot;);
                     System.exit(1);
-                }
-            } else {
+                &#125;
+            &#125; else &#123;
                 System.err.println(&quot;wrong guess!&quot;);
                 int num = 1000000;
                 ++num;
                 System.exit(1);
-            }
-        }
-    }
-}</code></pre>
+            &#125;
+        &#125;
+    &#125;
+&#125;
+</code></pre>
 <p>程序很简单，我们当然可以根据算法来算出来flag的值，但是完全可以得到需要输入的数，所以直接运行就好了</p>
-<pre><code class="powershell">&gt;java -jar Guess-the-Number.jar 309137378</code></pre>
+<pre><code class="powershell">&gt;java -jar Guess-the-Number.jar 309137378
+</code></pre>
 <p>输出结果</p>
-<pre><code>your flag is: a7b08c546302cc1fd2a4d48bf2bf2ddb</code></pre><p>直接提交即可</p>
+<pre><code>your flag is: a7b08c546302cc1fd2a4d48bf2bf2ddb
+</code></pre>
+<p>直接提交即可</p>
 <h4 id="EASYHOOK"><a href="#EASYHOOK" class="headerlink" title="EASYHOOK"></a>EASYHOOK</h4><p>这题很有意思，值得好好分析一下，IDA打开，找到main函数</p>
 <pre><code class="c++">int __cdecl main(int argc, const char **argv, const char **envp)
-{
+&#123;
   int result; // eax
   HANDLE v4; // eax
   DWORD NumberOfBytesWritten; // [esp+4h] [ebp-24h]
@@ -697,7 +715,7 @@ public class guess {
   puts((int)aPleaseInputFla);
   scanf(a31s, &amp;Buffer);
   if ( strlen(&amp;Buffer) == 19 )
-  {
+  &#123;
     sub_401220();
     v4 = CreateFileA(FileName, 0x40000000u, 0, 0, 2u, 0x80u, 0);
     WriteFile(v4, &amp;Buffer, 19u, &amp;NumberOfBytesWritten, 0);
@@ -708,18 +726,19 @@ public class guess {
       puts((int)aWrong);
     system(aPause);
     result = 0;
-  }
+  &#125;
   else
-  {
+  &#123;
     puts((int)aWrong);
     system(aPause);
     result = 0;
-  }
+  &#125;
   return result;
-}</code></pre>
+&#125;
+</code></pre>
 <p>第一反应当然是查看一下<code>sub_401240()</code>的内容，毕竟这是最后一个调用<code>NumberOfBytesWritten</code>的函数，而这个值，经过<code>writeFile()</code>之后应该是19</p>
 <pre><code class="c++">signed int __cdecl sub_401240(const char *a1, _DWORD *a2)
-{
+&#123;
   signed int result; // eax
   unsigned int v3; // kr04_4
   char v4[24]; // [esp+Ch] [ebp-18h]
@@ -728,25 +747,26 @@ public class guess {
   strcpy(v4, &quot;This_is_not_the_flag&quot;);
   v3 = strlen(a1) + 1;
   if ( (signed int)(v3 - 1) &gt; 0 )
-  {
+  &#123;
     while ( v4[a1 - v4 + result] == v4[result] )
-    {
+    &#123;
       if ( ++result &gt;= (signed int)(v3 - 1) )
-      {
+      &#123;
         if ( result == 21 )
-        {
+        &#123;
           result = (signed int)a2;
           *a2 = 1;
-        }
+        &#125;
         return result;
-      }
-    }
-  }
+      &#125;
+    &#125;
+  &#125;
   return result;
-}</code></pre>
+&#125;
+</code></pre>
 <p>看到<code>This_is_not_the_flag</code>感觉有些不对，仔细观察发现这个字符串有20的字符，而下面的判断需要我们的输入和这个字符串相等，但是我们只输入19个字符，所以这个函数永远不可能返回我们想要的结果，肯定是有什么东西被漏掉了，所以返回<code>main</code>，前面还有一个<code>sub_401220()</code>没有看</p>
 <pre><code class="c++">int sub_401220()
-{
+&#123;
   HMODULE v0; // eax
   DWORD v2; // eax
 
@@ -762,10 +782,11 @@ public class guess {
   byte_40C9BC = 0xE9u;
   dword_40C9BD = (char *)sub_401080 - (char *)lpAddress - 5;
   return sub_4010D0();
-}</code></pre>
+&#125;
+</code></pre>
 <p>在这里发现了问题，这里找到了储存<code>writefile()</code>地址的位置，然后保存前五个字节的内容，后面进行了一些赋值，看到<code>0xE9</code>就发现这里想要修改<code>writefile()</code>函数地址，跳转到另一个函数<code>sub_401080()</code>，然后函数进入<code>sub_4010D0()</code></p>
 <pre><code class="c++">BOOL sub_4010D0()
-{
+&#123;
   DWORD v1; // [esp+4h] [ebp-8h]
   DWORD flOldProtect; // [esp+8h] [ebp-4h]
 
@@ -773,10 +794,11 @@ public class guess {
   VirtualProtectEx(hProcess, lpAddress, 5u, 4u, &amp;flOldProtect);
   WriteProcessMemory(hProcess, lpAddress, &amp;byte_40C9BC, 5u, 0);
   return VirtualProtectEx(hProcess, lpAddress, 5u, flOldProtect, &amp;v1);
-}</code></pre>
+&#125;
+</code></pre>
 <p>这个函数把刚刚的修改写进了相应的地址，此时程序一旦调用<code>writefile()</code>，就会跳转到<code>sub_401080()</code>，所以转到这个函数</p>
 <pre><code class="c++">int __stdcall sub_401080(HANDLE hFile, LPCVOID lpBuffer, DWORD nNumberOfBytesToWrite, LPDWORD lpNumberOfBytesWritten, LPOVERLAPPED lpOverlapped)
-{
+&#123;
   signed int v5; // ebx
 
   v5 = sub_401000((int)lpBuffer, nNumberOfBytesToWrite);
@@ -785,10 +807,11 @@ public class guess {
   if ( v5 )
     *lpNumberOfBytesWritten = 1;
   return 0;
-}</code></pre>
+&#125;
+</code></pre>
 <p>如果<code>sub_401000()</code>返回值是1，就会输出我们的输入是正确的，<code>sub_401140()</code>是用来恢复<code>writefile()</code>函数的地址，就不再赘述，所以重点就是<code>sub_401000()</code></p>
 <pre><code class="c++">signed int __cdecl sub_401000(int a1, signed int a2)
-{
+&#123;
   char v2; // al
   char v3; // bl
   char v4; // cl
@@ -796,68 +819,72 @@ public class guess {
 
   v2 = 0;
   if ( a2 &gt; 0 )
-  {
+  &#123;
     do
-    {
+    &#123;
       if ( v2 == 18 )
-      {
+      &#123;
         *(_BYTE *)(a1 + 18) ^= 0x13u;
-      }
+      &#125;
       else
-      {
+      &#123;
         if ( v2 % 2 )
           v3 = *(_BYTE *)(v2 + a1) - v2;
         else
           v3 = *(_BYTE *)(v2 + a1 + 2);
         *(_BYTE *)(v2 + a1) = v2 ^ v3;
-      }
+      &#125;
       ++v2;
-    }
+    &#125;
     while ( v2 &lt; a2 );
-  }
+  &#125;
   v4 = 0;
   if ( a2 &lt;= 0 )
     return 1;
   v5 = 0;
   while ( aAjygkfmSv8mln[v5] == *(_BYTE *)(v5 + a1) )
-  {
+  &#123;
     v5 = ++v4;
     if ( v4 &gt;= a2 )
       return 1;
-  }
+  &#125;
   return 0;
-}</code></pre>
+&#125;
+</code></pre>
 <p>这里的操作就很简单了，也不需要再多说，我们的输入经过处理后如果和内存中的字符串相同，就对了</p>
 <pre><code class="c++">#include &lt;iostream&gt;
 
 using namespace std;
 
-int main() {
+int main() &#123;
 
     char str[20] =
-            &quot;ajygkFm.\x7F_~-SV{8mLn&quot;;
-    char a1[20] = {0};
-    for (int i = 0; i &lt; 19; i++) {
-        if (i == 18) {
+            &quot;ajygkFm.\x7F_~-SV&#123;8mLn&quot;;
+    char a1[20] = &#123;0&#125;;
+    for (int i = 0; i &lt; 19; i++) &#123;
+        if (i == 18) &#123;
             a1[i] = str[18] ^ 0x13;
 
-        }
-        if (i % 2) {
+        &#125;
+        if (i % 2) &#123;
             a1[i] = (str[i] ^ i) + i;
-        } else {
+        &#125; else &#123;
             a1[i + 2] = (str[i] ^ i);
-        }
-    }
+        &#125;
+    &#125;
     a1[0]=&#39;f&#39;;
     cout &lt;&lt; a1 &lt;&lt; endl;
-}</code></pre>
+&#125;
+</code></pre>
 <p>这里有一点需要注意，这个程序是没法检测第一位输入的，中间的过程也完全没有用到第一位，所以根据输出结果手动添加了’f’，输出</p>
-<pre><code>flag{Ho0k_w1th_Fun}</code></pre><p>可以验证一下，第一位其实并不影响结果</p>
+<pre><code>flag&#123;Ho0k_w1th_Fun&#125;
+</code></pre>
+<p>可以验证一下，第一位其实并不影响结果</p>
 <p><img src="https://s2.ax1x.com/2020/02/14/1XU7IP.png" alt="EASYHOOK-1"></p>
 <p>发现第一位改成其他的字符也是正确的</p>
 <h4 id="reverse-for-the-holy-grail-350"><a href="#reverse-for-the-holy-grail-350" class="headerlink" title="reverse-for-the-holy-grail-350"></a>reverse-for-the-holy-grail-350</h4><p>这题还算是比较简单的题目，很容易就可以找到关键函数，然后发现所有的数据处理和验证全部都在这个函数里面</p>
 <pre><code class="c++">__int64 __fastcall stringMod(__int64 *a1)
-{
+&#123;
   __int64 v1; // r9
   __int64 v2; // r10
   __int64 i; // rcx
@@ -876,42 +903,42 @@ int main() {
   memset(v14, 0, 0x48uLL);
   v1 = a1[1];
   if ( v1 )
-  {
+  &#123;
     v2 = *a1;
     i = 0LL;
     v4 = 0;
     do
-    {
+    &#123;
       v12 = *(char *)(v2 + i);
       v14[i] = v12;
       if ( 3 * ((unsigned int)i / 3) == (_DWORD)i &amp;&amp; v12 != firstchar[(unsigned int)i / 3] )// 3的倍数等于firstchar
         v4 = -1;
       ++i;
-    }
+    &#125;
     while ( i != v1 );
-  }
+  &#125;
   else
-  {
+  &#123;
     v4 = 0;
-  }
+  &#125;
   v5 = v14;
   v6 = v14;
   v7 = 666;
   do
-  {
+  &#123;
     *v6 = v7 ^ *(unsigned __int8 *)v6;
     v7 += v7 % 5;
     ++v6;
-  }
+  &#125;
   while ( _48 != v6 );
   v8 = 1;
   v9 = 0;
   v10 = 1;
   v11 = 0;
   do
-  {
+  &#123;
     if ( v11 == 2 )
-    {
+    &#123;
       if ( *v5 != thirdchar[v9] )
         v4 = -1;
       if ( v10 % *v5 != masterArray[v9] )
@@ -919,61 +946,69 @@ int main() {
       ++v9;
       v10 = 1;
       v11 = 0;
-    }
+    &#125;
     else
-    {
+    &#123;
       v10 *= *v5;
       if ( ++v11 == 3 )
         v11 = 0;
-    }
+    &#125;
     ++v8;
     ++v5;
-  }
+  &#125;
   while ( v8 != 19 );
   return (unsigned int)(v7 * v4);
-}</code></pre>
+&#125;
+</code></pre>
 <p>发现把输入分成了三个部分，处理起来也很简单，写脚本处理</p>
 <pre><code class="c++">#include &lt;iostream&gt;
 
 using namespace std;
 
-int main() {
+int main() &#123;
     int firstchar[8] =
-            {65, 105, 110, 69, 111, 97};
+            &#123;65, 105, 110, 69, 111, 97&#125;;
     int thirdchar[8] =
-            {751, 708, 732, 711, 734, 764};
+            &#123;751, 708, 732, 711, 734, 764&#125;;
     int masterArray[6] =
-            {471, 12, 580, 606, 147, 108};
-    int xor_[24] = {0};
-    char flag[24] = {0};
+            &#123;471, 12, 580, 606, 147, 108&#125;;
+    int xor_[24] = &#123;0&#125;;
+    char flag[24] = &#123;0&#125;;
     xor_[0] = 666;
-    for (int i = 1; i &lt; 24; i++) {
+    for (int i = 1; i &lt; 24; i++) &#123;
         xor_[i] = xor_[i - 1] + xor_[i - 1] % 5;
-    }
-    for (int i = 0; i &lt; 6; i++) {
+    &#125;
+    for (int i = 0; i &lt; 6; i++) &#123;
         flag[3 * i] = firstchar[i];
         flag[3 * i + 2] = thirdchar[i] ^ xor_[3 * i + 2];
-        for (int j = 48; j &lt; 122; j++) {
-            if ((j &gt;= 48 &amp;&amp; j &lt;= 57) || (j &gt;= 65 &amp;&amp; j &lt;= 90) || (j &gt;= 97 &amp;&amp; j &lt;= 122)) {
+        for (int j = 48; j &lt; 122; j++) &#123;
+            if ((j &gt;= 48 &amp;&amp; j &lt;= 57) || (j &gt;= 65 &amp;&amp; j &lt;= 90) || (j &gt;= 97 &amp;&amp; j &lt;= 122)) &#123;
                 int tmp = j ^xor_[3 * i + 1];
-                if (tmp * (flag[3 * i] ^ xor_[3 * i]) % thirdchar[i] == masterArray[i]) {
+                if (tmp * (flag[3 * i] ^ xor_[3 * i]) % thirdchar[i] == masterArray[i]) &#123;
                     flag[3 * i + 1] = j;
                     break;
-                }
-            } else
+                &#125;
+            &#125; else
                 continue;
-        }
-    }
+        &#125;
+    &#125;
 
     cout &lt;&lt; flag &lt;&lt; endl;
 
-}</code></pre>
+&#125;
+</code></pre>
 <p>输出flag，再套上<code>main</code>里面提供的格式即可</p>
-<pre><code>tuctf{AfricanOrEuropean?}</code></pre><h4 id="android-app-100"><a href="#android-app-100" class="headerlink" title="android-app-100"></a>android-app-100</h4><p>反编译之后发现还调用了c的库，于是IDA打开so文件，看到了混淆，但是内容比较好猜，所以直接找到字符串计算md5或者在apk里面提交就好了</p>
-<pre><code>Sharif_CTF(833489ef285e6fa80690099efc5d9c9d)</code></pre><h4 id="dmd-50"><a href="#dmd-50" class="headerlink" title="dmd-50"></a>dmd-50</h4><p>打开直接找到输入的flag的md5值，md5解密找到flag</p>
-<pre><code>b781cbb29054db12f88f08c6e161c199</code></pre><h4 id="Windows-Reverse1"><a href="#Windows-Reverse1" class="headerlink" title="Windows_Reverse1"></a>Windows_Reverse1</h4><p>这道题很有意思，首先查壳，发现是upx，直接脱壳，IDA打开，F5查看</p>
+<pre><code>tuctf&#123;AfricanOrEuropean?&#125;
+</code></pre>
+<h4 id="android-app-100"><a href="#android-app-100" class="headerlink" title="android-app-100"></a>android-app-100</h4><p>反编译之后发现还调用了c的库，于是IDA打开so文件，看到了混淆，但是内容比较好猜，所以直接找到字符串计算md5或者在apk里面提交就好了</p>
+<pre><code>Sharif_CTF(833489ef285e6fa80690099efc5d9c9d)
+</code></pre>
+<h4 id="dmd-50"><a href="#dmd-50" class="headerlink" title="dmd-50"></a>dmd-50</h4><p>打开直接找到输入的flag的md5值，md5解密找到flag</p>
+<pre><code>b781cbb29054db12f88f08c6e161c199
+</code></pre>
+<h4 id="Windows-Reverse1"><a href="#Windows-Reverse1" class="headerlink" title="Windows_Reverse1"></a>Windows_Reverse1</h4><p>这道题很有意思，首先查壳，发现是upx，直接脱壳，IDA打开，F5查看</p>
 <pre><code class="c++">int __cdecl main(int argc, const char **argv, const char **envp)
-{
+&#123;
   char v4; // [esp+4h] [ebp-804h]
   char v5; // [esp+5h] [ebp-803h]
   char v6; // [esp+404h] [ebp-404h]
@@ -986,15 +1021,16 @@ int main() {
   printf(&quot;please input code:&quot;);
   scanf(&quot;%s&quot;, &amp;v6);
   sub_401000(&amp;v6);
-  if ( !strcmp(&amp;v4, &quot;DDCTF{reverseME}&quot;) )
+  if ( !strcmp(&amp;v4, &quot;DDCTF&#123;reverseME&#125;&quot;) )
     printf(&quot;You&#39;ve got it!!%s\n&quot;, &amp;v4);
   else
     printf(&quot;Try again later.\n&quot;);
   return 0;
-}</code></pre>
-<p>表面上看我们需要输入一个字符串，然后经过<code>sub_401000</code>的变换之后变成<code>DDCTF{reverseME}</code>，然后查看一下加密函数</p>
+&#125;
+</code></pre>
+<p>表面上看我们需要输入一个字符串，然后经过<code>sub_401000</code>的变换之后变成<code>DDCTF&#123;reverseME&#125;</code>，然后查看一下加密函数</p>
 <pre><code class="c++">unsigned int __cdecl sub_401000(const char *a1)
-{
+&#123;
   _BYTE *v1; // ecx
   unsigned int v2; // edi
   unsigned int result; // eax
@@ -1003,19 +1039,20 @@ int main() {
   v2 = 0;
   result = strlen(a1);
   if ( result )
-  {
+  &#123;
     v4 = a1 - v1;
     do
-    {
+    &#123;
       *v1 = byte_402FF8[(char)v1[v4]];
       ++v2;
       ++v1;
       result = strlen(a1);
-    }
+    &#125;
     while ( v2 &lt; result );
-  }
+  &#125;
   return result;
-}</code></pre>
+&#125;
+</code></pre>
 <p>看起来是一个换表操作，但是在这里遇到了两个让人疑惑的事情，第一个，我们输入的字符串是怎么传入这个函数里面来的，第二个，在<code>0x402FF8</code>处什么都没有，这个表在哪里</p>
 <p>所以还是需要仔细看看汇编代码</p>
 <pre><code class="asm">.text:004010A4                   lea     edx, [esp+824h+var_404]
@@ -1039,20 +1076,22 @@ int main() {
 .text:00401009                 push    edi
 .text:0040100A                 xor     edi, edi
 .text:0040100C                 lea     esi, [eax+1]
-.text:0040100F                 nop</code></pre>
+.text:0040100F                 nop
+</code></pre>
 <p>这里应该是人为修改了代码，可以看到我们输入的字符串地址被赋给了<code>ecx</code>，然后再我们的解密函数最开始，先把<code>ecx</code>里面的值压进了栈，所以这个函数用了<code>ecx</code>寄存器来传参，而这是个32位的程序，所以IDA这里检测的时候出现了一点问题，第一个问题解决了，再看看第二个，先来研究里面的索引值</p>
 <pre><code class="c++">if ( result )
-  {
+  &#123;
     v4 = a1 - v1;
     do
-    {
+    &#123;
       *v1 = byte_402FF8[(char)v1[v4]];
       ++v2;
       ++v1;
       result = strlen(a1);
-    }
+    &#125;
     while ( v2 &lt; result );
-  }</code></pre>
+  &#125;
+</code></pre>
 <p><code>v1[v4]</code>这个表达形式可以看得出来就是<code>a1</code>的首地址，而<code>a1</code>就是我们输入的字符串，都是可见字符，所以每个字符的值都要大于32，所以在<code>0x402FF8</code>这个位置向下偏移至少32的位置寻找，找到了真正的字母表</p>
 <p>分析结束，可以直接动手逆向了，不过在导出这个字母表的时候很凑巧的发现这个字母表的值刚好是从126-32的排列，这说明我们输入的和变换出来的值相加正好为158，这就提供了一个更简单的逆向思路</p>
 <pre><code class="c++">#include &lt;iostream&gt;
@@ -1060,105 +1099,112 @@ int main() {
 
 using namespace std;
 
-int main() {
-    string target = &quot;DDCTF{reverseME}&quot;;
+int main() &#123;
+    string target = &quot;DDCTF&#123;reverseME&#125;&quot;;
     string flag = &quot;&quot;;
-    for (int i = 0; i &lt; target.length(); i++) {
+    for (int i = 0; i &lt; target.length(); i++) &#123;
         flag += 158 - target[i];
-    }
+    &#125;
     cout &lt;&lt; flag &lt;&lt; endl;
-}</code></pre>
+&#125;
+</code></pre>
 <p>输出套上flag即可</p>
-<pre><code>ZZ[JX#,9(9,+9QY!</code></pre><h4 id="babymips"><a href="#babymips" class="headerlink" title="babymips"></a>babymips</h4><p>这个题本身没有什么，很简单的算法，也没有什么加密、加壳，主要是有些受不了IDA+Retdec反汇编出来的代码，所以试了一下Ghidra</p>
+<pre><code>ZZ[JX#,9(9,+9QY!
+</code></pre>
+<h4 id="babymips"><a href="#babymips" class="headerlink" title="babymips"></a>babymips</h4><p>这个题本身没有什么，很简单的算法，也没有什么加密、加壳，主要是有些受不了IDA+Retdec反汇编出来的代码，所以试了一下Ghidra</p>
 <pre><code class="c++">void FUN_004009a8(void)
 
-{
+&#123;
   int iVar1;
   int iStack48;
   byte abStack44 [36];
-
+  
   setbuf(stdout,(char *)0x0);
   setbuf(stdin,(char *)0x0);
   printf(&quot;Give me your flag:&quot;);
   scanf(&quot;%32s&quot;,abStack44);
   iStack48 = 0;
-  while (iStack48 &lt; 0x20) {
+  while (iStack48 &lt; 0x20) &#123;
     abStack44[iStack48] = abStack44[iStack48] ^ 0x20U - (char)iStack48;
     iStack48 = iStack48 + 1;
-  }
+  &#125;
   iVar1 = strncmp((char *)abStack44,_fdata,5);
-  if (iVar1 == 0) {
+  if (iVar1 == 0) &#123;
     FUN_004007f0(abStack44);
-  }
-  else {
+  &#125;
+  else &#123;
     puts(&quot;Wrong&quot;);
-  }
+  &#125;
   return;
-}</code></pre>
+&#125;
+</code></pre>
 <p>首先是输入flag，然后进行一个变换，先比较前5位，如果一致进入下一个变换</p>
 <pre><code class="c++">void FUN_004007f0(char *param_1)
 
-{
+&#123;
   size_t sVar1;
   int iVar2;
   uint uStack16;
-
+  
   uStack16 = 5;
-  while (sVar1 = strlen(param_1), uStack16 &lt; sVar1) {
-    if ((uStack16 &amp; 1) == 0) {
+  while (sVar1 = strlen(param_1), uStack16 &lt; sVar1) &#123;
+    if ((uStack16 &amp; 1) == 0) &#123;
       param_1[uStack16] =
            (byte)((uint)((int)param_1[uStack16] &lt;&lt; 0x1a) &gt;&gt; 0x18) | param_1[uStack16] &gt;&gt; 6;
-    }
-    else {
+    &#125;
+    else &#123;
       param_1[uStack16] =
            param_1[uStack16] &gt;&gt; 2 | (byte)((uint)((int)param_1[uStack16] &lt;&lt; 0x1e) &gt;&gt; 0x18);
-    }
+    &#125;
     uStack16 = uStack16 + 1;
-  }
+  &#125;
   iVar2 = strncmp(param_1 + 5,PTR_DAT_00410d04,0x1b);
-  if (iVar2 == 0) {
+  if (iVar2 == 0) &#123;
     puts(&quot;Right!&quot;);
-  }
-  else {
+  &#125;
+  else &#123;
     puts(&quot;Wrong!&quot;);
-  }
+  &#125;
   return;
-}</code></pre>
+&#125;
+</code></pre>
 <p>后面对奇数位和偶数位进行了两个不同的位运算，很清晰，仔细分析一下会发现实际上是前后位置的一个交换，并且奇偶运算就是互为逆运算，逆向的时候更方便处理了。最后是进行简单的字符串比较，然后程序就结束了。</p>
 <pre><code class="c++">#include &lt;iostream&gt;
 #include &lt;string&gt;
 
 using namespace std;
 
-int main() {
-    string target = &quot;Q|j{g\x52\xfd\x16\xa4\x89\xbd\x92\x80\x13\x41\x54\xa0\x8d\x45\x18\x81\xde\xfc\x95\xf0\x16\x79\x1a\x15\x5b\x75\x1f&quot;;
+int main() &#123;
+    string target = &quot;Q|j&#123;g\x52\xfd\x16\xa4\x89\xbd\x92\x80\x13\x41\x54\xa0\x8d\x45\x18\x81\xde\xfc\x95\xf0\x16\x79\x1a\x15\x5b\x75\x1f&quot;;
     string flag = &quot;&quot;;
-    for (int i = 0; i &lt; target.length(); i++) {
+    for (int i = 0; i &lt; target.length(); i++) &#123;
         if(i&gt;=5)
-        {
+        &#123;
             int32_t tmp=target[i];
             if(i%2==0)
-            {
+            &#123;
                 tmp=((tmp&amp;0x3)&lt;&lt;6)|((tmp&amp;0xfc)&gt;&gt;2);
-            }
+            &#125;
             else
-            {
+            &#123;
                 tmp=((tmp&amp;0xc0)&gt;&gt;6)|((tmp&amp;0x3f)&lt;&lt;2);
-            }
+            &#125;
             flag+=(tmp^(0x20-i));
-        }
+        &#125;
         else
-        {
+        &#123;
             flag+=(target[i]^(0x20-i));
-        }
+        &#125;
 
-    }
+    &#125;
     cout &lt;&lt; flag &lt;&lt; endl;
-}
+&#125;
 </code></pre>
 <p>需要注意的两点，运算符优先级的问题，加减运算要先于移位运算先于位运算，处理的时候需要注意，还有，移位的时候要注意把多余的位置清0，这里用的是与运算</p>
 <p>输出flag</p>
-<pre><code>qctf{ReA11y_4_B@89_mlp5_4_XmAn_}</code></pre>
+<pre><code>qctf&#123;ReA11y_4_B@89_mlp5_4_XmAn_&#125;
+</code></pre>
+
           
             <div class='article_footer'>
               
@@ -1247,9 +1293,9 @@ int main() {
   <div class="-mob-share-list share-body">
     
       
-        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer"
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
           
-          href="http://connect.qq.com/widget/shareqq/index.html?url=http://blog.rycbar.club/2020/02/24/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3%EF%BC%88%E4%B8%89%EF%BC%89/&title=攻防世界-re部分题解（三） - My Tiny Ideas&summary=题目还不是很难，所以还是放在一起来写"
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://blog.rycbar.club/2020/02/24/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3%EF%BC%88%E4%B8%89%EF%BC%89/&title=攻防世界-re部分题解（三） - My Tiny Ideas&summary=题目还不是很难，所以还是放在一起来写"
           
           >
           
@@ -1259,9 +1305,9 @@ int main() {
       
     
       
-        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer"
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
           
-          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://blog.rycbar.club/2020/02/24/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3%EF%BC%88%E4%B8%89%EF%BC%89/&title=攻防世界-re部分题解（三） - My Tiny Ideas&summary=题目还不是很难，所以还是放在一起来写"
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://blog.rycbar.club/2020/02/24/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3%EF%BC%88%E4%B8%89%EF%BC%89/&title=攻防世界-re部分题解（三） - My Tiny Ideas&summary=题目还不是很难，所以还是放在一起来写"
           
           >
           
@@ -1271,9 +1317,9 @@ int main() {
       
     
       
-        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer"
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
           
-          href="http://service.weibo.com/share/share.php?url=http://blog.rycbar.club/2020/02/24/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3%EF%BC%88%E4%B8%89%EF%BC%89/&title=攻防世界-re部分题解（三） - My Tiny Ideas&summary=题目还不是很难，所以还是放在一起来写"
+          target="_blank" href="http://service.weibo.com/share/share.php?url=http://blog.rycbar.club/2020/02/24/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3%EF%BC%88%E4%B8%89%EF%BC%89/&title=攻防世界-re部分题解（三） - My Tiny Ideas&summary=题目还不是很难，所以还是放在一起来写"
           
           >
           
@@ -1311,9 +1357,9 @@ serial-150这题本身的算法没什么难度，主要就是花指令的去除�
                 <p class='content'>题目有点多，放在一篇里面太过臃肿，所以多分了几篇
 
 
-IgniteMeIDA打开，首先发现flag的格式，EIS{***}
+IgniteMeIDA打开，首先发现flag的格式，EIS&#123;***&#125;
 找到关键函数
-bool __cdecl sub_4011C0(char...</p>
+bool __cdecl sub_4...</p>
               </a>
             
           </div>
@@ -1382,7 +1428,7 @@ bool __cdecl sub_4011C0(char...</p>
 
 
     <div class='content'>
-      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#tt3441810"><span class="toc-text">tt3441810</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#re2-cpp-is-awesome"><span class="toc-text">re2-cpp-is-awesome</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#流浪者"><span class="toc-text">流浪者</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#easyRE1"><span class="toc-text">easyRE1</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#debug"><span class="toc-text">debug</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Guess-the-Number"><span class="toc-text">Guess-the-Number</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#EASYHOOK"><span class="toc-text">EASYHOOK</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#reverse-for-the-holy-grail-350"><span class="toc-text">reverse-for-the-holy-grail-350</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#android-app-100"><span class="toc-text">android-app-100</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#dmd-50"><span class="toc-text">dmd-50</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Windows-Reverse1"><span class="toc-text">Windows_Reverse1</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#babymips"><span class="toc-text">babymips</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#tt3441810"><span class="toc-text">tt3441810</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#re2-cpp-is-awesome"><span class="toc-text">re2-cpp-is-awesome</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B5%81%E6%B5%AA%E8%80%85"><span class="toc-text">流浪者</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#easyRE1"><span class="toc-text">easyRE1</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#debug"><span class="toc-text">debug</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Guess-the-Number"><span class="toc-text">Guess-the-Number</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#EASYHOOK"><span class="toc-text">EASYHOOK</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#reverse-for-the-holy-grail-350"><span class="toc-text">reverse-for-the-holy-grail-350</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#android-app-100"><span class="toc-text">android-app-100</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#dmd-50"><span class="toc-text">dmd-50</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Windows-Reverse1"><span class="toc-text">Windows_Reverse1</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#babymips"><span class="toc-text">babymips</span></a></li></ol>
     </div>
   </section>
 
@@ -1453,13 +1499,13 @@ bool __cdecl sub_4011C0(char...</p>
       
     
       
-        <div><p>博客内容遵循 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</a></p>
+        <div><p>博客内容遵循 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</a></p>
 </div>
       
     
       
         <div class='copyright'>
-        <p><a href="https://blog.rycbar.club">Copyright © 2017-2020 rycbar</a></p>
+        <p><a href="https://blog.rycbar.club/">Copyright © 2017-2020 rycbar</a></p>
 
         </div>
       

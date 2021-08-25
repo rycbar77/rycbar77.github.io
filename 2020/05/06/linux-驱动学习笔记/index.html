@@ -428,7 +428,7 @@
         <div class="article-entry" itemprop="articleBody">
           
           <p>最近有想深入驱动和内核的想法，所以开始学习<em>ldd3</em>，参考着写一篇学习笔记</p>
-<a id="more"></a>
+<span id="more"></span>
 
 <h4 id="背景知识"><a href="#背景知识" class="headerlink" title="背景知识"></a>背景知识</h4><h5 id="什么是驱动"><a href="#什么是驱动" class="headerlink" title="什么是驱动"></a>什么是驱动</h5><p>驱动在Linux内核中担任着特殊的角色，像是一个黑箱，隐藏掉设备工作的具体细节，并且具有模块化的特点，可以和内核的其他部分分开编译，并且可以随时装载卸载。</p>
 <blockquote>
@@ -475,22 +475,24 @@
 #include&lt;linux/module.h&gt;
 MODULE_LICENSE(&quot;Dual BSD/GPL&quot;);
 
-static int hello_init(void){
+static int hello_init(void)&#123;
     printk(KERN_ALERT&quot;Hello,world\n&quot;);
     return 0;
-}
+&#125;
 
-static void hello_exit(void){
+static void hello_exit(void)&#123;
     printk(KERN_ALERT&quot;Goodbye,cruel world\n&quot;);
-}
+&#125;
 
 module_init(hello_init);
-module_exit(hello_exit);</code></pre>
+module_exit(hello_exit);
+</code></pre>
 <p>这个模块定义了两个函数，一个在模块载入(通过<code>module_init</code>加载)的时候调用，一个在模块卸载(通过<code>module_exit</code>加载)的时候调用，<code>module_init</code>和<code>module_exit</code>是指定函数作用的两个宏定义。另外一个宏定义就是<code>MODULE_LICENSE</code>，这里用来指定的是<code>free license</code>，没有<code>license</code>的模块在装载的时候会因为安全问题被禁用，导致装载失败。</p>
 <p><code>printk</code>顾名思义就是打印，很像<code>printf</code>，但是是打印在<code>log</code>里，可以使用<code>dmesg</code>命令查看。</p>
 <blockquote>
 <p>注意在make的之前要先安装<code>linux-header</code>，我的环境是<code>kali</code>，使用的命令时是</p>
-<pre><code class="bash">sudo apt-get install linux-headers-$(uname -r)</code></pre>
+<pre><code class="bash">sudo apt-get install linux-headers-$(uname -r)
+</code></pre>
 </blockquote>
 <p><code>Makefile</code>如下</p>
 <pre><code class="makefile">ifeq ($(KERNELRELEASE),)
@@ -515,7 +517,8 @@ clean:
 else
     # called from kernel build system: just declare what our modules are
     obj-m := hello.o
-endif</code></pre>
+endif
+</code></pre>
 <p><code>make</code>成功之后使用<code>sudo insmod hello.ko</code>加载模块，使用<code>sudo rmmod hello.ko</code>卸载模块，之后可以使用<code>sudo dmesg</code>查看打印出来的信息</p>
 <p><img src="/2020/05/06/linux-%E9%A9%B1%E5%8A%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/hello.png" alt="hello"></p>
 
@@ -607,9 +610,9 @@ endif</code></pre>
   <div class="-mob-share-list share-body">
     
       
-        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer"
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
           
-          href="http://connect.qq.com/widget/shareqq/index.html?url=http://blog.rycbar.club/2020/05/06/linux-%E9%A9%B1%E5%8A%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/&title=linux 驱动学习笔记 - My Tiny Ideas&summary=最近有想深入驱动和内核的想法，所以开始学习ldd3，参考着写一篇学习笔记"
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://blog.rycbar.club/2020/05/06/linux-%E9%A9%B1%E5%8A%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/&title=linux 驱动学习笔记 - My Tiny Ideas&summary=最近有想深入驱动和内核的想法，所以开始学习ldd3，参考着写一篇学习笔记"
           
           >
           
@@ -619,9 +622,9 @@ endif</code></pre>
       
     
       
-        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer"
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
           
-          href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://blog.rycbar.club/2020/05/06/linux-%E9%A9%B1%E5%8A%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/&title=linux 驱动学习笔记 - My Tiny Ideas&summary=最近有想深入驱动和内核的想法，所以开始学习ldd3，参考着写一篇学习笔记"
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://blog.rycbar.club/2020/05/06/linux-%E9%A9%B1%E5%8A%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/&title=linux 驱动学习笔记 - My Tiny Ideas&summary=最近有想深入驱动和内核的想法，所以开始学习ldd3，参考着写一篇学习笔记"
           
           >
           
@@ -631,9 +634,9 @@ endif</code></pre>
       
     
       
-        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer"
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
           
-          href="http://service.weibo.com/share/share.php?url=http://blog.rycbar.club/2020/05/06/linux-%E9%A9%B1%E5%8A%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/&title=linux 驱动学习笔记 - My Tiny Ideas&summary=最近有想深入驱动和内核的想法，所以开始学习ldd3，参考着写一篇学习笔记"
+          target="_blank" href="http://service.weibo.com/share/share.php?url=http://blog.rycbar.club/2020/05/06/linux-%E9%A9%B1%E5%8A%A8%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/&title=linux 驱动学习笔记 - My Tiny Ideas&summary=最近有想深入驱动和内核的想法，所以开始学习ldd3，参考着写一篇学习笔记"
           
           >
           
@@ -736,7 +739,7 @@ endif</code></pre>
 
 
     <div class='content'>
-      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#背景知识"><span class="toc-text">背景知识</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#什么是驱动"><span class="toc-text">什么是驱动</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#内核浅析"><span class="toc-text">内核浅析</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#模块化"><span class="toc-text">模块化</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#安全问题"><span class="toc-text">安全问题</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#从hello-world开始"><span class="toc-text">从hello world开始</span></a></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%83%8C%E6%99%AF%E7%9F%A5%E8%AF%86"><span class="toc-text">背景知识</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E9%A9%B1%E5%8A%A8"><span class="toc-text">什么是驱动</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%86%85%E6%A0%B8%E6%B5%85%E6%9E%90"><span class="toc-text">内核浅析</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E6%A8%A1%E5%9D%97%E5%8C%96"><span class="toc-text">模块化</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#%E5%AE%89%E5%85%A8%E9%97%AE%E9%A2%98"><span class="toc-text">安全问题</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BB%8Ehello-world%E5%BC%80%E5%A7%8B"><span class="toc-text">从hello world开始</span></a></li></ol>
     </div>
   </section>
 
@@ -807,13 +810,13 @@ endif</code></pre>
       
     
       
-        <div><p>博客内容遵循 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh" target="_blank" rel="noopener">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</a></p>
+        <div><p>博客内容遵循 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</a></p>
 </div>
       
     
       
         <div class='copyright'>
-        <p><a href="https://blog.rycbar.club">Copyright © 2017-2020 rycbar</a></p>
+        <p><a href="https://blog.rycbar.club/">Copyright © 2017-2020 rycbar</a></p>
 
         </div>
       
