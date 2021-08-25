@@ -1,0 +1,1143 @@
+<!DOCTYPE html>
+<html>
+<head hexo-theme='https://volantis.js.org/#blog'>
+  <meta charset="utf-8">
+  <!-- SEO相关 -->
+  
+    
+  
+  <!-- 渲染优化 -->
+  <meta name="renderer" content="webkit">
+  <meta name="force-rendering" content="webkit">
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
+  <meta name="HandheldFriendly" content="True" >
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  <!-- 页面元数据 -->
+  
+    <title>2020-信息安全竞赛创新实践赛-wp - My Tiny Ideas</title>
+  
+    <meta name="keywords" content="writeup">
+  
+  
+    <meta name="description" content="这国赛出的没什么意思，re就给了两道然后被打穿了，等了一天最后放出来一道智能合约……">
+  
+
+  <!-- feed -->
+  
+
+  <!-- import meta -->
+  
+
+  <!-- link -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13/css/all.min.css">
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
+
+  
+  
+    
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.css">
+
+  
+
+  
+  <link rel="shortcut icon" type='image/x-icon' href="https://cdn.jsdelivr.net/gh/xaoxuu/assets@master/favicon/favicon.ico">
+  
+
+  
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.css">
+  
+
+  
+
+  <!-- import link -->
+  
+
+  
+    
+      
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.18.1/styles/solarized-light.css">
+
+    
+  
+  
+    
+<link rel="stylesheet" href="/css/style.css">
+
+  
+
+  <script>
+    function setLoadingBarProgress(num) {
+      document.getElementById('loading-bar').style.width=num+"%";
+    }
+  </script>
+
+  
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128484503-1"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'UA-128484503-1');
+    </script>
+  
+  
+</head>
+
+<body>
+  
+  <div id="loading-bar-wrapper">
+  <div id="loading-bar"></div>
+</div>
+<header class="l_header shadow blur">
+  <div class='container'>
+  <div class='wrapper'>
+    <div class='nav-sub'>
+      <p class="title"></p>
+      <ul class='switcher nav-list-h'>
+        <li><a class="s-comment fas fa-comments fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+          <li><a class="s-toc fas fa-list fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        
+      </ul>
+    </div>
+		<div class="nav-main">
+      
+        
+        <a class="title flat-box" target="_self" href='/'>
+          
+          
+          
+          
+            RYCBAR'S <b><sup style='color:#3AA757'>blog</sup></b>
+          
+        </a>
+      
+
+			<div class='menu navigation'>
+				<ul class='nav-list-h'>
+          
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fas fa-rss fa-fw'></i>博客
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/categories/
+                  
+                  
+                  
+                    id="categories"
+                  >
+                  <i class='fas fa-folder-open fa-fw'></i>分类
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/tags/
+                  
+                  
+                  
+                    id="tags"
+                  >
+                  <i class='fas fa-tags fa-fw'></i>标签
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/archives/
+                  
+                  
+                  
+                    id="archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/friends/
+                  
+                  
+                  
+                    id="friends"
+                  >
+                  <i class='fas fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+          
+            
+            
+              <li>
+                <a class="flat-box" href=/about/
+                  
+                  
+                  
+                    id="about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+          
+				</ul>
+			</div>
+
+      <div class="m_search">
+        <form name="searchform" class="form u-search-form">
+          <i class="icon fas fa-search fa-fw"></i>
+          <input type="text" class="input u-search-input" placeholder="Search..." />
+        </form>
+      </div>
+
+			<ul class='switcher nav-list-h'>
+				
+					<li><a class="s-search fas fa-search fa-fw" target="_self" href='javascript:void(0)'></a></li>
+				
+				<li>
+          <a class="s-menu fas fa-bars fa-fw" target="_self" href='javascript:void(0)'></a>
+          <ul class="menu-phone list-v navigation white-box">
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/
+                  
+                  
+                  
+                    id="home"
+                  >
+                  <i class='fas fa-rss fa-fw'></i>博客
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/categories/
+                  
+                  
+                  
+                    id="categories"
+                  >
+                  <i class='fas fa-folder-open fa-fw'></i>分类
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/tags/
+                  
+                  
+                  
+                    id="tags"
+                  >
+                  <i class='fas fa-tags fa-fw'></i>标签
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/archives/
+                  
+                  
+                  
+                    id="archives"
+                  >
+                  <i class='fas fa-archive fa-fw'></i>归档
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/friends/
+                  
+                  
+                  
+                    id="friends"
+                  >
+                  <i class='fas fa-link fa-fw'></i>友链
+                </a>
+                
+              </li>
+            
+          
+            
+              
+            
+              <li>
+                <a class="flat-box" href=/about/
+                  
+                  
+                  
+                    id="about"
+                  >
+                  <i class='fas fa-info-circle fa-fw'></i>关于
+                </a>
+                
+              </li>
+            
+          
+            
+          </ul>
+        </li>
+			</ul>
+		</div>
+	</div>
+  </div>
+</header>
+
+<script>setLoadingBarProgress(40);</script>
+
+
+
+  <div class="l_body nocover">
+    <div class='body-wrapper'>
+      
+
+<div class='l_main'>
+  
+
+  
+    <article id="post" class="post white-box reveal shadow article-type-post" itemscope itemprop="blogPost">
+      
+
+
+  <section class='meta'>
+    
+      
+      
+      <div class="meta" id="header-meta">
+        
+          
+  <h1 class="title">
+    <a href="/2020/08/28/2020-08-28-2020-%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E7%AB%9E%E8%B5%9B%E5%88%9B%E6%96%B0%E5%AE%9E%E8%B7%B5%E8%B5%9B-wp/">
+      2020-信息安全竞赛创新实践赛-wp
+    </a>
+  </h1>
+
+
+        
+        <div class='new-meta-box'>
+          
+            
+          
+            
+              
+<div class='new-meta-item author'>
+  <a href="" rel="nofollow">
+    <img src="">
+    <p></p>
+  </a>
+</div>
+
+            
+          
+            
+              
+  
+  <div class='new-meta-item category'>
+    <a href='/categories/ctf/' rel="nofollow">
+      <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
+      <p>ctf</p>
+    </a>
+  </div>
+
+
+            
+          
+            
+              <div class="new-meta-item date">
+  <a class='notlink'>
+    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
+    <p>发布于：2020年8月28日</p>
+  </a>
+</div>
+
+            
+          
+            
+              
+
+            
+          
+        </div>
+        
+          <hr>
+        
+      </div>
+    
+  </section>
+
+
+      <section class="article typo">
+        <div class="article-entry" itemprop="articleBody">
+          
+          <p>这国赛出的没什么意思，re就给了两道然后被打穿了，等了一天最后放出来一道智能合约……</p>
+<span id="more"></span>
+
+<h2 id="z3"><a href="#z3" class="headerlink" title="z3"></a>z3</h2><p>直接解方程组得到flag</p>
+<pre><code class="python">target = [0x00004F17, 0x00009CF6, 0x00008DDB, 0x00008EA6, 0x00006929, 0x00009911, 0x000040A2, 0x00002F3E, 0x000062B6,0x00004B82, 0x0000486C, 0x00004002, 0x000052D7, 0x00002DEF, 0x000028DC, 0x0000640D, 0x0000528F, 0x0000613B,0x00004781, 0x00006B17, 0x00003237, 0x00002A93, 0x0000615F, 0x000050BE, 0x0000598E, 0x00004656, 0x00005B31,0x0000313A, 0x00003010, 0x000067FE, 0x00004D5F, 0x000058DB, 0x00003799, 0x000060A0, 0x00002750, 0x00003759,0x00008953, 0x00007122, 0x000081F9, 0x00005524, 0x00008971, 0x00003A1D]
+from z3 import *
+
+def RecurOr(flags, models, pos=0):
+   if (pos &amp;lt; len(flags) - 1):
+       return Or(models[flags[pos]] != flags[pos], RecurOr(flags, models, pos + 1))
+   else:
+       return Or(models[flags[pos]] != flags[pos])
+
+v = [Int(&#39;v%d&#39; % (i + 46)) for i in range(42)]
+flag = []
+solver = Solver()
+
+for c in v:
+   solver.add(c &gt;= 0x0)
+   solver.add(c &lt;= 0xff)
+v46 = v[0]
+v47 = v[1]
+v48 = v[2]
+v49 = v[3]
+v50 = v[4]
+v51 = v[5]
+v52 = v[6]
+v53 = v[7]
+v54 = v[8]
+v55 = v[9]
+v56 = v[10]
+v57 = v[11]
+v58 = v[12]
+v59 = v[13]
+v60 = v[14]
+v61 = v[15]
+v62 = v[16]
+v63 = v[17]
+v64 = v[18]
+v65 = v[19]
+v66 = v[20]
+v67 = v[21]
+v68 = v[22]
+v69 = v[23]
+v70 = v[24]
+v71 = v[25]
+v72 = v[26]
+v73 = v[27]
+v74 = v[28]
+v75 = v[29]
+v76 = v[30]
+v77 = v[31]
+v78 = v[32]
+v79 = v[33]
+v80 = v[34]
+v81 = v[35]
+v82 = v[36]
+v83 = v[37]
+v84 = v[38]
+v85 = v[39]
+v86 = v[40]
+v87 = v[41]
+
+solver.add(target[0] == 34 * v49 + 12 * v46 + 53 * v47 + 6 * v48 + 58 * v50 + 36 * v51 + v52)
+solver.add(target[1] == 27 * v50 + 73 * v49 + 12 * v48 + 83 * v46 + 85 * v47 + 96 * v51 + 52 * v52)
+solver.add(target[2] == 24 * v48 + 78 * v46 + 53 * v47 + 36 * v49 + 86 * v50 + 25 * v51 + 46 * v52)
+solver.add(target[3] == 78 * v47 + 39 * v46 + 52 * v48 + 9 * v49 + 62 * v50 + 37 * v51 + 84 * v52)
+solver.add(target[4] == 48 * v50 + 14 * v48 + 23 * v46 + 6 * v47 + 74 * v49 + 12 * v51 + 83 * v52)
+solver.add(target[5] == 15 * v51 + 48 * v50 + 92 * v48 + 85 * v47 + 27 * v46 + 42 * v49 + 72 * v52)
+solver.add(target[6] == 26 * v51 + 67 * v49 + 6 * v47 + 4 * v46 + 3 * v48 + 68 * v52)
+solver.add(target[7] == 34 * v56 + 12 * v53 + 53 * v54 + 6 * v55 + 58 * v57 + 36 * v58 + v59)
+solver.add(target[8] == 27 * v57 + 73 * v56 + 12 * v55 + 83 * v53 + 85 * v54 + 96 * v58 + 52 * v59)
+solver.add(target[9] == 24 * v55 + 78 * v53 + 53 * v54 + 36 * v56 + 86 * v57 + 25 * v58 + 46 * v59)
+solver.add(target[10] == 78 * v54 + 39 * v53 + 52 * v55 + 9 * v56 + 62 * v57 + 37 * v58 + 84 * v59)
+solver.add(target[11] == 48 * v57 + 14 * v55 + 23 * v53 + 6 * v54 + 74 * v56 + 12 * v58 + 83 * v59)
+solver.add(target[12] == 15 * v58 + 48 * v57 + 92 * v55 + 85 * v54 + 27 * v53 + 42 * v56 + 72 * v59)
+solver.add(target[13] == 26 * v58 + 67 * v56 + 6 * v54 + 4 * v53 + 3 * v55 + 68 * v59)
+solver.add(target[14] == 34 * v63 + 12 * v60 + 53 * v61 + 6 * v62 + 58 * v64 + 36 * v65 + v66)
+solver.add(target[15] == 27 * v64 + 73 * v63 + 12 * v62 + 83 * v60 + 85 * v61 + 96 * v65 + 52 * v66)
+solver.add(target[16] == 24 * v62 + 78 * v60 + 53 * v61 + 36 * v63 + 86 * v64 + 25 * v65 + 46 * v66)
+solver.add(target[17] == 78 * v61 + 39 * v60 + 52 * v62 + 9 * v63 + 62 * v64 + 37 * v65 + 84 * v66)
+solver.add(target[18] == 48 * v64 + 14 * v62 + 23 * v60 + 6 * v61 + 74 * v63 + 12 * v65 + 83 * v66)
+solver.add(target[19] == 15 * v65 + 48 * v64 + 92 * v62 + 85 * v61 + 27 * v60 + 42 * v63 + 72 * v66)
+solver.add(target[20] == 26 * v65 + 67 * v63 + 6 * v61 + 4 * v60 + 3 * v62 + 68 * v66)
+solver.add(target[21] == 34 * v70 + 12 * v67 + 53 * v68 + 6 * v69 + 58 * v71 + 36 * v72 + v73)
+solver.add(target[22] == 27 * v71 + 73 * v70 + 12 * v69 + 83 * v67 + 85 * v68 + 96 * v72 + 52 * v73)
+solver.add(target[23] == 24 * v69 + 78 * v67 + 53 * v68 + 36 * v70 + 86 * v71 + 25 * v72 + 46 * v73)
+solver.add(target[24] == 78 * v68 + 39 * v67 + 52 * v69 + 9 * v70 + 62 * v71 + 37 * v72 + 84 * v73)
+solver.add(target[25] == 48 * v71 + 14 * v69 + 23 * v67 + 6 * v68 + 74 * v70 + 12 * v72 + 83 * v73)
+solver.add(target[26] == 15 * v72 + 48 * v71 + 92 * v69 + 85 * v68 + 27 * v67 + 42 * v70 + 72 * v73)
+solver.add(target[27] == 26 * v72 + 67 * v70 + 6 * v68 + 4 * v67 + 3 * v69 + 68 * v73)
+solver.add(target[28] == 34 * v77 + 12 * v74 + 53 * v75 + 6 * v76 + 58 * v78 + 36 * v79 + v80)
+solver.add(target[29] == 27 * v78 + 73 * v77 + 12 * v76 + 83 * v74 + 85 * v75 + 96 * v79 + 52 * v80)
+solver.add(target[30] == 24 * v76 + 78 * v74 + 53 * v75 + 36 * v77 + 86 * v78 + 25 * v79 + 46 * v80)
+solver.add(target[31] == 78 * v75 + 39 * v74 + 52 * v76 + 9 * v77 + 62 * v78 + 37 * v79 + 84 * v80)
+solver.add(target[32] == 48 * v78 + 14 * v76 + 23 * v74 + 6 * v75 + 74 * v77 + 12 * v79 + 83 * v80)
+solver.add(target[33] == 15 * v79 + 48 * v78 + 92 * v76 + 85 * v75 + 27 * v74 + 42 * v77 + 72 * v80)
+solver.add(target[34] == 26 * v79 + 67 * v77 + 6 * v75 + 4 * v74 + 3 * v76 + 68 * v80)
+solver.add(target[35] == 34 * v84 + 12 * v81 + 53 * v82 + 6 * v83 + 58 * v85 + 36 * v86 + v87)
+solver.add(target[36] == 27 * v85 + 73 * v84 + 12 * v83 + 83 * v81 + 85 * v82 + 96 * v86 + 52 * v87)
+solver.add(target[37] == 24 * v83 + 78 * v81 + 53 * v82 + 36 * v84 + 86 * v85 + 25 * v86 + 46 * v87)
+solver.add(target[38] == 78 * v82 + 39 * v81 + 52 * v83 + 9 * v84 + 62 * v85 + 37 * v86 + 84 * v87)
+solver.add(target[39] == 48 * v85 + 14 * v83 + 23 * v81 + 6 * v82 + 74 * v84 + 12 * v86 + 83 * v87)
+solver.add(target[40] == 15 * v86 + 48 * v85 + 92 * v83 + 85 * v82 + 27 * v81 + 42 * v84 + 72 * v87)
+solver.add(target[41] == 26 * v86 + 67 * v84 + 6 * v82 + 4 * v81 + 3 * v83 + 68 * v87)
+
+while (solver.check() == sat):
+   flag = &quot;&quot;
+   model = solver.model()
+   for i in range(42):
+       flag += chr(model[v[i]].as_long())
+   print(flag)
+   solver.add(RecurOr(v, model))
+# flag&#123;7e171d43-63b9-4e18-990e-6e14c2afe648&#125;
+</code></pre>
+<h2 id="hyperthreading"><a href="#hyperthreading" class="headerlink" title="hyperthreading"></a>hyperthreading</h2><p>输入长度为42位的flag，然后创建了新的线程，里面对输入进行了处理，还有反调试，最后进行比较</p>
+<p><img src="/2020/08/28/2020-08-28-2020-%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E7%AB%9E%E8%B5%9B%E5%88%9B%E6%96%B0%E5%AE%9E%E8%B7%B5%E8%B5%9B-wp/image-20200821091520232.png" alt="image-20200821091520232"></p>
+<p>处理过程有一些花指令，去了花指令之后可以看到处理的过程</p>
+<p><img src="/2020/08/28/2020-08-28-2020-%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E7%AB%9E%E8%B5%9B%E5%88%9B%E6%96%B0%E5%AE%9E%E8%B7%B5%E8%B5%9B-wp/image-20200821092126482.png" alt="image-20200821092126482"></p>
+<p>取出其中一位，右移两位和左移六位之后的结果进行异或，然后再异或0x23</p>
+<p><img src="/2020/08/28/2020-08-28-2020-%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E7%AB%9E%E8%B5%9B%E5%88%9B%E6%96%B0%E5%AE%9E%E8%B7%B5%E8%B5%9B-wp/image-20200821092313770.png" alt="image-20200821092313770"></p>
+<p>出来的结果加上0x23</p>
+<p><img src="/2020/08/28/2020-08-28-2020-%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E7%AB%9E%E8%B5%9B%E5%88%9B%E6%96%B0%E5%AE%9E%E8%B7%B5%E8%B5%9B-wp/image-20200821092356200.png" alt="image-20200821092356200"></p>
+<p>索引加一，移向下一位，直接上脚本</p>
+<pre><code class="python">target = [0xDD, 0x5B, 0x9E, 0x1D, 0x20, 0x9E, 0x90, 0x91, 0x90, 0x90, 0x91, 0x92, 0xDE, 0x8B, 0x11, 0xD1, 0x1E, 0x9E,0x8B, 0x51, 0x11, 0x50, 0x51, 0x8B, 0x9E, 0x5D, 0x5D, 0x11, 0x8B, 0x90, 0x12, 0x91, 0x50, 0x12, 0xD2, 0x91,0x92, 0x1E, 0x9E, 0x90, 0xD2, 0x9F]
+for i in range(len(target)):
+   target[i] = ((target[i] - 0x23) &amp; 0xff) ^ 0x23
+   target[i] = ((target[i] &lt;&lt; 2) | (target[i] &gt;&gt; 6)) &amp; 0xff
+# print(target)
+flag = &quot;&quot;
+for i in target:
+   flag += chr(i)
+print(flag)
+
+# flag&#123;a959951b-76ca-4784-add7-93583251ca92&#125;
+</code></pre>
+<h1 id="misc"><a href="#misc" class="headerlink" title="misc"></a>misc</h1><h2 id="电脑被黑"><a href="#电脑被黑" class="headerlink" title="电脑被黑"></a>电脑被黑</h2><p>diskgenius挂载虚拟磁盘disk_dump，恢复被删除数据</p>
+<p><img src="/2020/08/28/2020-08-28-2020-%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E7%AB%9E%E8%B5%9B%E5%88%9B%E6%96%B0%E5%AE%9E%E8%B7%B5%E8%B5%9B-wp/image-20200821093045254.png" alt="image-20200821093045254"><br>恢复出了被删除的文件，但是是乱码，打开demo发现文件头elf，这个程序对flag文件进行了处理<br><img src="/2020/08/28/2020-08-28-2020-%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E7%AB%9E%E8%B5%9B%E5%88%9B%E6%96%B0%E5%AE%9E%E8%B7%B5%E8%B5%9B-wp/image-20200821093316861.png" alt="image-20200821093316861"></p>
+<p>上脚本逆向处理一下</p>
+<pre><code class="python">v4 = 34
+v5 = 0
+target = [0x44, 0x2A, 0x03, 0xE5, 0x29, 0xA3, 0xAF, 0x62, 0x05, 0x31, 0x4E, 0xF3, 0xD6, 0xEB, 0x90, 0x66,0x24, 0x5C, 0xB7, 0x92, 0xF6, 0xD7, 0x4D, 0x0B, 0x6A, 0x41, 0xA3, 0x85, 0xEF, 0x90, 0x5A, 0x7E,0x5B, 0xEC, 0xC1, 0xF0, 0xD4, 0x61, 0x12, 0x12, 0x45, 0xEB, 0xB8]
+flag = &quot;&quot;
+for i in target:
+   v6 = i
+   flag += chr(((v6 ^ v4) - v5) &amp;amp; 0xff)
+   v4 += 34
+   v5 = (v5 + 2) &amp;amp; 0xF
+print(flag)
+# flag&#123;e5d7c4ed-b8f6-4417-8317-b809fc26c047&#125;
+</code></pre>
+<h2 id="WamaCry1"><a href="#WamaCry1" class="headerlink" title="WamaCry1"></a>WamaCry1</h2><p>简易的勒索病毒，打包处理过，解包之后，查看一下student_unpacked，除了一些根本没用的按钮和输出之外，还调用了son.exe</p>
+<p><img src="/2020/08/28/2020-08-28-2020-%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E7%AB%9E%E8%B5%9B%E5%88%9B%E6%96%B0%E5%AE%9E%E8%B7%B5%E8%B5%9B-wp/image-20200821093629676.png" alt="image-20200821093629676"></p>
+<p>在解包之后的文件中找到这个程序，分析一下程序逻辑<br><img src="/2020/08/28/2020-08-28-2020-%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E7%AB%9E%E8%B5%9B%E5%88%9B%E6%96%B0%E5%AE%9E%E8%B7%B5%E8%B5%9B-wp/image-20200821093904054.png"></p>
+<p>获取电脑名字，生成公钥和私钥对flag进行加密<br><img src="/2020/08/28/2020-08-28-2020-%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E7%AB%9E%E8%B5%9B%E5%88%9B%E6%96%B0%E5%AE%9E%E8%B7%B5%E8%B5%9B-wp/image-20200821093750996.png" alt="image-20200821093750996"></p>
+<p>连接服务器，ip和端口如图，向服务器发送电脑名和私钥</p>
+<p>得到ip以后扫描端口，发现开放8080是tomcat的默认管理页面，尝试弱口令tomcat/tomcat进去项目管理页面，构造war包上传拿到shell，在/tmp/key/文件夹下发现私钥及勒索病毒服务器端</p>
+<p>在服务器段拿到生成的私钥文件和服务器端运行的程序，查看私钥发现经过了处理，分析服务器端程序，先开放端口建立连接<br><img src="/2020/08/28/2020-08-28-2020-%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E7%AB%9E%E8%B5%9B%E5%88%9B%E6%96%B0%E5%AE%9E%E8%B7%B5%E8%B5%9B-wp/image-20200821094420639.png" alt="image-20200821094420639"><br>接收先发送的电脑名称，创建以电脑名命名的文件<br><img src="/2020/08/28/2020-08-28-2020-%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E7%AB%9E%E8%B5%9B%E5%88%9B%E6%96%B0%E5%AE%9E%E8%B7%B5%E8%B5%9B-wp/image-20200821094550871.png" alt="image-20200821094550871"></p>
+<p>rsa私钥有很多行，逐行接收，最关键的处理就是buf和1进行异或，这个异或只影响整数的最后一位，对应转换成的字符串的第一个字符，所以对私钥文件的第一列异或1还原回来</p>
+
+          
+            <div class='article_footer'>
+              
+                
+  
+    
+    
+
+
+
+  
+
+  
+    
+    
+
+
+
+  
+
+  
+    
+    
+
+<section class="widget copyright  desktop mobile">
+  <div class='content'>
+    
+      <blockquote>
+        
+          
+            <p>博客内容遵循 署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</p>
+
+          
+        
+          
+            <p>本文永久链接是：<a href=http://blog.rycbar.club/2020/08/28/2020-08-28-2020-%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E7%AB%9E%E8%B5%9B%E5%88%9B%E6%96%B0%E5%AE%9E%E8%B7%B5%E8%B5%9B-wp/>http://blog.rycbar.club/2020/08/28/2020-08-28-2020-%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E7%AB%9E%E8%B5%9B%E5%88%9B%E6%96%B0%E5%AE%9E%E8%B7%B5%E8%B5%9B-wp/</a></p>
+          
+        
+      </blockquote>
+    
+  </div>
+</section>
+
+  
+
+  
+
+
+              
+            </div>
+          
+        </div>
+        
+          
+
+
+  <section class='meta' id="footer-meta">
+    <div class='new-meta-box'>
+      
+        
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-05-03T19:57:12+08:00">
+  <a class='notlink'>
+    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
+    <p>更新于：2021年5月3日</p>
+  </a>
+</div>
+
+        
+      
+        
+          
+  
+  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/writeup/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>writeup</p></a></div>
+
+
+        
+      
+        
+          
+
+        
+      
+        
+          
+  <div class="new-meta-item share -mob-share-list">
+  <div class="-mob-share-list share-body">
+    
+      
+        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://blog.rycbar.club/2020/08/28/2020-08-28-2020-%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E7%AB%9E%E8%B5%9B%E5%88%9B%E6%96%B0%E5%AE%9E%E8%B7%B5%E8%B5%9B-wp/&title=2020-信息安全竞赛创新实践赛-wp - My Tiny Ideas&summary=这国赛出的没什么意思，re就给了两道然后被打穿了，等了一天最后放出来一道智能合约……"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/qq.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://blog.rycbar.club/2020/08/28/2020-08-28-2020-%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E7%AB%9E%E8%B5%9B%E5%88%9B%E6%96%B0%E5%AE%9E%E8%B7%B5%E8%B5%9B-wp/&title=2020-信息安全竞赛创新实践赛-wp - My Tiny Ideas&summary=这国赛出的没什么意思，re就给了两道然后被打穿了，等了一天最后放出来一道智能合约……"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/qzone.png">
+          
+        </a>
+      
+    
+      
+        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
+          
+          target="_blank" href="http://service.weibo.com/share/share.php?url=http://blog.rycbar.club/2020/08/28/2020-08-28-2020-%E4%BF%A1%E6%81%AF%E5%AE%89%E5%85%A8%E7%AB%9E%E8%B5%9B%E5%88%9B%E6%96%B0%E5%AE%9E%E8%B7%B5%E8%B5%9B-wp/&title=2020-信息安全竞赛创新实践赛-wp - My Tiny Ideas&summary=这国赛出的没什么意思，re就给了两道然后被打穿了，等了一天最后放出来一道智能合约……"
+          
+          >
+          
+            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/weibo.png">
+          
+        </a>
+      
+    
+  </div>
+</div>
+
+
+
+        
+      
+    </div>
+  </section>
+
+
+        
+        
+          <div class="prev-next">
+            
+              <a class='prev' href='/2020/08/28/2020-08-28-2020-%E5%BC%BA%E7%BD%91%E6%9D%AF-wp/'>
+                <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>2020-强网杯-wp</p>
+                <p class='content'>赛题出的很有水平啊，第一天出去玩了一天，第二天才开始做，只做出了这么几题，看了一下firmware是个虚拟机，再多点时间应该也可以出
+
+
+侧防这题比较简单，放在了，没有放在re分类，直接上脚本
+...</p>
+              </a>
+            
+            
+              <a class='next' href='/2020/05/27/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-Crypto-wp/'>
+                <p class='title'>攻防世界_Crypto_wp<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+                <p class='content'>开始学Crypto主要有两个原因，第一还是受了最近两场比赛的影响，安恒月赛的时候真就提前ak了re之后看着掉排名，GKCTF也是只上了单榜；第二就是最近做re的时候，经常会做到最后遇到加密算法还...</p>
+              </a>
+            
+          </div>
+        
+      </section>
+    </article>
+  
+
+  
+    <!-- 显示推荐文章和评论 -->
+
+
+
+  <article class="post white-box reveal comments shadow">
+    <section class="article typo">
+      <p ct><i class='fas fa-comments'></i> 评论</p>
+      
+      
+      
+      
+        <section id="comments">
+          <div id="gitalk-container"></div>
+        </section>
+      
+      
+      
+      
+    </section>
+  </article>
+
+
+  
+
+
+
+
+<!-- 根据页面mathjax变量决定是否加载MathJax数学公式js -->
+
+
+
+  <script>
+    window.subData = {
+      title: '2020-信息安全竞赛创新实践赛-wp',
+      tools: true
+    }
+  </script>
+
+
+</div>
+<aside class='l_side'>
+  
+  
+
+  
+    
+    
+
+
+  <section class="widget toc-wrapper shadow desktop mobile">
+    
+  <header>
+    
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
+    
+  </header>
+
+
+    <div class='content'>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#z3"><span class="toc-text">z3</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#hyperthreading"><span class="toc-text">hyperthreading</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%B5%E8%84%91%E8%A2%AB%E9%BB%91"><span class="toc-text">电脑被黑</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#WamaCry1"><span class="toc-text">WamaCry1</span></a></li></ol>
+    </div>
+  </section>
+
+
+  
+
+
+</aside>
+
+
+  
+  <footer class="clearfix">
+    <br><br>
+    
+      
+        <div class="aplayer-container">
+          
+
+  
+    <meting-js
+      theme='#1BCDFC'
+      autoplay='false'
+      volume='0.7'
+      loop='all'
+      order='random'
+      fixed='false'
+      list-max-height='340px'
+      server='netease'
+      type='playlist'
+      id='555017395'
+      list-folded='true'>
+    </meting-js>
+  
+
+
+        </div>
+      
+    
+      
+        <br>
+        <div class="social-wrapper">
+          
+            
+              <a href="/rycbar17th@gmail.com"
+                class="social fas fa-envelope flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+            
+              <a href="https://github.com/schrodinger17"
+                class="social fab fa-github flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+            
+              <a href="https://music.163.com/#/user/home?id=391265665"
+                class="social fas fa-headphones-alt flat-btn"
+                target="_blank"
+                rel="external nofollow noopener noreferrer">
+              </a>
+            
+          
+        </div>
+      
+    
+      
+        <div><p>博客内容遵循 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</a></p>
+</div>
+      
+    
+      
+        <div class='copyright'>
+        <p><a href="https://blog.rycbar.club/">Copyright © 2017-2020 rycbar</a></p>
+
+        </div>
+      
+    
+  </footer>
+
+<script>setLoadingBarProgress(80);</script>
+
+
+      <script>setLoadingBarProgress(60);</script>
+    </div>
+    <a class="s-top fas fa-arrow-up fa-fw" href='javascript:void(0)'></a>
+  </div>
+  
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.4/dist/jquery.min.js"></script>
+
+
+  <script>
+    
+    var SEARCH_SERVICE = "hexo" || "hexo";
+    var ROOT = "/" || "/";
+    if (!ROOT.endsWith('/')) ROOT += '/';
+  </script>
+
+
+  <script async src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2/js/instant_page.js" type="module" defer integrity="sha384-OeDn4XE77tdHo8pGtE1apMPmAipjoxUQ++eeJa6EtJCfHlvijigWiJpD7VDPWXV1"></script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/scrollreveal@4.0.6/dist/scrollreveal.min.js"></script>
+  <script type="text/javascript">
+    $(function() {
+      ScrollReveal().reveal('.l_main .reveal', {
+        distance: '8px',
+        duration: '800',
+        interval: '100',
+        scale: '1'
+      });
+    });
+  </script>
+
+
+  
+<script src="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.js"></script>
+
+  <script type="text/javascript">
+    $(function() {
+      Waves.attach('.flat-btn', ['waves-button']);
+      Waves.attach('.float-btn', ['waves-button', 'waves-float']);
+      Waves.attach('.float-btn-light', ['waves-button', 'waves-float', 'waves-light']);
+      Waves.attach('.flat-box', ['waves-block']);
+      Waves.attach('.float-box', ['waves-block', 'waves-float']);
+      Waves.attach('.waves-image');
+      Waves.init();
+    });
+  </script>
+
+
+  <script async src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-busuanzi@2.3/js/busuanzi.pure.mini.js"></script>
+
+
+
+  
+  
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/jquery-backstretch@2.1.18/jquery.backstretch.min.js"></script>
+
+    <script type="text/javascript">
+      $(function(){
+        var imgs=["https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/41F215B9-261F-48B4-80B5-4E86E165259E.jpeg", "https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/BBC19066-E176-47C2-9D22-48C81EE5DF6B.jpeg", "https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/B18FCBB3-67FD-48CC-B4F3-457BA145F17A.jpeg", "https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/35F12181-F0E9-45BD-B134-37E4B4A660CF.jpeg", "https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/00E0F0ED-9F1C-407A-9AA6-545649D919F4.jpeg", "https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/67239FBB-E15D-4F4F-8EE8-0F1C9F3C4E7C.jpeg", "https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/B951AE18-D431-417F-B3FE-A382403FF21B.jpeg", "https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/landscape/AEB33F9D-7294-4CF1-B8C5-3020748A9D45.jpeg", "https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/2884F904-F1F3-479E-AE27-5EBC291B63B0.jpeg", "https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/landscape/10A0FCE5-36A1-4AD0-8CF0-019259A89E03.jpeg", "https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/landscape/250662D4-5A21-4AAA-BB63-CD25CF97CFF1.jpeg", "https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/landscape/298468D7-E388-44A8-8CC5-8213BDC33CED.jpeg"];
+        if ('true' == 'true') {
+          function shuffle(arr){
+            /*From countercurrent-time*/
+            var n = arr.length;
+            while(n--) {
+              var index = Math.floor(Math.random() * n);
+              var temp = arr[index];
+              arr[index] = arr[n];
+              arr[n] = temp;
+            }
+          }
+          shuffle(imgs);
+        }
+        if ('.cover') {
+          $('.cover').backstretch(
+            imgs,
+          {
+            duration: "20000",
+            fade: "1500"
+          });
+        } else {
+          $.backstretch(
+            imgs,
+          {
+            duration: "20000",
+            fade: "1500"
+          });
+        }
+      });
+    </script>
+  
+
+
+
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.js"></script>
+
+  
+    
+<script src="https://cdn.jsdelivr.net/npm/meting@2.0/dist/Meting.min.js"></script>
+
+  
+
+
+
+
+
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
+  <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
+  <script type="text/javascript">
+    var gitalk = new Gitalk({
+      clientID: "6dbe0fb891585031b176",
+      clientSecret: "4407fec5af8e37150b5a4cb82821318d91c07769",
+      repo: "comments",
+      owner: "schrodinger17",
+      admin: "schrodinger17",
+      
+        id: location.pathname,      // Ensure uniqueness and length less than 50
+      
+      distractionFreeMode: false  // Facebook-like distraction free mode
+    });
+    gitalk.render('gitalk-container');
+  </script>
+
+
+
+
+
+
+
+
+  
+<script src="/js/app.js"></script>
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2.6.5/js/search.js"></script>
+
+
+
+  
+<script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2/js/comment_typing.js"></script>
+
+
+
+
+  
+    
+<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.1/build/highlight.min.js"></script>
+
+    <script>hljs.initHighlightingOnLoad();</script>
+  
+
+
+
+<!-- 复制 -->
+
+  <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
+<script>
+  function wait(callback, seconds) {
+    var timelag = null;
+    timelag = window.setTimeout(callback, seconds);
+  }
+  !function (e, t, a) {
+    var initCopyCode = function(){
+      var copyHtml = '';
+      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
+      copyHtml += '<i class="fas fa-copy"></i><span>COPY</span>';
+      copyHtml += '</button>';
+      $(".highlight .code pre").before(copyHtml);
+      $(".article pre code").before(copyHtml);
+      var clipboard = new ClipboardJS('.btn-copy', {
+        target: function(trigger) {
+          return trigger.nextElementSibling;
+        }
+      });
+      clipboard.on('success', function(e) {
+        let $btn = $(e.trigger);
+        $btn.addClass('copied');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('fa-copy');
+        $icon.addClass('fa-check-circle');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPIED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('fa-check-circle');
+          $icon.addClass('fa-copy');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+      clipboard.on('error', function(e) {
+        e.clearSelection();
+        let $btn = $(e.trigger);
+        $btn.addClass('copy-failed');
+        let $icon = $($btn.find('i'));
+        $icon.removeClass('fa-copy');
+        $icon.addClass('fa-times-circle');
+        let $span = $($btn.find('span'));
+        $span[0].innerText = 'COPY FAILED';
+        
+        wait(function () { // 等待两秒钟后恢复
+          $icon.removeClass('fa-times-circle');
+          $icon.addClass('fa-copy');
+          $span[0].innerText = 'COPY';
+        }, 2000);
+      });
+    }
+    initCopyCode();
+  }(window, document);
+</script>
+
+
+
+
+<!-- fancybox -->
+
+  <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
+<script>
+  let LAZY_LOAD_IMAGE = "";
+  $(".article-entry").find("div.fancybox").find("img").each(function () {
+      var element = document.createElement("a");
+      $(element).attr("data-fancybox", "gallery");
+      $(element).attr("href", $(this).attr("src"));
+      /* 图片采用懒加载处理时,
+       * 一般图片标签内会有个属性名来存放图片的真实地址，比如 data-original,
+       * 那么此处将原本的属性名src替换为对应属性名data-original,
+       * 修改如下
+       */
+       if (LAZY_LOAD_IMAGE) {
+         $(element).attr("href", $(this).attr("data-original"));
+       }
+      $(this).wrap(element);
+  });
+</script>
+
+
+
+
+
+
+  <script>setLoadingBarProgress(100);</script>
+</body>
+</html>

@@ -16,10 +16,10 @@
 
   <!-- 页面元数据 -->
   
-    <title>My Tiny Ideas</title>
+    <title>2020-巅峰极客 - My Tiny Ideas</title>
   
   
-    <meta name="description" content="这一题用到了一些windows加密算法中的东西">
+    <meta name="description" content="2020-巅峰极客">
   
 
   <!-- feed -->
@@ -363,8 +363,8 @@
         
           
   <h1 class="title">
-    <a href="/2020/03/27/CrackRTF-buuctf/">
-      2020年3月27日
+    <a href="/2020/09/26/2020-09-26-2020-%E5%B7%85%E5%B3%B0%E6%9E%81%E5%AE%A2/">
+      2020-巅峰极客
     </a>
   </h1>
 
@@ -377,9 +377,9 @@
             
               
 <div class='new-meta-item author'>
-  <a href="http://blog.rycbar.club" rel="nofollow">
-    <img src="https://q2.qlogo.cn/headimg_dl?dst_uin=595371936&spec=100">
-    <p>rycbar</p>
+  <a href="" rel="nofollow">
+    <img src="">
+    <p></p>
   </a>
 </div>
 
@@ -387,6 +387,14 @@
           
             
               
+  
+  <div class='new-meta-item category'>
+    <a href='/categories/ctf/' rel="nofollow">
+      <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
+      <p>ctf</p>
+    </a>
+  </div>
+
 
             
           
@@ -394,7 +402,7 @@
               <div class="new-meta-item date">
   <a class='notlink'>
     <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
-    <p>发布于：2020年3月27日</p>
+    <p>发布于：2020年9月26日</p>
   </a>
 </div>
 
@@ -417,405 +425,155 @@
       <section class="article typo">
         <div class="article-entry" itemprop="articleBody">
           
-          <p>这一题用到了一些windows加密算法中的东西</p>
+          <p>2020-巅峰极客</p>
 <span id="more"></span>
 
-<p>根据字符串找到了关键的部分函数</p>
-<pre><code class="c++">void FUN_00401690(void)
+<h2 id="re"><a href="#re" class="headerlink" title="re"></a>re</h2><h2 id="virus"><a href="#virus" class="headerlink" title="virus"></a>virus</h2><p>简单的迷宫题，开始先输入四个数选择地图顺序，然后输入以wasd组成的操作序列，用-隔开，每一个序列都会有长度限制，对应了四个迷宫不同的路线长度，所以把迷宫找出来就解出来了</p>
+<pre><code>maze1
 
-&#123;
-  size_t sVar1;
-  uint uVar2;
-  int iVar3;
-  undefined4 *puVar4;
-  char *pcVar5;
-  undefined4 local_354 [16];
-  BYTE local_314 [260];
-  int local_210;
-  char local_20c [260];
-  byte local_108 [256];
-  undefined4 uStack8;
-  
-  iVar3 = 0xd4;
-  puVar4 = local_354;
-  while (iVar3 != 0) &#123;
-    iVar3 = iVar3 + -1;
-    *puVar4 = 0xcccccccc;
-    puVar4 = puVar4 + 1;
-  &#125;
-  _memset(local_108,0,0x104);
-  _memset(local_20c,0,0x104);
-  local_210 = 0;
-  FUN_00401e60((byte *)&quot;pls input the first passwd(1): &quot;);
-  FUN_00401e00(&amp;DAT_00426104);
-  sVar1 = _strlen((char *)local_108);
-  if (sVar1 != 6) &#123;
-    FUN_00401e60((byte *)&quot;Must be 6 characters!\n&quot;);
-    ExitProcess(0);
-    __chkesp();
-  &#125;
-  local_210 = FUN_00401c30(local_108);
-  if (local_210 &lt; 100000) &#123;
-    ExitProcess(0);
-    __chkesp();
-  &#125;
-  FID_conflict:_strcat((char *)local_108,&quot;@DBApp&quot;);
-  pcVar5 = local_20c;
-  sVar1 = _strlen((char *)local_108);
-  thunk_FUN_00401230(local_108,sVar1,pcVar5);
-  iVar3 = __strcmpi(local_20c,&quot;6E32D0943418C2C33385BC35A1470250DD8923A9&quot;);
-  if (iVar3 == 0) &#123;
-    FUN_00401e60((byte *)&quot;continue...\n\n&quot;);
-    FUN_00401e60((byte *)&quot;pls input the first passwd(2): &quot;);
-    _memset(local_314,0,0x104);
-    FUN_00401e00(&amp;DAT_00426104);
-    sVar1 = _strlen((char *)local_314);
-    if (sVar1 != 6) &#123;
-      FUN_00401e60((byte *)&quot;Must be 6 characters!\n&quot;);
-      ExitProcess(0);
-      __chkesp();
-    &#125;
-    FID_conflict:_strcat((char *)local_314,(char *)local_108);
-    _memset(local_20c,0,0x104);
-    pcVar5 = local_20c;
-    sVar1 = _strlen((char *)local_314);
-    thunk_FUN_00401040(local_314,sVar1,pcVar5);
-    iVar3 = __strcmpi(&quot;27019e688a4e62a649fd99cadaafdb4e&quot;,local_20c);
-    if (iVar3 == 0) &#123;
-      uVar2 = thunk_FUN_004014d0((LPCSTR)local_314);
-      if ((uVar2 &amp; 0xff) == 0) &#123;
-        FUN_00401e60((byte *)&quot;Error!!\n&quot;);
-        ExitProcess(0);
-        __chkesp();
-      &#125;
-      else &#123;
-        FUN_00401e60((byte *)&quot;bye ~~\n&quot;);
-      &#125;
-    &#125;
-  &#125;
-  uStack8 = 0x4018f6;
-  __chkesp();
-  return;
-&#125;
-</code></pre>
-<p>需要pass两层密码才可以，仔细看一下加密的部分</p>
-<pre><code class="c++">void __cdecl FUN_00401230(BYTE *param_1,DWORD param_2,LPSTR param_3)
+|||||||||||||||
 
-&#123;
-  int iVar1;
-  undefined4 *puVar2;
-  undefined4 local_6c [16];
-  uint local_2c;
-  CHAR local_28 [4];
-  byte local_24 [20];
-  DWORD local_10;
-  HCRYPTHASH local_c;
-  HCRYPTPROV local_8;
-  
-  iVar1 = 0x1a;
-  puVar2 = local_6c;
-  while (iVar1 != 0) &#123;
-    iVar1 = iVar1 + -1;
-    *puVar2 = 0xcccccccc;
-    puVar2 = puVar2 + 1;
-  &#125;
-  CryptAcquireContextA(&amp;local_8,(LPCSTR)0x0,(LPCSTR)0x0,1,0xf0000000);
-  iVar1 = __chkesp();
-  if (iVar1 != 0) &#123;
-    CryptCreateHash(local_8,0x8004,0,0,&amp;local_c);
-    iVar1 = __chkesp();
-    if (iVar1 == 0) &#123;
-      CryptReleaseContext(local_8,0);
-      __chkesp();
-    &#125;
-    else &#123;
-      CryptHashData(local_c,param_1,param_2,0);
-      iVar1 = __chkesp();
-      if (iVar1 == 0) &#123;
-        CryptDestroyHash(local_c);
-        __chkesp();
-        CryptReleaseContext(local_8,0);
-        __chkesp();
-      &#125;
-      else &#123;
-        CryptGetHashParam(local_c,2,local_24,&amp;local_10,0);
-        __chkesp();
-        *param_3 = &#39;\0&#39;;
-        local_2c = 0;
-        while (local_2c &lt; local_10) &#123;
-          wsprintfA(local_28,&quot;%02X&quot;,(uint)local_24[local_2c]);
-          __chkesp();
-          lstrcatA(param_3,local_28);
-          __chkesp();
-          local_2c = local_2c + 1;
-        &#125;
-        CryptDestroyHash(local_c);
-        __chkesp();
-        CryptReleaseContext(local_8,0);
-        __chkesp();
-      &#125;
-    &#125;
-  &#125;
-  local_8 = 0x4013b8;
-  __chkesp();
-  return;
-&#125;
-</code></pre>
-<p>第一层加密，重点看看一个函数<code>CryptCreateHash(local_8,0x8004,0,0,&amp;local_c)</code></p>
-<p>上微软查查定义</p>
-<pre><code class="c++">BOOL CryptCreateHash(
-  HCRYPTPROV hProv,
-  ALG_ID     Algid,
-  HCRYPTKEY  hKey,
-  DWORD      dwFlags,
-  HCRYPTHASH *phHash
-);
-</code></pre>
-<p><code>hProv</code><br>A handle to a CSP created by a call to <a target="_blank" rel="noopener" href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptacquirecontexta">CryptAcquireContext</a>.</p>
-<p><code>Algid</code><br>An <a target="_blank" rel="noopener" href="https://docs.microsoft.com/windows/desktop/SecCrypto/alg-id">ALG_ID</a> value that identifies the hash algorithm to use.</p>
-<p>Valid values for this parameter vary, depending on the CSP that is used. For a list of default algorithms, see Remarks.</p>
-<p><code>hKey</code><br>If the type of hash algorithm is a keyed hash, such as the <a target="_blank" rel="noopener" href="https://docs.microsoft.com/windows/desktop/SecGloss/h-gly">Hash-Based Message Authentication Code</a> (HMAC) or <a target="_blank" rel="noopener" href="https://docs.microsoft.com/windows/desktop/SecGloss/m-gly">Message Authentication Code</a> (MAC) algorithm, the key for the hash is passed in this parameter. For nonkeyed algorithms, this parameter must be set to zero.</p>
-<p>For keyed algorithms, the key must be to a <a target="_blank" rel="noopener" href="https://docs.microsoft.com/windows/desktop/SecGloss/b-gly">block cipher</a> key, such as RC2, that has a <a target="_blank" rel="noopener" href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">cipher mode</a> of <a target="_blank" rel="noopener" href="https://docs.microsoft.com/windows/desktop/SecGloss/c-gly">Cipher Block Chaining</a> (CBC).</p>
-<p><code>dwFlags</code><br>The following flag value is defined.</p>
-<table>
-<thead>
-<tr>
-<th align="left">Value</th>
-<th align="left">Meaning</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left"><strong>CRYPT_SECRETDIGEST</strong>0x00000001</td>
-<td align="left">This flag is not used.</td>
-</tr>
-</tbody></table>
-<p><code>phHash</code><br>The address to which the function copies a handle to the new hash object. When you have finished using the hash object, release the handle by calling the <a target="_blank" rel="noopener" href="https://docs.microsoft.com/windows/desktop/api/wincrypt/nf-wincrypt-cryptdestroyhash">CryptDestroyHash</a> function.</p>
-<p>需要关注<code>Algid</code>，定义了加密的方式，在 <a target="_blank" rel="noopener" href="https://docs.microsoft.com/windows/desktop/SecCrypto/alg-id">ALG_ID</a> 查一下<code>0x8004</code></p>
-<table>
-<thead>
-<tr>
-<th align="left">Identifier</th>
-<th align="left">Value</th>
-<th align="left">Description</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">CALG_SHA</td>
-<td align="left">0x00008004</td>
-<td align="left">SHA hashing algorithm. This algorithm is supported by the <a target="_blank" rel="noopener" href="https://docs.microsoft.com/zh-cn/windows/win32/seccrypto/microsoft-base-cryptographic-provider">Microsoft Base Cryptographic Provider</a>.</td>
-</tr>
-<tr>
-<td align="left">CALG_SHA1</td>
-<td align="left">0x00008004</td>
-<td align="left">Same as <strong>CALG_SHA</strong>. This algorithm is supported by the <a target="_blank" rel="noopener" href="https://docs.microsoft.com/zh-cn/windows/win32/seccrypto/microsoft-base-cryptographic-provider">Microsoft Base Cryptographic Provider</a>.</td>
-</tr>
-</tbody></table>
-<p><code>sha1</code>加密，对我们输入的6位纯数字和后面接上的字符串进行sha1加密然后直接进行字符串对比，知道是数字所以爆破非常简单</p>
-<pre><code class="python">import hashlib
+|||||||||||||||
 
-flag2 = &#39;@DBApp&#39;
+|||||||||||||||
 
-for i in range(100000, 999999):
-    h2 = hashlib.sha1((str(i) + flag2).encode(&#39;utf-8&#39;))
-    flags = h2.hexdigest()
-    if &quot;6e32d0943418c2c33385bc35a1470250dd8923a9&quot; == flags:
-        print(str(i) + flag2)
-        print(flags)
-</code></pre>
-<p>输出得到第一部分的密码</p>
-<pre><code>123321@DBApp
-6e32d0943418c2c33385bc35a1470250dd8923a9
-</code></pre>
-<p>然后看一下下一部分加密</p>
-<pre><code class="c++">void __cdecl FUN_00401040(BYTE *param_1,DWORD param_2,LPSTR param_3)
+||s………|||
 
-&#123;
-  int iVar1;
-  undefined4 *puVar2;
-  undefined4 local_68 [16];
-  uint local_28;
-  CHAR local_24 [4];
-  byte local_20 [16];
-  DWORD local_10;
-  HCRYPTHASH local_c;
-  HCRYPTPROV local_8;
-  
-  iVar1 = 0x19;
-  puVar2 = local_68;
-  while (iVar1 != 0) &#123;
-    iVar1 = iVar1 + -1;
-    *puVar2 = 0xcccccccc;
-    puVar2 = puVar2 + 1;
-  &#125;
-  CryptAcquireContextA(&amp;local_8,(LPCSTR)0x0,(LPCSTR)0x0,1,0xf0000000);
-  iVar1 = __chkesp();
-  if (iVar1 != 0) &#123;
-    CryptCreateHash(local_8,0x8003,0,0,&amp;local_c);
-    iVar1 = __chkesp();
-    if (iVar1 == 0) &#123;
-      CryptReleaseContext(local_8,0);
-      __chkesp();
-    &#125;
-    else &#123;
-      CryptHashData(local_c,param_1,param_2,0);
-      iVar1 = __chkesp();
-      if (iVar1 == 0) &#123;
-        CryptDestroyHash(local_c);
-        __chkesp();
-        CryptReleaseContext(local_8,0);
-        __chkesp();
-      &#125;
-      else &#123;
-        CryptGetHashParam(local_c,2,local_20,&amp;local_10,0);
-        __chkesp();
-        *param_3 = &#39;\0&#39;;
-        local_28 = 0;
-        while (local_28 &lt; local_10) &#123;
-          wsprintfA(local_24,&quot;%02X&quot;,(uint)local_20[local_28]);
-          __chkesp();
-          lstrcatA(param_3,local_24);
-          __chkesp();
-          local_28 = local_28 + 1;
-        &#125;
-        CryptDestroyHash(local_c);
-        __chkesp();
-        CryptReleaseContext(local_8,0);
-        __chkesp();
-      &#125;
-    &#125;
-  &#125;
-  local_8 = 0x4011c8;
-  __chkesp();
-  return;
-&#125;
-</code></pre>
-<p>和上面的加密几乎一样，但是这次是<code>0x8003</code>，再查一查</p>
-<table>
-<thead>
-<tr>
-<th align="left">Identifier</th>
-<th align="left">Value</th>
-<th align="left">Description</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">CALG_MD5</td>
-<td align="left">0x00008003</td>
-<td align="left">MD5 hashing algorithm. This algorithm is supported by the <a target="_blank" rel="noopener" href="https://docs.microsoft.com/zh-cn/windows/win32/seccrypto/microsoft-base-cryptographic-provider">Microsoft Base Cryptographic Provider</a>.</td>
-</tr>
-</tbody></table>
-<p><code>md5</code>加密，并且没有限定字符的范围，<del>下辈子都跑不出来</del></p>
-<p>再往下面看，两层加密都通过之后</p>
-<pre><code class="c++">void __cdecl FUN_004014d0(LPCSTR param_1)
+|||||||||||.|||
 
-&#123;
-  int iVar1;
-  undefined4 *puVar2;
-  undefined4 local_64 [16];
-  undefined4 local_24;
-  LPCVOID local_20;
-  undefined4 local_1c;
-  DWORD local_18;
-  uint local_14;
-  HGLOBAL local_10;
-  HRSRC local_c;
-  HANDLE local_8;
-  
-  iVar1 = 0x18;
-  puVar2 = local_64;
-  while (iVar1 != 0) &#123;
-    iVar1 = iVar1 + -1;
-    *puVar2 = 0xcccccccc;
-    puVar2 = puVar2 + 1;
-  &#125;
-  local_8 = (HANDLE)0x0;
-  local_c = (HRSRC)0x0;
-  local_10 = (HGLOBAL)0x0;
-  local_14 = 0;
-  local_18 = 0;
-  local_1c = 0;
-  local_20 = (LPCVOID)0x0;
-  local_24 = 0;
-  FindResourceA((HMODULE)0x0,(LPCSTR)0x65,&quot;AAA&quot;);
-  local_c = (HRSRC)__chkesp();
-  if (local_c != (HRSRC)0x0) &#123;
-    SizeofResource((HMODULE)0x0,local_c);
-    local_14 = __chkesp();
-    LoadResource((HMODULE)0x0,local_c);
-    local_10 = (HGLOBAL)__chkesp();
-    if (local_10 != (HGLOBAL)0x0) &#123;
-      LockResource(local_10);
-      local_20 = (LPCVOID)__chkesp();
-      thunk_FUN_00401420(param_1,(int)local_20,local_14);
-      CreateFileA(&quot;dbapp.rtf&quot;,0x10000000,0,(LPSECURITY_ATTRIBUTES)0x0,2,0x80,(HANDLE)0x0);
-      local_8 = (HANDLE)__chkesp();
-      if (local_8 != (HANDLE)0xffffffff) &#123;
-        WriteFile(local_8,local_20,local_14,&amp;local_18,(LPOVERLAPPED)0x0);
-        iVar1 = __chkesp();
-        if (iVar1 != 0) &#123;
-          CloseHandle(local_8);
-          __chkesp();
-        &#125;
-      &#125;
-    &#125;
-  &#125;
-  local_8 = (HANDLE)0x40162d;
-  __chkesp();
-  return;
-&#125;
-</code></pre>
-<p>写了一个<code>dbapp.rtf</code>，写入的内容在上面一个函数</p>
-<pre><code class="c++">void __cdecl FUN_00401420(LPCSTR param_1,int param_2,uint param_3)
+||d||||||||.|||
 
-&#123;
-  uint uVar1;
-  int iVar2;
-  undefined4 *puVar3;
-  undefined4 local_50 [16];
-  uint local_10;
-  LPCSTR local_c;
-  undefined4 local_8;
-  
-  iVar2 = 0x13;
-  puVar3 = local_50;
-  while (iVar2 != 0) &#123;
-    iVar2 = iVar2 + -1;
-    *puVar3 = 0xcccccccc;
-    puVar3 = puVar3 + 1;
-  &#125;
-  lstrlenA(param_1);
-  uVar1 = __chkesp();
-  local_c = param_1;
-  local_10 = 0;
-  while (local_10 &lt; param_3) &#123;
-    *(byte *)(param_2 + local_10) = *(byte *)(param_2 + local_10) ^ param_1[local_10 % uVar1];
-    local_10 = local_10 + 1;
-  &#125;
-  local_8 = 0x4014a3;
-  __chkesp();
-  return;
-&#125;
+||.||||||||.|||
+
+||.||||||||.|||
+
+||……….|||
+
+|||||||||||||||
 </code></pre>
-<p>发现前面不知从哪里获取了一些内容，然后和我们输入的密码进行了一个循环异或，写入一个<code>rtf</code>文件</p>
-<p>这里有一个点就是<code>rtf</code>文件的文件头是固定的6个字符，可以通过这里来算出来输入的第二次密码是什么</p>
-<p>可以用<code>ResourceHacker</code>看一下<code>AAA</code>到底是什么</p>
-<p><img src="/2020/03/27/CrackRTF-buuctf/AAA.png" alt="AAA"></p>
-<p>然后异或一下出来密码</p>
-<pre><code class="python">s = &quot;&#123;\\rtf1&quot;
- 
-a = [0x05,0x7D,0x41,0x15,0x26,0x01]
- 
-flag = &quot;&quot;
-for i in range(0,len(s)):
-    x = ord(s[i]) ^ a[i]
-    flag += chr(x)
-print(flag)
+<p>start (3,2) a2=1</p>
+<p>dddddddddsssssaaaaaaaaawww</p>
+<p>len=26</p>
+<pre><code>maze2
+
+|||||||||||||||||||
+
+||s|||||||||||||d||
+
+||..|||||||||||..||
+
+|||..|||||||||..|||
+
+||||..|||||||..||||
+
+|||||..|||||..|||||
+
+||||||..|||..||||||
+
+|||||||..|..|||||||
+
+||||||||…||||||||
+
+|||||||||||||||||||
 </code></pre>
-<p>得到第二个密码<code>~!3a@0</code></p>
-<p>两个都通过后会生成一个<code>rtf</code>文件，内容是<code>flag</code></p>
-<pre><code>Flag&#123;N0_M0re_Free_Bugs&#125;
+<p>start (1,2) a2=2</p>
+<p>sdsdsdsdsdsdsddwdwdwdwdwdwdw</p>
+<p>len=28</p>
+<pre><code>maze3
+
+|||||||||||||||
+
+||………s|||
+
+||.||||||||||||
+
+||.||||||||||||
+
+||.||||||||||||
+
+||.||||||||||||
+
+||.||||||||||||
+
+||.||||||||||||
+
+||………d|||
+
+|||||||||||||||
 </code></pre>
-<p>但是提交的时候要交小写的<code>flag</code></p>
+<p>start (1,B) a2=3</p>
+<p>aaaaaaaaasssssssddddddddd</p>
+<p>len=25</p>
+<pre><code>maze4
+
+|||||||||||||||
+
+|||||||||||||||
+
+|||||||||||||||
+
+|||……….||
+
+|||.||||||||.||
+
+|||.||||||||.||
+
+|||.||||||||.||
+
+|||.||||||||.||
+
+|||s||||||||d||
+
+|||||||||||||||
+</code></pre>
+<p>start (8,3) a2=4</p>
+<p>wwwwwdddddddddsssss</p>
+<p>len=19</p>
+<p>长度顺序为19 25 26 28，所以对应的结果如下：</p>
+<p>4312-wwwwwdddddddddsssss-aaaaaaaaasssssssddddddddd-dddddddddsssssaaaaaaaaawww-sdsdsdsdsdsdsddwdwdwdwdwdwdw</p>
+<p>套上flag即可</p>
+<h2 id="fu-k-py"><a href="#fu-k-py" class="headerlink" title="fu!k_py"></a>fu!k_py</h2><p>这题也比较简单，没什么好说的，解压得到的pyc文件没有任何修改，可以直接uncompyle</p>
+<pre><code class="python">(lambda __g, __print: [ [ (lambda __after: [ (lambda __after: (__print(&#39;Error len!&#39;), (exit(), __after())[1])[1] if len(input) != 87 else __after())(lambda : [ [ [ [ (lambda __after: (__print(&#39;Error fmt!&#39;), (exit(0), __after())[1])[1] if fmt1 != &#39;flag&#123;&#39; or fmt2 != &#39;&#125;&#39; else __after())(lambda : (d.append(context[0:9]), (d.append(context[9:18]), (d.append(context[18:27]), (d.append(context[27:36]), (d.append(context[36:45]), (d.append(context[45:54]), (d.append(context[54:63]), (d.append(context[63:72]), (d.append(context[72:81]), [ [ [ [ [ [ [ [ [ [ [ [ [ [ [ [ [ [ [ [ [ [ [ [ [ [ [ (lambda __after: (__print(&#39;Error!&#39;), (exit(), __after())[1])[1] if d[0][2] != &#39;5&#39; or d[0][3] != &#39;3&#39; else __after())(lambda : (lambda __after: (__print(&#39;Error!&#39;), (exit(), __after())[1])[1] if d[1][0] != &#39;8&#39; or d[1][7] != &#39;2&#39; else __after())(lambda : (lambda __after: (__print(&#39;Error!&#39;), (exit(), __after())[1])[1] if d[2][1] != &#39;7&#39; or d[2][4] != &#39;1&#39; or d[2][6] != &#39;5&#39; else __after())(lambda : (lambda __after: (__print(&#39;Error!&#39;), (exit(), __after())[1])[1] if d[3][0] != &#39;4&#39; or d[3][5] != &#39;5&#39; or d[3][6] != &#39;3&#39; else __after())(lambda : (lambda __after: (__print(&#39;Error!&#39;), (exit(), __after())[1])[1] if d[4][1] != &#39;1&#39; or d[4][4] != &#39;7&#39; or d[4][8] != &#39;6&#39; else __after())(lambda : (lambda __after: (__print(&#39;Error!&#39;), (exit(), __after())[1])[1] if d[5][2] != &#39;3&#39; or d[5][3] != &#39;2&#39; or d[5][7] != &#39;8&#39; else __after())(lambda : (lambda __after: (__print(&#39;Error!&#39;), (exit(), __after())[1])[1] if d[6][1] != &#39;6&#39; or d[6][3] != &#39;5&#39; or d[6][8] != &#39;9&#39; else __after())(lambda : (lambda __after: (__print(&#39;Error!&#39;), (exit(), __after())[1])[1] if d[7][2] != &#39;4&#39; or d[7][7] != &#39;3&#39; else __after())(lambda : (lambda __after: (__print(&#39;Error!&#39;), (exit(), __after())[1])[1] if d[8][5] != &#39;9&#39; or d[8][6] != &#39;7&#39; else __after())(lambda : (lambda __after: (__print(&#39;Error!&#39;), (exit(), __after())[1])[1] if check(h1) != 45 or check(h2) != 45 or check(h3) != 45 or check(h4) != 45 or check(h5) != 45 or check(h6) != 45 or check(h7) != 45 or check(h8) != 45 or check(h9) != 45 else __after())(lambda : (lambda __after: (__print(&#39;Error!&#39;), (exit(), __after())[1])[1] if check(l1) != 45 or check(l2) != 45 or check(l3) != 45 or check(l4) != 45 or check(l5) != 45 or check(l6) != 45 or check(l7) != 45 or check(l8) != 45 or check(l9) != 45 else __after())(lambda : (lambda __after: (__print(&#39;Error!&#39;), (exit(), __after())[1])[1] if check(k1) != 45 or check(k2) != 45 or check(k3) != 45 or check(k4) != 45 or check(k5) != 45 or check(k6) != 45 or check(k7) != 45 or check(k8) != 45 or check(k9) != 45 else __after())(lambda : (lambda __after: (__print(&#39;Error!&#39;), (exit(), __after())[1])[1] if check1(h1) != 1 or check1(h2) != 1 or check1(h3) != 1 or check1(h4) != 1 or check1(h5) != 1 or check1(h6) != 1 or check1(h7) != 1 or check1(h8) != 1 or check1(h9) != 1 else __after())(lambda : (lambda __after: (__print(&#39;Error!&#39;), (exit(), __after())[1])[1] if check1(l1) != 1 or check1(l2) != 1 or check1(l3) != 1 or check1(l4) != 1 or check1(l5) != 1 or check1(l6) != 1 or check1(l7) != 1 or check1(l8) != 1 or check1(l9) != 1 else __after())(lambda : (lambda __after: (__print(&#39;Error!&#39;), (exit(), __after())[1])[1] if check1(k1) != 1 or check1(k2) != 1 or check1(k3) != 1 or check1(k4) != 1 or check1(k5) != 1 or check1(k6) != 1 or check1(k7) != 1 or check1(k8) != 1 or check1(k9) != 1 else __after())(lambda : (__print(&#39;Yes! You got it!&#39;), __after())[1]))))))))))))))) 
+
+    for __g[&#39;k9&#39;] in [context[60] + context[61] + context[62] + context[69] + context[70] + context[71] + context[78] + context[79] + context[80]] ][0] 
+
+    for __g[&#39;k8&#39;] in [context[57] + context[58] + context[59] + context[66] + context[67] + context[68] + context[75] + context[76] + context[77]] ][0] 
+
+    for __g[&#39;k7&#39;] in [context[54] + context[55] + context[56] + context[63] + context[64] + context[65] + context[72] + context[73] + context[74]] ][0] 
+
+    for __g[&#39;k6&#39;] in [context[33] + context[34] + context[35] + context[42] + context[43] + context[44] + context[51] + context[52] + context[53]] ][0] 
+
+    for __g[&#39;k5&#39;] in [context[30] + context[31] + context[32] + context[39] + context[40] + context[41] + context[48] + context[49] + context[50]] ][0] 
+
+    for __g[&#39;k4&#39;] in [context[27] + context[28] + context[29] + context[36] + context[37] + context[38] + context[45] + context[46] + context[47]] ][0] 
+
+    for __g[&#39;k3&#39;] in [context[6] + context[7] + context[8] + context[15] + context[16] + context[17] + context[24] + context[25] + context[26]] ][0] 
+
+    for __g[&#39;k2&#39;] in [context[3] + context[4] + context[5] + context[12] + context[13] + context[14] + context[21] + context[22] + context[23]] ][0] 
+
+    for __g[&#39;k1&#39;] in [context[0] + context[1] + context[2] + context[9] + context[10] + context[11] + context[18] + context[19] + context[20]] ][0] 
+for __g[&#39;l9&#39;] in [context[8] + context[17] + context[26] + context[35] + context[44] + context[53] + context[62] + context[71] + context[80]] ][0] 
+ for __g[&#39;l8&#39;] in [context[7] + context[16] + context[25] + context[34] + context[43] + context[52] + context[61] + context[70] + context[79]] ][0] 
+ for __g[&#39;l7&#39;] in [context[6] + context[15] + context[24] + context[33] + context[42] + context[51] + context[60] + context[69] + context[78]] ][0] 
+ for __g[&#39;l6&#39;] in [context[5] + context[14] + context[23] + context[32] + context[41] + context[50] + context[59] + context[68] + context[77]] ][0] 
+ for __g[&#39;l5&#39;] in [context[4] + context[13] + context[22] + context[31] + context[40] + context[49] + context[58] + context[67] + context[76]] ][0] 
+ for __g[&#39;l4&#39;] in [context[3] + context[12] + context[21] + context[30] + context[39] + context[48] + context[57] + context[66] + context[75]] ][0] 
+ for __g[&#39;l3&#39;] in [context[2] + context[11] + context[20] + context[29] + context[38] + context[47] + context[56] + context[65] + context[74]] ][0] 
+ for __g[&#39;l2&#39;] in [context[1] + context[10] + context[19] + context[28] + context[37] + context[46] + context[55] + context[64] + context[73]] ][0] 
+ for __g[&#39;l1&#39;] in [context[0] + context[9] + context[18] + context[27] + context[36] + context[45] + context[54] + context[63] + context[72]] ][0] 
+ for __g[&#39;h9&#39;] in [context[72:81]] ][0] 
+ for __g[&#39;h8&#39;] in [context[63:72]] ][0] 
+ for __g[&#39;h7&#39;] in [context[54:63]] ][0] 
+ for __g[&#39;h6&#39;] in [context[45:54]] ][0] 
+ for __g[&#39;h5&#39;] in [context[36:45]] ][0] 
+ for __g[&#39;h4&#39;] in [context[27:36]] ][0] 
+ for __g[&#39;h3&#39;] in [context[18:27]] ][0] 
+ for __g[&#39;h2&#39;] in [context[9:18]] ][0] 
+ for __g[&#39;h1&#39;] in [context[0:9]] ][0]
+ )[1])[1])[1])[1])[1])[1])[1])[1])[1]) 
+ for **g[&#39;d&#39;] in [[]] ][0]  for __g[&#39;context&#39;] in [input[5:-1]] ][0]  for __g[&#39;fmt2&#39;] in [input[(-1)]] ][0]  for __g[&#39;fmt1&#39;] in [input[0:5]] ][0])  for __g[&#39;input&#39;] in [raw_input(&#39;Input your flag:&#39;)] ][0] if __name** == &#39;**main**&#39; else **after())(lambda : None)  for __g[&#39;check1&#39;], check1.__name** in [(lambda arg: (lambda **l: [ (lambda __after: 0 if len(list(set(__l[&#39;arg&#39;]))) != 9 else 1)(lambda : None) for __l[&#39;arg&#39;] in [arg] ][0])(&#123;&#125;), &#39;check1&#39;)] ][0]  for __g[&#39;check&#39;], check.__name** in [(lambda arg: (lambda **l: [ sum(map(int, __l[&#39;arg&#39;])) for __l[&#39;arg&#39;] in [arg] ][0])(&#123;&#125;), &#39;check&#39;)] ][0])(globals(), __import**(&#39;**builtin**&#39;, level=0).**dict**[&#39;print&#39;]) 
+</code></pre>
+<p>代码可读性很差，但是可以大概了解一下信息，一共输入81位，某些特定的位数上的数字是确定的，其中定义了一些变量，可以很轻易看出来分别是行、列和九宫格，两个check也很清晰，查每行每列每个九宫格有无重复数字，查和是否为45，这很显然是一个数独，直接解就可以了。</p>
 
           
             <div class='article_footer'>
@@ -852,7 +610,7 @@ print(flag)
           
         
           
-            <p>本文永久链接是：<a href=http://blog.rycbar.club/2020/03/27/CrackRTF-buuctf/>http://blog.rycbar.club/2020/03/27/CrackRTF-buuctf/</a></p>
+            <p>本文永久链接是：<a href=http://blog.rycbar.club/2020/09/26/2020-09-26-2020-%E5%B7%85%E5%B3%B0%E6%9E%81%E5%AE%A2/>http://blog.rycbar.club/2020/09/26/2020-09-26-2020-%E5%B7%85%E5%B3%B0%E6%9E%81%E5%AE%A2/</a></p>
           
         
       </blockquote>
@@ -877,10 +635,10 @@ print(flag)
     <div class='new-meta-box'>
       
         
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-04-08T10:03:59+08:00">
+          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2021-05-03T17:39:48+08:00">
   <a class='notlink'>
     <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
-    <p>更新于：2020年4月8日</p>
+    <p>更新于：2021年5月3日</p>
   </a>
 </div>
 
@@ -904,7 +662,7 @@ print(flag)
       
         <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://blog.rycbar.club/2020/03/27/CrackRTF-buuctf/&title= - My Tiny Ideas&summary=这一题用到了一些windows加密算法中的东西"
+          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://blog.rycbar.club/2020/09/26/2020-09-26-2020-%E5%B7%85%E5%B3%B0%E6%9E%81%E5%AE%A2/&title=2020-巅峰极客 - My Tiny Ideas&summary=2020-巅峰极客"
           
           >
           
@@ -916,7 +674,7 @@ print(flag)
       
         <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://blog.rycbar.club/2020/03/27/CrackRTF-buuctf/&title= - My Tiny Ideas&summary=这一题用到了一些windows加密算法中的东西"
+          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://blog.rycbar.club/2020/09/26/2020-09-26-2020-%E5%B7%85%E5%B3%B0%E6%9E%81%E5%AE%A2/&title=2020-巅峰极客 - My Tiny Ideas&summary=2020-巅峰极客"
           
           >
           
@@ -928,7 +686,7 @@ print(flag)
       
         <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
           
-          target="_blank" href="http://service.weibo.com/share/share.php?url=http://blog.rycbar.club/2020/03/27/CrackRTF-buuctf/&title= - My Tiny Ideas&summary=这一题用到了一些windows加密算法中的东西"
+          target="_blank" href="http://service.weibo.com/share/share.php?url=http://blog.rycbar.club/2020/09/26/2020-09-26-2020-%E5%B7%85%E5%B3%B0%E6%9E%81%E5%AE%A2/&title=2020-巅峰极客 - My Tiny Ideas&summary=2020-巅峰极客"
           
           >
           
@@ -952,23 +710,25 @@ print(flag)
         
           <div class="prev-next">
             
-              <a class='prev' href='/2020/03/27/babyunic-%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C/'>
-                <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>babyunic-攻防世界</p>
-                <p class='content'>这是第一次接触unicorn的题目，也算是第一次用z3来解决题目，花了好长时间去熟悉z3和unicorn，确实很强大
+              <a class='prev' href='/2020/10/24/2020-10-24-2020-%E5%85%A8%E5%9B%BD%E5%B7%A5%E4%B8%9A%E4%BA%92%E8%81%94%E7%BD%91%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF%E6%8A%80%E8%83%BD%E5%A4%A7%E8%B5%9B/'>
+                <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>2020-全国工业互联网安全技术技能大赛</p>
+                <p class='content'>2020-全国工业互联网安全技术技能大赛
 
 
-打开来有个脚本
-LD_PRELOAD=./un.so.1 ./babyu...</p>
+5G考查polar编码
+sub_401FD0();
+  v3 = time(0);
+  srand(v3);
+  memset(&amp;v32, ...</p>
               </a>
             
             
-              <a class='next' href='/2020/03/25/tar-tar-binks-%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C/'>
-                <p class='title'>tar-tar-binks-攻防世界<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
-                <p class='content'>tar-tar-binks-攻防世界
+              <a class='next' href='/2020/09/19/2020-09-19-2020-ciscn_%E8%A5%BF%E5%8C%97%E8%B5%9B%E5%8C%BA%E5%88%86%E5%8C%BA%E8%B5%9B/'>
+                <p class='title'>2020-ciscn 西北赛区分区赛<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
+                <p class='content'>2020-ciscn 西北赛区分区赛
 
 
-IDA打开发现函数很多，发现一个函数base64_encode，尝试对损坏的tar文件里面的部分进行base64解码，找到一串奇怪的字符
-F5D1,4D...</p>
+Lua_magic程序先读取了一个lua脚本，跑三次循环，每次输入两个数，根据这两个数算出一个新的数字和生成的随机数比较，如果相同进行下一次验证，不同直...</p>
               </a>
             
           </div>
@@ -1009,6 +769,13 @@ F5D1,4D...</p>
 
 
 
+  <script>
+    window.subData = {
+      title: '2020-巅峰极客',
+      tools: true
+    }
+  </script>
+
 
 </div>
 <aside class='l_side'>
@@ -1019,6 +786,20 @@ F5D1,4D...</p>
     
     
 
+
+  <section class="widget toc-wrapper shadow desktop mobile">
+    
+  <header>
+    
+      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
+    
+  </header>
+
+
+    <div class='content'>
+      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#re"><span class="toc-text">re</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#virus"><span class="toc-text">virus</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#fu-k-py"><span class="toc-text">fu!k_py</span></a></li></ol>
+    </div>
+  </section>
 
 
   
