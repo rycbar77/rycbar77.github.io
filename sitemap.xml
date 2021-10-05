@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://blog.rycbar.club/2021/10/05/wp-5space-2021/</loc>
+    
+    <lastmod>2021-10-05</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://blog.rycbar.club/about/index.html</loc>
     
     <lastmod>2021-08-25</lastmod>
@@ -579,6 +586,13 @@
   
   <url>
     <loc>http://blog.rycbar.club/tags/36DCTF/</loc>
+    <lastmod>2021-10-05</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.rycbar.club/tags/5space/</loc>
     <lastmod>2021-10-05</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
