@@ -1,1269 +1,340 @@
 <!DOCTYPE html>
-<html>
-<head hexo-theme='https://volantis.js.org/#blog'>
-  <meta charset="utf-8">
-  <!-- SEO相关 -->
-  
-    
-  
-  <!-- 渲染优化 -->
-  <meta name="renderer" content="webkit">
-  <meta name="force-rendering" content="webkit">
-  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
-  <meta name="HandheldFriendly" content="True" >
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-
-  <!-- 页面元数据 -->
-  
-    <title>IDA常用宏定义 - My Tiny Ideas</title>
-  
-    <meta name="keywords" content="ctf,IDA,查表">
-  
-  
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
     <meta name="description" content="保存一下便于查询。">
-  
-
-  <!-- feed -->
-  
-
-  <!-- import meta -->
-  
-
-  <!-- link -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13/css/all.min.css">
-  
+<meta property="og:type" content="article">
+<meta property="og:title" content="IDA常用宏定义">
+<meta property="og:url" content="http://blog.rycbar.club/2020/03/10/IDA%E5%B8%B8%E7%94%A8%E5%AE%8F%E5%AE%9A%E4%B9%89/index.html">
+<meta property="og:site_name" content="rr&#39;s blog">
+<meta property="og:description" content="保存一下便于查询。">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-03-10T12:36:12.000Z">
+<meta property="article:modified_time" content="2020-03-24T02:49:54.780Z">
+<meta property="article:author" content="Aorui Zhang">
+<meta property="article:tag" content="ctf">
+<meta property="article:tag" content="IDA">
+<meta property="article:tag" content="查表">
+<meta name="twitter:card" content="summary">
     
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
-
-  
-  
-    
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.css">
-
-  
-
-  
-  <link rel="shortcut icon" type='image/x-icon' href="https://cdn.jsdelivr.net/gh/xaoxuu/assets@master/favicon/favicon.ico">
-  
-
-  
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.css">
-  
-
-  
-
-  <!-- import link -->
-  
-
-  
     
       
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.18.1/styles/solarized-light.css">
-
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
     
-  
-  
+    <!-- title -->
+    <title>IDA常用宏定义</title>
+    <!-- styles -->
     
 <link rel="stylesheet" href="/css/style.css">
 
-  
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+      <link rel="alternate" href="/true" title="rr&#39;s blog" type="application/atom+xml" />
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 5.4.0"></head>
 
-  <script>
-    function setLoadingBarProgress(num) {
-      document.getElementById('loading-bar').style.width=num+"%";
-    }
-  </script>
-
-  
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128484503-1"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'UA-128484503-1');
-    </script>
-  
-  
-</head>
-
-<body>
-  
-  <div id="loading-bar-wrapper">
-  <div id="loading-bar"></div>
-</div>
-<header class="l_header shadow blur">
-  <div class='container'>
-  <div class='wrapper'>
-    <div class='nav-sub'>
-      <p class="title"></p>
-      <ul class='switcher nav-list-h'>
-        <li><a class="s-comment fas fa-comments fa-fw" target="_self" href='javascript:void(0)'></a></li>
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/atom.xml">rss</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
         
-          <li><a class="s-toc fas fa-list fa-fw" target="_self" href='javascript:void(0)'></a></li>
+        <li><a class="icon" aria-label="Previous post" href="/2020/03/12/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3%EF%BC%88%E4%BA%94%EF%BC%89/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2020/03/09/%E9%AB%98%E6%A0%A1%E6%88%98%E7%96%AB-%E4%B8%A4%E9%81%93re-wp/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://blog.rycbar.club/2020/03/10/IDA%E5%B8%B8%E7%94%A8%E5%AE%8F%E5%AE%9A%E4%B9%89/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://blog.rycbar.club/2020/03/10/IDA%E5%B8%B8%E7%94%A8%E5%AE%8F%E5%AE%9A%E4%B9%89/&text=IDA常用宏定义"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://blog.rycbar.club/2020/03/10/IDA%E5%B8%B8%E7%94%A8%E5%AE%8F%E5%AE%9A%E4%B9%89/&title=IDA常用宏定义"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://blog.rycbar.club/2020/03/10/IDA%E5%B8%B8%E7%94%A8%E5%AE%8F%E5%AE%9A%E4%B9%89/&is_video=false&description=IDA常用宏定义"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=IDA常用宏定义&body=Check out this article: http://blog.rycbar.club/2020/03/10/IDA%E5%B8%B8%E7%94%A8%E5%AE%8F%E5%AE%9A%E4%B9%89/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://blog.rycbar.club/2020/03/10/IDA%E5%B8%B8%E7%94%A8%E5%AE%8F%E5%AE%9A%E4%B9%89/&title=IDA常用宏定义"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://blog.rycbar.club/2020/03/10/IDA%E5%B8%B8%E7%94%A8%E5%AE%8F%E5%AE%9A%E4%B9%89/&title=IDA常用宏定义"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://blog.rycbar.club/2020/03/10/IDA%E5%B8%B8%E7%94%A8%E5%AE%8F%E5%AE%9A%E4%B9%89/&title=IDA常用宏定义"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://blog.rycbar.club/2020/03/10/IDA%E5%B8%B8%E7%94%A8%E5%AE%8F%E5%AE%9A%E4%B9%89/&title=IDA常用宏定义"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://blog.rycbar.club/2020/03/10/IDA%E5%B8%B8%E7%94%A8%E5%AE%8F%E5%AE%9A%E4%B9%89/&name=IDA常用宏定义&description=&lt;p&gt;保存一下便于查询。&lt;/p&gt;"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://blog.rycbar.club/2020/03/10/IDA%E5%B8%B8%E7%94%A8%E5%AE%8F%E5%AE%9A%E4%B9%89/&t=IDA常用宏定义"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+    <div id="toc">
+      
+    </div>
+  </span>
+</div>
+
+    
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        IDA常用宏定义
+    </h1>
+
+
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Aorui Zhang</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2020-03-10T12:36:12.000Z" itemprop="datePublished">2020-03-10</time>
+        
+        (Updated: <time datetime="2020-03-24T02:49:54.780Z" itemprop="dateModified">2020-03-24</time>)
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/categories/ctf/">ctf</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/IDA/" rel="tag">IDA</a>, <a class="tag-link-link" href="/tags/ctf/" rel="tag">ctf</a>, <a class="tag-link-link" href="/tags/%E6%9F%A5%E8%A1%A8/" rel="tag">查表</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>保存一下便于查询。</p>
+<span id="more"></span>
+
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br><span class="line">260</span><br><span class="line">261</span><br><span class="line">262</span><br><span class="line">263</span><br><span class="line">264</span><br><span class="line">265</span><br><span class="line">266</span><br><span class="line">267</span><br><span class="line">268</span><br><span class="line">269</span><br><span class="line">270</span><br><span class="line">271</span><br><span class="line">272</span><br><span class="line">273</span><br><span class="line">274</span><br><span class="line">275</span><br><span class="line">276</span><br><span class="line">277</span><br><span class="line">278</span><br><span class="line">279</span><br><span class="line">280</span><br><span class="line">281</span><br><span class="line">282</span><br><span class="line">283</span><br><span class="line">284</span><br><span class="line">285</span><br><span class="line">286</span><br><span class="line">287</span><br><span class="line">288</span><br><span class="line">289</span><br><span class="line">290</span><br><span class="line">291</span><br><span class="line">292</span><br><span class="line">293</span><br><span class="line">294</span><br><span class="line">295</span><br><span class="line">296</span><br><span class="line">297</span><br><span class="line">298</span><br><span class="line">299</span><br><span class="line">300</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">   This file contains definitions used by the Hex-Rays decompiler output.</span></span><br><span class="line"><span class="comment">   It has type definitions and convenience macros to make the</span></span><br><span class="line"><span class="comment">   output more readable.</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">   Copyright (c) 2007-2011 Hex-Rays</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">if</span> defined(__GNUC__)</span></span><br><span class="line">  <span class="keyword">typedef</span>          <span class="keyword">long</span> <span class="keyword">long</span> ll;</span><br><span class="line">  <span class="keyword">typedef</span> <span class="keyword">unsigned</span> <span class="keyword">long</span> <span class="keyword">long</span> ull;</span><br><span class="line">  <span class="meta">#<span class="meta-keyword">define</span> __int64 long long</span></span><br><span class="line">  <span class="meta">#<span class="meta-keyword">define</span> __int32 int</span></span><br><span class="line">  <span class="meta">#<span class="meta-keyword">define</span> __int16 short</span></span><br><span class="line">  <span class="meta">#<span class="meta-keyword">define</span> __int8  char</span></span><br><span class="line">  <span class="meta">#<span class="meta-keyword">define</span> MAKELL(num) num ## LL</span></span><br><span class="line">  <span class="meta">#<span class="meta-keyword">define</span> FMT_64 <span class="meta-string">&quot;ll&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">elif</span> defined(_MSC_VER)</span></span><br><span class="line">  <span class="keyword">typedef</span>          __int64 ll;</span><br><span class="line">  <span class="keyword">typedef</span> <span class="keyword">unsigned</span> __int64 ull;</span><br><span class="line">  <span class="meta">#<span class="meta-keyword">define</span> MAKELL(num) num ## i64</span></span><br><span class="line">  <span class="meta">#<span class="meta-keyword">define</span> FMT_64 <span class="meta-string">&quot;I64&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">elif</span> defined (__BORLANDC__)</span></span><br><span class="line">  <span class="keyword">typedef</span>          __int64 ll;</span><br><span class="line">  <span class="keyword">typedef</span> <span class="keyword">unsigned</span> __int64 ull;</span><br><span class="line">  <span class="meta">#<span class="meta-keyword">define</span> MAKELL(num) num ## i64</span></span><br><span class="line">  <span class="meta">#<span class="meta-keyword">define</span> FMT_64 <span class="meta-string">&quot;L&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">else</span></span></span><br><span class="line">  <span class="meta">#<span class="meta-keyword">error</span> <span class="meta-string">&quot;unknown compiler&quot;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">unsigned</span> <span class="keyword">int</span> uint;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">unsigned</span> <span class="keyword">char</span> uchar;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">unsigned</span> <span class="keyword">short</span> ushort;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">unsigned</span> <span class="keyword">long</span> ulong;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span>          <span class="keyword">char</span>   int8;</span><br><span class="line"><span class="keyword">typedef</span>   <span class="keyword">signed</span> <span class="keyword">char</span>   sint8;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">unsigned</span> <span class="keyword">char</span>   uint8;</span><br><span class="line"><span class="keyword">typedef</span>          <span class="keyword">short</span>  int16;</span><br><span class="line"><span class="keyword">typedef</span>   <span class="keyword">signed</span> <span class="keyword">short</span>  sint16;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">unsigned</span> <span class="keyword">short</span>  uint16;</span><br><span class="line"><span class="keyword">typedef</span>          <span class="keyword">int</span>    int32;</span><br><span class="line"><span class="keyword">typedef</span>   <span class="keyword">signed</span> <span class="keyword">int</span>    sint32;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">unsigned</span> <span class="keyword">int</span>    uint32;</span><br><span class="line"><span class="keyword">typedef</span> ll              int64;</span><br><span class="line"><span class="keyword">typedef</span> ll              sint64;</span><br><span class="line"><span class="keyword">typedef</span> ull             uint64;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Partially defined types:</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> _BYTE  uint8</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> _WORD  uint16</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> _DWORD uint32</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> _QWORD uint64</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">if</span> !defined(_MSC_VER)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> _LONGLONG __int128</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> _WINDOWS_</span></span><br><span class="line"><span class="keyword">typedef</span> int8 BYTE;</span><br><span class="line"><span class="keyword">typedef</span> int16 WORD;</span><br><span class="line"><span class="keyword">typedef</span> int32 DWORD;</span><br><span class="line"><span class="keyword">typedef</span> int32 LONG;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line"><span class="keyword">typedef</span> int64 QWORD;</span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifndef</span> __cplusplus</span></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">int</span> <span class="keyword">bool</span>;       <span class="comment">// we want to use bool in our C programs</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Some convenience macros to make partial accesses nicer</span></span><br><span class="line"><span class="comment">// first unsigned macros:</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LOBYTE(x)   (*((_BYTE*)&amp;(x)))   <span class="comment">// low byte</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LOWORD(x)   (*((_WORD*)&amp;(x)))   <span class="comment">// low word</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> LODWORD(x)  (*((_DWORD*)&amp;(x)))  <span class="comment">// low dword</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> HIBYTE(x)   (*((_BYTE*)&amp;(x)+1))</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> HIWORD(x)   (*((_WORD*)&amp;(x)+1))</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> HIDWORD(x)  (*((_DWORD*)&amp;(x)+1))</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> BYTEn(x, n)   (*((_BYTE*)&amp;(x)+n))</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> WORDn(x, n)   (*((_WORD*)&amp;(x)+n))</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> BYTE1(x)   BYTEn(x,  1)         <span class="comment">// byte 1 (counting from 0)</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> BYTE2(x)   BYTEn(x,  2)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> BYTE3(x)   BYTEn(x,  3)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> BYTE4(x)   BYTEn(x,  4)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> BYTE5(x)   BYTEn(x,  5)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> BYTE6(x)   BYTEn(x,  6)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> BYTE7(x)   BYTEn(x,  7)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> BYTE8(x)   BYTEn(x,  8)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> BYTE9(x)   BYTEn(x,  9)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> BYTE10(x)  BYTEn(x, 10)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> BYTE11(x)  BYTEn(x, 11)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> BYTE12(x)  BYTEn(x, 12)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> BYTE13(x)  BYTEn(x, 13)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> BYTE14(x)  BYTEn(x, 14)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> BYTE15(x)  BYTEn(x, 15)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> WORD1(x)   WORDn(x,  1)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> WORD2(x)   WORDn(x,  2)         <span class="comment">// third word of the object, unsigned</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> WORD3(x)   WORDn(x,  3)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> WORD4(x)   WORDn(x,  4)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> WORD5(x)   WORDn(x,  5)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> WORD6(x)   WORDn(x,  6)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> WORD7(x)   WORDn(x,  7)</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// now signed macros (the same but with sign extension)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SLOBYTE(x)   (*((int8*)&amp;(x)))</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SLOWORD(x)   (*((int16*)&amp;(x)))</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SLODWORD(x)  (*((int32*)&amp;(x)))</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SHIBYTE(x)   (*((int8*)&amp;(x)+1))</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SHIWORD(x)   (*((int16*)&amp;(x)+1))</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SHIDWORD(x)  (*((int32*)&amp;(x)+1))</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SBYTEn(x, n)   (*((int8*)&amp;(x)+n))</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SWORDn(x, n)   (*((int16*)&amp;(x)+n))</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SBYTE1(x)   SBYTEn(x,  1)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SBYTE2(x)   SBYTEn(x,  2)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SBYTE3(x)   SBYTEn(x,  3)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SBYTE4(x)   SBYTEn(x,  4)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SBYTE5(x)   SBYTEn(x,  5)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SBYTE6(x)   SBYTEn(x,  6)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SBYTE7(x)   SBYTEn(x,  7)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SBYTE8(x)   SBYTEn(x,  8)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SBYTE9(x)   SBYTEn(x,  9)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SBYTE10(x)  SBYTEn(x, 10)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SBYTE11(x)  SBYTEn(x, 11)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SBYTE12(x)  SBYTEn(x, 12)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SBYTE13(x)  SBYTEn(x, 13)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SBYTE14(x)  SBYTEn(x, 14)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SBYTE15(x)  SBYTEn(x, 15)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SWORD1(x)   SWORDn(x,  1)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SWORD2(x)   SWORDn(x,  2)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SWORD3(x)   SWORDn(x,  3)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SWORD4(x)   SWORDn(x,  4)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SWORD5(x)   SWORDn(x,  5)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SWORD6(x)   SWORDn(x,  6)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> SWORD7(x)   SWORDn(x,  7)</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">// Helper functions to represent some assembly instructions.</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> __cplusplus</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Fill memory block with an integer value</span></span><br><span class="line"><span class="function"><span class="keyword">inline</span> <span class="keyword">void</span> <span class="title">memset32</span><span class="params">(<span class="keyword">void</span> *ptr, uint32 value, <span class="keyword">int</span> count)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  uint32 *p = (uint32 *)ptr;</span><br><span class="line">  <span class="keyword">for</span> ( <span class="keyword">int</span> i=<span class="number">0</span>; i &lt; count; i++ )</span><br><span class="line">    *p++ = value;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Generate a reference to pair of operands</span></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> <span class="title">T</span>&gt;</span>  int16 __PAIR__( int8  high, T low) &#123; <span class="keyword">return</span> ((( int16)high) &lt;&lt; <span class="built_in"><span class="keyword">sizeof</span></span>(high)*<span class="number">8</span>) | <span class="built_in">uint8</span>(low); &#125;</span><br><span class="line"><span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> <span class="title">T</span>&gt;</span>  int32 __PAIR__( int16 high, T low) &#123; <span class="keyword">return</span> ((( int32)high) &lt;&lt; <span class="built_in"><span class="keyword">sizeof</span></span>(high)*<span class="number">8</span>) | <span class="built_in">uint16</span>(low); &#125;</span><br><span class="line"><span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> <span class="title">T</span>&gt;</span>  int64 __PAIR__( int32 high, T low) &#123; <span class="keyword">return</span> ((( int64)high) &lt;&lt; <span class="built_in"><span class="keyword">sizeof</span></span>(high)*<span class="number">8</span>) | <span class="built_in">uint32</span>(low); &#125;</span><br><span class="line"><span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> <span class="title">T</span>&gt;</span> uint16 __PAIR__(uint8  high, T low) &#123; <span class="keyword">return</span> (((uint16)high) &lt;&lt; <span class="built_in"><span class="keyword">sizeof</span></span>(high)*<span class="number">8</span>) | <span class="built_in">uint8</span>(low); &#125;</span><br><span class="line"><span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> <span class="title">T</span>&gt;</span> uint32 __PAIR__(uint16 high, T low) &#123; <span class="keyword">return</span> (((uint32)high) &lt;&lt; <span class="built_in"><span class="keyword">sizeof</span></span>(high)*<span class="number">8</span>) | <span class="built_in">uint16</span>(low); &#125;</span><br><span class="line"><span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> <span class="title">T</span>&gt;</span> uint64 __PAIR__(uint32 high, T low) &#123; <span class="keyword">return</span> (((uint64)high) &lt;&lt; <span class="built_in"><span class="keyword">sizeof</span></span>(high)*<span class="number">8</span>) | <span class="built_in">uint32</span>(low); &#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// rotate left</span></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> <span class="title">T</span>&gt;</span> T __ROL__(T value, uint count)</span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">const</span> uint nbits = <span class="built_in"><span class="keyword">sizeof</span></span>(T) * <span class="number">8</span>;</span><br><span class="line">  count %= nbits;</span><br><span class="line"></span><br><span class="line">  T high = value &gt;&gt; (nbits - count);</span><br><span class="line">  value &lt;&lt;= count;</span><br><span class="line">  value |= high;</span><br><span class="line">  <span class="keyword">return</span> value;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// rotate right</span></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> <span class="title">T</span>&gt;</span> T __ROR__(T value, uint count)</span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">const</span> uint nbits = <span class="built_in"><span class="keyword">sizeof</span></span>(T) * <span class="number">8</span>;</span><br><span class="line">  count %= nbits;</span><br><span class="line"></span><br><span class="line">  T low = value &lt;&lt; (nbits - count);</span><br><span class="line">  value &gt;&gt;= count;</span><br><span class="line">  value |= low;</span><br><span class="line">  <span class="keyword">return</span> value;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// carry flag of left shift</span></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> <span class="title">T</span>&gt;</span> int8 __MKCSHL__(T value, uint count)</span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">const</span> uint nbits = <span class="built_in"><span class="keyword">sizeof</span></span>(T) * <span class="number">8</span>;</span><br><span class="line">  count %= nbits;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> (value &gt;&gt; (nbits-count)) &amp; <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// carry flag of right shift</span></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> <span class="title">T</span>&gt;</span> int8 __MKCSHR__(T value, uint count)</span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">return</span> (value &gt;&gt; (count<span class="number">-1</span>)) &amp; <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// sign flag</span></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> <span class="title">T</span>&gt;</span> int8 __SETS__(T x)</span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">if</span> ( <span class="built_in"><span class="keyword">sizeof</span></span>(T) == <span class="number">1</span> )</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">int8</span>(x) &lt; <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">if</span> ( <span class="built_in"><span class="keyword">sizeof</span></span>(T) == <span class="number">2</span> )</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">int16</span>(x) &lt; <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">if</span> ( <span class="built_in"><span class="keyword">sizeof</span></span>(T) == <span class="number">4</span> )</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">int32</span>(x) &lt; <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">int64</span>(x) &lt; <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// overflow flag of subtraction (x-y)</span></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> <span class="title">T</span>, <span class="keyword">class</span> <span class="title">U</span>&gt;</span> int8 __OFSUB__(T x, U y)</span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">if</span> ( <span class="built_in"><span class="keyword">sizeof</span></span>(T) &lt; <span class="built_in"><span class="keyword">sizeof</span></span>(U) )</span><br><span class="line">  &#123;</span><br><span class="line">    U x2 = x;</span><br><span class="line">    int8 sx = __SETS__(x2);</span><br><span class="line">    <span class="keyword">return</span> (sx ^ __SETS__(y)) &amp; (sx ^ __SETS__(x2-y));</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">else</span></span><br><span class="line">  &#123;</span><br><span class="line">    T y2 = y;</span><br><span class="line">    int8 sx = __SETS__(x);</span><br><span class="line">    <span class="keyword">return</span> (sx ^ __SETS__(y2)) &amp; (sx ^ __SETS__(x-y2));</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// overflow flag of addition (x+y)</span></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> <span class="title">T</span>, <span class="keyword">class</span> <span class="title">U</span>&gt;</span> int8 __OFADD__(T x, U y)</span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">if</span> ( <span class="built_in"><span class="keyword">sizeof</span></span>(T) &lt; <span class="built_in"><span class="keyword">sizeof</span></span>(U) )</span><br><span class="line">  &#123;</span><br><span class="line">    U x2 = x;</span><br><span class="line">    int8 sx = __SETS__(x2);</span><br><span class="line">    <span class="keyword">return</span> ((<span class="number">1</span> ^ sx) ^ __SETS__(y)) &amp; (sx ^ __SETS__(x2+y));</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">else</span></span><br><span class="line">  &#123;</span><br><span class="line">    T y2 = y;</span><br><span class="line">    int8 sx = __SETS__(x);</span><br><span class="line">    <span class="keyword">return</span> ((<span class="number">1</span> ^ sx) ^ __SETS__(y2)) &amp; (sx ^ __SETS__(x+y2));</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// carry flag of subtraction (x-y)</span></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> <span class="title">T</span>, <span class="keyword">class</span> <span class="title">U</span>&gt;</span> int8 __CFSUB__(T x, U y)</span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">int</span> size = <span class="built_in"><span class="keyword">sizeof</span></span>(T) &gt; <span class="built_in"><span class="keyword">sizeof</span></span>(U) ? <span class="built_in"><span class="keyword">sizeof</span></span>(T) : <span class="built_in"><span class="keyword">sizeof</span></span>(U);</span><br><span class="line">  <span class="keyword">if</span> ( size == <span class="number">1</span> )</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">uint8</span>(x) &lt; <span class="built_in">uint8</span>(y);</span><br><span class="line">  <span class="keyword">if</span> ( size == <span class="number">2</span> )</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">uint16</span>(x) &lt; <span class="built_in">uint16</span>(y);</span><br><span class="line">  <span class="keyword">if</span> ( size == <span class="number">4</span> )</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">uint32</span>(x) &lt; <span class="built_in">uint32</span>(y);</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">uint64</span>(x) &lt; <span class="built_in">uint64</span>(y);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// carry flag of addition (x+y)</span></span><br><span class="line"><span class="keyword">template</span>&lt;<span class="class"><span class="keyword">class</span> <span class="title">T</span>, <span class="keyword">class</span> <span class="title">U</span>&gt;</span> int8 __CFADD__(T x, U y)</span><br><span class="line">&#123;</span><br><span class="line">  <span class="keyword">int</span> size = <span class="built_in"><span class="keyword">sizeof</span></span>(T) &gt; <span class="built_in"><span class="keyword">sizeof</span></span>(U) ? <span class="built_in"><span class="keyword">sizeof</span></span>(T) : <span class="built_in"><span class="keyword">sizeof</span></span>(U);</span><br><span class="line">  <span class="keyword">if</span> ( size == <span class="number">1</span> )</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">uint8</span>(x) &gt; <span class="built_in">uint8</span>(x+y);</span><br><span class="line">  <span class="keyword">if</span> ( size == <span class="number">2</span> )</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">uint16</span>(x) &gt; <span class="built_in">uint16</span>(x+y);</span><br><span class="line">  <span class="keyword">if</span> ( size == <span class="number">4</span> )</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">uint32</span>(x) &gt; <span class="built_in">uint32</span>(x+y);</span><br><span class="line">  <span class="keyword">return</span> <span class="built_in">uint64</span>(x) &gt; <span class="built_in">uint64</span>(x+y);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">else</span></span></span><br><span class="line"><span class="comment">// The following definition is not quite correct because it always returns</span></span><br><span class="line"><span class="comment">// uint64. The above C++ functions are good, though.</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> __PAIR__(high, low) (((uint64)(high)&lt;&lt;sizeof(high)*8) | low)</span></span><br><span class="line"><span class="comment">// For C, we just provide macros, they are not quite correct.</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> __ROL__(x, y) __rotl__(x, y)      <span class="comment">// Rotate left</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> __ROR__(x, y) __rotr__(x, y)      <span class="comment">// Rotate right</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> __CFSHL__(x, y) invalid_operation <span class="comment">// Generate carry flag for (x&lt;&lt;y)</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> __CFSHR__(x, y) invalid_operation <span class="comment">// Generate carry flag for (x&gt;&gt;y)</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> __CFADD__(x, y) invalid_operation <span class="comment">// Generate carry flag for (x+y)</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> __CFSUB__(x, y) invalid_operation <span class="comment">// Generate carry flag for (x-y)</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> __OFADD__(x, y) invalid_operation <span class="comment">// Generate overflow flag for (x+y)</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> __OFSUB__(x, y) invalid_operation <span class="comment">// Generate overflow flag for (x-y)</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// No definition for rcl/rcr because the carry flag is unknown</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> __RCL__(x, y)    invalid_operation <span class="comment">// Rotate left thru carry</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> __RCR__(x, y)    invalid_operation <span class="comment">// Rotate right thru carry</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> __MKCRCL__(x, y) invalid_operation <span class="comment">// Generate carry flag for a RCL</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> __MKCRCR__(x, y) invalid_operation <span class="comment">// Generate carry flag for a RCR</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> __SETP__(x, y)   invalid_operation <span class="comment">// Generate parity flag for (x-y)</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">// In the decompilation listing there are some objects declarared as _UNKNOWN</span></span><br><span class="line"><span class="comment">// because we could not determine their types. Since the C compiler does not</span></span><br><span class="line"><span class="comment">// accept void item declarations, we replace them by anything of our choice,</span></span><br><span class="line"><span class="comment">// for example a char:</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> _UNKNOWN char</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">ifdef</span> _MSC_VER</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> snprintf _snprintf</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> vsnprintf _vsnprintf</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></span><br></pre></td></tr></table></figure>
+
+
+  </div>
+</article>
+
+    <div class="blog-post-comments">
+        <div id="disqus_thread">
+            <noscript>Please enable JavaScript to view the comments.</noscript>
+        </div>
+    </div>
+
+
+
+        
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/atom.xml">rss</a></li>
+         
+          <li><a href="/search/">Search</a></li>
         
       </ul>
     </div>
-		<div class="nav-main">
-      
-        
-        <a class="title flat-box" target="_self" href='/'>
-          
-          
-          
-          
-            RYCBAR'S <b><sup style='color:#3AA757'>blog</sup></b>
-          
-        </a>
-      
 
-			<div class='menu navigation'>
-				<ul class='nav-list-h'>
-          
-          
-          
-            
-            
-              <li>
-                <a class="flat-box" href=/
-                  
-                  
-                  
-                    id="home"
-                  >
-                  <i class='fas fa-rss fa-fw'></i>博客
-                </a>
-                
-              </li>
-            
-          
-          
-            
-            
-              <li>
-                <a class="flat-box" href=/categories/
-                  
-                  
-                  
-                    id="categories"
-                  >
-                  <i class='fas fa-folder-open fa-fw'></i>分类
-                </a>
-                
-              </li>
-            
-          
-          
-            
-            
-              <li>
-                <a class="flat-box" href=/tags/
-                  
-                  
-                  
-                    id="tags"
-                  >
-                  <i class='fas fa-tags fa-fw'></i>标签
-                </a>
-                
-              </li>
-            
-          
-          
-            
-            
-              <li>
-                <a class="flat-box" href=/archives/
-                  
-                  
-                  
-                    id="archives"
-                  >
-                  <i class='fas fa-archive fa-fw'></i>归档
-                </a>
-                
-              </li>
-            
-          
-          
-            
-            
-              <li>
-                <a class="flat-box" href=/friends/
-                  
-                  
-                  
-                    id="friends"
-                  >
-                  <i class='fas fa-link fa-fw'></i>友链
-                </a>
-                
-              </li>
-            
-          
-          
-            
-            
-              <li>
-                <a class="flat-box" href=/about/
-                  
-                  
-                  
-                    id="about"
-                  >
-                  <i class='fas fa-info-circle fa-fw'></i>关于
-                </a>
-                
-              </li>
-            
-          
-          
-				</ul>
-			</div>
-
-      <div class="m_search">
-        <form name="searchform" class="form u-search-form">
-          <i class="icon fas fa-search fa-fw"></i>
-          <input type="text" class="input u-search-input" placeholder="Search..." />
-        </form>
-      </div>
-
-			<ul class='switcher nav-list-h'>
-				
-					<li><a class="s-search fas fa-search fa-fw" target="_self" href='javascript:void(0)'></a></li>
-				
-				<li>
-          <a class="s-menu fas fa-bars fa-fw" target="_self" href='javascript:void(0)'></a>
-          <ul class="menu-phone list-v navigation white-box">
-            
-              
-            
-              <li>
-                <a class="flat-box" href=/
-                  
-                  
-                  
-                    id="home"
-                  >
-                  <i class='fas fa-rss fa-fw'></i>博客
-                </a>
-                
-              </li>
-            
-          
-            
-              
-            
-              <li>
-                <a class="flat-box" href=/categories/
-                  
-                  
-                  
-                    id="categories"
-                  >
-                  <i class='fas fa-folder-open fa-fw'></i>分类
-                </a>
-                
-              </li>
-            
-          
-            
-              
-            
-              <li>
-                <a class="flat-box" href=/tags/
-                  
-                  
-                  
-                    id="tags"
-                  >
-                  <i class='fas fa-tags fa-fw'></i>标签
-                </a>
-                
-              </li>
-            
-          
-            
-              
-            
-              <li>
-                <a class="flat-box" href=/archives/
-                  
-                  
-                  
-                    id="archives"
-                  >
-                  <i class='fas fa-archive fa-fw'></i>归档
-                </a>
-                
-              </li>
-            
-          
-            
-              
-            
-              <li>
-                <a class="flat-box" href=/friends/
-                  
-                  
-                  
-                    id="friends"
-                  >
-                  <i class='fas fa-link fa-fw'></i>友链
-                </a>
-                
-              </li>
-            
-          
-            
-              
-            
-              <li>
-                <a class="flat-box" href=/about/
-                  
-                  
-                  
-                    id="about"
-                  >
-                  <i class='fas fa-info-circle fa-fw'></i>关于
-                </a>
-                
-              </li>
-            
-          
-            
-          </ul>
-        </li>
-			</ul>
-		</div>
-	</div>
-  </div>
-</header>
-
-<script>setLoadingBarProgress(40);</script>
-
-
-
-  <div class="l_body nocover">
-    <div class='body-wrapper'>
-      
-
-<div class='l_main'>
-  
-
-  
-    <article id="post" class="post white-box reveal shadow article-type-post" itemscope itemprop="blogPost">
-      
-
-
-  <section class='meta'>
-    
-      
-      
-      <div class="meta" id="header-meta">
-        
-          
-  <h1 class="title">
-    <a href="/2020/03/10/IDA%E5%B8%B8%E7%94%A8%E5%AE%8F%E5%AE%9A%E4%B9%89/">
-      IDA常用宏定义
-    </a>
-  </h1>
-
-
-        
-        <div class='new-meta-box'>
-          
-            
-          
-            
-              
-<div class='new-meta-item author'>
-  <a href="http://blog.rycbar.club" rel="nofollow">
-    <img src="https://q2.qlogo.cn/headimg_dl?dst_uin=595371936&spec=100">
-    <p>rycbar</p>
-  </a>
-</div>
-
-            
-          
-            
-              
-  
-  <div class='new-meta-item category'>
-    <a href='/categories/ctf/' rel="nofollow">
-      <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
-      <p>ctf</p>
-    </a>
-  </div>
-
-
-            
-          
-            
-              <div class="new-meta-item date">
-  <a class='notlink'>
-    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
-    <p>发布于：2020年3月10日</p>
-  </a>
-</div>
-
-            
-          
-            
-              
-
-            
-          
-        </div>
-        
-          <hr>
-        
-      </div>
-    
-  </section>
-
-
-      <section class="article typo">
-        <div class="article-entry" itemprop="articleBody">
-          
-          <p>保存一下便于查询。</p>
-<span id="more"></span>
-
-<pre><code class="c++">/*
-
-   This file contains definitions used by the Hex-Rays decompiler output.
-   It has type definitions and convenience macros to make the
-   output more readable.
-
-   Copyright (c) 2007-2011 Hex-Rays
-
-*/
-
-#if defined(__GNUC__)
-  typedef          long long ll;
-  typedef unsigned long long ull;
-  #define __int64 long long
-  #define __int32 int
-  #define __int16 short
-  #define __int8  char
-  #define MAKELL(num) num ## LL
-  #define FMT_64 &quot;ll&quot;
-#elif defined(_MSC_VER)
-  typedef          __int64 ll;
-  typedef unsigned __int64 ull;
-  #define MAKELL(num) num ## i64
-  #define FMT_64 &quot;I64&quot;
-#elif defined (__BORLANDC__)
-  typedef          __int64 ll;
-  typedef unsigned __int64 ull;
-  #define MAKELL(num) num ## i64
-  #define FMT_64 &quot;L&quot;
-#else
-  #error &quot;unknown compiler&quot;
-#endif
-typedef unsigned int uint;
-typedef unsigned char uchar;
-typedef unsigned short ushort;
-typedef unsigned long ulong;
-
-typedef          char   int8;
-typedef   signed char   sint8;
-typedef unsigned char   uint8;
-typedef          short  int16;
-typedef   signed short  sint16;
-typedef unsigned short  uint16;
-typedef          int    int32;
-typedef   signed int    sint32;
-typedef unsigned int    uint32;
-typedef ll              int64;
-typedef ll              sint64;
-typedef ull             uint64;
-
-// Partially defined types:
-#define _BYTE  uint8
-#define _WORD  uint16
-#define _DWORD uint32
-#define _QWORD uint64
-#if !defined(_MSC_VER)
-#define _LONGLONG __int128
-#endif
-
-#ifndef _WINDOWS_
-typedef int8 BYTE;
-typedef int16 WORD;
-typedef int32 DWORD;
-typedef int32 LONG;
-#endif
-typedef int64 QWORD;
-#ifndef __cplusplus
-typedef int bool;       // we want to use bool in our C programs
-#endif
-
-// Some convenience macros to make partial accesses nicer
-// first unsigned macros:
-#define LOBYTE(x)   (*((_BYTE*)&amp;(x)))   // low byte
-#define LOWORD(x)   (*((_WORD*)&amp;(x)))   // low word
-#define LODWORD(x)  (*((_DWORD*)&amp;(x)))  // low dword
-#define HIBYTE(x)   (*((_BYTE*)&amp;(x)+1))
-#define HIWORD(x)   (*((_WORD*)&amp;(x)+1))
-#define HIDWORD(x)  (*((_DWORD*)&amp;(x)+1))
-#define BYTEn(x, n)   (*((_BYTE*)&amp;(x)+n))
-#define WORDn(x, n)   (*((_WORD*)&amp;(x)+n))
-#define BYTE1(x)   BYTEn(x,  1)         // byte 1 (counting from 0)
-#define BYTE2(x)   BYTEn(x,  2)
-#define BYTE3(x)   BYTEn(x,  3)
-#define BYTE4(x)   BYTEn(x,  4)
-#define BYTE5(x)   BYTEn(x,  5)
-#define BYTE6(x)   BYTEn(x,  6)
-#define BYTE7(x)   BYTEn(x,  7)
-#define BYTE8(x)   BYTEn(x,  8)
-#define BYTE9(x)   BYTEn(x,  9)
-#define BYTE10(x)  BYTEn(x, 10)
-#define BYTE11(x)  BYTEn(x, 11)
-#define BYTE12(x)  BYTEn(x, 12)
-#define BYTE13(x)  BYTEn(x, 13)
-#define BYTE14(x)  BYTEn(x, 14)
-#define BYTE15(x)  BYTEn(x, 15)
-#define WORD1(x)   WORDn(x,  1)
-#define WORD2(x)   WORDn(x,  2)         // third word of the object, unsigned
-#define WORD3(x)   WORDn(x,  3)
-#define WORD4(x)   WORDn(x,  4)
-#define WORD5(x)   WORDn(x,  5)
-#define WORD6(x)   WORDn(x,  6)
-#define WORD7(x)   WORDn(x,  7)
-
-// now signed macros (the same but with sign extension)
-#define SLOBYTE(x)   (*((int8*)&amp;(x)))
-#define SLOWORD(x)   (*((int16*)&amp;(x)))
-#define SLODWORD(x)  (*((int32*)&amp;(x)))
-#define SHIBYTE(x)   (*((int8*)&amp;(x)+1))
-#define SHIWORD(x)   (*((int16*)&amp;(x)+1))
-#define SHIDWORD(x)  (*((int32*)&amp;(x)+1))
-#define SBYTEn(x, n)   (*((int8*)&amp;(x)+n))
-#define SWORDn(x, n)   (*((int16*)&amp;(x)+n))
-#define SBYTE1(x)   SBYTEn(x,  1)
-#define SBYTE2(x)   SBYTEn(x,  2)
-#define SBYTE3(x)   SBYTEn(x,  3)
-#define SBYTE4(x)   SBYTEn(x,  4)
-#define SBYTE5(x)   SBYTEn(x,  5)
-#define SBYTE6(x)   SBYTEn(x,  6)
-#define SBYTE7(x)   SBYTEn(x,  7)
-#define SBYTE8(x)   SBYTEn(x,  8)
-#define SBYTE9(x)   SBYTEn(x,  9)
-#define SBYTE10(x)  SBYTEn(x, 10)
-#define SBYTE11(x)  SBYTEn(x, 11)
-#define SBYTE12(x)  SBYTEn(x, 12)
-#define SBYTE13(x)  SBYTEn(x, 13)
-#define SBYTE14(x)  SBYTEn(x, 14)
-#define SBYTE15(x)  SBYTEn(x, 15)
-#define SWORD1(x)   SWORDn(x,  1)
-#define SWORD2(x)   SWORDn(x,  2)
-#define SWORD3(x)   SWORDn(x,  3)
-#define SWORD4(x)   SWORDn(x,  4)
-#define SWORD5(x)   SWORDn(x,  5)
-#define SWORD6(x)   SWORDn(x,  6)
-#define SWORD7(x)   SWORDn(x,  7)
-
-
-// Helper functions to represent some assembly instructions.
-
-#ifdef __cplusplus
-
-// Fill memory block with an integer value
-inline void memset32(void *ptr, uint32 value, int count)
-&#123;
-  uint32 *p = (uint32 *)ptr;
-  for ( int i=0; i &lt; count; i++ )
-    *p++ = value;
-&#125;
-
-// Generate a reference to pair of operands
-template&lt;class T&gt;  int16 __PAIR__( int8  high, T low) &#123; return ((( int16)high) &lt;&lt; sizeof(high)*8) | uint8(low); &#125;
-template&lt;class T&gt;  int32 __PAIR__( int16 high, T low) &#123; return ((( int32)high) &lt;&lt; sizeof(high)*8) | uint16(low); &#125;
-template&lt;class T&gt;  int64 __PAIR__( int32 high, T low) &#123; return ((( int64)high) &lt;&lt; sizeof(high)*8) | uint32(low); &#125;
-template&lt;class T&gt; uint16 __PAIR__(uint8  high, T low) &#123; return (((uint16)high) &lt;&lt; sizeof(high)*8) | uint8(low); &#125;
-template&lt;class T&gt; uint32 __PAIR__(uint16 high, T low) &#123; return (((uint32)high) &lt;&lt; sizeof(high)*8) | uint16(low); &#125;
-template&lt;class T&gt; uint64 __PAIR__(uint32 high, T low) &#123; return (((uint64)high) &lt;&lt; sizeof(high)*8) | uint32(low); &#125;
-
-// rotate left
-template&lt;class T&gt; T __ROL__(T value, uint count)
-&#123;
-  const uint nbits = sizeof(T) * 8;
-  count %= nbits;
-
-  T high = value &gt;&gt; (nbits - count);
-  value &lt;&lt;= count;
-  value |= high;
-  return value;
-&#125;
-
-// rotate right
-template&lt;class T&gt; T __ROR__(T value, uint count)
-&#123;
-  const uint nbits = sizeof(T) * 8;
-  count %= nbits;
-
-  T low = value &lt;&lt; (nbits - count);
-  value &gt;&gt;= count;
-  value |= low;
-  return value;
-&#125;
-
-// carry flag of left shift
-template&lt;class T&gt; int8 __MKCSHL__(T value, uint count)
-&#123;
-  const uint nbits = sizeof(T) * 8;
-  count %= nbits;
-
-  return (value &gt;&gt; (nbits-count)) &amp; 1;
-&#125;
-
-// carry flag of right shift
-template&lt;class T&gt; int8 __MKCSHR__(T value, uint count)
-&#123;
-  return (value &gt;&gt; (count-1)) &amp; 1;
-&#125;
-
-// sign flag
-template&lt;class T&gt; int8 __SETS__(T x)
-&#123;
-  if ( sizeof(T) == 1 )
-    return int8(x) &lt; 0;
-  if ( sizeof(T) == 2 )
-    return int16(x) &lt; 0;
-  if ( sizeof(T) == 4 )
-    return int32(x) &lt; 0;
-  return int64(x) &lt; 0;
-&#125;
-
-// overflow flag of subtraction (x-y)
-template&lt;class T, class U&gt; int8 __OFSUB__(T x, U y)
-&#123;
-  if ( sizeof(T) &lt; sizeof(U) )
-  &#123;
-    U x2 = x;
-    int8 sx = __SETS__(x2);
-    return (sx ^ __SETS__(y)) &amp; (sx ^ __SETS__(x2-y));
-  &#125;
-  else
-  &#123;
-    T y2 = y;
-    int8 sx = __SETS__(x);
-    return (sx ^ __SETS__(y2)) &amp; (sx ^ __SETS__(x-y2));
-  &#125;
-&#125;
-
-// overflow flag of addition (x+y)
-template&lt;class T, class U&gt; int8 __OFADD__(T x, U y)
-&#123;
-  if ( sizeof(T) &lt; sizeof(U) )
-  &#123;
-    U x2 = x;
-    int8 sx = __SETS__(x2);
-    return ((1 ^ sx) ^ __SETS__(y)) &amp; (sx ^ __SETS__(x2+y));
-  &#125;
-  else
-  &#123;
-    T y2 = y;
-    int8 sx = __SETS__(x);
-    return ((1 ^ sx) ^ __SETS__(y2)) &amp; (sx ^ __SETS__(x+y2));
-  &#125;
-&#125;
-
-// carry flag of subtraction (x-y)
-template&lt;class T, class U&gt; int8 __CFSUB__(T x, U y)
-&#123;
-  int size = sizeof(T) &gt; sizeof(U) ? sizeof(T) : sizeof(U);
-  if ( size == 1 )
-    return uint8(x) &lt; uint8(y);
-  if ( size == 2 )
-    return uint16(x) &lt; uint16(y);
-  if ( size == 4 )
-    return uint32(x) &lt; uint32(y);
-  return uint64(x) &lt; uint64(y);
-&#125;
-
-// carry flag of addition (x+y)
-template&lt;class T, class U&gt; int8 __CFADD__(T x, U y)
-&#123;
-  int size = sizeof(T) &gt; sizeof(U) ? sizeof(T) : sizeof(U);
-  if ( size == 1 )
-    return uint8(x) &gt; uint8(x+y);
-  if ( size == 2 )
-    return uint16(x) &gt; uint16(x+y);
-  if ( size == 4 )
-    return uint32(x) &gt; uint32(x+y);
-  return uint64(x) &gt; uint64(x+y);
-&#125;
-
-#else
-// The following definition is not quite correct because it always returns
-// uint64. The above C++ functions are good, though.
-#define __PAIR__(high, low) (((uint64)(high)&lt;&lt;sizeof(high)*8) | low)
-// For C, we just provide macros, they are not quite correct.
-#define __ROL__(x, y) __rotl__(x, y)      // Rotate left
-#define __ROR__(x, y) __rotr__(x, y)      // Rotate right
-#define __CFSHL__(x, y) invalid_operation // Generate carry flag for (x&lt;&lt;y)
-#define __CFSHR__(x, y) invalid_operation // Generate carry flag for (x&gt;&gt;y)
-#define __CFADD__(x, y) invalid_operation // Generate carry flag for (x+y)
-#define __CFSUB__(x, y) invalid_operation // Generate carry flag for (x-y)
-#define __OFADD__(x, y) invalid_operation // Generate overflow flag for (x+y)
-#define __OFSUB__(x, y) invalid_operation // Generate overflow flag for (x-y)
-#endif
-
-// No definition for rcl/rcr because the carry flag is unknown
-#define __RCL__(x, y)    invalid_operation // Rotate left thru carry
-#define __RCR__(x, y)    invalid_operation // Rotate right thru carry
-#define __MKCRCL__(x, y) invalid_operation // Generate carry flag for a RCL
-#define __MKCRCR__(x, y) invalid_operation // Generate carry flag for a RCR
-#define __SETP__(x, y)   invalid_operation // Generate parity flag for (x-y)
-
-// In the decompilation listing there are some objects declarared as _UNKNOWN
-// because we could not determine their types. Since the C compiler does not
-// accept void item declarations, we replace them by anything of our choice,
-// for example a char:
-
-#define _UNKNOWN char
-
-#ifdef _MSC_VER
-#define snprintf _snprintf
-#define vsnprintf _vsnprintf
-#endif
-</code></pre>
-
-          
-            <div class='article_footer'>
-              
-                
-  
-    
-    
-
-
-
-  
-
-  
-    
-    
-
-
-
-  
-
-  
-    
-    
-
-<section class="widget copyright  desktop mobile">
-  <div class='content'>
-    
-      <blockquote>
-        
-          
-            <p>博客内容遵循 署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</p>
-
-          
-        
-          
-            <p>本文永久链接是：<a href=http://blog.rycbar.club/2020/03/10/IDA%E5%B8%B8%E7%94%A8%E5%AE%8F%E5%AE%9A%E4%B9%89/>http://blog.rycbar.club/2020/03/10/IDA%E5%B8%B8%E7%94%A8%E5%AE%8F%E5%AE%9A%E4%B9%89/</a></p>
-          
-        
-      </blockquote>
-    
-  </div>
-</section>
-
-  
-
-  
-
-
-              
-            </div>
-          
-        </div>
-        
-          
-
-
-  <section class='meta' id="footer-meta">
-    <div class='new-meta-box'>
-      
-        
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-03-24T10:49:54+08:00">
-  <a class='notlink'>
-    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
-    <p>更新于：2020年3月24日</p>
-  </a>
-</div>
-
-        
-      
-        
-          
-  
-  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/ctf/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>ctf</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/IDA/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>IDA</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/%E6%9F%A5%E8%A1%A8/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>查表</p></a></div>
-
-
-        
-      
-        
-          
-
-        
-      
-        
-          
-  <div class="new-meta-item share -mob-share-list">
-  <div class="-mob-share-list share-body">
-    
-      
-        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
-          
-          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://blog.rycbar.club/2020/03/10/IDA%E5%B8%B8%E7%94%A8%E5%AE%8F%E5%AE%9A%E4%B9%89/&title=IDA常用宏定义 - My Tiny Ideas&summary=保存一下便于查询。"
-          
-          >
-          
-            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/qq.png">
-          
-        </a>
-      
-    
-      
-        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
-          
-          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://blog.rycbar.club/2020/03/10/IDA%E5%B8%B8%E7%94%A8%E5%AE%8F%E5%AE%9A%E4%B9%89/&title=IDA常用宏定义 - My Tiny Ideas&summary=保存一下便于查询。"
-          
-          >
-          
-            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/qzone.png">
-          
-        </a>
-      
-    
-      
-        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
-          
-          target="_blank" href="http://service.weibo.com/share/share.php?url=http://blog.rycbar.club/2020/03/10/IDA%E5%B8%B8%E7%94%A8%E5%AE%8F%E5%AE%9A%E4%B9%89/&title=IDA常用宏定义 - My Tiny Ideas&summary=保存一下便于查询。"
-          
-          >
-          
-            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/weibo.png">
-          
-        </a>
-      
-    
-  </div>
-</div>
-
-
-
-        
+    <div id="toc-footer" style="display: none">
       
     </div>
-  </section>
 
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://blog.rycbar.club/2020/03/10/IDA%E5%B8%B8%E7%94%A8%E5%AE%8F%E5%AE%9A%E4%B9%89/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://blog.rycbar.club/2020/03/10/IDA%E5%B8%B8%E7%94%A8%E5%AE%8F%E5%AE%9A%E4%B9%89/&text=IDA常用宏定义"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://blog.rycbar.club/2020/03/10/IDA%E5%B8%B8%E7%94%A8%E5%AE%8F%E5%AE%9A%E4%B9%89/&title=IDA常用宏定义"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://blog.rycbar.club/2020/03/10/IDA%E5%B8%B8%E7%94%A8%E5%AE%8F%E5%AE%9A%E4%B9%89/&is_video=false&description=IDA常用宏定义"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=IDA常用宏定义&body=Check out this article: http://blog.rycbar.club/2020/03/10/IDA%E5%B8%B8%E7%94%A8%E5%AE%8F%E5%AE%9A%E4%B9%89/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://blog.rycbar.club/2020/03/10/IDA%E5%B8%B8%E7%94%A8%E5%AE%8F%E5%AE%9A%E4%B9%89/&title=IDA常用宏定义"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://blog.rycbar.club/2020/03/10/IDA%E5%B8%B8%E7%94%A8%E5%AE%8F%E5%AE%9A%E4%B9%89/&title=IDA常用宏定义"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://blog.rycbar.club/2020/03/10/IDA%E5%B8%B8%E7%94%A8%E5%AE%8F%E5%AE%9A%E4%B9%89/&title=IDA常用宏定义"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://blog.rycbar.club/2020/03/10/IDA%E5%B8%B8%E7%94%A8%E5%AE%8F%E5%AE%9A%E4%B9%89/&title=IDA常用宏定义"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://blog.rycbar.club/2020/03/10/IDA%E5%B8%B8%E7%94%A8%E5%AE%8F%E5%AE%9A%E4%B9%89/&name=IDA常用宏定义&description=&lt;p&gt;保存一下便于查询。&lt;/p&gt;"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://blog.rycbar.club/2020/03/10/IDA%E5%B8%B8%E7%94%A8%E5%AE%8F%E5%AE%9A%E4%B9%89/&t=IDA常用宏定义"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
 
-        
-        
-          <div class="prev-next">
-            
-              <a class='prev' href='/2020/03/12/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3%EF%BC%88%E4%BA%94%EF%BC%89/'>
-                <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>攻防世界-re部分题解（五）</p>
-                <p class='content'>后面的题目也越来越难了，比较难比较复杂的题目会单拉出来写，这里就记录一些比较简单的题目。
-
-
-easy_Maze看名字就知道是个迷宫题，IDA打开看看
-int __cdecl main(int ...</p>
-              </a>
-            
-            
-              <a class='next' href='/2020/03/09/%E9%AB%98%E6%A0%A1%E6%88%98%E7%96%AB-%E4%B8%A4%E9%81%93re-wp/'>
-                <p class='title'>高校战疫-两道re-wp<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
-                <p class='content'>这两天攻防世界有个比赛，上面的题目还不错，参与了一下，至于为什么是两道re，因为正好赶上数模美赛，没怎么有时间做（实际上就是因为菜
-
-
-cyclegraphvoid FUN_00401080(v...</p>
-              </a>
-            
-          </div>
-        
-      </section>
-    </article>
-  
-
-  
-    <!-- 显示推荐文章和评论 -->
-
-
-
-  <article class="post white-box reveal comments shadow">
-    <section class="article typo">
-      <p ct><i class='fas fa-comments'></i> 评论</p>
-      
-      
-      
-      
-        <section id="comments">
-          <div id="gitalk-container"></div>
-        </section>
-      
-      
-      
-      
-    </section>
-  </article>
-
-
-  
-
-
-
-
-<!-- 根据页面mathjax变量决定是否加载MathJax数学公式js -->
-
-
-
-  <script>
-    window.subData = {
-      title: 'IDA常用宏定义',
-      tools: true
-    }
-  </script>
-
-
-</div>
-<aside class='l_side'>
-  
-  
-
-  
-    
-    
-
-
-
-  
-
-
-</aside>
-
-
-  
-  <footer class="clearfix">
-    <br><br>
-    
-      
-        <div class="aplayer-container">
-          
-
-  
-    <meting-js
-      theme='#1BCDFC'
-      autoplay='false'
-      volume='0.7'
-      loop='all'
-      order='random'
-      fixed='false'
-      list-max-height='340px'
-      server='netease'
-      type='playlist'
-      id='555017395'
-      list-folded='true'>
-    </meting-js>
-  
-
-
-        </div>
-      
-    
-      
-        <br>
-        <div class="social-wrapper">
-          
-            
-              <a href="/rycbar17th@gmail.com"
-                class="social fas fa-envelope flat-btn"
-                target="_blank"
-                rel="external nofollow noopener noreferrer">
-              </a>
-            
-          
-            
-              <a href="https://github.com/rycbar77"
-                class="social fab fa-github flat-btn"
-                target="_blank"
-                rel="external nofollow noopener noreferrer">
-              </a>
-            
-          
-        </div>
-      
-    
-      
-        <div><p>博客内容遵循 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</a></p>
-</div>
-      
-    
-      
-        <div class='copyright'>
-        <p><a href="https://blog.rycbar.club/">Copyright © 2017-2020 rycbar</a></p>
-
-        </div>
-      
-    
-  </footer>
-
-<script>setLoadingBarProgress(80);</script>
-
-
-      <script>setLoadingBarProgress(60);</script>
     </div>
-    <a class="s-top fas fa-arrow-up fa-fw" href='javascript:void(0)'></a>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
   </div>
-  
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.4/dist/jquery.min.js"></script>
+</div>
 
-
-  <script>
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
     
-    var SEARCH_SERVICE = "hexo" || "hexo";
-    var ROOT = "/" || "/";
-    if (!ROOT.endsWith('/')) ROOT += '/';
-  </script>
-
-
-  <script async src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2/js/instant_page.js" type="module" defer integrity="sha384-OeDn4XE77tdHo8pGtE1apMPmAipjoxUQ++eeJa6EtJCfHlvijigWiJpD7VDPWXV1"></script>
-
-
-  <script src="https://cdn.jsdelivr.net/npm/scrollreveal@4.0.6/dist/scrollreveal.min.js"></script>
-  <script type="text/javascript">
-    $(function() {
-      ScrollReveal().reveal('.l_main .reveal', {
-        distance: '8px',
-        duration: '800',
-        interval: '100',
-        scale: '1'
-      });
-    });
-  </script>
-
-
-  
-<script src="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.js"></script>
-
-  <script type="text/javascript">
-    $(function() {
-      Waves.attach('.flat-btn', ['waves-button']);
-      Waves.attach('.float-btn', ['waves-button', 'waves-float']);
-      Waves.attach('.float-btn-light', ['waves-button', 'waves-float', 'waves-light']);
-      Waves.attach('.flat-box', ['waves-block']);
-      Waves.attach('.float-box', ['waves-block', 'waves-float']);
-      Waves.attach('.waves-image');
-      Waves.init();
-    });
-  </script>
-
-
-  <script async src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-busuanzi@2.3/js/busuanzi.pure.mini.js"></script>
-
-
-
-  
-  
-  
     
-<script src="https://cdn.jsdelivr.net/npm/jquery-backstretch@2.1.18/jquery.backstretch.min.js"></script>
+    2018-2021
+    Aorui Zhang
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/atom.xml">rss</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script> 
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128484503-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-128484503-1');
+    </script>
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
 
     <script type="text/javascript">
-      $(function(){
-        var imgs=["https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/41F215B9-261F-48B4-80B5-4E86E165259E.jpeg", "https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/BBC19066-E176-47C2-9D22-48C81EE5DF6B.jpeg", "https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/B18FCBB3-67FD-48CC-B4F3-457BA145F17A.jpeg", "https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/35F12181-F0E9-45BD-B134-37E4B4A660CF.jpeg", "https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/00E0F0ED-9F1C-407A-9AA6-545649D919F4.jpeg", "https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/67239FBB-E15D-4F4F-8EE8-0F1C9F3C4E7C.jpeg", "https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/B951AE18-D431-417F-B3FE-A382403FF21B.jpeg", "https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/landscape/AEB33F9D-7294-4CF1-B8C5-3020748A9D45.jpeg", "https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/2884F904-F1F3-479E-AE27-5EBC291B63B0.jpeg", "https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/landscape/10A0FCE5-36A1-4AD0-8CF0-019259A89E03.jpeg", "https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/landscape/250662D4-5A21-4AAA-BB63-CD25CF97CFF1.jpeg", "https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/landscape/298468D7-E388-44A8-8CC5-8213BDC33CED.jpeg"];
-        if ('true' == 'true') {
-          function shuffle(arr){
-            /*From countercurrent-time*/
-            var n = arr.length;
-            while(n--) {
-              var index = Math.floor(Math.random() * n);
-              var temp = arr[index];
-              arr[index] = arr[n];
-              arr[n] = temp;
-            }
-          }
-          shuffle(imgs);
-        }
-        if ('.cover') {
-          $('.cover').backstretch(
-            imgs,
-          {
-            duration: "20000",
-            fade: "1500"
-          });
-        } else {
-          $.backstretch(
-            imgs,
-          {
-            duration: "20000",
-            fade: "1500"
-          });
-        }
-      });
+        var disqus_shortname = 'rrblog-2';
+
+        (function(){
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        }());
     </script>
-  
 
+<!-- utterances Comments -->
 
-
-  
-    
-<script src="https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.js"></script>
-
-  
-    
-<script src="https://cdn.jsdelivr.net/npm/meting@2.0/dist/Meting.min.js"></script>
-
-  
-
-
-
-
-
-
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
-  <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
-  <script type="text/javascript">
-    var gitalk = new Gitalk({
-      clientID: "6dbe0fb891585031b176",
-      clientSecret: "4407fec5af8e37150b5a4cb82821318d91c07769",
-      repo: "comments",
-      owner: "schrodinger17",
-      admin: "schrodinger17",
-      
-        id: location.pathname,      // Ensure uniqueness and length less than 50
-      
-      distractionFreeMode: false  // Facebook-like distraction free mode
-    });
-    gitalk.render('gitalk-container');
-  </script>
-
-
-
-
-
-
-
-
-  
-<script src="/js/app.js"></script>
-
-
-
-  
-<script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2.6.5/js/search.js"></script>
-
-
-
-  
-<script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2/js/comment_typing.js"></script>
-
-
-
-
-  
-    
-<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.1/build/highlight.min.js"></script>
-
-    <script>hljs.initHighlightingOnLoad();</script>
-  
-
-
-
-<!-- 复制 -->
-
-  <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
-<script>
-  function wait(callback, seconds) {
-    var timelag = null;
-    timelag = window.setTimeout(callback, seconds);
-  }
-  !function (e, t, a) {
-    var initCopyCode = function(){
-      var copyHtml = '';
-      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
-      copyHtml += '<i class="fas fa-copy"></i><span>COPY</span>';
-      copyHtml += '</button>';
-      $(".highlight .code pre").before(copyHtml);
-      $(".article pre code").before(copyHtml);
-      var clipboard = new ClipboardJS('.btn-copy', {
-        target: function(trigger) {
-          return trigger.nextElementSibling;
-        }
-      });
-      clipboard.on('success', function(e) {
-        let $btn = $(e.trigger);
-        $btn.addClass('copied');
-        let $icon = $($btn.find('i'));
-        $icon.removeClass('fa-copy');
-        $icon.addClass('fa-check-circle');
-        let $span = $($btn.find('span'));
-        $span[0].innerText = 'COPIED';
-        
-        wait(function () { // 等待两秒钟后恢复
-          $icon.removeClass('fa-check-circle');
-          $icon.addClass('fa-copy');
-          $span[0].innerText = 'COPY';
-        }, 2000);
-      });
-      clipboard.on('error', function(e) {
-        e.clearSelection();
-        let $btn = $(e.trigger);
-        $btn.addClass('copy-failed');
-        let $icon = $($btn.find('i'));
-        $icon.removeClass('fa-copy');
-        $icon.addClass('fa-times-circle');
-        let $span = $($btn.find('span'));
-        $span[0].innerText = 'COPY FAILED';
-        
-        wait(function () { // 等待两秒钟后恢复
-          $icon.removeClass('fa-times-circle');
-          $icon.addClass('fa-copy');
-          $span[0].innerText = 'COPY';
-        }, 2000);
-      });
-    }
-    initCopyCode();
-  }(window, document);
-</script>
-
-
-
-
-<!-- fancybox -->
-
-  <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
-<script>
-  let LAZY_LOAD_IMAGE = "";
-  $(".article-entry").find("div.fancybox").find("img").each(function () {
-      var element = document.createElement("a");
-      $(element).attr("data-fancybox", "gallery");
-      $(element).attr("href", $(this).attr("src"));
-      /* 图片采用懒加载处理时,
-       * 一般图片标签内会有个属性名来存放图片的真实地址，比如 data-original,
-       * 那么此处将原本的属性名src替换为对应属性名data-original,
-       * 修改如下
-       */
-       if (LAZY_LOAD_IMAGE) {
-         $(element).attr("href", $(this).attr("data-original"));
-       }
-      $(this).wrap(element);
-  });
-</script>
-
-
-
-
-
-
-  <script>setLoadingBarProgress(100);</script>
 </body>
 </html>

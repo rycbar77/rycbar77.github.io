@@ -1,1162 +1,369 @@
 <!DOCTYPE html>
-<html>
-<head hexo-theme='https://volantis.js.org/#blog'>
-  <meta charset="utf-8">
-  <!-- SEO相关 -->
-  
-    
-  
-  <!-- 渲染优化 -->
-  <meta name="renderer" content="webkit">
-  <meta name="force-rendering" content="webkit">
-  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
-  <meta name="HandheldFriendly" content="True" >
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-
-  <!-- 页面元数据 -->
-  
-    <title>tar-tar-binks-攻防世界 - My Tiny Ideas</title>
-  
-    <meta name="keywords" content="ctf,re,攻防世界">
-  
-  
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
     <meta name="description" content="tar-tar-binks-攻防世界">
-  
-
-  <!-- feed -->
-  
-
-  <!-- import meta -->
-  
-
-  <!-- link -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13/css/all.min.css">
-  
+<meta property="og:type" content="article">
+<meta property="og:title" content="tar-tar-binks-攻防世界">
+<meta property="og:url" content="http://blog.rycbar.club/2020/03/25/tar-tar-binks-%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C/index.html">
+<meta property="og:site_name" content="rr&#39;s blog">
+<meta property="og:description" content="tar-tar-binks-攻防世界">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://s1.ax1x.com/2020/03/25/8jEkqS.png">
+<meta property="article:published_time" content="2020-03-25T06:31:26.000Z">
+<meta property="article:modified_time" content="2020-05-06T09:55:02.573Z">
+<meta property="article:author" content="Aorui Zhang">
+<meta property="article:tag" content="ctf">
+<meta property="article:tag" content="re">
+<meta property="article:tag" content="攻防世界">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s1.ax1x.com/2020/03/25/8jEkqS.png">
     
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
-
-  
-  
-    
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.css">
-
-  
-
-  
-  <link rel="shortcut icon" type='image/x-icon' href="https://cdn.jsdelivr.net/gh/xaoxuu/assets@master/favicon/favicon.ico">
-  
-
-  
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.css">
-  
-
-  
-
-  <!-- import link -->
-  
-
-  
     
       
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.18.1/styles/solarized-light.css">
-
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
     
-  
-  
+    <!-- title -->
+    <title>tar-tar-binks-攻防世界</title>
+    <!-- styles -->
     
 <link rel="stylesheet" href="/css/style.css">
 
-  
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+      <link rel="alternate" href="/true" title="rr&#39;s blog" type="application/atom+xml" />
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 5.4.0"></head>
 
-  <script>
-    function setLoadingBarProgress(num) {
-      document.getElementById('loading-bar').style.width=num+"%";
-    }
-  </script>
-
-  
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128484503-1"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'UA-128484503-1');
-    </script>
-  
-  
-</head>
-
-<body>
-  
-  <div id="loading-bar-wrapper">
-  <div id="loading-bar"></div>
-</div>
-<header class="l_header shadow blur">
-  <div class='container'>
-  <div class='wrapper'>
-    <div class='nav-sub'>
-      <p class="title"></p>
-      <ul class='switcher nav-list-h'>
-        <li><a class="s-comment fas fa-comments fa-fw" target="_self" href='javascript:void(0)'></a></li>
-        
-          <li><a class="s-toc fas fa-list fa-fw" target="_self" href='javascript:void(0)'></a></li>
-        
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/atom.xml">rss</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
       </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2020/03/27/babyunic-%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2020/03/24/mfc%E9%80%86%E5%90%91-200-%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://blog.rycbar.club/2020/03/25/tar-tar-binks-%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://blog.rycbar.club/2020/03/25/tar-tar-binks-%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C/&text=tar-tar-binks-攻防世界"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://blog.rycbar.club/2020/03/25/tar-tar-binks-%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C/&title=tar-tar-binks-攻防世界"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://blog.rycbar.club/2020/03/25/tar-tar-binks-%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C/&is_video=false&description=tar-tar-binks-攻防世界"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=tar-tar-binks-攻防世界&body=Check out this article: http://blog.rycbar.club/2020/03/25/tar-tar-binks-%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://blog.rycbar.club/2020/03/25/tar-tar-binks-%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C/&title=tar-tar-binks-攻防世界"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://blog.rycbar.club/2020/03/25/tar-tar-binks-%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C/&title=tar-tar-binks-攻防世界"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://blog.rycbar.club/2020/03/25/tar-tar-binks-%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C/&title=tar-tar-binks-攻防世界"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://blog.rycbar.club/2020/03/25/tar-tar-binks-%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C/&title=tar-tar-binks-攻防世界"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://blog.rycbar.club/2020/03/25/tar-tar-binks-%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C/&name=tar-tar-binks-攻防世界&description=&lt;p&gt;tar-tar-binks-攻防世界&lt;/p&gt;"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://blog.rycbar.club/2020/03/25/tar-tar-binks-%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C/&t=tar-tar-binks-攻防世界"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
     </div>
-		<div class="nav-main">
+    <div id="toc">
       
-        
-        <a class="title flat-box" target="_self" href='/'>
-          
-          
-          
-          
-            RYCBAR'S <b><sup style='color:#3AA757'>blog</sup></b>
-          
-        </a>
-      
-
-			<div class='menu navigation'>
-				<ul class='nav-list-h'>
-          
-          
-          
-            
-            
-              <li>
-                <a class="flat-box" href=/
-                  
-                  
-                  
-                    id="home"
-                  >
-                  <i class='fas fa-rss fa-fw'></i>博客
-                </a>
-                
-              </li>
-            
-          
-          
-            
-            
-              <li>
-                <a class="flat-box" href=/categories/
-                  
-                  
-                  
-                    id="categories"
-                  >
-                  <i class='fas fa-folder-open fa-fw'></i>分类
-                </a>
-                
-              </li>
-            
-          
-          
-            
-            
-              <li>
-                <a class="flat-box" href=/tags/
-                  
-                  
-                  
-                    id="tags"
-                  >
-                  <i class='fas fa-tags fa-fw'></i>标签
-                </a>
-                
-              </li>
-            
-          
-          
-            
-            
-              <li>
-                <a class="flat-box" href=/archives/
-                  
-                  
-                  
-                    id="archives"
-                  >
-                  <i class='fas fa-archive fa-fw'></i>归档
-                </a>
-                
-              </li>
-            
-          
-          
-            
-            
-              <li>
-                <a class="flat-box" href=/friends/
-                  
-                  
-                  
-                    id="friends"
-                  >
-                  <i class='fas fa-link fa-fw'></i>友链
-                </a>
-                
-              </li>
-            
-          
-          
-            
-            
-              <li>
-                <a class="flat-box" href=/about/
-                  
-                  
-                  
-                    id="about"
-                  >
-                  <i class='fas fa-info-circle fa-fw'></i>关于
-                </a>
-                
-              </li>
-            
-          
-          
-				</ul>
-			</div>
-
-      <div class="m_search">
-        <form name="searchform" class="form u-search-form">
-          <i class="icon fas fa-search fa-fw"></i>
-          <input type="text" class="input u-search-input" placeholder="Search..." />
-        </form>
-      </div>
-
-			<ul class='switcher nav-list-h'>
-				
-					<li><a class="s-search fas fa-search fa-fw" target="_self" href='javascript:void(0)'></a></li>
-				
-				<li>
-          <a class="s-menu fas fa-bars fa-fw" target="_self" href='javascript:void(0)'></a>
-          <ul class="menu-phone list-v navigation white-box">
-            
-              
-            
-              <li>
-                <a class="flat-box" href=/
-                  
-                  
-                  
-                    id="home"
-                  >
-                  <i class='fas fa-rss fa-fw'></i>博客
-                </a>
-                
-              </li>
-            
-          
-            
-              
-            
-              <li>
-                <a class="flat-box" href=/categories/
-                  
-                  
-                  
-                    id="categories"
-                  >
-                  <i class='fas fa-folder-open fa-fw'></i>分类
-                </a>
-                
-              </li>
-            
-          
-            
-              
-            
-              <li>
-                <a class="flat-box" href=/tags/
-                  
-                  
-                  
-                    id="tags"
-                  >
-                  <i class='fas fa-tags fa-fw'></i>标签
-                </a>
-                
-              </li>
-            
-          
-            
-              
-            
-              <li>
-                <a class="flat-box" href=/archives/
-                  
-                  
-                  
-                    id="archives"
-                  >
-                  <i class='fas fa-archive fa-fw'></i>归档
-                </a>
-                
-              </li>
-            
-          
-            
-              
-            
-              <li>
-                <a class="flat-box" href=/friends/
-                  
-                  
-                  
-                    id="friends"
-                  >
-                  <i class='fas fa-link fa-fw'></i>友链
-                </a>
-                
-              </li>
-            
-          
-            
-              
-            
-              <li>
-                <a class="flat-box" href=/about/
-                  
-                  
-                  
-                    id="about"
-                  >
-                  <i class='fas fa-info-circle fa-fw'></i>关于
-                </a>
-                
-              </li>
-            
-          
-            
-          </ul>
-        </li>
-			</ul>
-		</div>
-	</div>
-  </div>
-</header>
-
-<script>setLoadingBarProgress(40);</script>
-
-
-
-  <div class="l_body nocover">
-    <div class='body-wrapper'>
-      
-
-<div class='l_main'>
-  
-
-  
-    <article id="post" class="post white-box reveal shadow article-type-post" itemscope itemprop="blogPost">
-      
-
-
-  <section class='meta'>
-    
-      
-      
-      <div class="meta" id="header-meta">
-        
-          
-  <h1 class="title">
-    <a href="/2020/03/25/tar-tar-binks-%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C/">
-      tar-tar-binks-攻防世界
-    </a>
-  </h1>
-
-
-        
-        <div class='new-meta-box'>
-          
-            
-          
-            
-              
-<div class='new-meta-item author'>
-  <a href="http://blog.rycbar.club" rel="nofollow">
-    <img src="https://q2.qlogo.cn/headimg_dl?dst_uin=595371936&spec=100">
-    <p>rycbar</p>
-  </a>
+    </div>
+  </span>
 </div>
 
-            
-          
-            
-              
-  
-  <div class='new-meta-item category'>
-    <a href='/categories/ctf/' rel="nofollow">
-      <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
-      <p>ctf</p>
-    </a>
-  </div>
-
-
-            
-          
-            
-              <div class="new-meta-item date">
-  <a class='notlink'>
-    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
-    <p>发布于：2020年3月25日</p>
-  </a>
-</div>
-
-            
-          
-            
-              
-
-            
-          
-        </div>
-        
-          <hr>
-        
-      </div>
     
-  </section>
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        tar-tar-binks-攻防世界
+    </h1>
 
 
-      <section class="article typo">
-        <div class="article-entry" itemprop="articleBody">
-          
-          <p>tar-tar-binks-攻防世界</p>
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Aorui Zhang</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2020-03-25T06:31:26.000Z" itemprop="datePublished">2020-03-25</time>
+        
+        (Updated: <time datetime="2020-05-06T09:55:02.573Z" itemprop="dateModified">2020-05-06</time>)
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/categories/ctf/">ctf</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/ctf/" rel="tag">ctf</a>, <a class="tag-link-link" href="/tags/re/" rel="tag">re</a>, <a class="tag-link-link" href="/tags/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C/" rel="tag">攻防世界</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>tar-tar-binks-攻防世界</p>
 <span id="more"></span>
 
 <p>IDA打开发现函数很多，发现一个函数<code>base64_encode</code>，尝试对损坏的tar文件里面的部分进行base64解码，找到一串奇怪的字符</p>
-<pre><code>F5D1,4D6B,ED6A,08A6,38DD,F7FA,609E,EBC4,E55F,E6D1,7C89,ED5B,0871,1A69,5D58,72DE,224B,3AA6,0845,7DD6,58FB,E9CC,0A2D,76B8,ED60,251A,1F6B,32CC,E78D,12FA,201A,E889,2D25,922A,4BC5,F5FF,F8E5,C79B,3A77,4BDB,EA11,5941,58BD,3A95,F5C9,A225,AD40,F8BD,095D,70B6,458C,E7A9,EA68,252F,094B,5E41,0969,6015,5ED5,F6E5,59B9,7CAF,66DF,265B,7837,57B4,7CAF,AED9,F707,6A3C,F8E5,F509,7C8B,0915,2235,336F,33E9,2D14,7C91,5804,83E5,E78D,F4EA,0874,ED6B,4B35,E839,57B4,E77C,EA68,2525,AD41,ED6F,3A4A,4BCC,6015,F440,0858,3AA6,7809,671D,0874,EA77,63AF,2E91,5845,F6C4,086D,7795,3939,57B4,7C89,82DC,32ED,B994,C7AF,9135,0E65,1B66,ED5B,3235,6577,5A80,3AD3,E776,1EE5,AD41,ED59,864C,70B4,3876,ED67,64D6,F8E5,F505,EAD9,7C9C,32ED,B994,B4EF,0C6C,F665,F5F5,9047,521A,E99E,EA68,252F,9D09,76B7,E776,1ED0,095D,0D4D,5D5A,087B,2005,1526,7E76,85AD,78B9,E8B6,782C,251C,32ED,7F68,EBE3,EA41,57FD,ED59,846D,7A05,B994,BB78,ED6A,08A6,38DD,3B5D,7E45,E839,738C,E9CC,0A2D,764A,609E,E8B6,EA68,2524,E6BB,7C9C,639F,3A95,0895,F40F,8328,EA69,7EE5,F8BD,7F7D,0D6D,70B6,458C,E8B6,EA68,251C,6065,B35F,C789,5845,7F7D,6D89,4C6E,A20E,60B5,7E45,ED59,F707,69EF,922A,4BC5,F6EF,8635,F4B9,57B4,7CF8,ED60,2510,095D,20AF,3545,F40F,8328,EA41,58A4,225D,7E7C,4BDB,F8BD,082C,EAE7,5D57,5D50,0914,E7C7,8624,7CF8,ED60,2511,7C8E,7159,8416,7EF9,E7E5,774A,3895,1EC9,7C90,09B9,58BD,5FF5,E99E,EA68,250A,224C,EA3D,73F5,7C89,53A6,3190,3B5D,1526,7DD5,666A,0919,225F,CDEF,79E1,7E7B,7E6B,082C,A277,E885,E8BB,E775,5FF7,EA68,251B,7FDF,589D,7A05,779A,8A5A,7C91,5D5C,32ED,F628,2195,F49A,0C77,EAE1,59B9,58BD,E570,E99E,EA3D,73F9,13AD,2BF5,225D,7F7D,70B6,4A9C,337A,1EC9,4D05,7E75,2578,ED59,38E5,1ECA,A210,3B5D,779A,8A6F,C790,2518,4B41,7C89,5D49,4D05,152D,73C5,79F9,4BED,913C,37C9,5D4D,53C8,0941,7C97,5D5B,346A,82D8,5F36,801F,C800,
-</code></pre>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">F5D1</span>,<span class="number">4</span>D<span class="number">6</span>B,ED<span class="number">6</span>A,<span class="number">08</span>A<span class="number">6</span>,<span class="number">38</span>DD,F<span class="number">7</span>FA,<span class="number">609</span>E,EBC<span class="number">4</span>,E<span class="number">55</span>F,E<span class="number">6</span>D<span class="number">1</span>,<span class="number">7</span>C<span class="number">89</span>,ED<span class="number">5</span>B,<span class="number">0871</span>,<span class="number">1</span>A<span class="number">69</span>,<span class="number">5</span>D<span class="number">58</span>,<span class="number">72</span>DE,<span class="number">224</span>B,<span class="number">3</span>AA<span class="number">6</span>,<span class="number">0845</span>,<span class="number">7</span>DD<span class="number">6</span>,<span class="number">58</span>FB,E<span class="number">9</span>CC,<span class="number">0</span>A<span class="number">2</span>D,<span class="number">76</span>B<span class="number">8</span>,ED<span class="number">60</span>,<span class="number">251</span>A,<span class="number">1</span>F<span class="number">6</span>B,<span class="number">32</span>CC,E<span class="number">78</span>D,<span class="number">12</span>FA,<span class="number">201</span>A,E<span class="number">889</span>,<span class="number">2</span>D<span class="number">25</span>,<span class="number">922</span>A,<span class="number">4</span>BC<span class="number">5</span>,F<span class="number">5</span>FF,F<span class="number">8</span>E<span class="number">5</span>,C<span class="number">79</span>B,<span class="number">3</span>A<span class="number">77</span>,<span class="number">4</span>BDB,EA<span class="number">11</span>,<span class="number">5941</span>,<span class="number">58</span>BD,<span class="number">3</span>A<span class="number">95</span>,F<span class="number">5</span>C<span class="number">9</span>,A<span class="number">225</span>,AD<span class="number">40</span>,F<span class="number">8</span>BD,<span class="number">095</span>D,<span class="number">70</span>B<span class="number">6</span>,<span class="number">458</span>C,E<span class="number">7</span>A<span class="number">9</span>,EA<span class="number">68</span>,<span class="number">252</span>F,<span class="number">094</span>B,<span class="number">5</span>E<span class="number">41</span>,<span class="number">0969</span>,<span class="number">6015</span>,<span class="number">5</span>ED<span class="number">5</span>,F<span class="number">6</span>E<span class="number">5</span>,<span class="number">59</span>B<span class="number">9</span>,<span class="number">7</span>CAF,<span class="number">66</span>DF,<span class="number">265</span>B,<span class="number">7837</span>,<span class="number">57</span>B<span class="number">4</span>,<span class="number">7</span>CAF,AED<span class="number">9</span>,F<span class="number">707</span>,<span class="number">6</span>A<span class="number">3</span>C,F<span class="number">8</span>E<span class="number">5</span>,F<span class="number">509</span>,<span class="number">7</span>C<span class="number">8</span>B,<span class="number">0915</span>,<span class="number">2235</span>,<span class="number">336</span>F,<span class="number">33</span>E<span class="number">9</span>,<span class="number">2</span>D<span class="number">14</span>,<span class="number">7</span>C<span class="number">91</span>,<span class="number">5804</span>,<span class="number">83</span>E<span class="number">5</span>,E<span class="number">78</span>D,F<span class="number">4</span>EA,<span class="number">0874</span>,ED<span class="number">6</span>B,<span class="number">4</span>B<span class="number">35</span>,E<span class="number">839</span>,<span class="number">57</span>B<span class="number">4</span>,E<span class="number">77</span>C,EA<span class="number">68</span>,<span class="number">2525</span>,AD<span class="number">41</span>,ED<span class="number">6</span>F,<span class="number">3</span>A<span class="number">4</span>A,<span class="number">4</span>BCC,<span class="number">6015</span>,F<span class="number">440</span>,<span class="number">0858</span>,<span class="number">3</span>AA<span class="number">6</span>,<span class="number">7809</span>,<span class="number">671</span>D,<span class="number">0874</span>,EA<span class="number">77</span>,<span class="number">63</span>AF,<span class="number">2</span>E<span class="number">91</span>,<span class="number">5845</span>,F<span class="number">6</span>C<span class="number">4</span>,<span class="number">086</span>D,<span class="number">7795</span>,<span class="number">3939</span>,<span class="number">57</span>B<span class="number">4</span>,<span class="number">7</span>C<span class="number">89</span>,<span class="number">82</span>DC,<span class="number">32</span>ED,B<span class="number">994</span>,C<span class="number">7</span>AF,<span class="number">9135</span>,<span class="number">0</span>E<span class="number">65</span>,<span class="number">1</span>B<span class="number">66</span>,ED<span class="number">5</span>B,<span class="number">3235</span>,<span class="number">6577</span>,<span class="number">5</span>A<span class="number">80</span>,<span class="number">3</span>AD<span class="number">3</span>,E<span class="number">776</span>,<span class="number">1</span>EE<span class="number">5</span>,AD<span class="number">41</span>,ED<span class="number">59</span>,<span class="number">864</span>C,<span class="number">70</span>B<span class="number">4</span>,<span class="number">3876</span>,ED<span class="number">67</span>,<span class="number">64</span>D<span class="number">6</span>,F<span class="number">8</span>E<span class="number">5</span>,F<span class="number">505</span>,EAD<span class="number">9</span>,<span class="number">7</span>C<span class="number">9</span>C,<span class="number">32</span>ED,B<span class="number">994</span>,B<span class="number">4</span>EF,<span class="number">0</span>C<span class="number">6</span>C,F<span class="number">665</span>,F<span class="number">5</span>F<span class="number">5</span>,<span class="number">9047</span>,<span class="number">521</span>A,E<span class="number">99</span>E,EA<span class="number">68</span>,<span class="number">252</span>F,<span class="number">9</span>D<span class="number">09</span>,<span class="number">76</span>B<span class="number">7</span>,E<span class="number">776</span>,<span class="number">1</span>ED<span class="number">0</span>,<span class="number">095</span>D,<span class="number">0</span>D<span class="number">4</span>D,<span class="number">5</span>D<span class="number">5</span>A,<span class="number">087</span>B,<span class="number">2005</span>,<span class="number">1526</span>,<span class="number">7</span>E<span class="number">76</span>,<span class="number">85</span>AD,<span class="number">78</span>B<span class="number">9</span>,E<span class="number">8</span>B<span class="number">6</span>,<span class="number">782</span>C,<span class="number">251</span>C,<span class="number">32</span>ED,<span class="number">7</span>F<span class="number">68</span>,EBE<span class="number">3</span>,EA<span class="number">41</span>,<span class="number">57</span>FD,ED<span class="number">59</span>,<span class="number">846</span>D,<span class="number">7</span>A<span class="number">05</span>,B<span class="number">994</span>,BB<span class="number">78</span>,ED<span class="number">6</span>A,<span class="number">08</span>A<span class="number">6</span>,<span class="number">38</span>DD,<span class="number">3</span>B<span class="number">5</span>D,<span class="number">7</span>E<span class="number">45</span>,E<span class="number">839</span>,<span class="number">738</span>C,E<span class="number">9</span>CC,<span class="number">0</span>A<span class="number">2</span>D,<span class="number">764</span>A,<span class="number">609</span>E,E<span class="number">8</span>B<span class="number">6</span>,EA<span class="number">68</span>,<span class="number">2524</span>,E<span class="number">6</span>BB,<span class="number">7</span>C<span class="number">9</span>C,<span class="number">639</span>F,<span class="number">3</span>A<span class="number">95</span>,<span class="number">0895</span>,F<span class="number">40</span>F,<span class="number">8328</span>,EA<span class="number">69</span>,<span class="number">7</span>EE<span class="number">5</span>,F<span class="number">8</span>BD,<span class="number">7</span>F<span class="number">7</span>D,<span class="number">0</span>D<span class="number">6</span>D,<span class="number">70</span>B<span class="number">6</span>,<span class="number">458</span>C,E<span class="number">8</span>B<span class="number">6</span>,EA<span class="number">68</span>,<span class="number">251</span>C,<span class="number">6065</span>,B<span class="number">35</span>F,C<span class="number">789</span>,<span class="number">5845</span>,<span class="number">7</span>F<span class="number">7</span>D,<span class="number">6</span>D<span class="number">89</span>,<span class="number">4</span>C<span class="number">6</span>E,A<span class="number">20</span>E,<span class="number">60</span>B<span class="number">5</span>,<span class="number">7</span>E<span class="number">45</span>,ED<span class="number">59</span>,F<span class="number">707</span>,<span class="number">69</span>EF,<span class="number">922</span>A,<span class="number">4</span>BC<span class="number">5</span>,F<span class="number">6</span>EF,<span class="number">8635</span>,F<span class="number">4</span>B<span class="number">9</span>,<span class="number">57</span>B<span class="number">4</span>,<span class="number">7</span>CF<span class="number">8</span>,ED<span class="number">60</span>,<span class="number">2510</span>,<span class="number">095</span>D,<span class="number">20</span>AF,<span class="number">3545</span>,F<span class="number">40</span>F,<span class="number">8328</span>,EA<span class="number">41</span>,<span class="number">58</span>A<span class="number">4</span>,<span class="number">225</span>D,<span class="number">7</span>E<span class="number">7</span>C,<span class="number">4</span>BDB,F<span class="number">8</span>BD,<span class="number">082</span>C,EAE<span class="number">7</span>,<span class="number">5</span>D<span class="number">57</span>,<span class="number">5</span>D<span class="number">50</span>,<span class="number">0914</span>,E<span class="number">7</span>C<span class="number">7</span>,<span class="number">8624</span>,<span class="number">7</span>CF<span class="number">8</span>,ED<span class="number">60</span>,<span class="number">2511</span>,<span class="number">7</span>C<span class="number">8</span>E,<span class="number">7159</span>,<span class="number">8416</span>,<span class="number">7</span>EF<span class="number">9</span>,E<span class="number">7</span>E<span class="number">5</span>,<span class="number">774</span>A,<span class="number">3895</span>,<span class="number">1</span>EC<span class="number">9</span>,<span class="number">7</span>C<span class="number">90</span>,<span class="number">09</span>B<span class="number">9</span>,<span class="number">58</span>BD,<span class="number">5</span>FF<span class="number">5</span>,E<span class="number">99</span>E,EA<span class="number">68</span>,<span class="number">250</span>A,<span class="number">224</span>C,EA<span class="number">3</span>D,<span class="number">73</span>F<span class="number">5</span>,<span class="number">7</span>C<span class="number">89</span>,<span class="number">53</span>A<span class="number">6</span>,<span class="number">3190</span>,<span class="number">3</span>B<span class="number">5</span>D,<span class="number">1526</span>,<span class="number">7</span>DD<span class="number">5</span>,<span class="number">666</span>A,<span class="number">0919</span>,<span class="number">225</span>F,CDEF,<span class="number">79</span>E<span class="number">1</span>,<span class="number">7</span>E<span class="number">7</span>B,<span class="number">7</span>E<span class="number">6</span>B,<span class="number">082</span>C,A<span class="number">277</span>,E<span class="number">885</span>,E<span class="number">8</span>BB,E<span class="number">775</span>,<span class="number">5</span>FF<span class="number">7</span>,EA<span class="number">68</span>,<span class="number">251</span>B,<span class="number">7</span>FDF,<span class="number">589</span>D,<span class="number">7</span>A<span class="number">05</span>,<span class="number">779</span>A,<span class="number">8</span>A<span class="number">5</span>A,<span class="number">7</span>C<span class="number">91</span>,<span class="number">5</span>D<span class="number">5</span>C,<span class="number">32</span>ED,F<span class="number">628</span>,<span class="number">2195</span>,F<span class="number">49</span>A,<span class="number">0</span>C<span class="number">77</span>,EAE<span class="number">1</span>,<span class="number">59</span>B<span class="number">9</span>,<span class="number">58</span>BD,E<span class="number">570</span>,E<span class="number">99</span>E,EA<span class="number">3</span>D,<span class="number">73</span>F<span class="number">9</span>,<span class="number">13</span>AD,<span class="number">2</span>BF<span class="number">5</span>,<span class="number">225</span>D,<span class="number">7</span>F<span class="number">7</span>D,<span class="number">70</span>B<span class="number">6</span>,<span class="number">4</span>A<span class="number">9</span>C,<span class="number">337</span>A,<span class="number">1</span>EC<span class="number">9</span>,<span class="number">4</span>D<span class="number">05</span>,<span class="number">7</span>E<span class="number">75</span>,<span class="number">2578</span>,ED<span class="number">59</span>,<span class="number">38</span>E<span class="number">5</span>,<span class="number">1</span>ECA,A<span class="number">210</span>,<span class="number">3</span>B<span class="number">5</span>D,<span class="number">779</span>A,<span class="number">8</span>A<span class="number">6</span>F,C<span class="number">790</span>,<span class="number">2518</span>,<span class="number">4</span>B<span class="number">41</span>,<span class="number">7</span>C<span class="number">89</span>,<span class="number">5</span>D<span class="number">49</span>,<span class="number">4</span>D<span class="number">05</span>,<span class="number">152</span>D,<span class="number">73</span>C<span class="number">5</span>,<span class="number">79</span>F<span class="number">9</span>,<span class="number">4</span>BED,<span class="number">913</span>C,<span class="number">37</span>C<span class="number">9</span>,<span class="number">5</span>D<span class="number">4</span>D,<span class="number">53</span>C<span class="number">8</span>,<span class="number">0941</span>,<span class="number">7</span>C<span class="number">97</span>,<span class="number">5</span>D<span class="number">5</span>B,<span class="number">346</span>A,<span class="number">82</span>D<span class="number">8</span>,<span class="number">5</span>F<span class="number">36</span>,<span class="number">801</span>F,C<span class="number">800</span>,</span><br></pre></td></tr></table></figure>
+
 <p>最后的一个<code>,</code>很可疑，应该是输出的时候按照固定格式输出的，所以搜索一下字符串</p>
 <p><img src="https://s1.ax1x.com/2020/03/25/8jEkqS.png" alt="tar-tar-binks"></p>
 <p>找到可疑的<code>%04X</code>，查一下交叉引用</p>
-<pre><code class="c++"> v10 = (char *)malloc(0x2710uLL);
-  __memcpy_chk(v10, a2, v18, -1LL);
-  if ( v18 &gt; 0x200 )
-  &#123;
-    sub_1023457(v10, v18);
-    v9 = (char *)malloc(0x2710uLL);
-    __memset_chk(v10, 0LL, 10000LL, -1LL);
-    v8 = 0;
-    __memset_chk(v9, 0LL, 10000LL, -1LL);
-    while ( v8 &lt; posi )
-    &#123;
-      v3 = strlen(v9);
-      __sprintf_chk(&amp;v9[v3], 0, 0xFFFFFFFFFFFFFFFFLL, &quot;%04X,&quot;, sub_101[v8++]);
-    &#125;
-    __memcpy_chk(v10, v9, v18, -1LL);
-  &#125;
-</code></pre>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">v10 = (<span class="keyword">char</span> *)<span class="built_in">malloc</span>(<span class="number">0x2710</span>uLL);</span><br><span class="line"> __memcpy_chk(v10, a2, v18, <span class="number">-1LL</span>);</span><br><span class="line"> <span class="keyword">if</span> ( v18 &gt; <span class="number">0x200</span> )</span><br><span class="line"> &#123;</span><br><span class="line">   <span class="built_in">sub_1023457</span>(v10, v18);</span><br><span class="line">   v9 = (<span class="keyword">char</span> *)<span class="built_in">malloc</span>(<span class="number">0x2710</span>uLL);</span><br><span class="line">   __memset_chk(v10, <span class="number">0LL</span>, <span class="number">10000LL</span>, <span class="number">-1LL</span>);</span><br><span class="line">   v8 = <span class="number">0</span>;</span><br><span class="line">   __memset_chk(v9, <span class="number">0LL</span>, <span class="number">10000LL</span>, <span class="number">-1LL</span>);</span><br><span class="line">   <span class="keyword">while</span> ( v8 &lt; posi )</span><br><span class="line">   &#123;</span><br><span class="line">     v3 = <span class="built_in">strlen</span>(v9);</span><br><span class="line">     __sprintf_chk(&amp;v9[v3], <span class="number">0</span>, <span class="number">0xFFFFFFFFFFFFFFFF</span>LL, <span class="string">&quot;%04X,&quot;</span>, sub_101[v8++]);</span><br><span class="line">   &#125;</span><br><span class="line">   __memcpy_chk(v10, v9, v18, <span class="number">-1LL</span>);</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
 <p>只有在这一处引用了，输出出来的奇怪的16进制数应该是<code>sub_101</code>里面的数，再查看一下<code>sub_101</code>的交叉引用</p>
-<pre><code class="c++">unsigned int *__fastcall sub_1023458(_DWORD *a1)
-&#123;
-  unsigned int *result; // rax
-  int v2; // ST04_4
-  int v3; // esi
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">unsigned</span> <span class="keyword">int</span> *__fastcall <span class="title">sub_1023458</span><span class="params">(_DWORD *a1)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">int</span> *result; <span class="comment">// rax</span></span><br><span class="line">  <span class="keyword">int</span> v2; <span class="comment">// ST04_4</span></span><br><span class="line">  <span class="keyword">int</span> v3; <span class="comment">// esi</span></span><br><span class="line"></span><br><span class="line">  result = sub_101;</span><br><span class="line">  v2 = *a1 + <span class="number">40</span> * a1[<span class="number">1</span>] + <span class="number">1600</span> * a1[<span class="number">2</span>];</span><br><span class="line">  v3 = posi++;</span><br><span class="line">  sub_101[v3] = v2;</span><br><span class="line">  <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-  result = sub_101;
-  v2 = *a1 + 40 * a1[1] + 1600 * a1[2];
-  v3 = posi++;
-  sub_101[v3] = v2;
-  return result;
-&#125;
-</code></pre>
 <p>在这里进行了计算并写入，再一次查看交叉引用看看<code>a1</code>是什么</p>
-<pre><code class="c++">__int64 __fastcall sub_1023457(char *a1, int a2)
-&#123;
-  int v2; // eax
-  char *v3; // rax
-  int v5; // [rsp+4h] [rbp-2Ch]
-  signed int v6; // [rsp+8h] [rbp-28h]
-  int v7; // [rsp+Ch] [rbp-24h]
-  char *v8; // [rsp+10h] [rbp-20h]
-  int v9[3]; // [rsp+1Ch] [rbp-14h]
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">__int64 __fastcall <span class="title">sub_1023457</span><span class="params">(<span class="keyword">char</span> *a1, <span class="keyword">int</span> a2)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">int</span> v2; <span class="comment">// eax</span></span><br><span class="line">  <span class="keyword">char</span> *v3; <span class="comment">// rax</span></span><br><span class="line">  <span class="keyword">int</span> v5; <span class="comment">// [rsp+4h] [rbp-2Ch]</span></span><br><span class="line">  <span class="keyword">signed</span> <span class="keyword">int</span> v6; <span class="comment">// [rsp+8h] [rbp-28h]</span></span><br><span class="line">  <span class="keyword">int</span> v7; <span class="comment">// [rsp+Ch] [rbp-24h]</span></span><br><span class="line">  <span class="keyword">char</span> *v8; <span class="comment">// [rsp+10h] [rbp-20h]</span></span><br><span class="line">  <span class="keyword">int</span> v9[<span class="number">3</span>]; <span class="comment">// [rsp+1Ch] [rbp-14h]</span></span><br><span class="line"></span><br><span class="line">  v8 = a1;</span><br><span class="line">  v7 = a2;</span><br><span class="line">  v6 = <span class="number">3</span>;</span><br><span class="line">  <span class="keyword">while</span> ( <span class="number">1</span> )</span><br><span class="line">  &#123;</span><br><span class="line">    v2 = v7--;</span><br><span class="line">    <span class="keyword">if</span> ( !v2 )</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">    v3 = v8++;</span><br><span class="line">    v5 = *v3;</span><br><span class="line">    pending = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span> ( pending )</span><br><span class="line">    &#123;</span><br><span class="line">      v9[--v6] = <span class="built_in">sub_1023456</span>(v5);</span><br><span class="line">      <span class="keyword">if</span> ( !v6 )</span><br><span class="line">      &#123;</span><br><span class="line">        <span class="built_in">sub_1023458</span>(v9);</span><br><span class="line">        v6 = <span class="number">3</span>;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> ( v6 != <span class="number">3</span> )</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">while</span> ( v6 != <span class="number">-1</span> )</span><br><span class="line">      v9[--v6] = <span class="number">0</span>;</span><br><span class="line">    <span class="built_in">sub_1023458</span>(v9);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> __stack_chk_guard;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-  v8 = a1;
-  v7 = a2;
-  v6 = 3;
-  while ( 1 )
-  &#123;
-    v2 = v7--;
-    if ( !v2 )
-      break;
-    v3 = v8++;
-    v5 = *v3;
-    pending = 1;
-    while ( pending )
-    &#123;
-      v9[--v6] = sub_1023456(v5);
-      if ( !v6 )
-      &#123;
-        sub_1023458(v9);
-        v6 = 3;
-      &#125;
-    &#125;
-  &#125;
-  if ( v6 != 3 )
-  &#123;
-    while ( v6 != -1 )
-      v9[--v6] = 0;
-    sub_1023458(v9);
-  &#125;
-  return __stack_chk_guard;
-&#125;
-</code></pre>
 <p><code>v9</code>每三位进行上面函数的操作，所以看看<code>v9</code>是怎么得到的</p>
-<pre><code class="c++">__int64 __fastcall sub_1023456(int a1)
-&#123;
-  int v1; // ST04_4
-  int i; // [rsp+0h] [rbp-Ch]
-  int v4; // [rsp+4h] [rbp-8h]
-  unsigned int v5; // [rsp+8h] [rbp-4h]
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">__int64 __fastcall <span class="title">sub_1023456</span><span class="params">(<span class="keyword">int</span> a1)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">int</span> v1; <span class="comment">// ST04_4</span></span><br><span class="line">  <span class="keyword">int</span> i; <span class="comment">// [rsp+0h] [rbp-Ch]</span></span><br><span class="line">  <span class="keyword">int</span> v4; <span class="comment">// [rsp+4h] [rbp-8h]</span></span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">int</span> v5; <span class="comment">// [rsp+8h] [rbp-4h]</span></span><br><span class="line"></span><br><span class="line">  v4 = a1;</span><br><span class="line">  <span class="keyword">if</span> ( sub_1023456_shifted == <span class="number">-1</span> )</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">if</span> ( a1 == <span class="number">126</span> )</span><br><span class="line">      v4 = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> ( i = <span class="number">0</span>; i &lt; <span class="number">39</span>; ++i )</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="keyword">if</span> ( ctable[i] == v4 )</span><br><span class="line">      &#123;</span><br><span class="line">        pending = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">return</span> (<span class="keyword">unsigned</span> <span class="keyword">int</span>)i;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">if</span> ( ctable[i + <span class="number">39</span>] == v4 )</span><br><span class="line">      &#123;</span><br><span class="line">        pending = <span class="number">1</span>;</span><br><span class="line">        sub_1023456_shifted = i;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">39</span>;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    pending = <span class="number">0</span>;</span><br><span class="line">    v5 = <span class="number">37</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">else</span></span><br><span class="line">  &#123;</span><br><span class="line">    v1 = sub_1023456_shifted;</span><br><span class="line">    sub_1023456_shifted = <span class="number">-1</span>;</span><br><span class="line">    pending = <span class="number">0</span>;</span><br><span class="line">    v5 = v1;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> v5;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-  v4 = a1;
-  if ( sub_1023456_shifted == -1 )
-  &#123;
-    if ( a1 == 126 )
-      v4 = 0;
-    for ( i = 0; i &lt; 39; ++i )
-    &#123;
-      if ( ctable[i] == v4 )
-      &#123;
-        pending = 0;
-        return (unsigned int)i;
-      &#125;
-      if ( ctable[i + 39] == v4 )
-      &#123;
-        pending = 1;
-        sub_1023456_shifted = i;
-        return 39;
-      &#125;
-    &#125;
-    pending = 0;
-    v5 = 37;
-  &#125;
-  else
-  &#123;
-    v1 = sub_1023456_shifted;
-    sub_1023456_shifted = -1;
-    pending = 0;
-    v5 = v1;
-  &#125;
-  return v5;
-&#125;
-</code></pre>
 <p>有一个字母表<code>ctable</code>，找到其中的索引，39以下直接返回索引值，39往上返回值分为两部分，一部分是39，另一部分是索引值<code>i</code>，之所以这么做其实是为了降低难度，使前面的三元一次方程有唯一解，把整个过程逆过来就得到了真正的<code>flag.txt</code></p>
 <p><del>这里用来批评攻防世界，题目明明有说明最后使md5值怎么到这就没了</del></p>
-<pre><code class="python">target = [0xF5D1, 0x4D6B, 0xED6A, 0x08A6, 0x38DD, 0xF7FA, 0x609E, 0xEBC4, 0xE55F, 0xE6D1, 0x7C89, 0xED5B, 0x0871,
-          0x1A69, 0x5D58, 0x72DE, 0x224B, 0x3AA6, 0x0845, 0x7DD6, 0x58FB, 0xE9CC, 0x0A2D, 0x76B8, 0xED60, 0x251A,
-          0x1F6B, 0x32CC, 0xE78D, 0x12FA, 0x201A, 0xE889, 0x2D25, 0x922A, 0x4BC5, 0xF5FF, 0xF8E5, 0xC79B, 0x3A77,
-          0x4BDB, 0xEA11, 0x5941, 0x58BD, 0x3A95, 0xF5C9, 0xA225, 0xAD40, 0xF8BD, 0x095D, 0x70B6, 0x458C, 0xE7A9,
-          0xEA68, 0x252F, 0x094B, 0x5E41, 0x0969, 0x6015, 0x5ED5, 0xF6E5, 0x59B9, 0x7CAF, 0x66DF, 0x265B, 0x7837,
-          0x57B4, 0x7CAF, 0xAED9, 0xF707, 0x6A3C, 0xF8E5, 0xF509, 0x7C8B, 0x0915, 0x2235, 0x336F, 0x33E9, 0x2D14,
-          0x7C91, 0x5804, 0x83E5, 0xE78D, 0xF4EA, 0x0874, 0xED6B, 0x4B35, 0xE839, 0x57B4, 0xE77C, 0xEA68, 0x2525,
-          0xAD41, 0xED6F, 0x3A4A, 0x4BCC, 0x6015, 0xF440, 0x0858, 0x3AA6, 0x7809, 0x671D, 0x0874, 0xEA77, 0x63AF,
-          0x2E91, 0x5845, 0xF6C4, 0x086D, 0x7795, 0x3939, 0x57B4, 0x7C89, 0x82DC, 0x32ED, 0xB994, 0xC7AF, 0x9135,
-          0x0E65, 0x1B66, 0xED5B, 0x3235, 0x6577, 0x5A80, 0x3AD3, 0xE776, 0x1EE5, 0xAD41, 0xED59, 0x864C, 0x70B4,
-          0x3876, 0xED67, 0x64D6, 0xF8E5, 0xF505, 0xEAD9, 0x7C9C, 0x32ED, 0xB994, 0xB4EF, 0x0C6C, 0xF665, 0xF5F5,
-          0x9047, 0x521A, 0xE99E, 0xEA68, 0x252F, 0x9D09, 0x76B7, 0xE776, 0x1ED0, 0x095D, 0x0D4D, 0x5D5A, 0x087B,
-          0x2005, 0x1526, 0x7E76, 0x85AD, 0x78B9, 0xE8B6, 0x782C, 0x251C, 0x32ED, 0x7F68, 0xEBE3, 0xEA41, 0x57FD,
-          0xED59, 0x846D, 0x7A05, 0xB994, 0xBB78, 0xED6A, 0x08A6, 0x38DD, 0x3B5D, 0x7E45, 0xE839, 0x738C, 0xE9CC,
-          0x0A2D, 0x764A, 0x609E, 0xE8B6, 0xEA68, 0x2524, 0xE6BB, 0x7C9C, 0x639F, 0x3A95, 0x0895, 0xF40F, 0x8328,
-          0xEA69, 0x7EE5, 0xF8BD, 0x7F7D, 0x0D6D, 0x70B6, 0x458C, 0xE8B6, 0xEA68, 0x251C, 0x6065, 0xB35F, 0xC789,
-          0x5845, 0x7F7D, 0x6D89, 0x4C6E, 0xA20E, 0x60B5, 0x7E45, 0xED59, 0xF707, 0x69EF, 0x922A, 0x4BC5, 0xF6EF,
-          0x8635, 0xF4B9, 0x57B4, 0x7CF8, 0xED60, 0x2510, 0x095D, 0x20AF, 0x3545, 0xF40F, 0x8328, 0xEA41, 0x58A4,
-          0x225D, 0x7E7C, 0x4BDB, 0xF8BD, 0x082C, 0xEAE7, 0x5D57, 0x5D50, 0x0914, 0xE7C7, 0x8624, 0x7CF8, 0xED60,
-          0x2511, 0x7C8E, 0x7159, 0x8416, 0x7EF9, 0xE7E5, 0x774A, 0x3895, 0x1EC9, 0x7C90, 0x09B9, 0x58BD, 0x5FF5,
-          0xE99E, 0xEA68, 0x250A, 0x224C, 0xEA3D, 0x73F5, 0x7C89, 0x53A6, 0x3190, 0x3B5D, 0x1526, 0x7DD5, 0x666A,
-          0x0919, 0x225F, 0xCDEF, 0x79E1, 0x7E7B, 0x7E6B, 0x082C, 0xA277, 0xE885, 0xE8BB, 0xE775, 0x5FF7, 0xEA68,
-          0x251B, 0x7FDF, 0x589D, 0x7A05, 0x779A, 0x8A5A, 0x7C91, 0x5D5C, 0x32ED, 0xF628, 0x2195, 0xF49A, 0x0C77,
-          0xEAE1, 0x59B9, 0x58BD, 0xE570, 0xE99E, 0xEA3D, 0x73F9, 0x13AD, 0x2BF5, 0x225D, 0x7F7D, 0x70B6, 0x4A9C,
-          0x337A, 0x1EC9, 0x4D05, 0x7E75, 0x2578, 0xED59, 0x38E5, 0x1ECA, 0xA210, 0x3B5D, 0x779A, 0x8A6F, 0xC790,
-          0x2518, 0x4B41, 0x7C89, 0x5D49, 0x4D05, 0x152D, 0x73C5, 0x79F9, 0x4BED, 0x913C, 0x37C9, 0x5D4D, 0x53C8,
-          0x0941, 0x7C97, 0x5D5B, 0x346A, 0x82D8, 0x5F36, 0x801F, 0xC800]
-ctable = [
-    0x00, 0x61, 0x62, 0x63, 0x64, 0x65, 0x66, 0x67, 0x68, 0x69,
-    0x6A, 0x6B, 0x6C, 0x6D, 0x6E, 0x6F, 0x70, 0x71, 0x72, 0x73,
-    0x74, 0x75, 0x76, 0x77, 0x78, 0x79, 0x7A, 0x30, 0x31, 0x32,
-    0x33, 0x34, 0x35, 0x36, 0x37, 0x38, 0x39, 0x20, 0x0A, 0x00,
-    0x41, 0x42, 0x43, 0x44, 0x45, 0x46, 0x47, 0x48, 0x49, 0x4A,
-    0x4B, 0x4C, 0x4D, 0x4E, 0x4F, 0x50, 0x51, 0x52, 0x53, 0x54,
-    0x55, 0x56, 0x57, 0x58, 0x59, 0x5A, 0x28, 0x21, 0x40, 0x23,
-    0x2C, 0x2E, 0x3F, 0x2F, 0x2A, 0x29, 0x3C, 0x3E, 0x00
-]
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line">target = [<span class="number">0xF5D1</span>, <span class="number">0x4D6B</span>, <span class="number">0xED6A</span>, <span class="number">0x08A6</span>, <span class="number">0x38DD</span>, <span class="number">0xF7FA</span>, <span class="number">0x609E</span>, <span class="number">0xEBC4</span>, <span class="number">0xE55F</span>, <span class="number">0xE6D1</span>, <span class="number">0x7C89</span>, <span class="number">0xED5B</span>, <span class="number">0x0871</span>,</span><br><span class="line">          <span class="number">0x1A69</span>, <span class="number">0x5D58</span>, <span class="number">0x72DE</span>, <span class="number">0x224B</span>, <span class="number">0x3AA6</span>, <span class="number">0x0845</span>, <span class="number">0x7DD6</span>, <span class="number">0x58FB</span>, <span class="number">0xE9CC</span>, <span class="number">0x0A2D</span>, <span class="number">0x76B8</span>, <span class="number">0xED60</span>, <span class="number">0x251A</span>,</span><br><span class="line">          <span class="number">0x1F6B</span>, <span class="number">0x32CC</span>, <span class="number">0xE78D</span>, <span class="number">0x12FA</span>, <span class="number">0x201A</span>, <span class="number">0xE889</span>, <span class="number">0x2D25</span>, <span class="number">0x922A</span>, <span class="number">0x4BC5</span>, <span class="number">0xF5FF</span>, <span class="number">0xF8E5</span>, <span class="number">0xC79B</span>, <span class="number">0x3A77</span>,</span><br><span class="line">          <span class="number">0x4BDB</span>, <span class="number">0xEA11</span>, <span class="number">0x5941</span>, <span class="number">0x58BD</span>, <span class="number">0x3A95</span>, <span class="number">0xF5C9</span>, <span class="number">0xA225</span>, <span class="number">0xAD40</span>, <span class="number">0xF8BD</span>, <span class="number">0x095D</span>, <span class="number">0x70B6</span>, <span class="number">0x458C</span>, <span class="number">0xE7A9</span>,</span><br><span class="line">          <span class="number">0xEA68</span>, <span class="number">0x252F</span>, <span class="number">0x094B</span>, <span class="number">0x5E41</span>, <span class="number">0x0969</span>, <span class="number">0x6015</span>, <span class="number">0x5ED5</span>, <span class="number">0xF6E5</span>, <span class="number">0x59B9</span>, <span class="number">0x7CAF</span>, <span class="number">0x66DF</span>, <span class="number">0x265B</span>, <span class="number">0x7837</span>,</span><br><span class="line">          <span class="number">0x57B4</span>, <span class="number">0x7CAF</span>, <span class="number">0xAED9</span>, <span class="number">0xF707</span>, <span class="number">0x6A3C</span>, <span class="number">0xF8E5</span>, <span class="number">0xF509</span>, <span class="number">0x7C8B</span>, <span class="number">0x0915</span>, <span class="number">0x2235</span>, <span class="number">0x336F</span>, <span class="number">0x33E9</span>, <span class="number">0x2D14</span>,</span><br><span class="line">          <span class="number">0x7C91</span>, <span class="number">0x5804</span>, <span class="number">0x83E5</span>, <span class="number">0xE78D</span>, <span class="number">0xF4EA</span>, <span class="number">0x0874</span>, <span class="number">0xED6B</span>, <span class="number">0x4B35</span>, <span class="number">0xE839</span>, <span class="number">0x57B4</span>, <span class="number">0xE77C</span>, <span class="number">0xEA68</span>, <span class="number">0x2525</span>,</span><br><span class="line">          <span class="number">0xAD41</span>, <span class="number">0xED6F</span>, <span class="number">0x3A4A</span>, <span class="number">0x4BCC</span>, <span class="number">0x6015</span>, <span class="number">0xF440</span>, <span class="number">0x0858</span>, <span class="number">0x3AA6</span>, <span class="number">0x7809</span>, <span class="number">0x671D</span>, <span class="number">0x0874</span>, <span class="number">0xEA77</span>, <span class="number">0x63AF</span>,</span><br><span class="line">          <span class="number">0x2E91</span>, <span class="number">0x5845</span>, <span class="number">0xF6C4</span>, <span class="number">0x086D</span>, <span class="number">0x7795</span>, <span class="number">0x3939</span>, <span class="number">0x57B4</span>, <span class="number">0x7C89</span>, <span class="number">0x82DC</span>, <span class="number">0x32ED</span>, <span class="number">0xB994</span>, <span class="number">0xC7AF</span>, <span class="number">0x9135</span>,</span><br><span class="line">          <span class="number">0x0E65</span>, <span class="number">0x1B66</span>, <span class="number">0xED5B</span>, <span class="number">0x3235</span>, <span class="number">0x6577</span>, <span class="number">0x5A80</span>, <span class="number">0x3AD3</span>, <span class="number">0xE776</span>, <span class="number">0x1EE5</span>, <span class="number">0xAD41</span>, <span class="number">0xED59</span>, <span class="number">0x864C</span>, <span class="number">0x70B4</span>,</span><br><span class="line">          <span class="number">0x3876</span>, <span class="number">0xED67</span>, <span class="number">0x64D6</span>, <span class="number">0xF8E5</span>, <span class="number">0xF505</span>, <span class="number">0xEAD9</span>, <span class="number">0x7C9C</span>, <span class="number">0x32ED</span>, <span class="number">0xB994</span>, <span class="number">0xB4EF</span>, <span class="number">0x0C6C</span>, <span class="number">0xF665</span>, <span class="number">0xF5F5</span>,</span><br><span class="line">          <span class="number">0x9047</span>, <span class="number">0x521A</span>, <span class="number">0xE99E</span>, <span class="number">0xEA68</span>, <span class="number">0x252F</span>, <span class="number">0x9D09</span>, <span class="number">0x76B7</span>, <span class="number">0xE776</span>, <span class="number">0x1ED0</span>, <span class="number">0x095D</span>, <span class="number">0x0D4D</span>, <span class="number">0x5D5A</span>, <span class="number">0x087B</span>,</span><br><span class="line">          <span class="number">0x2005</span>, <span class="number">0x1526</span>, <span class="number">0x7E76</span>, <span class="number">0x85AD</span>, <span class="number">0x78B9</span>, <span class="number">0xE8B6</span>, <span class="number">0x782C</span>, <span class="number">0x251C</span>, <span class="number">0x32ED</span>, <span class="number">0x7F68</span>, <span class="number">0xEBE3</span>, <span class="number">0xEA41</span>, <span class="number">0x57FD</span>,</span><br><span class="line">          <span class="number">0xED59</span>, <span class="number">0x846D</span>, <span class="number">0x7A05</span>, <span class="number">0xB994</span>, <span class="number">0xBB78</span>, <span class="number">0xED6A</span>, <span class="number">0x08A6</span>, <span class="number">0x38DD</span>, <span class="number">0x3B5D</span>, <span class="number">0x7E45</span>, <span class="number">0xE839</span>, <span class="number">0x738C</span>, <span class="number">0xE9CC</span>,</span><br><span class="line">          <span class="number">0x0A2D</span>, <span class="number">0x764A</span>, <span class="number">0x609E</span>, <span class="number">0xE8B6</span>, <span class="number">0xEA68</span>, <span class="number">0x2524</span>, <span class="number">0xE6BB</span>, <span class="number">0x7C9C</span>, <span class="number">0x639F</span>, <span class="number">0x3A95</span>, <span class="number">0x0895</span>, <span class="number">0xF40F</span>, <span class="number">0x8328</span>,</span><br><span class="line">          <span class="number">0xEA69</span>, <span class="number">0x7EE5</span>, <span class="number">0xF8BD</span>, <span class="number">0x7F7D</span>, <span class="number">0x0D6D</span>, <span class="number">0x70B6</span>, <span class="number">0x458C</span>, <span class="number">0xE8B6</span>, <span class="number">0xEA68</span>, <span class="number">0x251C</span>, <span class="number">0x6065</span>, <span class="number">0xB35F</span>, <span class="number">0xC789</span>,</span><br><span class="line">          <span class="number">0x5845</span>, <span class="number">0x7F7D</span>, <span class="number">0x6D89</span>, <span class="number">0x4C6E</span>, <span class="number">0xA20E</span>, <span class="number">0x60B5</span>, <span class="number">0x7E45</span>, <span class="number">0xED59</span>, <span class="number">0xF707</span>, <span class="number">0x69EF</span>, <span class="number">0x922A</span>, <span class="number">0x4BC5</span>, <span class="number">0xF6EF</span>,</span><br><span class="line">          <span class="number">0x8635</span>, <span class="number">0xF4B9</span>, <span class="number">0x57B4</span>, <span class="number">0x7CF8</span>, <span class="number">0xED60</span>, <span class="number">0x2510</span>, <span class="number">0x095D</span>, <span class="number">0x20AF</span>, <span class="number">0x3545</span>, <span class="number">0xF40F</span>, <span class="number">0x8328</span>, <span class="number">0xEA41</span>, <span class="number">0x58A4</span>,</span><br><span class="line">          <span class="number">0x225D</span>, <span class="number">0x7E7C</span>, <span class="number">0x4BDB</span>, <span class="number">0xF8BD</span>, <span class="number">0x082C</span>, <span class="number">0xEAE7</span>, <span class="number">0x5D57</span>, <span class="number">0x5D50</span>, <span class="number">0x0914</span>, <span class="number">0xE7C7</span>, <span class="number">0x8624</span>, <span class="number">0x7CF8</span>, <span class="number">0xED60</span>,</span><br><span class="line">          <span class="number">0x2511</span>, <span class="number">0x7C8E</span>, <span class="number">0x7159</span>, <span class="number">0x8416</span>, <span class="number">0x7EF9</span>, <span class="number">0xE7E5</span>, <span class="number">0x774A</span>, <span class="number">0x3895</span>, <span class="number">0x1EC9</span>, <span class="number">0x7C90</span>, <span class="number">0x09B9</span>, <span class="number">0x58BD</span>, <span class="number">0x5FF5</span>,</span><br><span class="line">          <span class="number">0xE99E</span>, <span class="number">0xEA68</span>, <span class="number">0x250A</span>, <span class="number">0x224C</span>, <span class="number">0xEA3D</span>, <span class="number">0x73F5</span>, <span class="number">0x7C89</span>, <span class="number">0x53A6</span>, <span class="number">0x3190</span>, <span class="number">0x3B5D</span>, <span class="number">0x1526</span>, <span class="number">0x7DD5</span>, <span class="number">0x666A</span>,</span><br><span class="line">          <span class="number">0x0919</span>, <span class="number">0x225F</span>, <span class="number">0xCDEF</span>, <span class="number">0x79E1</span>, <span class="number">0x7E7B</span>, <span class="number">0x7E6B</span>, <span class="number">0x082C</span>, <span class="number">0xA277</span>, <span class="number">0xE885</span>, <span class="number">0xE8BB</span>, <span class="number">0xE775</span>, <span class="number">0x5FF7</span>, <span class="number">0xEA68</span>,</span><br><span class="line">          <span class="number">0x251B</span>, <span class="number">0x7FDF</span>, <span class="number">0x589D</span>, <span class="number">0x7A05</span>, <span class="number">0x779A</span>, <span class="number">0x8A5A</span>, <span class="number">0x7C91</span>, <span class="number">0x5D5C</span>, <span class="number">0x32ED</span>, <span class="number">0xF628</span>, <span class="number">0x2195</span>, <span class="number">0xF49A</span>, <span class="number">0x0C77</span>,</span><br><span class="line">          <span class="number">0xEAE1</span>, <span class="number">0x59B9</span>, <span class="number">0x58BD</span>, <span class="number">0xE570</span>, <span class="number">0xE99E</span>, <span class="number">0xEA3D</span>, <span class="number">0x73F9</span>, <span class="number">0x13AD</span>, <span class="number">0x2BF5</span>, <span class="number">0x225D</span>, <span class="number">0x7F7D</span>, <span class="number">0x70B6</span>, <span class="number">0x4A9C</span>,</span><br><span class="line">          <span class="number">0x337A</span>, <span class="number">0x1EC9</span>, <span class="number">0x4D05</span>, <span class="number">0x7E75</span>, <span class="number">0x2578</span>, <span class="number">0xED59</span>, <span class="number">0x38E5</span>, <span class="number">0x1ECA</span>, <span class="number">0xA210</span>, <span class="number">0x3B5D</span>, <span class="number">0x779A</span>, <span class="number">0x8A6F</span>, <span class="number">0xC790</span>,</span><br><span class="line">          <span class="number">0x2518</span>, <span class="number">0x4B41</span>, <span class="number">0x7C89</span>, <span class="number">0x5D49</span>, <span class="number">0x4D05</span>, <span class="number">0x152D</span>, <span class="number">0x73C5</span>, <span class="number">0x79F9</span>, <span class="number">0x4BED</span>, <span class="number">0x913C</span>, <span class="number">0x37C9</span>, <span class="number">0x5D4D</span>, <span class="number">0x53C8</span>,</span><br><span class="line">          <span class="number">0x0941</span>, <span class="number">0x7C97</span>, <span class="number">0x5D5B</span>, <span class="number">0x346A</span>, <span class="number">0x82D8</span>, <span class="number">0x5F36</span>, <span class="number">0x801F</span>, <span class="number">0xC800</span>]</span><br><span class="line">ctable = [</span><br><span class="line">    <span class="number">0x00</span>, <span class="number">0x61</span>, <span class="number">0x62</span>, <span class="number">0x63</span>, <span class="number">0x64</span>, <span class="number">0x65</span>, <span class="number">0x66</span>, <span class="number">0x67</span>, <span class="number">0x68</span>, <span class="number">0x69</span>,</span><br><span class="line">    <span class="number">0x6A</span>, <span class="number">0x6B</span>, <span class="number">0x6C</span>, <span class="number">0x6D</span>, <span class="number">0x6E</span>, <span class="number">0x6F</span>, <span class="number">0x70</span>, <span class="number">0x71</span>, <span class="number">0x72</span>, <span class="number">0x73</span>,</span><br><span class="line">    <span class="number">0x74</span>, <span class="number">0x75</span>, <span class="number">0x76</span>, <span class="number">0x77</span>, <span class="number">0x78</span>, <span class="number">0x79</span>, <span class="number">0x7A</span>, <span class="number">0x30</span>, <span class="number">0x31</span>, <span class="number">0x32</span>,</span><br><span class="line">    <span class="number">0x33</span>, <span class="number">0x34</span>, <span class="number">0x35</span>, <span class="number">0x36</span>, <span class="number">0x37</span>, <span class="number">0x38</span>, <span class="number">0x39</span>, <span class="number">0x20</span>, <span class="number">0x0A</span>, <span class="number">0x00</span>,</span><br><span class="line">    <span class="number">0x41</span>, <span class="number">0x42</span>, <span class="number">0x43</span>, <span class="number">0x44</span>, <span class="number">0x45</span>, <span class="number">0x46</span>, <span class="number">0x47</span>, <span class="number">0x48</span>, <span class="number">0x49</span>, <span class="number">0x4A</span>,</span><br><span class="line">    <span class="number">0x4B</span>, <span class="number">0x4C</span>, <span class="number">0x4D</span>, <span class="number">0x4E</span>, <span class="number">0x4F</span>, <span class="number">0x50</span>, <span class="number">0x51</span>, <span class="number">0x52</span>, <span class="number">0x53</span>, <span class="number">0x54</span>,</span><br><span class="line">    <span class="number">0x55</span>, <span class="number">0x56</span>, <span class="number">0x57</span>, <span class="number">0x58</span>, <span class="number">0x59</span>, <span class="number">0x5A</span>, <span class="number">0x28</span>, <span class="number">0x21</span>, <span class="number">0x40</span>, <span class="number">0x23</span>,</span><br><span class="line">    <span class="number">0x2C</span>, <span class="number">0x2E</span>, <span class="number">0x3F</span>, <span class="number">0x2F</span>, <span class="number">0x2A</span>, <span class="number">0x29</span>, <span class="number">0x3C</span>, <span class="number">0x3E</span>, <span class="number">0x00</span></span><br><span class="line">]</span><br><span class="line"></span><br><span class="line">t1 = []</span><br><span class="line">t2 = []</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> target:</span><br><span class="line">    c = i % <span class="number">40</span></span><br><span class="line">    b = ((i - c) % <span class="number">1600</span>) // <span class="number">40</span></span><br><span class="line">    a = i // <span class="number">1600</span></span><br><span class="line">    t1 += [a, b, c]</span><br><span class="line">i = <span class="number">0</span></span><br><span class="line"><span class="keyword">while</span> i &lt; <span class="built_in">len</span>(t1):</span><br><span class="line">    <span class="keyword">if</span> t1[i] == <span class="number">39</span>:</span><br><span class="line">        t2 += [t1[i] + t1[i + <span class="number">1</span>]]</span><br><span class="line">        i += <span class="number">2</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        t2 += [t1[i]]</span><br><span class="line">        i += <span class="number">1</span></span><br><span class="line"></span><br><span class="line">flag = <span class="string">&#x27;&#x27;</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> t2:</span><br><span class="line">    <span class="keyword">if</span> ctable[i] != <span class="number">0x00</span>:</span><br><span class="line">        flag += <span class="built_in">chr</span>(ctable[i])</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(flag)</span><br></pre></td></tr></table></figure>
 
-t1 = []
-t2 = []
-
-for i in target:
-    c = i % 40
-    b = ((i - c) % 1600) // 40
-    a = i // 1600
-    t1 += [a, b, c]
-i = 0
-while i &lt; len(t1):
-    if t1[i] == 39:
-        t2 += [t1[i] + t1[i + 1]]
-        i += 2
-    else:
-        t2 += [t1[i]]
-        i += 1
-
-flag = &#39;&#39;
-for i in t2:
-    if ctable[i] != 0x00:
-        flag += chr(ctable[i])
-
-print(flag)
-</code></pre>
 <p>输出的内容为</p>
-<pre><code>Milos Raonic (born 1990) is a Canadian professional tennis player. He reached a career high world No. 4 singles ranking in May 2015, as ranked by the Association of Tennis Professionals (ATP). His career highlights include a Grand Slam final at the 2016 Wimbledon Championships and two Grand Slam semifinals at the 2014 Wimbledon Championships and 2016 Australian Open. He was the 2011 ATP Newcomer of the Year, and has been ranked continuously inside the top 20 since August 2012. Raonic is the first player born in the 1990s to win an ATP title, to be ranked in the top 10, and to qualify for the ATP World Tour Finals. He has eight ATP singles titles, all won on hard courts. He is frequently described as having one of the best serves among his contemporaries. Statistically, he is among the strongest servers in the Open Era, winning 91p of service games to rank third all time. Aided by his serve, he plays an all court style with an emphasis on short points.
-</code></pre>
+<figure class="highlight livecodeserver"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Milos Raonic (born <span class="number">1990</span>) is <span class="keyword">a</span> Canadian professional tennis player. He reached <span class="keyword">a</span> career high world No. <span class="number">4</span> singles ranking <span class="keyword">in</span> May <span class="number">2015</span>, <span class="keyword">as</span> ranked <span class="keyword">by</span> <span class="keyword">the</span> Association <span class="keyword">of</span> Tennis Professionals (ATP). His career highlights <span class="built_in">include</span> <span class="keyword">a</span> Grand Slam final <span class="keyword">at</span> <span class="keyword">the</span> <span class="number">2016</span> Wimbledon Championships <span class="keyword">and</span> <span class="literal">two</span> Grand Slam semifinals <span class="keyword">at</span> <span class="keyword">the</span> <span class="number">2014</span> Wimbledon Championships <span class="keyword">and</span> <span class="number">2016</span> Australian Open. He was <span class="keyword">the</span> <span class="number">2011</span> ATP Newcomer <span class="keyword">of</span> <span class="keyword">the</span> Year, <span class="keyword">and</span> has been ranked continuously inside <span class="keyword">the</span> top <span class="number">20</span> since August <span class="number">2012.</span> Raonic is <span class="keyword">the</span> <span class="keyword">first</span> player born <span class="keyword">in</span> <span class="keyword">the</span> <span class="number">1990</span>s <span class="built_in">to</span> win <span class="keyword">an</span> ATP title, <span class="built_in">to</span> be ranked <span class="keyword">in</span> <span class="keyword">the</span> top <span class="number">10</span>, <span class="keyword">and</span> <span class="built_in">to</span> qualify <span class="keyword">for</span> <span class="keyword">the</span> ATP World Tour Finals. He has <span class="literal">eight</span> ATP singles titles, all won <span class="keyword">on</span> <span class="title">hard</span> <span class="title">courts</span>. <span class="title">He</span> <span class="title">is</span> <span class="title">frequently</span> <span class="title">described</span> <span class="title">as</span> <span class="title">having</span> <span class="title">one</span> <span class="title">of</span> <span class="title">the</span> <span class="title">best</span> <span class="title">serves</span> <span class="title">among</span> <span class="title">his</span> <span class="title">contemporaries</span>. <span class="title">Statistically</span>, <span class="title">he</span> <span class="title">is</span> <span class="title">among</span> <span class="title">the</span> <span class="title">strongest</span> <span class="title">servers</span> <span class="title">in</span> <span class="title">the</span> <span class="title">Open</span> <span class="title">Era</span>, <span class="title">winning</span> <span class="title">91p</span> <span class="title">of</span> <span class="title">service</span> <span class="title">games</span> <span class="title">to</span> <span class="title">rank</span> <span class="title">third</span> <span class="title">all</span> <span class="title">time</span>. <span class="title">Aided</span> <span class="title">by</span> <span class="title">his</span> <span class="title">serve</span>, <span class="title">he</span> <span class="title">plays</span> <span class="title">an</span> <span class="title">all</span> <span class="title">court</span> <span class="title">style</span> <span class="title">with</span> <span class="title">an</span> <span class="title">emphasis</span> <span class="title">on</span> <span class="title">short</span> <span class="title">points</span>.</span><br></pre></td></tr></table></figure>
+
 <p>找到原题发现是求<code>md5</code>，然后发现求<code>md5</code>还求出来好几个……</p>
 <p>正确的那一个</p>
-<pre><code class="bash">-&gt; python3 common.py | md5sum
-2c8cd31daeba8753815851f13e6370b3  -
-</code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">-&gt; python3 common.py | md5sum</span><br><span class="line">2c8cd31daeba8753815851f13e6370b3  -</span><br></pre></td></tr></table></figure>
+
 <p><del>这种时候应该找出题人py一个flag</del></p>
 
-          
-            <div class='article_footer'>
-              
-                
-  
-    
-    
-
-
-
-  
-
-  
-    
-    
-
-
-
-  
-
-  
-    
-    
-
-<section class="widget copyright  desktop mobile">
-  <div class='content'>
-    
-      <blockquote>
-        
-          
-            <p>博客内容遵循 署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</p>
-
-          
-        
-          
-            <p>本文永久链接是：<a href=http://blog.rycbar.club/2020/03/25/tar-tar-binks-%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C/>http://blog.rycbar.club/2020/03/25/tar-tar-binks-%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C/</a></p>
-          
-        
-      </blockquote>
-    
   </div>
-</section>
+</article>
 
-  
-
-  
-
-
-              
-            </div>
-          
+    <div class="blog-post-comments">
+        <div id="disqus_thread">
+            <noscript>Please enable JavaScript to view the comments.</noscript>
         </div>
-        
-          
-
-
-  <section class='meta' id="footer-meta">
-    <div class='new-meta-box'>
-      
-        
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-05-06T17:55:02+08:00">
-  <a class='notlink'>
-    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
-    <p>更新于：2020年5月6日</p>
-  </a>
-</div>
-
-        
-      
-        
-          
-  
-  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/ctf/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>ctf</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/re/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>re</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>攻防世界</p></a></div>
-
-
-        
-      
-        
-          
-
-        
-      
-        
-          
-  <div class="new-meta-item share -mob-share-list">
-  <div class="-mob-share-list share-body">
-    
-      
-        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
-          
-          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://blog.rycbar.club/2020/03/25/tar-tar-binks-%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C/&title=tar-tar-binks-攻防世界 - My Tiny Ideas&summary=tar-tar-binks-攻防世界"
-          
-          >
-          
-            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/qq.png">
-          
-        </a>
-      
-    
-      
-        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
-          
-          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://blog.rycbar.club/2020/03/25/tar-tar-binks-%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C/&title=tar-tar-binks-攻防世界 - My Tiny Ideas&summary=tar-tar-binks-攻防世界"
-          
-          >
-          
-            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/qzone.png">
-          
-        </a>
-      
-    
-      
-        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
-          
-          target="_blank" href="http://service.weibo.com/share/share.php?url=http://blog.rycbar.club/2020/03/25/tar-tar-binks-%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C/&title=tar-tar-binks-攻防世界 - My Tiny Ideas&summary=tar-tar-binks-攻防世界"
-          
-          >
-          
-            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/weibo.png">
-          
-        </a>
-      
-    
-  </div>
-</div>
+    </div>
 
 
 
         
+          <div id="footer-post-container">
+  <div id="footer-post">
+
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/atom.xml">rss</a></li>
+         
+          <li><a href="/search/">Search</a></li>
+        
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
       
     </div>
-  </section>
 
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://blog.rycbar.club/2020/03/25/tar-tar-binks-%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://blog.rycbar.club/2020/03/25/tar-tar-binks-%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C/&text=tar-tar-binks-攻防世界"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://blog.rycbar.club/2020/03/25/tar-tar-binks-%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C/&title=tar-tar-binks-攻防世界"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://blog.rycbar.club/2020/03/25/tar-tar-binks-%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C/&is_video=false&description=tar-tar-binks-攻防世界"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=tar-tar-binks-攻防世界&body=Check out this article: http://blog.rycbar.club/2020/03/25/tar-tar-binks-%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://blog.rycbar.club/2020/03/25/tar-tar-binks-%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C/&title=tar-tar-binks-攻防世界"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://blog.rycbar.club/2020/03/25/tar-tar-binks-%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C/&title=tar-tar-binks-攻防世界"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://blog.rycbar.club/2020/03/25/tar-tar-binks-%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C/&title=tar-tar-binks-攻防世界"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://blog.rycbar.club/2020/03/25/tar-tar-binks-%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C/&title=tar-tar-binks-攻防世界"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://blog.rycbar.club/2020/03/25/tar-tar-binks-%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C/&name=tar-tar-binks-攻防世界&description=&lt;p&gt;tar-tar-binks-攻防世界&lt;/p&gt;"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://blog.rycbar.club/2020/03/25/tar-tar-binks-%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C/&t=tar-tar-binks-攻防世界"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
 
-        
-        
-          <div class="prev-next">
-            
-              <a class='prev' href='/2020/03/27/babyunic-%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C/'>
-                <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>babyunic-攻防世界</p>
-                <p class='content'>这是第一次接触unicorn的题目，也算是第一次用z3来解决题目，花了好长时间去熟悉z3和unicorn，确实很强大
-
-
-打开来有个脚本
-LD_PRELOAD=./un.so.1 ./babyu...</p>
-              </a>
-            
-            
-              <a class='next' href='/2020/03/24/mfc%E9%80%86%E5%90%91-200-%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C/'>
-                <p class='title'>mfc逆向-200_攻防世界<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
-                <p class='content'>这题就是一个脑洞题，但可以大概的了解一下windows编程
-
-
-查壳发现是虚拟机
-IDA打开，脱壳怕是不可能的了，只能换其他方法。
-这里用面向大佬博客做题法
-因为Flag就在控件里，干脆spy+...</p>
-              </a>
-            
-          </div>
-        
-      </section>
-    </article>
-  
-
-  
-    <!-- 显示推荐文章和评论 -->
-
-
-
-  <article class="post white-box reveal comments shadow">
-    <section class="article typo">
-      <p ct><i class='fas fa-comments'></i> 评论</p>
-      
-      
-      
-      
-        <section id="comments">
-          <div id="gitalk-container"></div>
-        </section>
-      
-      
-      
-      
-    </section>
-  </article>
-
-
-  
-
-
-
-
-<!-- 根据页面mathjax变量决定是否加载MathJax数学公式js -->
-
-
-
-  <script>
-    window.subData = {
-      title: 'tar-tar-binks-攻防世界',
-      tools: true
-    }
-  </script>
-
-
-</div>
-<aside class='l_side'>
-  
-  
-
-  
-    
-    
-
-
-
-  
-
-
-</aside>
-
-
-  
-  <footer class="clearfix">
-    <br><br>
-    
-      
-        <div class="aplayer-container">
-          
-
-  
-    <meting-js
-      theme='#1BCDFC'
-      autoplay='false'
-      volume='0.7'
-      loop='all'
-      order='random'
-      fixed='false'
-      list-max-height='340px'
-      server='netease'
-      type='playlist'
-      id='555017395'
-      list-folded='true'>
-    </meting-js>
-  
-
-
-        </div>
-      
-    
-      
-        <br>
-        <div class="social-wrapper">
-          
-            
-              <a href="/rycbar17th@gmail.com"
-                class="social fas fa-envelope flat-btn"
-                target="_blank"
-                rel="external nofollow noopener noreferrer">
-              </a>
-            
-          
-            
-              <a href="https://github.com/rycbar77"
-                class="social fab fa-github flat-btn"
-                target="_blank"
-                rel="external nofollow noopener noreferrer">
-              </a>
-            
-          
-        </div>
-      
-    
-      
-        <div><p>博客内容遵循 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</a></p>
-</div>
-      
-    
-      
-        <div class='copyright'>
-        <p><a href="https://blog.rycbar.club/">Copyright © 2017-2020 rycbar</a></p>
-
-        </div>
-      
-    
-  </footer>
-
-<script>setLoadingBarProgress(80);</script>
-
-
-      <script>setLoadingBarProgress(60);</script>
     </div>
-    <a class="s-top fas fa-arrow-up fa-fw" href='javascript:void(0)'></a>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
   </div>
-  
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.4/dist/jquery.min.js"></script>
+</div>
 
-
-  <script>
+        
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
     
-    var SEARCH_SERVICE = "hexo" || "hexo";
-    var ROOT = "/" || "/";
-    if (!ROOT.endsWith('/')) ROOT += '/';
-  </script>
-
-
-  <script async src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2/js/instant_page.js" type="module" defer integrity="sha384-OeDn4XE77tdHo8pGtE1apMPmAipjoxUQ++eeJa6EtJCfHlvijigWiJpD7VDPWXV1"></script>
-
-
-  <script src="https://cdn.jsdelivr.net/npm/scrollreveal@4.0.6/dist/scrollreveal.min.js"></script>
-  <script type="text/javascript">
-    $(function() {
-      ScrollReveal().reveal('.l_main .reveal', {
-        distance: '8px',
-        duration: '800',
-        interval: '100',
-        scale: '1'
-      });
-    });
-  </script>
-
-
-  
-<script src="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.js"></script>
-
-  <script type="text/javascript">
-    $(function() {
-      Waves.attach('.flat-btn', ['waves-button']);
-      Waves.attach('.float-btn', ['waves-button', 'waves-float']);
-      Waves.attach('.float-btn-light', ['waves-button', 'waves-float', 'waves-light']);
-      Waves.attach('.flat-box', ['waves-block']);
-      Waves.attach('.float-box', ['waves-block', 'waves-float']);
-      Waves.attach('.waves-image');
-      Waves.init();
-    });
-  </script>
-
-
-  <script async src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-busuanzi@2.3/js/busuanzi.pure.mini.js"></script>
-
-
-
-  
-  
-  
     
-<script src="https://cdn.jsdelivr.net/npm/jquery-backstretch@2.1.18/jquery.backstretch.min.js"></script>
+    2018-2021
+    Aorui Zhang
+  </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/atom.xml">rss</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script> 
+
+
+
+
+<!-- clipboard -->
+
+  
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
+  
+  <script type="text/javascript">
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
+    });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
+  </script>
+
+
+<script src="/js/main.js"></script>
+
+<!-- search -->
+
+<!-- Google Analytics -->
+
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128484503-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-128484503-1');
+    </script>
+
+<!-- Baidu Analytics -->
+
+<!-- Cloudflare Analytics -->
+
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
 
     <script type="text/javascript">
-      $(function(){
-        var imgs=["https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/41F215B9-261F-48B4-80B5-4E86E165259E.jpeg", "https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/BBC19066-E176-47C2-9D22-48C81EE5DF6B.jpeg", "https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/B18FCBB3-67FD-48CC-B4F3-457BA145F17A.jpeg", "https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/35F12181-F0E9-45BD-B134-37E4B4A660CF.jpeg", "https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/00E0F0ED-9F1C-407A-9AA6-545649D919F4.jpeg", "https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/67239FBB-E15D-4F4F-8EE8-0F1C9F3C4E7C.jpeg", "https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/B951AE18-D431-417F-B3FE-A382403FF21B.jpeg", "https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/landscape/AEB33F9D-7294-4CF1-B8C5-3020748A9D45.jpeg", "https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/2884F904-F1F3-479E-AE27-5EBC291B63B0.jpeg", "https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/landscape/10A0FCE5-36A1-4AD0-8CF0-019259A89E03.jpeg", "https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/landscape/250662D4-5A21-4AAA-BB63-CD25CF97CFF1.jpeg", "https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/landscape/298468D7-E388-44A8-8CC5-8213BDC33CED.jpeg"];
-        if ('true' == 'true') {
-          function shuffle(arr){
-            /*From countercurrent-time*/
-            var n = arr.length;
-            while(n--) {
-              var index = Math.floor(Math.random() * n);
-              var temp = arr[index];
-              arr[index] = arr[n];
-              arr[n] = temp;
-            }
-          }
-          shuffle(imgs);
-        }
-        if ('.cover') {
-          $('.cover').backstretch(
-            imgs,
-          {
-            duration: "20000",
-            fade: "1500"
-          });
-        } else {
-          $.backstretch(
-            imgs,
-          {
-            duration: "20000",
-            fade: "1500"
-          });
-        }
-      });
+        var disqus_shortname = 'rrblog-2';
+
+        (function(){
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        }());
     </script>
-  
 
+<!-- utterances Comments -->
 
-
-  
-    
-<script src="https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.js"></script>
-
-  
-    
-<script src="https://cdn.jsdelivr.net/npm/meting@2.0/dist/Meting.min.js"></script>
-
-  
-
-
-
-
-
-
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
-  <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
-  <script type="text/javascript">
-    var gitalk = new Gitalk({
-      clientID: "6dbe0fb891585031b176",
-      clientSecret: "4407fec5af8e37150b5a4cb82821318d91c07769",
-      repo: "comments",
-      owner: "schrodinger17",
-      admin: "schrodinger17",
-      
-        id: location.pathname,      // Ensure uniqueness and length less than 50
-      
-      distractionFreeMode: false  // Facebook-like distraction free mode
-    });
-    gitalk.render('gitalk-container');
-  </script>
-
-
-
-
-
-
-
-
-  
-<script src="/js/app.js"></script>
-
-
-
-  
-<script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2.6.5/js/search.js"></script>
-
-
-
-  
-<script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2/js/comment_typing.js"></script>
-
-
-
-
-  
-    
-<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.1/build/highlight.min.js"></script>
-
-    <script>hljs.initHighlightingOnLoad();</script>
-  
-
-
-
-<!-- 复制 -->
-
-  <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
-<script>
-  function wait(callback, seconds) {
-    var timelag = null;
-    timelag = window.setTimeout(callback, seconds);
-  }
-  !function (e, t, a) {
-    var initCopyCode = function(){
-      var copyHtml = '';
-      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
-      copyHtml += '<i class="fas fa-copy"></i><span>COPY</span>';
-      copyHtml += '</button>';
-      $(".highlight .code pre").before(copyHtml);
-      $(".article pre code").before(copyHtml);
-      var clipboard = new ClipboardJS('.btn-copy', {
-        target: function(trigger) {
-          return trigger.nextElementSibling;
-        }
-      });
-      clipboard.on('success', function(e) {
-        let $btn = $(e.trigger);
-        $btn.addClass('copied');
-        let $icon = $($btn.find('i'));
-        $icon.removeClass('fa-copy');
-        $icon.addClass('fa-check-circle');
-        let $span = $($btn.find('span'));
-        $span[0].innerText = 'COPIED';
-        
-        wait(function () { // 等待两秒钟后恢复
-          $icon.removeClass('fa-check-circle');
-          $icon.addClass('fa-copy');
-          $span[0].innerText = 'COPY';
-        }, 2000);
-      });
-      clipboard.on('error', function(e) {
-        e.clearSelection();
-        let $btn = $(e.trigger);
-        $btn.addClass('copy-failed');
-        let $icon = $($btn.find('i'));
-        $icon.removeClass('fa-copy');
-        $icon.addClass('fa-times-circle');
-        let $span = $($btn.find('span'));
-        $span[0].innerText = 'COPY FAILED';
-        
-        wait(function () { // 等待两秒钟后恢复
-          $icon.removeClass('fa-times-circle');
-          $icon.addClass('fa-copy');
-          $span[0].innerText = 'COPY';
-        }, 2000);
-      });
-    }
-    initCopyCode();
-  }(window, document);
-</script>
-
-
-
-
-<!-- fancybox -->
-
-  <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
-<script>
-  let LAZY_LOAD_IMAGE = "";
-  $(".article-entry").find("div.fancybox").find("img").each(function () {
-      var element = document.createElement("a");
-      $(element).attr("data-fancybox", "gallery");
-      $(element).attr("href", $(this).attr("src"));
-      /* 图片采用懒加载处理时,
-       * 一般图片标签内会有个属性名来存放图片的真实地址，比如 data-original,
-       * 那么此处将原本的属性名src替换为对应属性名data-original,
-       * 修改如下
-       */
-       if (LAZY_LOAD_IMAGE) {
-         $(element).attr("href", $(this).attr("data-original"));
-       }
-      $(this).wrap(element);
-  });
-</script>
-
-
-
-
-
-
-  <script>setLoadingBarProgress(100);</script>
 </body>
 </html>

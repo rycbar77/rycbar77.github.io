@@ -1,1465 +1,427 @@
 <!DOCTYPE html>
-<html>
-<head hexo-theme='https://volantis.js.org/#blog'>
-  <meta charset="utf-8">
-  <!-- SEO相关 -->
-  
-    
-  
-  <!-- 渲染优化 -->
-  <meta name="renderer" content="webkit">
-  <meta name="force-rendering" content="webkit">
-  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1">
-  <meta name="HandheldFriendly" content="True" >
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-
-  <!-- 页面元数据 -->
-  
-    <title>攻防世界-re部分题解（五） - My Tiny Ideas</title>
-  
-    <meta name="keywords" content="ctf,re,攻防世界">
-  
-  
+<html lang=en>
+<head>
+    <!-- so meta -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="HandheldFriendly" content="True">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
     <meta name="description" content="后面的题目也越来越难了，比较难比较复杂的题目会单拉出来写，这里就记录一些比较简单的题目。">
-  
-
-  <!-- feed -->
-  
-
-  <!-- import meta -->
-  
-
-  <!-- link -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@5.13/css/all.min.css">
-  
+<meta property="og:type" content="article">
+<meta property="og:title" content="攻防世界-re部分题解（五）">
+<meta property="og:url" content="http://blog.rycbar.club/2020/03/12/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3%EF%BC%88%E4%BA%94%EF%BC%89/index.html">
+<meta property="og:site_name" content="rr&#39;s blog">
+<meta property="og:description" content="后面的题目也越来越难了，比较难比较复杂的题目会单拉出来写，这里就记录一些比较简单的题目。">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2020-03-12T03:23:52.000Z">
+<meta property="article:modified_time" content="2020-03-31T03:28:03.726Z">
+<meta property="article:author" content="Aorui Zhang">
+<meta property="article:tag" content="ctf">
+<meta property="article:tag" content="re">
+<meta property="article:tag" content="攻防世界">
+<meta name="twitter:card" content="summary">
     
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css">
-
-  
-  
-    
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.css">
-
-  
-
-  
-  <link rel="shortcut icon" type='image/x-icon' href="https://cdn.jsdelivr.net/gh/xaoxuu/assets@master/favicon/favicon.ico">
-  
-
-  
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.css">
-  
-
-  
-
-  <!-- import link -->
-  
-
-  
     
       
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@9.18.1/styles/solarized-light.css">
-
+        
+          <link rel="shortcut icon" href="/images/favicon.ico">
+        
+      
+      
+        
+          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
+        
+      
+      
+        
+          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+        
+      
     
-  
-  
+    <!-- title -->
+    <title>攻防世界-re部分题解（五）</title>
+    <!-- styles -->
     
 <link rel="stylesheet" href="/css/style.css">
 
-  
+    <!-- persian styles -->
+    
+    <!-- rss -->
+    
+    
+      <link rel="alternate" href="/true" title="rr&#39;s blog" type="application/atom+xml" />
+    
+	<!-- mathjax -->
+	
+<meta name="generator" content="Hexo 5.4.0"></head>
 
-  <script>
-    function setLoadingBarProgress(num) {
-      document.getElementById('loading-bar').style.width=num+"%";
-    }
-  </script>
-
-  
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128484503-1"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'UA-128484503-1');
-    </script>
-  
-  
-</head>
-
-<body>
-  
-  <div id="loading-bar-wrapper">
-  <div id="loading-bar"></div>
-</div>
-<header class="l_header shadow blur">
-  <div class='container'>
-  <div class='wrapper'>
-    <div class='nav-sub'>
-      <p class="title"></p>
-      <ul class='switcher nav-list-h'>
-        <li><a class="s-comment fas fa-comments fa-fw" target="_self" href='javascript:void(0)'></a></li>
-        
-          <li><a class="s-toc fas fa-list fa-fw" target="_self" href='javascript:void(0)'></a></li>
-        
+<body class="max-width mx-auto px3 ltr">
+    
+      <div id="header-post">
+  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
+  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
+  <span id="menu">
+    <span id="nav">
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/atom.xml">rss</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
       </ul>
+    </span>
+    <br/>
+    <span id="actions">
+      <ul>
+        
+        <li><a class="icon" aria-label="Previous post" href="/2020/03/13/python-opcode/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
+        
+        
+        <li><a class="icon" aria-label="Next post" href="/2020/03/10/IDA%E5%B8%B8%E7%94%A8%E5%AE%8F%E5%AE%9A%E4%B9%89/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
+        
+        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
+        <li><a class="icon" aria-label="Share post" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
+      </ul>
+      <span id="i-prev" class="info" style="display:none;">Previous post</span>
+      <span id="i-next" class="info" style="display:none;">Next post</span>
+      <span id="i-top" class="info" style="display:none;">Back to top</span>
+      <span id="i-share" class="info" style="display:none;">Share post</span>
+    </span>
+    <br/>
+    <div id="share" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://blog.rycbar.club/2020/03/12/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3%EF%BC%88%E4%BA%94%EF%BC%89/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://blog.rycbar.club/2020/03/12/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3%EF%BC%88%E4%BA%94%EF%BC%89/&text=攻防世界-re部分题解（五）"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://blog.rycbar.club/2020/03/12/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3%EF%BC%88%E4%BA%94%EF%BC%89/&title=攻防世界-re部分题解（五）"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://blog.rycbar.club/2020/03/12/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3%EF%BC%88%E4%BA%94%EF%BC%89/&is_video=false&description=攻防世界-re部分题解（五）"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=攻防世界-re部分题解（五）&body=Check out this article: http://blog.rycbar.club/2020/03/12/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3%EF%BC%88%E4%BA%94%EF%BC%89/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://blog.rycbar.club/2020/03/12/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3%EF%BC%88%E4%BA%94%EF%BC%89/&title=攻防世界-re部分题解（五）"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://blog.rycbar.club/2020/03/12/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3%EF%BC%88%E4%BA%94%EF%BC%89/&title=攻防世界-re部分题解（五）"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://blog.rycbar.club/2020/03/12/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3%EF%BC%88%E4%BA%94%EF%BC%89/&title=攻防世界-re部分题解（五）"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://blog.rycbar.club/2020/03/12/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3%EF%BC%88%E4%BA%94%EF%BC%89/&title=攻防世界-re部分题解（五）"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://blog.rycbar.club/2020/03/12/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3%EF%BC%88%E4%BA%94%EF%BC%89/&name=攻防世界-re部分题解（五）&description=&lt;p&gt;后面的题目也越来越难了，比较难比较复杂的题目会单拉出来写，这里就记录一些比较简单的题目。&lt;/p&gt;"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://blog.rycbar.club/2020/03/12/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3%EF%BC%88%E4%BA%94%EF%BC%89/&t=攻防世界-re部分题解（五）"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
+</ul>
+
     </div>
-		<div class="nav-main">
-      
-        
-        <a class="title flat-box" target="_self" href='/'>
-          
-          
-          
-          
-            RYCBAR'S <b><sup style='color:#3AA757'>blog</sup></b>
-          
-        </a>
-      
-
-			<div class='menu navigation'>
-				<ul class='nav-list-h'>
-          
-          
-          
-            
-            
-              <li>
-                <a class="flat-box" href=/
-                  
-                  
-                  
-                    id="home"
-                  >
-                  <i class='fas fa-rss fa-fw'></i>博客
-                </a>
-                
-              </li>
-            
-          
-          
-            
-            
-              <li>
-                <a class="flat-box" href=/categories/
-                  
-                  
-                  
-                    id="categories"
-                  >
-                  <i class='fas fa-folder-open fa-fw'></i>分类
-                </a>
-                
-              </li>
-            
-          
-          
-            
-            
-              <li>
-                <a class="flat-box" href=/tags/
-                  
-                  
-                  
-                    id="tags"
-                  >
-                  <i class='fas fa-tags fa-fw'></i>标签
-                </a>
-                
-              </li>
-            
-          
-          
-            
-            
-              <li>
-                <a class="flat-box" href=/archives/
-                  
-                  
-                  
-                    id="archives"
-                  >
-                  <i class='fas fa-archive fa-fw'></i>归档
-                </a>
-                
-              </li>
-            
-          
-          
-            
-            
-              <li>
-                <a class="flat-box" href=/friends/
-                  
-                  
-                  
-                    id="friends"
-                  >
-                  <i class='fas fa-link fa-fw'></i>友链
-                </a>
-                
-              </li>
-            
-          
-          
-            
-            
-              <li>
-                <a class="flat-box" href=/about/
-                  
-                  
-                  
-                    id="about"
-                  >
-                  <i class='fas fa-info-circle fa-fw'></i>关于
-                </a>
-                
-              </li>
-            
-          
-          
-				</ul>
-			</div>
-
-      <div class="m_search">
-        <form name="searchform" class="form u-search-form">
-          <i class="icon fas fa-search fa-fw"></i>
-          <input type="text" class="input u-search-input" placeholder="Search..." />
-        </form>
-      </div>
-
-			<ul class='switcher nav-list-h'>
-				
-					<li><a class="s-search fas fa-search fa-fw" target="_self" href='javascript:void(0)'></a></li>
-				
-				<li>
-          <a class="s-menu fas fa-bars fa-fw" target="_self" href='javascript:void(0)'></a>
-          <ul class="menu-phone list-v navigation white-box">
-            
-              
-            
-              <li>
-                <a class="flat-box" href=/
-                  
-                  
-                  
-                    id="home"
-                  >
-                  <i class='fas fa-rss fa-fw'></i>博客
-                </a>
-                
-              </li>
-            
-          
-            
-              
-            
-              <li>
-                <a class="flat-box" href=/categories/
-                  
-                  
-                  
-                    id="categories"
-                  >
-                  <i class='fas fa-folder-open fa-fw'></i>分类
-                </a>
-                
-              </li>
-            
-          
-            
-              
-            
-              <li>
-                <a class="flat-box" href=/tags/
-                  
-                  
-                  
-                    id="tags"
-                  >
-                  <i class='fas fa-tags fa-fw'></i>标签
-                </a>
-                
-              </li>
-            
-          
-            
-              
-            
-              <li>
-                <a class="flat-box" href=/archives/
-                  
-                  
-                  
-                    id="archives"
-                  >
-                  <i class='fas fa-archive fa-fw'></i>归档
-                </a>
-                
-              </li>
-            
-          
-            
-              
-            
-              <li>
-                <a class="flat-box" href=/friends/
-                  
-                  
-                  
-                    id="friends"
-                  >
-                  <i class='fas fa-link fa-fw'></i>友链
-                </a>
-                
-              </li>
-            
-          
-            
-              
-            
-              <li>
-                <a class="flat-box" href=/about/
-                  
-                  
-                  
-                    id="about"
-                  >
-                  <i class='fas fa-info-circle fa-fw'></i>关于
-                </a>
-                
-              </li>
-            
-          
-            
-          </ul>
-        </li>
-			</ul>
-		</div>
-	</div>
-  </div>
-</header>
-
-<script>setLoadingBarProgress(40);</script>
-
-
-
-  <div class="l_body nocover">
-    <div class='body-wrapper'>
-      
-
-<div class='l_main'>
-  
-
-  
-    <article id="post" class="post white-box reveal shadow article-type-post" itemscope itemprop="blogPost">
-      
-
-
-  <section class='meta'>
-    
-      
-      
-      <div class="meta" id="header-meta">
-        
-          
-  <h1 class="title">
-    <a href="/2020/03/12/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3%EF%BC%88%E4%BA%94%EF%BC%89/">
-      攻防世界-re部分题解（五）
-    </a>
-  </h1>
-
-
-        
-        <div class='new-meta-box'>
-          
-            
-          
-            
-              
-<div class='new-meta-item author'>
-  <a href="http://blog.rycbar.club" rel="nofollow">
-    <img src="https://q2.qlogo.cn/headimg_dl?dst_uin=595371936&spec=100">
-    <p>rycbar</p>
-  </a>
+    <div id="toc">
+      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#easy-Maze"><span class="toc-number">1.</span> <span class="toc-text">easy_Maze</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ReverseMe-120"><span class="toc-number">2.</span> <span class="toc-text">ReverseMe-120</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Replace"><span class="toc-number">3.</span> <span class="toc-text">Replace</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#babyRE"><span class="toc-number">4.</span> <span class="toc-text">babyRE</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#What-does-this-button-do"><span class="toc-number">5.</span> <span class="toc-text">What-does-this-button-do</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#76%E5%8F%B7"><span class="toc-number">6.</span> <span class="toc-text">76号</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#easy-go"><span class="toc-number">7.</span> <span class="toc-text">easy_go</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#easyCpp"><span class="toc-number">8.</span> <span class="toc-text">easyCpp</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#re5-packed-movement"><span class="toc-number">9.</span> <span class="toc-text">re5-packed-movement</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#the-maya-society"><span class="toc-number">10.</span> <span class="toc-text">the_maya_society</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2ex1"><span class="toc-number">11.</span> <span class="toc-text">2ex1</span></a></li></ol>
+    </div>
+  </span>
 </div>
 
-            
-          
-            
-              
-  
-  <div class='new-meta-item category'>
-    <a href='/categories/ctf/' rel="nofollow">
-      <i class="fas fa-folder-open fa-fw" aria-hidden="true"></i>
-      <p>ctf</p>
-    </a>
-  </div>
-
-
-            
-          
-            
-              <div class="new-meta-item date">
-  <a class='notlink'>
-    <i class="fas fa-calendar-alt fa-fw" aria-hidden="true"></i>
-    <p>发布于：2020年3月12日</p>
-  </a>
-</div>
-
-            
-          
-            
-              
-
-            
-          
-        </div>
-        
-          <hr>
-        
-      </div>
     
-  </section>
+    <div class="content index py4">
+        
+        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header>
+    
+    <h1 class="posttitle" itemprop="name headline">
+        攻防世界-re部分题解（五）
+    </h1>
 
 
-      <section class="article typo">
-        <div class="article-entry" itemprop="articleBody">
-          
-          <p>后面的题目也越来越难了，比较难比较复杂的题目会单拉出来写，这里就记录一些比较简单的题目。</p>
+
+    <div class="meta">
+      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
+        <span itemprop="name">Aorui Zhang</span>
+      </span>
+      
+    <div class="postdate">
+      
+        <time datetime="2020-03-12T03:23:52.000Z" itemprop="datePublished">2020-03-12</time>
+        
+        (Updated: <time datetime="2020-03-31T03:28:03.726Z" itemprop="dateModified">2020-03-31</time>)
+        
+      
+    </div>
+
+
+      
+    <div class="article-category">
+        <i class="fas fa-archive"></i>
+        <a class="category-link" href="/categories/ctf/">ctf</a>
+    </div>
+
+
+      
+    <div class="article-tag">
+        <i class="fas fa-tag"></i>
+        <a class="tag-link-link" href="/tags/ctf/" rel="tag">ctf</a>, <a class="tag-link-link" href="/tags/re/" rel="tag">re</a>, <a class="tag-link-link" href="/tags/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C/" rel="tag">攻防世界</a>
+    </div>
+
+
+    </div>
+  </header>
+  
+
+  <div class="content" itemprop="articleBody">
+    <p>后面的题目也越来越难了，比较难比较复杂的题目会单拉出来写，这里就记录一些比较简单的题目。</p>
 <span id="more"></span>
 
 <h4 id="easy-Maze"><a href="#easy-Maze" class="headerlink" title="easy_Maze"></a>easy_Maze</h4><p>看名字就知道是个迷宫题，IDA打开看看</p>
-<pre><code class="c++">int __cdecl main(int argc, const char **argv, const char **envp)
-&#123;
-  __int64 v3; // rax
-  int v5[7]; // [rsp+0h] [rbp-270h]
-  int v6; // [rsp+C0h] [rbp-1B0h]
-  int v7[7]; // [rsp+D0h] [rbp-1A0h]
-  int v8; // [rsp+190h] [rbp-E0h]
-  int v9[7]; // [rsp+1A0h] [rbp-D0h]
-  int v10; // [rsp+1BCh] [rbp-B4h]
-  int v11; // [rsp+1C0h] [rbp-B0h]
-  int v12; // [rsp+1C4h] [rbp-ACh]
-  int v13; // [rsp+1C8h] [rbp-A8h]
-  int v14; // [rsp+1CCh] [rbp-A4h]
-  int v15; // [rsp+1D0h] [rbp-A0h]
-  int v16; // [rsp+1D4h] [rbp-9Ch]
-  int v17; // [rsp+1D8h] [rbp-98h]
-  int v18; // [rsp+1DCh] [rbp-94h]
-  int v19; // [rsp+1E0h] [rbp-90h]
-  int v20; // [rsp+1E4h] [rbp-8Ch]
-  int v21; // [rsp+1E8h] [rbp-88h]
-  int v22; // [rsp+1ECh] [rbp-84h]
-  int v23; // [rsp+1F0h] [rbp-80h]
-  int v24; // [rsp+1F4h] [rbp-7Ch]
-  int v25; // [rsp+1F8h] [rbp-78h]
-  int v26; // [rsp+1FCh] [rbp-74h]
-  int v27; // [rsp+200h] [rbp-70h]
-  int v28; // [rsp+204h] [rbp-6Ch]
-  int v29; // [rsp+208h] [rbp-68h]
-  int v30; // [rsp+20Ch] [rbp-64h]
-  int v31; // [rsp+210h] [rbp-60h]
-  int v32; // [rsp+214h] [rbp-5Ch]
-  int v33; // [rsp+218h] [rbp-58h]
-  int v34; // [rsp+21Ch] [rbp-54h]
-  int v35; // [rsp+220h] [rbp-50h]
-  int v36; // [rsp+224h] [rbp-4Ch]
-  int v37; // [rsp+228h] [rbp-48h]
-  int v38; // [rsp+22Ch] [rbp-44h]
-  int v39; // [rsp+230h] [rbp-40h]
-  int v40; // [rsp+234h] [rbp-3Ch]
-  int v41; // [rsp+238h] [rbp-38h]
-  int v42; // [rsp+23Ch] [rbp-34h]
-  int v43; // [rsp+240h] [rbp-30h]
-  int v44; // [rsp+244h] [rbp-2Ch]
-  int v45; // [rsp+248h] [rbp-28h]
-  int v46; // [rsp+24Ch] [rbp-24h]
-  int v47; // [rsp+250h] [rbp-20h]
-  int v48; // [rsp+254h] [rbp-1Ch]
-  int v49; // [rsp+258h] [rbp-18h]
-  int v50; // [rsp+25Ch] [rbp-14h]
-  int v51; // [rsp+260h] [rbp-10h]
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> __cdecl <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">const</span> <span class="keyword">char</span> **argv, <span class="keyword">const</span> <span class="keyword">char</span> **envp)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  __int64 v3; <span class="comment">// rax</span></span><br><span class="line">  <span class="keyword">int</span> v5[<span class="number">7</span>]; <span class="comment">// [rsp+0h] [rbp-270h]</span></span><br><span class="line">  <span class="keyword">int</span> v6; <span class="comment">// [rsp+C0h] [rbp-1B0h]</span></span><br><span class="line">  <span class="keyword">int</span> v7[<span class="number">7</span>]; <span class="comment">// [rsp+D0h] [rbp-1A0h]</span></span><br><span class="line">  <span class="keyword">int</span> v8; <span class="comment">// [rsp+190h] [rbp-E0h]</span></span><br><span class="line">  <span class="keyword">int</span> v9[<span class="number">7</span>]; <span class="comment">// [rsp+1A0h] [rbp-D0h]</span></span><br><span class="line">  <span class="keyword">int</span> v10; <span class="comment">// [rsp+1BCh] [rbp-B4h]</span></span><br><span class="line">  <span class="keyword">int</span> v11; <span class="comment">// [rsp+1C0h] [rbp-B0h]</span></span><br><span class="line">  <span class="keyword">int</span> v12; <span class="comment">// [rsp+1C4h] [rbp-ACh]</span></span><br><span class="line">  <span class="keyword">int</span> v13; <span class="comment">// [rsp+1C8h] [rbp-A8h]</span></span><br><span class="line">  <span class="keyword">int</span> v14; <span class="comment">// [rsp+1CCh] [rbp-A4h]</span></span><br><span class="line">  <span class="keyword">int</span> v15; <span class="comment">// [rsp+1D0h] [rbp-A0h]</span></span><br><span class="line">  <span class="keyword">int</span> v16; <span class="comment">// [rsp+1D4h] [rbp-9Ch]</span></span><br><span class="line">  <span class="keyword">int</span> v17; <span class="comment">// [rsp+1D8h] [rbp-98h]</span></span><br><span class="line">  <span class="keyword">int</span> v18; <span class="comment">// [rsp+1DCh] [rbp-94h]</span></span><br><span class="line">  <span class="keyword">int</span> v19; <span class="comment">// [rsp+1E0h] [rbp-90h]</span></span><br><span class="line">  <span class="keyword">int</span> v20; <span class="comment">// [rsp+1E4h] [rbp-8Ch]</span></span><br><span class="line">  <span class="keyword">int</span> v21; <span class="comment">// [rsp+1E8h] [rbp-88h]</span></span><br><span class="line">  <span class="keyword">int</span> v22; <span class="comment">// [rsp+1ECh] [rbp-84h]</span></span><br><span class="line">  <span class="keyword">int</span> v23; <span class="comment">// [rsp+1F0h] [rbp-80h]</span></span><br><span class="line">  <span class="keyword">int</span> v24; <span class="comment">// [rsp+1F4h] [rbp-7Ch]</span></span><br><span class="line">  <span class="keyword">int</span> v25; <span class="comment">// [rsp+1F8h] [rbp-78h]</span></span><br><span class="line">  <span class="keyword">int</span> v26; <span class="comment">// [rsp+1FCh] [rbp-74h]</span></span><br><span class="line">  <span class="keyword">int</span> v27; <span class="comment">// [rsp+200h] [rbp-70h]</span></span><br><span class="line">  <span class="keyword">int</span> v28; <span class="comment">// [rsp+204h] [rbp-6Ch]</span></span><br><span class="line">  <span class="keyword">int</span> v29; <span class="comment">// [rsp+208h] [rbp-68h]</span></span><br><span class="line">  <span class="keyword">int</span> v30; <span class="comment">// [rsp+20Ch] [rbp-64h]</span></span><br><span class="line">  <span class="keyword">int</span> v31; <span class="comment">// [rsp+210h] [rbp-60h]</span></span><br><span class="line">  <span class="keyword">int</span> v32; <span class="comment">// [rsp+214h] [rbp-5Ch]</span></span><br><span class="line">  <span class="keyword">int</span> v33; <span class="comment">// [rsp+218h] [rbp-58h]</span></span><br><span class="line">  <span class="keyword">int</span> v34; <span class="comment">// [rsp+21Ch] [rbp-54h]</span></span><br><span class="line">  <span class="keyword">int</span> v35; <span class="comment">// [rsp+220h] [rbp-50h]</span></span><br><span class="line">  <span class="keyword">int</span> v36; <span class="comment">// [rsp+224h] [rbp-4Ch]</span></span><br><span class="line">  <span class="keyword">int</span> v37; <span class="comment">// [rsp+228h] [rbp-48h]</span></span><br><span class="line">  <span class="keyword">int</span> v38; <span class="comment">// [rsp+22Ch] [rbp-44h]</span></span><br><span class="line">  <span class="keyword">int</span> v39; <span class="comment">// [rsp+230h] [rbp-40h]</span></span><br><span class="line">  <span class="keyword">int</span> v40; <span class="comment">// [rsp+234h] [rbp-3Ch]</span></span><br><span class="line">  <span class="keyword">int</span> v41; <span class="comment">// [rsp+238h] [rbp-38h]</span></span><br><span class="line">  <span class="keyword">int</span> v42; <span class="comment">// [rsp+23Ch] [rbp-34h]</span></span><br><span class="line">  <span class="keyword">int</span> v43; <span class="comment">// [rsp+240h] [rbp-30h]</span></span><br><span class="line">  <span class="keyword">int</span> v44; <span class="comment">// [rsp+244h] [rbp-2Ch]</span></span><br><span class="line">  <span class="keyword">int</span> v45; <span class="comment">// [rsp+248h] [rbp-28h]</span></span><br><span class="line">  <span class="keyword">int</span> v46; <span class="comment">// [rsp+24Ch] [rbp-24h]</span></span><br><span class="line">  <span class="keyword">int</span> v47; <span class="comment">// [rsp+250h] [rbp-20h]</span></span><br><span class="line">  <span class="keyword">int</span> v48; <span class="comment">// [rsp+254h] [rbp-1Ch]</span></span><br><span class="line">  <span class="keyword">int</span> v49; <span class="comment">// [rsp+258h] [rbp-18h]</span></span><br><span class="line">  <span class="keyword">int</span> v50; <span class="comment">// [rsp+25Ch] [rbp-14h]</span></span><br><span class="line">  <span class="keyword">int</span> v51; <span class="comment">// [rsp+260h] [rbp-10h]</span></span><br><span class="line"></span><br><span class="line">  v9[<span class="number">0</span>] = <span class="number">1</span>;</span><br><span class="line">  v9[<span class="number">1</span>] = <span class="number">1</span>;</span><br><span class="line">  v9[<span class="number">2</span>] = <span class="number">-1</span>;</span><br><span class="line">  v9[<span class="number">3</span>] = <span class="number">1</span>;</span><br><span class="line">  v9[<span class="number">4</span>] = <span class="number">-1</span>;</span><br><span class="line">  v9[<span class="number">5</span>] = <span class="number">1</span>;</span><br><span class="line">  v9[<span class="number">6</span>] = <span class="number">-1</span>;</span><br><span class="line">  v10 = <span class="number">0</span>;</span><br><span class="line">  v11 = <span class="number">0</span>;</span><br><span class="line">  v12 = <span class="number">0</span>;</span><br><span class="line">  v13 = <span class="number">0</span>;</span><br><span class="line">  v14 = <span class="number">1</span>;</span><br><span class="line">  v15 = <span class="number">-1</span>;</span><br><span class="line">  v16 = <span class="number">0</span>;</span><br><span class="line">  v17 = <span class="number">0</span>;</span><br><span class="line">  v18 = <span class="number">1</span>;</span><br><span class="line">  v19 = <span class="number">0</span>;</span><br><span class="line">  v20 = <span class="number">0</span>;</span><br><span class="line">  v21 = <span class="number">1</span>;</span><br><span class="line">  v22 = <span class="number">0</span>;</span><br><span class="line">  v23 = <span class="number">-1</span>;</span><br><span class="line">  v24 = <span class="number">-1</span>;</span><br><span class="line">  v25 = <span class="number">0</span>;</span><br><span class="line">  v26 = <span class="number">1</span>;</span><br><span class="line">  v27 = <span class="number">0</span>;</span><br><span class="line">  v28 = <span class="number">1</span>;</span><br><span class="line">  v29 = <span class="number">-1</span>;</span><br><span class="line">  v30 = <span class="number">0</span>;</span><br><span class="line">  v31 = <span class="number">-1</span>;</span><br><span class="line">  v32 = <span class="number">0</span>;</span><br><span class="line">  v33 = <span class="number">0</span>;</span><br><span class="line">  v34 = <span class="number">0</span>;</span><br><span class="line">  v35 = <span class="number">0</span>;</span><br><span class="line">  v36 = <span class="number">0</span>;</span><br><span class="line">  v37 = <span class="number">1</span>;</span><br><span class="line">  v38 = <span class="number">-1</span>;</span><br><span class="line">  v39 = <span class="number">-1</span>;</span><br><span class="line">  v40 = <span class="number">1</span>;</span><br><span class="line">  v41 = <span class="number">-1</span>;</span><br><span class="line">  v42 = <span class="number">0</span>;</span><br><span class="line">  v43 = <span class="number">-1</span>;</span><br><span class="line">  v44 = <span class="number">2</span>;</span><br><span class="line">  v45 = <span class="number">1</span>;</span><br><span class="line">  v46 = <span class="number">-1</span>;</span><br><span class="line">  v47 = <span class="number">0</span>;</span><br><span class="line">  v48 = <span class="number">0</span>;</span><br><span class="line">  v49 = <span class="number">-1</span>;</span><br><span class="line">  v50 = <span class="number">1</span>;</span><br><span class="line">  v51 = <span class="number">0</span>;</span><br><span class="line">  <span class="built_in">memset</span>(v7, <span class="number">0</span>, <span class="number">0xC0</span>uLL);</span><br><span class="line">  v8 = <span class="number">0</span>;</span><br><span class="line">  <span class="built_in">memset</span>(v5, <span class="number">0</span>, <span class="number">0xC0</span>uLL);</span><br><span class="line">  v6 = <span class="number">0</span>;</span><br><span class="line">  <span class="built_in">Step_0</span>((<span class="built_in"><span class="keyword">int</span></span> (*)[<span class="number">7</span>])v9, <span class="number">7</span>, (<span class="built_in"><span class="keyword">int</span></span> (*)[<span class="number">7</span>])v7);</span><br><span class="line">  <span class="built_in">Step_1</span>((<span class="built_in"><span class="keyword">int</span></span> (*)[<span class="number">7</span>])v7, <span class="number">7</span>, (<span class="built_in"><span class="keyword">int</span></span> (*)[<span class="number">7</span>])v5);</span><br><span class="line">  v3 = std::<span class="keyword">operator</span>&lt;&lt;&lt;std::char_traits&lt;<span class="keyword">char</span>&gt;&gt;(&amp;_bss_start, <span class="string">&quot;Please help me out!&quot;</span>);</span><br><span class="line">  std::ostream::<span class="keyword">operator</span>&lt;&lt;(v3, &amp;std::endl&lt;<span class="keyword">char</span>,std::char_traits&lt;<span class="keyword">char</span>&gt;&gt;);</span><br><span class="line">  <span class="built_in">Step_2</span>((<span class="built_in"><span class="keyword">int</span></span> (*)[<span class="number">7</span>])v5, <span class="number">7</span>);</span><br><span class="line">  <span class="built_in">system</span>(<span class="string">&quot;pause&quot;</span>);</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-  v9[0] = 1;
-  v9[1] = 1;
-  v9[2] = -1;
-  v9[3] = 1;
-  v9[4] = -1;
-  v9[5] = 1;
-  v9[6] = -1;
-  v10 = 0;
-  v11 = 0;
-  v12 = 0;
-  v13 = 0;
-  v14 = 1;
-  v15 = -1;
-  v16 = 0;
-  v17 = 0;
-  v18 = 1;
-  v19 = 0;
-  v20 = 0;
-  v21 = 1;
-  v22 = 0;
-  v23 = -1;
-  v24 = -1;
-  v25 = 0;
-  v26 = 1;
-  v27 = 0;
-  v28 = 1;
-  v29 = -1;
-  v30 = 0;
-  v31 = -1;
-  v32 = 0;
-  v33 = 0;
-  v34 = 0;
-  v35 = 0;
-  v36 = 0;
-  v37 = 1;
-  v38 = -1;
-  v39 = -1;
-  v40 = 1;
-  v41 = -1;
-  v42 = 0;
-  v43 = -1;
-  v44 = 2;
-  v45 = 1;
-  v46 = -1;
-  v47 = 0;
-  v48 = 0;
-  v49 = -1;
-  v50 = 1;
-  v51 = 0;
-  memset(v7, 0, 0xC0uLL);
-  v8 = 0;
-  memset(v5, 0, 0xC0uLL);
-  v6 = 0;
-  Step_0((int (*)[7])v9, 7, (int (*)[7])v7);
-  Step_1((int (*)[7])v7, 7, (int (*)[7])v5);
-  v3 = std::operator&lt;&lt;&lt;std::char_traits&lt;char&gt;&gt;(&amp;_bss_start, &quot;Please help me out!&quot;);
-  std::ostream::operator&lt;&lt;(v3, &amp;std::endl&lt;char,std::char_traits&lt;char&gt;&gt;);
-  Step_2((int (*)[7])v5, 7);
-  system(&quot;pause&quot;);
-  return 0;
-&#125;
-</code></pre>
 <p>首先新建了三个地图，初始化了其中一个，然后利用下面两步分别初始化另外两个图</p>
-<pre><code class="c++">Step_0((int (*)[7])v9, 7, (int (*)[7])v7);
-Step_1((int (*)[7])v7, 7, (int (*)[7])v5);
-</code></pre>
-<p>具体的操作在<code>Step_2((int (*)[7])v5, 7)</code>里，可以看到只用了最后的一个图，可以直接动态调试<code>dump</code>出地图来，然后看一下具体操作</p>
-<pre><code class="c++">__int64 __fastcall Step_2(int (*a1)[7])
-&#123;
-  int v1; // eax
-  __int64 v2; // rax
-  __int64 v3; // rax
-  __int64 result; // rax
-  __int64 v5; // rax
-  char v6[35]; // [rsp+10h] [rbp-30h]
-  char v7; // [rsp+33h] [rbp-Dh]
-  int v8; // [rsp+34h] [rbp-Ch]
-  int v9; // [rsp+38h] [rbp-8h]
-  int v10; // [rsp+3Ch] [rbp-4h]
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Step_0</span>((<span class="built_in"><span class="keyword">int</span></span> (*)[<span class="number">7</span>])v9, <span class="number">7</span>, (<span class="built_in"><span class="keyword">int</span></span> (*)[<span class="number">7</span>])v7);</span><br><span class="line"><span class="built_in">Step_1</span>((<span class="built_in"><span class="keyword">int</span></span> (*)[<span class="number">7</span>])v7, <span class="number">7</span>, (<span class="built_in"><span class="keyword">int</span></span> (*)[<span class="number">7</span>])v5);</span><br></pre></td></tr></table></figure>
 
-  v10 = 0;
-  v9 = 0;
-  v8 = 0;
-  while ( v8 &lt;= 29 &amp;&amp; (*a1)[7 * v10 + v9] == 1 )
-  &#123;
-    std::operator&gt;&gt;&lt;char,std::char_traits&lt;char&gt;&gt;(&amp;std::cin, &amp;v7);
-    v1 = v8++;
-    v6[v1] = v7;
-    if ( v7 == 100 )
-    &#123;
-      ++v9;
-    &#125;
-    else if ( v7 &gt; 100 )
-    &#123;
-      if ( v7 == 115 )
-      &#123;
-        ++v10;
-      &#125;
-      else
-      &#123;
-        if ( v7 != 119 )
-          goto LABEL_14;
-        --v10;
-      &#125;
-    &#125;
-    else if ( v7 == 97 )
-    &#123;
-      --v9;
-    &#125;
-    else
-    &#123;
-LABEL_14:
-      v2 = std::operator&lt;&lt;&lt;std::char_traits&lt;char&gt;&gt;(&amp;_bss_start, &quot;include illegal words.&quot;);
-      std::ostream::operator&lt;&lt;(v2, &amp;std::endl&lt;char,std::char_traits&lt;char&gt;&gt;);
-    &#125;
-  &#125;
-  if ( v10 != 6 || v9 != 6 )
-  &#123;
-    v5 = std::operator&lt;&lt;&lt;std::char_traits&lt;char&gt;&gt;(&amp;_bss_start, &quot;Oh no!,Please try again~~&quot;);
-    std::ostream::operator&lt;&lt;(v5, &amp;std::endl&lt;char,std::char_traits&lt;char&gt;&gt;);
-    result = 0LL;
-  &#125;
-  else
-  &#123;
-    v3 = std::operator&lt;&lt;&lt;std::char_traits&lt;char&gt;&gt;(&amp;_bss_start, &quot;Congratulations!&quot;);
-    std::ostream::operator&lt;&lt;(v3, &amp;std::endl&lt;char,std::char_traits&lt;char&gt;&gt;);
-    output(v6, v8);
-    result = 1LL;
-  &#125;
-  return result;
-&#125;
-</code></pre>
+<p>具体的操作在<code>Step_2((int (*)[7])v5, 7)</code>里，可以看到只用了最后的一个图，可以直接动态调试<code>dump</code>出地图来，然后看一下具体操作</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">__int64 __fastcall <span class="title">Step_2</span><span class="params">(<span class="keyword">int</span> (*a1)[<span class="number">7</span>])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">int</span> v1; <span class="comment">// eax</span></span><br><span class="line">  __int64 v2; <span class="comment">// rax</span></span><br><span class="line">  __int64 v3; <span class="comment">// rax</span></span><br><span class="line">  __int64 result; <span class="comment">// rax</span></span><br><span class="line">  __int64 v5; <span class="comment">// rax</span></span><br><span class="line">  <span class="keyword">char</span> v6[<span class="number">35</span>]; <span class="comment">// [rsp+10h] [rbp-30h]</span></span><br><span class="line">  <span class="keyword">char</span> v7; <span class="comment">// [rsp+33h] [rbp-Dh]</span></span><br><span class="line">  <span class="keyword">int</span> v8; <span class="comment">// [rsp+34h] [rbp-Ch]</span></span><br><span class="line">  <span class="keyword">int</span> v9; <span class="comment">// [rsp+38h] [rbp-8h]</span></span><br><span class="line">  <span class="keyword">int</span> v10; <span class="comment">// [rsp+3Ch] [rbp-4h]</span></span><br><span class="line"></span><br><span class="line">  v10 = <span class="number">0</span>;</span><br><span class="line">  v9 = <span class="number">0</span>;</span><br><span class="line">  v8 = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">while</span> ( v8 &lt;= <span class="number">29</span> &amp;&amp; (*a1)[<span class="number">7</span> * v10 + v9] == <span class="number">1</span> )</span><br><span class="line">  &#123;</span><br><span class="line">    std::<span class="keyword">operator</span>&gt;&gt;&lt;<span class="keyword">char</span>,std::char_traits&lt;<span class="keyword">char</span>&gt;&gt;(&amp;std::cin, &amp;v7);</span><br><span class="line">    v1 = v8++;</span><br><span class="line">    v6[v1] = v7;</span><br><span class="line">    <span class="keyword">if</span> ( v7 == <span class="number">100</span> )</span><br><span class="line">    &#123;</span><br><span class="line">      ++v9;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> ( v7 &gt; <span class="number">100</span> )</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="keyword">if</span> ( v7 == <span class="number">115</span> )</span><br><span class="line">      &#123;</span><br><span class="line">        ++v10;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="keyword">else</span></span><br><span class="line">      &#123;</span><br><span class="line">        <span class="keyword">if</span> ( v7 != <span class="number">119</span> )</span><br><span class="line">          <span class="keyword">goto</span> LABEL_14;</span><br><span class="line">        --v10;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span> <span class="keyword">if</span> ( v7 == <span class="number">97</span> )</span><br><span class="line">    &#123;</span><br><span class="line">      --v9;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">    &#123;</span><br><span class="line">LABEL_14:</span><br><span class="line">      v2 = std::<span class="keyword">operator</span>&lt;&lt;&lt;std::char_traits&lt;<span class="keyword">char</span>&gt;&gt;(&amp;_bss_start, <span class="string">&quot;include illegal words.&quot;</span>);</span><br><span class="line">      std::ostream::<span class="keyword">operator</span>&lt;&lt;(v2, &amp;std::endl&lt;<span class="keyword">char</span>,std::char_traits&lt;<span class="keyword">char</span>&gt;&gt;);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> ( v10 != <span class="number">6</span> || v9 != <span class="number">6</span> )</span><br><span class="line">  &#123;</span><br><span class="line">    v5 = std::<span class="keyword">operator</span>&lt;&lt;&lt;std::char_traits&lt;<span class="keyword">char</span>&gt;&gt;(&amp;_bss_start, <span class="string">&quot;Oh no!,Please try again~~&quot;</span>);</span><br><span class="line">    std::ostream::<span class="keyword">operator</span>&lt;&lt;(v5, &amp;std::endl&lt;<span class="keyword">char</span>,std::char_traits&lt;<span class="keyword">char</span>&gt;&gt;);</span><br><span class="line">    result = <span class="number">0LL</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">else</span></span><br><span class="line">  &#123;</span><br><span class="line">    v3 = std::<span class="keyword">operator</span>&lt;&lt;&lt;std::char_traits&lt;<span class="keyword">char</span>&gt;&gt;(&amp;_bss_start, <span class="string">&quot;Congratulations!&quot;</span>);</span><br><span class="line">    std::ostream::<span class="keyword">operator</span>&lt;&lt;(v3, &amp;std::endl&lt;<span class="keyword">char</span>,std::char_traits&lt;<span class="keyword">char</span>&gt;&gt;);</span><br><span class="line">    <span class="built_in">output</span>(v6, v8);</span><br><span class="line">    result = <span class="number">1LL</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>难度不是很大，经典的<code>wasd</code>，只能经过1的位置，走到最后就可以了，整个路径的操作就是flag，格式为<code>UNCTF&#123;&#125;</code></p>
 <p><code>dump</code>出的地图为</p>
-<pre><code>1 0 0 1 1 1 1
-1 0 1 1 0 0 1
-1 1 1 0 1 1 1
-0 0 0 1 1 0 0
-1 1 1 1 0 0 0
-1 0 0 0 1 1 1
-1 1 1 1 1 0 1
-</code></pre>
+<figure class="highlight basic"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="symbol">1 </span><span class="number">0</span> <span class="number">0</span> <span class="number">1</span> <span class="number">1</span> <span class="number">1</span> <span class="number">1</span></span><br><span class="line"><span class="symbol">1 </span><span class="number">0</span> <span class="number">1</span> <span class="number">1</span> <span class="number">0</span> <span class="number">0</span> <span class="number">1</span></span><br><span class="line"><span class="symbol">1 </span><span class="number">1</span> <span class="number">1</span> <span class="number">0</span> <span class="number">1</span> <span class="number">1</span> <span class="number">1</span></span><br><span class="line"><span class="symbol">0 </span><span class="number">0</span> <span class="number">0</span> <span class="number">1</span> <span class="number">1</span> <span class="number">0</span> <span class="number">0</span></span><br><span class="line"><span class="symbol">1 </span><span class="number">1</span> <span class="number">1</span> <span class="number">1</span> <span class="number">0</span> <span class="number">0</span> <span class="number">0</span></span><br><span class="line"><span class="symbol">1 </span><span class="number">0</span> <span class="number">0</span> <span class="number">0</span> <span class="number">1</span> <span class="number">1</span> <span class="number">1</span></span><br><span class="line"><span class="symbol">1 </span><span class="number">1</span> <span class="number">1</span> <span class="number">1</span> <span class="number">1</span> <span class="number">0</span> <span class="number">1</span></span><br></pre></td></tr></table></figure>
+
 <p>走出来就可以了</p>
-<pre><code>ssddwdwdddssaasasaaassddddwdds
-</code></pre>
+<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">ssddwdwdddssaasasaaassddddwdds</span></span><br></pre></td></tr></table></figure>
+
 <p>验证一下</p>
-<pre><code class="bash">root@rycbar17th:~# ./easy_Maze 
-Please help me out!
-ssddwdwdddssaasasaaassddddwdds
-Congratulations!
-Thanks! Give you a flag: UNCTF&#123;ssddwdwdddssaasasaaassddddwdds&#125;
-sh: 1: pause: not found
-</code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">root@rycbar17th:~<span class="comment"># ./easy_Maze </span></span><br><span class="line">Please <span class="built_in">help</span> me out!</span><br><span class="line">ssddwdwdddssaasasaaassddddwdds</span><br><span class="line">Congratulations!</span><br><span class="line">Thanks! Give you a flag: UNCTF&#123;ssddwdwdddssaasasaaassddddwdds&#125;</span><br><span class="line">sh: 1: pause: not found</span><br></pre></td></tr></table></figure>
+
 <p>得到flag</p>
-<pre><code>UNCTF&#123;ssddwdwdddssaasasaaassddddwdds&#125;
-</code></pre>
+<figure class="highlight dust"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="xml">UNCTF</span><span class="template-variable">&#123;ssddwdwdddssaasasaaassddddwdds&#125;</span></span><br></pre></td></tr></table></figure>
+
+
+
 <h4 id="ReverseMe-120"><a href="#ReverseMe-120" class="headerlink" title="ReverseMe-120"></a>ReverseMe-120</h4><p>将输入的字符串进行base64加密然后异或，和明文字符串进行对比</p>
-<pre><code class="c++">if ( v18 &amp;&amp; *v19 &gt;= v13 )
-  &#123;
-    v21 = 3;
-    v14 = 0;
-    for ( lengtha = 0; v5; --v5 )
-    &#123;
-      v15 = *v7;
-      if ( *v7 != 13 &amp;&amp; v15 != 10 &amp;&amp; v15 != 32 )
-      &#123;
-        v16 = byte_414E40[v15];
-        v21 -= v16 == 64;
-        v14 = v16 &amp; 0x3F | (v14 &lt;&lt; 6);
-        if ( ++lengtha == 4 )
-        &#123;
-          lengtha = 0;
-          if ( v21 )
-            *v12++ = BYTE2(v14);
-          if ( v21 &gt; 1 )
-            *v12++ = BYTE1(v14);
-          if ( v21 &gt; 2 )
-            *v12++ = v14;
-        &#125;
-      &#125;
-      ++v7;
-    &#125;
-</code></pre>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> ( v18 &amp;&amp; *v19 &gt;= v13 )</span><br><span class="line">  &#123;</span><br><span class="line">    v21 = <span class="number">3</span>;</span><br><span class="line">    v14 = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> ( lengtha = <span class="number">0</span>; v5; --v5 )</span><br><span class="line">    &#123;</span><br><span class="line">      v15 = *v7;</span><br><span class="line">      <span class="keyword">if</span> ( *v7 != <span class="number">13</span> &amp;&amp; v15 != <span class="number">10</span> &amp;&amp; v15 != <span class="number">32</span> )</span><br><span class="line">      &#123;</span><br><span class="line">        v16 = byte_414E40[v15];</span><br><span class="line">        v21 -= v16 == <span class="number">64</span>;</span><br><span class="line">        v14 = v16 &amp; <span class="number">0x3F</span> | (v14 &lt;&lt; <span class="number">6</span>);</span><br><span class="line">        <span class="keyword">if</span> ( ++lengtha == <span class="number">4</span> )</span><br><span class="line">        &#123;</span><br><span class="line">          lengtha = <span class="number">0</span>;</span><br><span class="line">          <span class="keyword">if</span> ( v21 )</span><br><span class="line">            *v12++ = <span class="built_in">BYTE2</span>(v14);</span><br><span class="line">          <span class="keyword">if</span> ( v21 &gt; <span class="number">1</span> )</span><br><span class="line">            *v12++ = <span class="built_in">BYTE1</span>(v14);</span><br><span class="line">          <span class="keyword">if</span> ( v21 &gt; <span class="number">2</span> )</span><br><span class="line">            *v12++ = v14;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      ++v7;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
 <p>有很多的无用代码，这里是关键代码，可以看到每四个字节进行了拼接，输出为三个字节，很显然是base64。</p>
 <h4 id="Replace"><a href="#Replace" class="headerlink" title="Replace"></a>Replace</h4><p>湖湘杯2018的题目，当时还参加过，那时候连这道题都毫无头绪<del>(真的菜</del></p>
 <p>这就是个简单的换表题，先upx脱个壳</p>
-<pre><code class="c++">int __cdecl main(int argc, const char **argv, const char **envp)
-&#123;
-  int v3; // kr00_4
-  char Buf; // [esp+4h] [ebp-2Ch]
-  char Dst; // [esp+5h] [ebp-2Bh]
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> __cdecl <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">const</span> <span class="keyword">char</span> **argv, <span class="keyword">const</span> <span class="keyword">char</span> **envp)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">int</span> v3; <span class="comment">// kr00_4</span></span><br><span class="line">  <span class="keyword">char</span> Buf; <span class="comment">// [esp+4h] [ebp-2Ch]</span></span><br><span class="line">  <span class="keyword">char</span> Dst; <span class="comment">// [esp+5h] [ebp-2Bh]</span></span><br><span class="line"></span><br><span class="line">  Buf = <span class="number">0</span>;</span><br><span class="line">  <span class="built_in">memset</span>(&amp;Dst, <span class="number">0</span>, <span class="number">0x27</span>u);</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;Welcome The System\nPlease Input Key:&quot;</span>);</span><br><span class="line">  <span class="built_in">gets_s</span>(&amp;Buf, <span class="number">0x28</span>u);</span><br><span class="line">  v3 = <span class="built_in">strlen</span>(&amp;Buf);</span><br><span class="line">  <span class="keyword">if</span> ( (<span class="keyword">unsigned</span> <span class="keyword">int</span>)(v3 - <span class="number">35</span>) &lt;= <span class="number">2</span> )</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">if</span> ( <span class="built_in">sub_401090</span>((<span class="keyword">int</span>)&amp;Buf, v3) == <span class="number">1</span> )</span><br><span class="line">      <span class="built_in">printf</span>(<span class="string">&quot;Well Done!\n&quot;</span>);</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">      <span class="built_in">printf</span>(<span class="string">&quot;Your Wrong!\n&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">signed</span> <span class="keyword">int</span> __fastcall <span class="title">sub_401090</span><span class="params">(<span class="keyword">int</span> input, <span class="keyword">int</span> length)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">int</span> _input; <span class="comment">// ebx</span></span><br><span class="line">  <span class="keyword">int</span> index; <span class="comment">// edx</span></span><br><span class="line">  <span class="keyword">char</span> tmp_char; <span class="comment">// al</span></span><br><span class="line">  <span class="keyword">int</span> v6; <span class="comment">// esi</span></span><br><span class="line">  <span class="keyword">int</span> v7; <span class="comment">// edi</span></span><br><span class="line">  <span class="keyword">char</span> v8; <span class="comment">// al</span></span><br><span class="line">  <span class="keyword">int</span> v9; <span class="comment">// eax</span></span><br><span class="line">  <span class="keyword">char</span> v10; <span class="comment">// cl</span></span><br><span class="line">  <span class="keyword">int</span> v11; <span class="comment">// eax</span></span><br><span class="line">  <span class="keyword">int</span> v12; <span class="comment">// ecx</span></span><br><span class="line"></span><br><span class="line">  _input = input;</span><br><span class="line">  <span class="keyword">if</span> ( length != <span class="number">35</span> )</span><br><span class="line">    <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">  index = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">while</span> ( <span class="number">1</span> )</span><br><span class="line">  &#123;</span><br><span class="line">    tmp_char = *(_BYTE *)(index + _input);</span><br><span class="line">    v6 = (tmp_char &gt;&gt; <span class="number">4</span>) % <span class="number">16</span>;</span><br><span class="line">    v7 = (<span class="number">16</span> * tmp_char &gt;&gt; <span class="number">4</span>) % <span class="number">16</span>;</span><br><span class="line">    v8 = byte_402150[<span class="number">2</span> * index];</span><br><span class="line">    <span class="keyword">if</span> ( v8 &lt; <span class="string">&#x27;0&#x27;</span> || v8 &gt; <span class="string">&#x27;9&#x27;</span> )</span><br><span class="line">      v9 = v8 - <span class="string">&#x27;W&#x27;</span>;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">      v9 = v8 - <span class="string">&#x27;0&#x27;</span>;</span><br><span class="line">    v10 = byte_402151[<span class="number">2</span> * index];</span><br><span class="line">    v11 = <span class="number">16</span> * v9;</span><br><span class="line">    <span class="keyword">if</span> ( v10 &lt; <span class="string">&#x27;0&#x27;</span> || v10 &gt; <span class="string">&#x27;9&#x27;</span> )</span><br><span class="line">      v12 = v10 - <span class="string">&#x27;W&#x27;</span>;</span><br><span class="line">    <span class="keyword">else</span></span><br><span class="line">      v12 = v10 - <span class="string">&#x27;0&#x27;</span>;</span><br><span class="line">    <span class="keyword">if</span> ( (<span class="keyword">unsigned</span> __int8)byte_4021A0[<span class="number">16</span> * v6 + v7] != ((v11 + v12) ^ <span class="number">0x19</span>) )</span><br><span class="line">      <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">if</span> ( ++index &gt;= <span class="number">35</span> )</span><br><span class="line">      <span class="keyword">return</span> <span class="number">1</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">-1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-  Buf = 0;
-  memset(&amp;Dst, 0, 0x27u);
-  printf(&quot;Welcome The System\nPlease Input Key:&quot;);
-  gets_s(&amp;Buf, 0x28u);
-  v3 = strlen(&amp;Buf);
-  if ( (unsigned int)(v3 - 35) &lt;= 2 )
-  &#123;
-    if ( sub_401090((int)&amp;Buf, v3) == 1 )
-      printf(&quot;Well Done!\n&quot;);
-    else
-      printf(&quot;Your Wrong!\n&quot;);
-  &#125;
-  return 0;
-&#125;
-
-signed int __fastcall sub_401090(int input, int length)
-&#123;
-  int _input; // ebx
-  int index; // edx
-  char tmp_char; // al
-  int v6; // esi
-  int v7; // edi
-  char v8; // al
-  int v9; // eax
-  char v10; // cl
-  int v11; // eax
-  int v12; // ecx
-
-  _input = input;
-  if ( length != 35 )
-    return -1;
-  index = 0;
-  while ( 1 )
-  &#123;
-    tmp_char = *(_BYTE *)(index + _input);
-    v6 = (tmp_char &gt;&gt; 4) % 16;
-    v7 = (16 * tmp_char &gt;&gt; 4) % 16;
-    v8 = byte_402150[2 * index];
-    if ( v8 &lt; &#39;0&#39; || v8 &gt; &#39;9&#39; )
-      v9 = v8 - &#39;W&#39;;
-    else
-      v9 = v8 - &#39;0&#39;;
-    v10 = byte_402151[2 * index];
-    v11 = 16 * v9;
-    if ( v10 &lt; &#39;0&#39; || v10 &gt; &#39;9&#39; )
-      v12 = v10 - &#39;W&#39;;
-    else
-      v12 = v10 - &#39;0&#39;;
-    if ( (unsigned __int8)byte_4021A0[16 * v6 + v7] != ((v11 + v12) ^ 0x19) )
-      break;
-    if ( ++index &gt;= 35 )
-      return 1;
-  &#125;
-  return -1;
-&#125;
-</code></pre>
 <p>处理了半天，高四位低四位的处理来处理去，最后还要合在一起……</p>
-<pre><code class="python">target = [
-    0x63, 0x7C, 0x77, 0x7B, 0xF2, 0x6B, 0x6F, 0xC5, 0x30, 0x01,
-    0x67, 0x2B, 0xFE, 0xD7, 0xAB, 0x76, 0xCA, 0x82, 0xC9, 0x7D,
-    0xFA, 0x59, 0x47, 0xF0, 0xAD, 0xD4, 0xA2, 0xAF, 0x9C, 0xA4,
-    0x72, 0xC0, 0xB7, 0xFD, 0x93, 0x26, 0x36, 0x3F, 0xF7, 0xCC,
-    0x34, 0xA5, 0xE5, 0xF1, 0x71, 0xD8, 0x31, 0x15, 0x04, 0xC7,
-    0x23, 0xC3, 0x18, 0x96, 0x05, 0x9A, 0x07, 0x12, 0x80, 0xE2,
-    0xEB, 0x27, 0xB2, 0x75, 0x09, 0x83, 0x2C, 0x1A, 0x1B, 0x6E,
-    0x5A, 0xA0, 0x52, 0x3B, 0xD6, 0xB3, 0x29, 0xE3, 0x2F, 0x84,
-    0x53, 0xD1, 0x00, 0xED, 0x20, 0xFC, 0xB1, 0x5B, 0x6A, 0xCB,
-    0xBE, 0x39, 0x4A, 0x4C, 0x58, 0xCF, 0xD0, 0xEF, 0xAA, 0xFB,
-    0x43, 0x4D, 0x33, 0x85, 0x45, 0xF9, 0x02, 0x7F, 0x50, 0x3C,
-    0x9F, 0xA8, 0x51, 0xA3, 0x40, 0x8F, 0x92, 0x9D, 0x38, 0xF5,
-    0xBC, 0xB6, 0xDA, 0x21, 0x10, 0xFF, 0xF3, 0xD2, 0xCD, 0x0C,
-    0x13, 0xEC, 0x5F, 0x97, 0x44, 0x17, 0xC4, 0xA7, 0x7E, 0x3D,
-    0x64, 0x5D, 0x19, 0x73, 0x60, 0x81, 0x4F, 0xDC, 0x22, 0x2A,
-    0x90, 0x88, 0x46, 0xEE, 0xB8, 0x14, 0xDE, 0x5E, 0x0B, 0xDB,
-    0xE0, 0x32, 0x3A, 0x0A, 0x49, 0x06, 0x24, 0x5C, 0xC2, 0xD3,
-    0xAC, 0x62, 0x91, 0x95, 0xE4, 0x79, 0xE7, 0xC8, 0x37, 0x6D,
-    0x8D, 0xD5, 0x4E, 0xA9, 0x6C, 0x56, 0xF4, 0xEA, 0x65, 0x7A,
-    0xAE, 0x08, 0xBA, 0x78, 0x25, 0x2E, 0x1C, 0xA6, 0xB4, 0xC6,
-    0xE8, 0xDD, 0x74, 0x1F, 0x4B, 0xBD, 0x8B, 0x8A, 0x70, 0x3E,
-    0xB5, 0x66, 0x48, 0x03, 0xF6, 0x0E, 0x61, 0x35, 0x57, 0xB9,
-    0x86, 0xC1, 0x1D, 0x9E, 0xE1, 0xF8, 0x98, 0x11, 0x69, 0xD9,
-    0x8E, 0x94, 0x9B, 0x1E, 0x87, 0xE9, 0xCE, 0x55, 0x28, 0xDF,
-    0x8C, 0xA1, 0x89, 0x0D, 0xBF, 0xE6, 0x42, 0x68, 0x41, 0x99,
-    0x2D, 0x0F, 0xB0, 0x54, 0xBB, 0x16
-]
-var = [0x2a, 0x49, 0xf6, 0x9c, 0x38, 0x39, 0x5c, 0xde, 0x96, 0xd6, 0xde, 0x96, 0xd6, 0xf4, 0xe0, 0x25, 0x48, 0x49,
-       0x54, 0xd6, 0x19, 0x54, 0x48, 0xde, 0xf6, 0xe2, 0xda, 0xd6, 0x77, 0x86, 0xe2, 0x1d, 0x5a, 0xda, 0xe6]
-flag = &#39;&#39;
-for i in var:
-    tmp = target.index(i^0x19)
-    flag += chr(tmp)
-print(flag)
-</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">target = [</span><br><span class="line">    <span class="number">0x63</span>, <span class="number">0x7C</span>, <span class="number">0x77</span>, <span class="number">0x7B</span>, <span class="number">0xF2</span>, <span class="number">0x6B</span>, <span class="number">0x6F</span>, <span class="number">0xC5</span>, <span class="number">0x30</span>, <span class="number">0x01</span>,</span><br><span class="line">    <span class="number">0x67</span>, <span class="number">0x2B</span>, <span class="number">0xFE</span>, <span class="number">0xD7</span>, <span class="number">0xAB</span>, <span class="number">0x76</span>, <span class="number">0xCA</span>, <span class="number">0x82</span>, <span class="number">0xC9</span>, <span class="number">0x7D</span>,</span><br><span class="line">    <span class="number">0xFA</span>, <span class="number">0x59</span>, <span class="number">0x47</span>, <span class="number">0xF0</span>, <span class="number">0xAD</span>, <span class="number">0xD4</span>, <span class="number">0xA2</span>, <span class="number">0xAF</span>, <span class="number">0x9C</span>, <span class="number">0xA4</span>,</span><br><span class="line">    <span class="number">0x72</span>, <span class="number">0xC0</span>, <span class="number">0xB7</span>, <span class="number">0xFD</span>, <span class="number">0x93</span>, <span class="number">0x26</span>, <span class="number">0x36</span>, <span class="number">0x3F</span>, <span class="number">0xF7</span>, <span class="number">0xCC</span>,</span><br><span class="line">    <span class="number">0x34</span>, <span class="number">0xA5</span>, <span class="number">0xE5</span>, <span class="number">0xF1</span>, <span class="number">0x71</span>, <span class="number">0xD8</span>, <span class="number">0x31</span>, <span class="number">0x15</span>, <span class="number">0x04</span>, <span class="number">0xC7</span>,</span><br><span class="line">    <span class="number">0x23</span>, <span class="number">0xC3</span>, <span class="number">0x18</span>, <span class="number">0x96</span>, <span class="number">0x05</span>, <span class="number">0x9A</span>, <span class="number">0x07</span>, <span class="number">0x12</span>, <span class="number">0x80</span>, <span class="number">0xE2</span>,</span><br><span class="line">    <span class="number">0xEB</span>, <span class="number">0x27</span>, <span class="number">0xB2</span>, <span class="number">0x75</span>, <span class="number">0x09</span>, <span class="number">0x83</span>, <span class="number">0x2C</span>, <span class="number">0x1A</span>, <span class="number">0x1B</span>, <span class="number">0x6E</span>,</span><br><span class="line">    <span class="number">0x5A</span>, <span class="number">0xA0</span>, <span class="number">0x52</span>, <span class="number">0x3B</span>, <span class="number">0xD6</span>, <span class="number">0xB3</span>, <span class="number">0x29</span>, <span class="number">0xE3</span>, <span class="number">0x2F</span>, <span class="number">0x84</span>,</span><br><span class="line">    <span class="number">0x53</span>, <span class="number">0xD1</span>, <span class="number">0x00</span>, <span class="number">0xED</span>, <span class="number">0x20</span>, <span class="number">0xFC</span>, <span class="number">0xB1</span>, <span class="number">0x5B</span>, <span class="number">0x6A</span>, <span class="number">0xCB</span>,</span><br><span class="line">    <span class="number">0xBE</span>, <span class="number">0x39</span>, <span class="number">0x4A</span>, <span class="number">0x4C</span>, <span class="number">0x58</span>, <span class="number">0xCF</span>, <span class="number">0xD0</span>, <span class="number">0xEF</span>, <span class="number">0xAA</span>, <span class="number">0xFB</span>,</span><br><span class="line">    <span class="number">0x43</span>, <span class="number">0x4D</span>, <span class="number">0x33</span>, <span class="number">0x85</span>, <span class="number">0x45</span>, <span class="number">0xF9</span>, <span class="number">0x02</span>, <span class="number">0x7F</span>, <span class="number">0x50</span>, <span class="number">0x3C</span>,</span><br><span class="line">    <span class="number">0x9F</span>, <span class="number">0xA8</span>, <span class="number">0x51</span>, <span class="number">0xA3</span>, <span class="number">0x40</span>, <span class="number">0x8F</span>, <span class="number">0x92</span>, <span class="number">0x9D</span>, <span class="number">0x38</span>, <span class="number">0xF5</span>,</span><br><span class="line">    <span class="number">0xBC</span>, <span class="number">0xB6</span>, <span class="number">0xDA</span>, <span class="number">0x21</span>, <span class="number">0x10</span>, <span class="number">0xFF</span>, <span class="number">0xF3</span>, <span class="number">0xD2</span>, <span class="number">0xCD</span>, <span class="number">0x0C</span>,</span><br><span class="line">    <span class="number">0x13</span>, <span class="number">0xEC</span>, <span class="number">0x5F</span>, <span class="number">0x97</span>, <span class="number">0x44</span>, <span class="number">0x17</span>, <span class="number">0xC4</span>, <span class="number">0xA7</span>, <span class="number">0x7E</span>, <span class="number">0x3D</span>,</span><br><span class="line">    <span class="number">0x64</span>, <span class="number">0x5D</span>, <span class="number">0x19</span>, <span class="number">0x73</span>, <span class="number">0x60</span>, <span class="number">0x81</span>, <span class="number">0x4F</span>, <span class="number">0xDC</span>, <span class="number">0x22</span>, <span class="number">0x2A</span>,</span><br><span class="line">    <span class="number">0x90</span>, <span class="number">0x88</span>, <span class="number">0x46</span>, <span class="number">0xEE</span>, <span class="number">0xB8</span>, <span class="number">0x14</span>, <span class="number">0xDE</span>, <span class="number">0x5E</span>, <span class="number">0x0B</span>, <span class="number">0xDB</span>,</span><br><span class="line">    <span class="number">0xE0</span>, <span class="number">0x32</span>, <span class="number">0x3A</span>, <span class="number">0x0A</span>, <span class="number">0x49</span>, <span class="number">0x06</span>, <span class="number">0x24</span>, <span class="number">0x5C</span>, <span class="number">0xC2</span>, <span class="number">0xD3</span>,</span><br><span class="line">    <span class="number">0xAC</span>, <span class="number">0x62</span>, <span class="number">0x91</span>, <span class="number">0x95</span>, <span class="number">0xE4</span>, <span class="number">0x79</span>, <span class="number">0xE7</span>, <span class="number">0xC8</span>, <span class="number">0x37</span>, <span class="number">0x6D</span>,</span><br><span class="line">    <span class="number">0x8D</span>, <span class="number">0xD5</span>, <span class="number">0x4E</span>, <span class="number">0xA9</span>, <span class="number">0x6C</span>, <span class="number">0x56</span>, <span class="number">0xF4</span>, <span class="number">0xEA</span>, <span class="number">0x65</span>, <span class="number">0x7A</span>,</span><br><span class="line">    <span class="number">0xAE</span>, <span class="number">0x08</span>, <span class="number">0xBA</span>, <span class="number">0x78</span>, <span class="number">0x25</span>, <span class="number">0x2E</span>, <span class="number">0x1C</span>, <span class="number">0xA6</span>, <span class="number">0xB4</span>, <span class="number">0xC6</span>,</span><br><span class="line">    <span class="number">0xE8</span>, <span class="number">0xDD</span>, <span class="number">0x74</span>, <span class="number">0x1F</span>, <span class="number">0x4B</span>, <span class="number">0xBD</span>, <span class="number">0x8B</span>, <span class="number">0x8A</span>, <span class="number">0x70</span>, <span class="number">0x3E</span>,</span><br><span class="line">    <span class="number">0xB5</span>, <span class="number">0x66</span>, <span class="number">0x48</span>, <span class="number">0x03</span>, <span class="number">0xF6</span>, <span class="number">0x0E</span>, <span class="number">0x61</span>, <span class="number">0x35</span>, <span class="number">0x57</span>, <span class="number">0xB9</span>,</span><br><span class="line">    <span class="number">0x86</span>, <span class="number">0xC1</span>, <span class="number">0x1D</span>, <span class="number">0x9E</span>, <span class="number">0xE1</span>, <span class="number">0xF8</span>, <span class="number">0x98</span>, <span class="number">0x11</span>, <span class="number">0x69</span>, <span class="number">0xD9</span>,</span><br><span class="line">    <span class="number">0x8E</span>, <span class="number">0x94</span>, <span class="number">0x9B</span>, <span class="number">0x1E</span>, <span class="number">0x87</span>, <span class="number">0xE9</span>, <span class="number">0xCE</span>, <span class="number">0x55</span>, <span class="number">0x28</span>, <span class="number">0xDF</span>,</span><br><span class="line">    <span class="number">0x8C</span>, <span class="number">0xA1</span>, <span class="number">0x89</span>, <span class="number">0x0D</span>, <span class="number">0xBF</span>, <span class="number">0xE6</span>, <span class="number">0x42</span>, <span class="number">0x68</span>, <span class="number">0x41</span>, <span class="number">0x99</span>,</span><br><span class="line">    <span class="number">0x2D</span>, <span class="number">0x0F</span>, <span class="number">0xB0</span>, <span class="number">0x54</span>, <span class="number">0xBB</span>, <span class="number">0x16</span></span><br><span class="line">]</span><br><span class="line">var = [<span class="number">0x2a</span>, <span class="number">0x49</span>, <span class="number">0xf6</span>, <span class="number">0x9c</span>, <span class="number">0x38</span>, <span class="number">0x39</span>, <span class="number">0x5c</span>, <span class="number">0xde</span>, <span class="number">0x96</span>, <span class="number">0xd6</span>, <span class="number">0xde</span>, <span class="number">0x96</span>, <span class="number">0xd6</span>, <span class="number">0xf4</span>, <span class="number">0xe0</span>, <span class="number">0x25</span>, <span class="number">0x48</span>, <span class="number">0x49</span>,</span><br><span class="line">       <span class="number">0x54</span>, <span class="number">0xd6</span>, <span class="number">0x19</span>, <span class="number">0x54</span>, <span class="number">0x48</span>, <span class="number">0xde</span>, <span class="number">0xf6</span>, <span class="number">0xe2</span>, <span class="number">0xda</span>, <span class="number">0xd6</span>, <span class="number">0x77</span>, <span class="number">0x86</span>, <span class="number">0xe2</span>, <span class="number">0x1d</span>, <span class="number">0x5a</span>, <span class="number">0xda</span>, <span class="number">0xe6</span>]</span><br><span class="line">flag = <span class="string">&#x27;&#x27;</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> var:</span><br><span class="line">    tmp = target.index(i^<span class="number">0x19</span>)</span><br><span class="line">    flag += <span class="built_in">chr</span>(tmp)</span><br><span class="line"><span class="built_in">print</span>(flag)</span><br></pre></td></tr></table></figure>
+
 <p>输出flag</p>
-<pre><code>flag&#123;Th1s_1s_Simple_Rep1ac3_Enc0d3&#125;
-</code></pre>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">flag</span>&#123;Th<span class="number">1</span>s_<span class="number">1</span>s_Simple_Rep<span class="number">1</span>ac<span class="number">3</span>_Enc<span class="number">0</span>d<span class="number">3</span>&#125;</span><br></pre></td></tr></table></figure>
+
+
+
 <h4 id="babyRE"><a href="#babyRE" class="headerlink" title="babyRE"></a>babyRE</h4><p>又是一道SMC，不知道为什么最近遇到的还是挺多的</p>
 <p>没有任何加密，IDA打开</p>
-<pre><code class="c++">int __cdecl main(int argc, const char **argv, const char **envp)
-&#123;
-  char s; // [rsp+0h] [rbp-20h]
-  int v5; // [rsp+18h] [rbp-8h]
-  int i; // [rsp+1Ch] [rbp-4h]
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> __cdecl <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">const</span> <span class="keyword">char</span> **argv, <span class="keyword">const</span> <span class="keyword">char</span> **envp)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">char</span> s; <span class="comment">// [rsp+0h] [rbp-20h]</span></span><br><span class="line">  <span class="keyword">int</span> v5; <span class="comment">// [rsp+18h] [rbp-8h]</span></span><br><span class="line">  <span class="keyword">int</span> i; <span class="comment">// [rsp+1Ch] [rbp-4h]</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> ( i = <span class="number">0</span>; i &lt;= <span class="number">181</span>; ++i )</span><br><span class="line">  &#123;</span><br><span class="line">    envp = (<span class="keyword">const</span> <span class="keyword">char</span> **)(*((<span class="keyword">unsigned</span> __int8 *)judge + i) ^ <span class="number">0xC</span>u);</span><br><span class="line">    *((_BYTE *)judge + i) ^= <span class="number">0xC</span>u;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;Please input flag:&quot;</span>, argv, envp);</span><br><span class="line">  __isoc99_scanf(<span class="string">&quot;%20s&quot;</span>, &amp;s);</span><br><span class="line">  v5 = <span class="built_in">strlen</span>(&amp;s);</span><br><span class="line">  <span class="keyword">if</span> ( v5 == <span class="number">14</span> &amp;&amp; (<span class="keyword">unsigned</span> <span class="keyword">int</span>)<span class="built_in">judge</span>((__int64)&amp;s) )</span><br><span class="line">    <span class="built_in">puts</span>(<span class="string">&quot;Right!&quot;</span>);</span><br><span class="line">  <span class="keyword">else</span></span><br><span class="line">    <span class="built_in">puts</span>(<span class="string">&quot;Wrong!&quot;</span>);</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-  for ( i = 0; i &lt;= 181; ++i )
-  &#123;
-    envp = (const char **)(*((unsigned __int8 *)judge + i) ^ 0xCu);
-    *((_BYTE *)judge + i) ^= 0xCu;
-  &#125;
-  printf(&quot;Please input flag:&quot;, argv, envp);
-  __isoc99_scanf(&quot;%20s&quot;, &amp;s);
-  v5 = strlen(&amp;s);
-  if ( v5 == 14 &amp;&amp; (unsigned int)judge((__int64)&amp;s) )
-    puts(&quot;Right!&quot;);
-  else
-    puts(&quot;Wrong!&quot;);
-  return 0;
-&#125;
-</code></pre>
 <p>经典的输入然后验证，不过<code>judge</code>函数是打不开的，看前面的操作，典型的SMC，写个IDC脚本跑一下</p>
-<pre><code class="c++">#include &lt;idc.idc&gt;
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;idc.idc&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">static</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">auto</span> judge, addr,tmp;</span><br><span class="line">    judge = <span class="number">0x600B00</span>;</span><br><span class="line">    <span class="keyword">auto</span> i;</span><br><span class="line">    <span class="keyword">for</span> ( i = <span class="number">0</span>; i &lt;= <span class="number">181</span>; ++i )</span><br><span class="line">    &#123;</span><br><span class="line">        addr=judge+i;</span><br><span class="line">        tmp=<span class="built_in">Byte</span>(addr);</span><br><span class="line">        tmp=tmp^ <span class="number">0xC</span>;</span><br><span class="line">        <span class="built_in">PatchByte</span>(addr,tmp);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="built_in">Message</span>(<span class="string">&quot;Down!&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-static main() &#123;
-    auto judge, addr,tmp;
-    judge = 0x600B00;
-    auto i;
-    for ( i = 0; i &lt;= 181; ++i )
-    &#123;
-        addr=judge+i;
-        tmp=Byte(addr);
-        tmp=tmp^ 0xC;
-        PatchByte(addr,tmp);
-    &#125;
-
-    Message(&quot;Down!&quot;);
-&#125;
-</code></pre>
 <p>然后改一下<code>judge</code>函数的结束位置，<code>F5</code>分析，逻辑很好懂</p>
-<pre><code class="c++">signed __int64 __fastcall judge(__int64 a1)
-&#123;
-  __int64 v2; // [rsp-8h] [rbp-8h]
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">signed</span> __int64 __fastcall <span class="title">judge</span><span class="params">(__int64 a1)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  __int64 v2; <span class="comment">// [rsp-8h] [rbp-8h]</span></span><br><span class="line"></span><br><span class="line">  *(&amp;v2 - <span class="number">5</span>) = a1;</span><br><span class="line">  *((_BYTE *)&amp;v2 - <span class="number">32</span>) = <span class="number">0x66</span>;</span><br><span class="line">  *((_BYTE *)&amp;v2 - <span class="number">31</span>) = <span class="number">0x6D</span>;</span><br><span class="line">  *((_BYTE *)&amp;v2 - <span class="number">30</span>) = <span class="number">0x63</span>;</span><br><span class="line">  *((_BYTE *)&amp;v2 - <span class="number">29</span>) = <span class="number">0x64</span>;</span><br><span class="line">  *((_BYTE *)&amp;v2 - <span class="number">28</span>) = <span class="number">0x7F</span>;</span><br><span class="line">  *((_BYTE *)&amp;v2 - <span class="number">27</span>) = <span class="number">0x6B</span>;</span><br><span class="line">  *((_BYTE *)&amp;v2 - <span class="number">26</span>) = <span class="number">0x37</span>;</span><br><span class="line">  *((_BYTE *)&amp;v2 - <span class="number">25</span>) = <span class="number">0x64</span>;</span><br><span class="line">  *((_BYTE *)&amp;v2 - <span class="number">24</span>) = <span class="number">0x3B</span>;</span><br><span class="line">  *((_BYTE *)&amp;v2 - <span class="number">23</span>) = <span class="number">0x56</span>;</span><br><span class="line">  *((_BYTE *)&amp;v2 - <span class="number">22</span>) = <span class="number">0x60</span>;</span><br><span class="line">  *((_BYTE *)&amp;v2 - <span class="number">21</span>) = <span class="number">0x3B</span>;</span><br><span class="line">  *((_BYTE *)&amp;v2 - <span class="number">20</span>) = <span class="number">0x6E</span>;</span><br><span class="line">  *((_BYTE *)&amp;v2 - <span class="number">19</span>) = <span class="number">0x70</span>;</span><br><span class="line">  <span class="keyword">for</span> ( *((_DWORD *)&amp;v2 - <span class="number">1</span>) = <span class="number">0</span>; *((_DWORD *)&amp;v2 - <span class="number">1</span>) &lt;= <span class="number">13</span>; ++*((_DWORD *)&amp;v2 - <span class="number">1</span>) )</span><br><span class="line">    *(_BYTE *)(*((<span class="keyword">signed</span> <span class="keyword">int</span> *)&amp;v2 - <span class="number">1</span>) + *(&amp;v2 - <span class="number">5</span>)) ^= *((_DWORD *)&amp;v2 - <span class="number">1</span>);</span><br><span class="line">  <span class="keyword">for</span> ( *((_DWORD *)&amp;v2 - <span class="number">1</span>) = <span class="number">0</span>; *((_DWORD *)&amp;v2 - <span class="number">1</span>) &lt;= <span class="number">13</span>; ++*((_DWORD *)&amp;v2 - <span class="number">1</span>) )</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">if</span> ( *(_BYTE *)(*((<span class="keyword">signed</span> <span class="keyword">int</span> *)&amp;v2 - <span class="number">1</span>) + *(&amp;v2 - <span class="number">5</span>)) != *((_BYTE *)&amp;v2 + *((<span class="keyword">signed</span> <span class="keyword">int</span> *)&amp;v2 - <span class="number">1</span>) - <span class="number">32</span>) )</span><br><span class="line">      <span class="keyword">return</span> <span class="number">0LL</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">1LL</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-  *(&amp;v2 - 5) = a1;
-  *((_BYTE *)&amp;v2 - 32) = 0x66;
-  *((_BYTE *)&amp;v2 - 31) = 0x6D;
-  *((_BYTE *)&amp;v2 - 30) = 0x63;
-  *((_BYTE *)&amp;v2 - 29) = 0x64;
-  *((_BYTE *)&amp;v2 - 28) = 0x7F;
-  *((_BYTE *)&amp;v2 - 27) = 0x6B;
-  *((_BYTE *)&amp;v2 - 26) = 0x37;
-  *((_BYTE *)&amp;v2 - 25) = 0x64;
-  *((_BYTE *)&amp;v2 - 24) = 0x3B;
-  *((_BYTE *)&amp;v2 - 23) = 0x56;
-  *((_BYTE *)&amp;v2 - 22) = 0x60;
-  *((_BYTE *)&amp;v2 - 21) = 0x3B;
-  *((_BYTE *)&amp;v2 - 20) = 0x6E;
-  *((_BYTE *)&amp;v2 - 19) = 0x70;
-  for ( *((_DWORD *)&amp;v2 - 1) = 0; *((_DWORD *)&amp;v2 - 1) &lt;= 13; ++*((_DWORD *)&amp;v2 - 1) )
-    *(_BYTE *)(*((signed int *)&amp;v2 - 1) + *(&amp;v2 - 5)) ^= *((_DWORD *)&amp;v2 - 1);
-  for ( *((_DWORD *)&amp;v2 - 1) = 0; *((_DWORD *)&amp;v2 - 1) &lt;= 13; ++*((_DWORD *)&amp;v2 - 1) )
-  &#123;
-    if ( *(_BYTE *)(*((signed int *)&amp;v2 - 1) + *(&amp;v2 - 5)) != *((_BYTE *)&amp;v2 + *((signed int *)&amp;v2 - 1) - 32) )
-      return 0LL;
-  &#125;
-  return 1LL;
-&#125;
-</code></pre>
 <p>这里其实有三个变量，<code>&amp;v2-1</code>的位置是一个整型，实际上是索引值，<code>&amp;v2-5</code>是我们输入的字符串，<code>&amp;v2-19</code>是最终的目标，只有一个异或操作，很简单就可以跑出来结果</p>
-<pre><code class="python">target = [0x66, 0x6D, 0x63, 0x64, 0x7F, 0x6B, 0x37, 0x64, 0x3B, 0x56, 0x60, 0x3B, 0x6E, 0x70]
-flag = &#39;&#39;
-for i in range(14):
-    flag += chr(target[i] ^ i)
-print(flag)
-</code></pre>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">target = [<span class="number">0x66</span>, <span class="number">0x6D</span>, <span class="number">0x63</span>, <span class="number">0x64</span>, <span class="number">0x7F</span>, <span class="number">0x6B</span>, <span class="number">0x37</span>, <span class="number">0x64</span>, <span class="number">0x3B</span>, <span class="number">0x56</span>, <span class="number">0x60</span>, <span class="number">0x3B</span>, <span class="number">0x6E</span>, <span class="number">0x70</span>]</span><br><span class="line">flag = <span class="string">&#x27;&#x27;</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">14</span>):</span><br><span class="line">    flag += <span class="built_in">chr</span>(target[i] ^ i)</span><br><span class="line"><span class="built_in">print</span>(flag)</span><br></pre></td></tr></table></figure>
+
 <p>输出flag</p>
-<pre><code>flag&#123;n1c3_j0b&#125;
-</code></pre>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">flag</span>&#123;n<span class="number">1</span>c<span class="number">3</span>_j<span class="number">0</span>b&#125;</span><br></pre></td></tr></table></figure>
+
 <h4 id="What-does-this-button-do"><a href="#What-does-this-button-do" class="headerlink" title="What-does-this-button-do"></a>What-does-this-button-do</h4><p>不知道为什么这题放在了这个位置，简单得不能再简单的一个mobile</p>
 <p>jadx打开，很快就可以找到关键代码</p>
-<pre><code class="java"> public void onCreate(Bundle savedInstanceState) &#123;
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_flag);
-        String flag = &quot;&quot;;
-        int[] d = &#123;102, 108, 97, 103, 123, 119, 52, 110, 110, 52, 95, 106, 52, 114, 95, 109, 121, 95, 100, 51, 120, 125&#125;;
-        for (int i = 0; i &lt; 22; i++) &#123;
-            flag = flag.concat(String.valueOf((char) d[i]));
-        &#125;
-        ((TextView) findViewById(R.id.flagText)).setText(flag);
-    &#125;
-</code></pre>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">onCreate</span><span class="params">(Bundle savedInstanceState)</span> </span>&#123;</span><br><span class="line">       <span class="keyword">super</span>.onCreate(savedInstanceState);</span><br><span class="line">       setContentView(R.layout.activity_flag);</span><br><span class="line">       String flag = <span class="string">&quot;&quot;</span>;</span><br><span class="line">       <span class="keyword">int</span>[] d = &#123;<span class="number">102</span>, <span class="number">108</span>, <span class="number">97</span>, <span class="number">103</span>, <span class="number">123</span>, <span class="number">119</span>, <span class="number">52</span>, <span class="number">110</span>, <span class="number">110</span>, <span class="number">52</span>, <span class="number">95</span>, <span class="number">106</span>, <span class="number">52</span>, <span class="number">114</span>, <span class="number">95</span>, <span class="number">109</span>, <span class="number">121</span>, <span class="number">95</span>, <span class="number">100</span>, <span class="number">51</span>, <span class="number">120</span>, <span class="number">125</span>&#125;;</span><br><span class="line">       <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">22</span>; i++) &#123;</span><br><span class="line">           flag = flag.concat(String.valueOf((<span class="keyword">char</span>) d[i]));</span><br><span class="line">       &#125;</span><br><span class="line">       ((TextView) findViewById(R.id.flagText)).setText(flag);</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
 <p>然后直接输出把flag输出就可以了</p>
 <p>不过这题要去掉外面的<code>flag&#123;&#125;</code>提交</p>
-<pre><code>w4nn4_j4r_my_d3x
-</code></pre>
+<figure class="highlight gcode"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">w<span class="number">4</span><span class="symbol">nn4</span>_j<span class="number">4</span>r_my_d<span class="number">3</span>x</span><br></pre></td></tr></table></figure>
+
+
+
 <h4 id="76号"><a href="#76号" class="headerlink" title="76号"></a>76号</h4><p>单字检测，pintools爆破，得到flag</p>
 <p>直接<a target="_blank" rel="noopener" href="https://github.com/ChrisTheCoolHut/PinCTF">滚轮子</a></p>
-<pre><code>flag&#123;09vdf7wefijbk&#125;
-</code></pre>
-<h4 id="easy-go"><a href="#easy-go" class="headerlink" title="easy_go"></a>easy_go</h4><p>这题根据名字也知道是go逆向，IDA打开是乱七八糟的函数，也没有任何的symbol，用go重命名的插件给函数重命名，发现一个base64的解码函数和奇怪的字符串，字母表不是很清楚，动态调试一下</p>
-<pre><code class="asm">[-------------------------------------code-------------------------------------]
-   0x4952dd:    mov    QWORD PTR [rsp],rax
-   0x4952e1:    mov    QWORD PTR [rsp+0x8],rcx
-   0x4952e6:    mov    QWORD PTR [rsp+0x10],rdx
-=&gt; 0x4952eb:    call   0x47e620
-   0x4952f0:    mov    rax,QWORD PTR [rsp+0x38]
-   0x4952f5:    mov    rcx,QWORD PTR [rsp+0x30]
-   0x4952fa:    mov    rdx,QWORD PTR [rsp+0x18]
-   0x4952ff:    mov    rbx,QWORD PTR [rsp+0x20]
-No argument
-[------------------------------------stack-------------------------------------]
-0000| 0xc000070e90 --&gt; 0xc000074580 (&quot;6789_-abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ012345&quot;, &#39;\377&#39; &lt;repeats 45 times&gt;, &quot;\005\377\377:;&lt;=&gt;?&quot;)
-0008| 0xc000070e98 --&gt; 0xc000088040 (&quot;tGRBtXMZgD6ZhalBtCUTgWgZfnkTgqoNsnAVsmUYsGtCt9pEtDEYsql3&quot;)
-0016| 0xc000070ea0 --&gt; 0x38 (&#39;8&#39;)
-0024| 0xc000070ea8 --&gt; 0x40 (&#39;@&#39;)
-0032| 0xc000070eb0 --&gt; 0xc000088040 (&quot;tGRBtXMZgD6ZhalBtCUTgWgZfnkTgqoNsnAVsmUYsGtCt9pEtDEYsql3&quot;)
-0040| 0xc000070eb8 --&gt; 0x38 (&#39;8&#39;)
-0048| 0xc000070ec0 --&gt; 0x1 
-0056| 0xc000070ec8 --&gt; 0x1 
-[------------------------------------------------------------------------------]
-Legend: code, data, rodata, value
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">flag</span>&#123;<span class="number">09</span>vdf<span class="number">7</span>wefijbk&#125;</span><br></pre></td></tr></table></figure>
 
-Thread 1 &quot;easyGo&quot; hit Breakpoint 3, 0x00000000004952eb in ?? ()
-</code></pre>
+
+
+<h4 id="easy-go"><a href="#easy-go" class="headerlink" title="easy_go"></a>easy_go</h4><p>这题根据名字也知道是go逆向，IDA打开是乱七八糟的函数，也没有任何的symbol，用go重命名的插件给函数重命名，发现一个base64的解码函数和奇怪的字符串，字母表不是很清楚，动态调试一下</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">[-------------------------------------code-------------------------------------]</span><br><span class="line">   0x4952dd:	mov    QWORD PTR [rsp],rax</span><br><span class="line">   0x4952e1:	mov    QWORD PTR [rsp+0x8],rcx</span><br><span class="line">   0x4952e6:	mov    QWORD PTR [rsp+0x10],rdx</span><br><span class="line">=&gt; 0x4952eb:	call   0x47e620</span><br><span class="line">   0x4952f0:	mov    rax,QWORD PTR [rsp+0x38]</span><br><span class="line">   0x4952f5:	mov    rcx,QWORD PTR [rsp+0x30]</span><br><span class="line">   0x4952fa:	mov    rdx,QWORD PTR [rsp+0x18]</span><br><span class="line">   0x4952ff:	mov    rbx,QWORD PTR [rsp+0x20]</span><br><span class="line">No argument</span><br><span class="line">[------------------------------------stack-------------------------------------]</span><br><span class="line">0000| 0xc000070e90 --&gt; 0xc000074580 (&quot;6789_-abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ012345&quot;, &#x27;\377&#x27; &lt;repeats 45 times&gt;, &quot;\005\377\377:;&lt;=&gt;?&quot;)</span><br><span class="line">0008| 0xc000070e98 --&gt; 0xc000088040 (&quot;tGRBtXMZgD6ZhalBtCUTgWgZfnkTgqoNsnAVsmUYsGtCt9pEtDEYsql3&quot;)</span><br><span class="line">0016| 0xc000070ea0 --&gt; 0x38 (&#x27;8&#x27;)</span><br><span class="line">0024| 0xc000070ea8 --&gt; 0x40 (&#x27;@&#x27;)</span><br><span class="line">0032| 0xc000070eb0 --&gt; 0xc000088040 (&quot;tGRBtXMZgD6ZhalBtCUTgWgZfnkTgqoNsnAVsmUYsGtCt9pEtDEYsql3&quot;)</span><br><span class="line">0040| 0xc000070eb8 --&gt; 0x38 (&#x27;8&#x27;)</span><br><span class="line">0048| 0xc000070ec0 --&gt; 0x1 </span><br><span class="line">0056| 0xc000070ec8 --&gt; 0x1 </span><br><span class="line">[------------------------------------------------------------------------------]</span><br><span class="line">Legend: code, data, rodata, value</span><br><span class="line"></span><br><span class="line">Thread 1 &quot;easyGo&quot; hit Breakpoint 3, 0x00000000004952eb in ?? ()</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
 <p>找到字母表和密文，解密得到flag</p>
-<pre><code>flag&#123;92094daf-33c9-431e-a85a-8bfbd5df98ad&#125;
-</code></pre>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">flag</span>&#123;<span class="number">92094</span>daf-<span class="number">33</span>c<span class="number">9</span>-<span class="number">431</span>e-a<span class="number">85</span>a-<span class="number">8</span>bfbd<span class="number">5</span>df<span class="number">98</span>ad&#125;</span><br></pre></td></tr></table></figure>
+
 <h4 id="easyCpp"><a href="#easyCpp" class="headerlink" title="easyCpp"></a>easyCpp</h4><p>这题有很多c++标准库的调用，整体来说不是很难，可以通过调试发现每一部分的作用，也不是很难</p>
 <h4 id="re5-packed-movement"><a href="#re5-packed-movement" class="headerlink" title="re5-packed-movement"></a>re5-packed-movement</h4><p>极其无聊的一道题，硬生生用<code>mov</code>实现了所有操作，要求输入<code>flag</code>对比一下，直接<code>objdump</code>就能再汇编代码里找到逐字符将flag移入到某个地址，或者因为是逐字符验证，直接<code>pintools</code>爆破也可以</p>
 <h4 id="the-maya-society"><a href="#the-maya-society" class="headerlink" title="the_maya_society"></a>the_maya_society</h4><p>大致意思就是对当前时间进行一个<code>md5</code>加密，然后和一个字符串连接成目标网址，如果这个目标是对的后面的通信就会得到正确的flag……</p>
 <p>时间应该是2012-12-21</p>
 <h4 id="2ex1"><a href="#2ex1" class="headerlink" title="2ex1"></a>2ex1</h4><p><code>mips</code>，并且<code>strip</code>过，什么信息都没有，打开输出发现很像<code>base64</code>，但应该换过表，<code>ghidra</code>打开找找可疑字符串，发现奇怪的字符串</p>
-<pre><code>@,.1fgvw#`/2ehux$~&quot;3dity%_;4cjsz^+&#123;5bkrA&amp;=&#125;6alqB*-[70mpC()]89noD
-</code></pre>
+<figure class="highlight jboss-cli"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@,<span class="string">.1fgvw</span><span class="comment">#`/2ehux$~&quot;3dity%_;4cjsz^+&#123;5bkrA&amp;=&#125;6alqB*-[70mpC()]89noD</span></span><br></pre></td></tr></table></figure>
+
 <p>试一试就得到了flag</p>
-<pre><code>flag&#123;change53233&#125;
-</code></pre>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">flag</span>&#123;change<span class="number">53233</span>&#125;</span><br></pre></td></tr></table></figure>
+
 <p>对这个字符串表进行交叉引用查询到话也可以找到进行<code>base64</code>编码的函数</p>
 
-          
-            <div class='article_footer'>
-              
-                
-  
-    
-    
-
-
-
-  
-
-  
-    
-    
-
-
-
-  
-
-  
-    
-    
-
-<section class="widget copyright  desktop mobile">
-  <div class='content'>
-    
-      <blockquote>
-        
-          
-            <p>博客内容遵循 署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</p>
-
-          
-        
-          
-            <p>本文永久链接是：<a href=http://blog.rycbar.club/2020/03/12/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3%EF%BC%88%E4%BA%94%EF%BC%89/>http://blog.rycbar.club/2020/03/12/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3%EF%BC%88%E4%BA%94%EF%BC%89/</a></p>
-          
-        
-      </blockquote>
-    
   </div>
-</section>
+</article>
 
-  
-
-  
-
-
-              
-            </div>
-          
+    <div class="blog-post-comments">
+        <div id="disqus_thread">
+            <noscript>Please enable JavaScript to view the comments.</noscript>
         </div>
-        
-          
+    </div>
 
-
-  <section class='meta' id="footer-meta">
-    <div class='new-meta-box'>
-      
-        
-          <div class="new-meta-item date" itemprop="dateUpdated" datetime="2020-03-31T11:28:03+08:00">
-  <a class='notlink'>
-    <i class="fas fa-edit fa-fw" aria-hidden="true"></i>
-    <p>更新于：2020年3月31日</p>
-  </a>
-</div>
-
-        
-      
-        
-          
-  
-  <div class="new-meta-item meta-tags"><a class="tag" href="/tags/ctf/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>ctf</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/re/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>re</p></a></div> <div class="new-meta-item meta-tags"><a class="tag" href="/tags/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C/" rel="nofollow"><i class="fas fa-hashtag fa-fw" aria-hidden="true"></i><p>攻防世界</p></a></div>
 
 
         
-      
-        
-          
+          <div id="footer-post-container">
+  <div id="footer-post">
 
+    <div id="nav-footer" style="display: none">
+      <ul>
+         
+          <li><a href="/">Home</a></li>
+         
+          <li><a href="/about/">About</a></li>
+         
+          <li><a href="/archives/">Writing</a></li>
+         
+          <li><a href="/atom.xml">rss</a></li>
+         
+          <li><a href="/search/">Search</a></li>
         
-      
-        
-          
-  <div class="new-meta-item share -mob-share-list">
-  <div class="-mob-share-list share-body">
-    
-      
-        <a class="-mob-share-qq" title="" rel="external nofollow noopener noreferrer noopener"
-          
-          target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://blog.rycbar.club/2020/03/12/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3%EF%BC%88%E4%BA%94%EF%BC%89/&title=攻防世界-re部分题解（五） - My Tiny Ideas&summary=后面的题目也越来越难了，比较难比较复杂的题目会单拉出来写，这里就记录一些比较简单的题目。"
-          
-          >
-          
-            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/qq.png">
-          
-        </a>
-      
-    
-      
-        <a class="-mob-share-qzone" title="" rel="external nofollow noopener noreferrer noopener"
-          
-          target="_blank" href="https://sns.qzone.qq.com/cgi-bin/qzshare/cgi_qzshare_onekey?url=http://blog.rycbar.club/2020/03/12/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3%EF%BC%88%E4%BA%94%EF%BC%89/&title=攻防世界-re部分题解（五） - My Tiny Ideas&summary=后面的题目也越来越难了，比较难比较复杂的题目会单拉出来写，这里就记录一些比较简单的题目。"
-          
-          >
-          
-            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/qzone.png">
-          
-        </a>
-      
-    
-      
-        <a class="-mob-share-weibo" title="" rel="external nofollow noopener noreferrer noopener"
-          
-          target="_blank" href="http://service.weibo.com/share/share.php?url=http://blog.rycbar.club/2020/03/12/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3%EF%BC%88%E4%BA%94%EF%BC%89/&title=攻防世界-re部分题解（五） - My Tiny Ideas&summary=后面的题目也越来越难了，比较难比较复杂的题目会单拉出来写，这里就记录一些比较简单的题目。"
-          
-          >
-          
-            <img src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-assets/logo/128/weibo.png">
-          
-        </a>
-      
-    
+      </ul>
+    </div>
+
+    <div id="toc-footer" style="display: none">
+      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#easy-Maze"><span class="toc-number">1.</span> <span class="toc-text">easy_Maze</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ReverseMe-120"><span class="toc-number">2.</span> <span class="toc-text">ReverseMe-120</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Replace"><span class="toc-number">3.</span> <span class="toc-text">Replace</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#babyRE"><span class="toc-number">4.</span> <span class="toc-text">babyRE</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#What-does-this-button-do"><span class="toc-number">5.</span> <span class="toc-text">What-does-this-button-do</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#76%E5%8F%B7"><span class="toc-number">6.</span> <span class="toc-text">76号</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#easy-go"><span class="toc-number">7.</span> <span class="toc-text">easy_go</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#easyCpp"><span class="toc-number">8.</span> <span class="toc-text">easyCpp</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#re5-packed-movement"><span class="toc-number">9.</span> <span class="toc-text">re5-packed-movement</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#the-maya-society"><span class="toc-number">10.</span> <span class="toc-text">the_maya_society</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2ex1"><span class="toc-number">11.</span> <span class="toc-text">2ex1</span></a></li></ol>
+    </div>
+
+    <div id="share-footer" style="display: none">
+      <ul>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://blog.rycbar.club/2020/03/12/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3%EF%BC%88%E4%BA%94%EF%BC%89/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://blog.rycbar.club/2020/03/12/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3%EF%BC%88%E4%BA%94%EF%BC%89/&text=攻防世界-re部分题解（五）"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://blog.rycbar.club/2020/03/12/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3%EF%BC%88%E4%BA%94%EF%BC%89/&title=攻防世界-re部分题解（五）"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://blog.rycbar.club/2020/03/12/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3%EF%BC%88%E4%BA%94%EF%BC%89/&is_video=false&description=攻防世界-re部分题解（五）"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" href="mailto:?subject=攻防世界-re部分题解（五）&body=Check out this article: http://blog.rycbar.club/2020/03/12/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3%EF%BC%88%E4%BA%94%EF%BC%89/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://blog.rycbar.club/2020/03/12/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3%EF%BC%88%E4%BA%94%EF%BC%89/&title=攻防世界-re部分题解（五）"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://blog.rycbar.club/2020/03/12/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3%EF%BC%88%E4%BA%94%EF%BC%89/&title=攻防世界-re部分题解（五）"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://blog.rycbar.club/2020/03/12/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3%EF%BC%88%E4%BA%94%EF%BC%89/&title=攻防世界-re部分题解（五）"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://blog.rycbar.club/2020/03/12/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3%EF%BC%88%E4%BA%94%EF%BC%89/&title=攻防世界-re部分题解（五）"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://blog.rycbar.club/2020/03/12/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3%EF%BC%88%E4%BA%94%EF%BC%89/&name=攻防世界-re部分题解（五）&description=&lt;p&gt;后面的题目也越来越难了，比较难比较复杂的题目会单拉出来写，这里就记录一些比较简单的题目。&lt;/p&gt;"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
+  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://blog.rycbar.club/2020/03/12/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3%EF%BC%88%E4%BA%94%EF%BC%89/&t=攻防世界-re部分题解（五）"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
+</ul>
+
+    </div>
+
+    <div id="actions-footer">
+        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
+        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
+        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
+        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
+    </div>
+
   </div>
 </div>
 
-
-
         
-      
-    </div>
-  </section>
-
-
-        
-        
-          <div class="prev-next">
-            
-              <a class='prev' href='/2020/03/13/python-opcode/'>
-                <p class='title'><i class="fas fa-chevron-left" aria-hidden="true"></i>python_opcode</p>
-                <p class='content'>把python的opcode在这里记录，便于查表
-
-
-Opcode/* Auto-generated by Tools/scripts/generate_opcode_h.py from Lib...</p>
-              </a>
-            
-            
-              <a class='next' href='/2020/03/10/IDA%E5%B8%B8%E7%94%A8%E5%AE%8F%E5%AE%9A%E4%B9%89/'>
-                <p class='title'>IDA常用宏定义<i class="fas fa-chevron-right" aria-hidden="true"></i></p>
-                <p class='content'>保存一下便于查询。
-
-
-/*
-
-   This file contains definitions used by the Hex-Rays decompiler output.
-   It h...</p>
-              </a>
-            
-          </div>
-        
-      </section>
-    </article>
-  
-
-  
-    <!-- 显示推荐文章和评论 -->
-
-
-
-  <article class="post white-box reveal comments shadow">
-    <section class="article typo">
-      <p ct><i class='fas fa-comments'></i> 评论</p>
-      
-      
-      
-      
-        <section id="comments">
-          <div id="gitalk-container"></div>
-        </section>
-      
-      
-      
-      
-    </section>
-  </article>
-
-
-  
-
-
-
-
-<!-- 根据页面mathjax变量决定是否加载MathJax数学公式js -->
-
-
-
-  <script>
-    window.subData = {
-      title: '攻防世界-re部分题解（五）',
-      tools: true
-    }
-  </script>
-
-
-</div>
-<aside class='l_side'>
-  
-  
-
-  
+        <footer id="footer">
+  <div class="footer-left">
+    Copyright &copy;
     
     
-
-
-  <section class="widget toc-wrapper shadow desktop mobile">
-    
-  <header>
-    
-      <i class="fas fa-list fa-fw" aria-hidden="true"></i><span class='name'>本文目录</span>
-    
-  </header>
-
-
-    <div class='content'>
-      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#easy-Maze"><span class="toc-text">easy_Maze</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ReverseMe-120"><span class="toc-text">ReverseMe-120</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Replace"><span class="toc-text">Replace</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#babyRE"><span class="toc-text">babyRE</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#What-does-this-button-do"><span class="toc-text">What-does-this-button-do</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#76%E5%8F%B7"><span class="toc-text">76号</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#easy-go"><span class="toc-text">easy_go</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#easyCpp"><span class="toc-text">easyCpp</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#re5-packed-movement"><span class="toc-text">re5-packed-movement</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#the-maya-society"><span class="toc-text">the_maya_society</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2ex1"><span class="toc-text">2ex1</span></a></li></ol>
-    </div>
-  </section>
-
-
-  
-
-
-</aside>
-
-
-  
-  <footer class="clearfix">
-    <br><br>
-    
-      
-        <div class="aplayer-container">
-          
-
-  
-    <meting-js
-      theme='#1BCDFC'
-      autoplay='false'
-      volume='0.7'
-      loop='all'
-      order='random'
-      fixed='false'
-      list-max-height='340px'
-      server='netease'
-      type='playlist'
-      id='555017395'
-      list-folded='true'>
-    </meting-js>
-  
-
-
-        </div>
-      
-    
-      
-        <br>
-        <div class="social-wrapper">
-          
-            
-              <a href="/rycbar17th@gmail.com"
-                class="social fas fa-envelope flat-btn"
-                target="_blank"
-                rel="external nofollow noopener noreferrer">
-              </a>
-            
-          
-            
-              <a href="https://github.com/rycbar77"
-                class="social fab fa-github flat-btn"
-                target="_blank"
-                rel="external nofollow noopener noreferrer">
-              </a>
-            
-          
-        </div>
-      
-    
-      
-        <div><p>博客内容遵循 <a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">署名-非商业性使用-相同方式共享 4.0 国际 (CC BY-NC-SA 4.0) 协议</a></p>
-</div>
-      
-    
-      
-        <div class='copyright'>
-        <p><a href="https://blog.rycbar.club/">Copyright © 2017-2020 rycbar</a></p>
-
-        </div>
-      
-    
-  </footer>
-
-<script>setLoadingBarProgress(80);</script>
-
-
-      <script>setLoadingBarProgress(60);</script>
-    </div>
-    <a class="s-top fas fa-arrow-up fa-fw" href='javascript:void(0)'></a>
+    2018-2021
+    Aorui Zhang
   </div>
+  <div class="footer-right">
+    <nav>
+      <ul>
+        <!--
+       --><li><a href="/">Home</a></li><!--
+     --><!--
+       --><li><a href="/about/">About</a></li><!--
+     --><!--
+       --><li><a href="/archives/">Writing</a></li><!--
+     --><!--
+       --><li><a href="/atom.xml">rss</a></li><!--
+     --><!--
+       --><li><a href="/search/">Search</a></li><!--
+     -->
+      </ul>
+    </nav>
+  </div>
+</footer>
+
+    </div>
+    <!-- styles -->
+
+
+
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
+
+
+    <!-- jquery -->
+ 
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script> 
+
+
+
+
+<!-- clipboard -->
+
   
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.4/dist/jquery.min.js"></script>
-
-
-  <script>
-    
-    var SEARCH_SERVICE = "hexo" || "hexo";
-    var ROOT = "/" || "/";
-    if (!ROOT.endsWith('/')) ROOT += '/';
-  </script>
-
-
-  <script async src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2/js/instant_page.js" type="module" defer integrity="sha384-OeDn4XE77tdHo8pGtE1apMPmAipjoxUQ++eeJa6EtJCfHlvijigWiJpD7VDPWXV1"></script>
-
-
-  <script src="https://cdn.jsdelivr.net/npm/scrollreveal@4.0.6/dist/scrollreveal.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
+  
   <script type="text/javascript">
-    $(function() {
-      ScrollReveal().reveal('.l_main .reveal', {
-        distance: '8px',
-        duration: '800',
-        interval: '100',
-        scale: '1'
-      });
+  $(function() {
+    // copy-btn HTML
+    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
+    btn += '<i class="far fa-clone"></i>';
+    btn += '</span>'; 
+    // mount it!
+    $(".highlight table").before(btn);
+    var clip = new ClipboardJS('.btn-copy', {
+      text: function(trigger) {
+        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
+      }
     });
+    clip.on('success', function(e) {
+      e.trigger.setAttribute('aria-label', "Copied!");
+      e.clearSelection();
+    })
+  })
   </script>
 
 
-  
-<script src="https://cdn.jsdelivr.net/npm/node-waves@0.7.6/dist/waves.min.js"></script>
+<script src="/js/main.js"></script>
 
-  <script type="text/javascript">
-    $(function() {
-      Waves.attach('.flat-btn', ['waves-button']);
-      Waves.attach('.float-btn', ['waves-button', 'waves-float']);
-      Waves.attach('.float-btn-light', ['waves-button', 'waves-float', 'waves-light']);
-      Waves.attach('.flat-box', ['waves-block']);
-      Waves.attach('.float-box', ['waves-block', 'waves-float']);
-      Waves.attach('.waves-image');
-      Waves.init();
-    });
-  </script>
+<!-- search -->
 
+<!-- Google Analytics -->
 
-  <script async src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-busuanzi@2.3/js/busuanzi.pure.mini.js"></script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128484503-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-128484503-1');
+    </script>
 
+<!-- Baidu Analytics -->
 
+<!-- Cloudflare Analytics -->
 
-  
-  
-  
-    
-<script src="https://cdn.jsdelivr.net/npm/jquery-backstretch@2.1.18/jquery.backstretch.min.js"></script>
+<!-- Umami Analytics -->
+
+<!-- Disqus Comments -->
 
     <script type="text/javascript">
-      $(function(){
-        var imgs=["https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/41F215B9-261F-48B4-80B5-4E86E165259E.jpeg", "https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/BBC19066-E176-47C2-9D22-48C81EE5DF6B.jpeg", "https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/B18FCBB3-67FD-48CC-B4F3-457BA145F17A.jpeg", "https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/35F12181-F0E9-45BD-B134-37E4B4A660CF.jpeg", "https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/00E0F0ED-9F1C-407A-9AA6-545649D919F4.jpeg", "https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/67239FBB-E15D-4F4F-8EE8-0F1C9F3C4E7C.jpeg", "https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/B951AE18-D431-417F-B3FE-A382403FF21B.jpeg", "https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/landscape/AEB33F9D-7294-4CF1-B8C5-3020748A9D45.jpeg", "https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/abstract/2884F904-F1F3-479E-AE27-5EBC291B63B0.jpeg", "https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/landscape/10A0FCE5-36A1-4AD0-8CF0-019259A89E03.jpeg", "https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/landscape/250662D4-5A21-4AAA-BB63-CD25CF97CFF1.jpeg", "https://cdn.jsdelivr.net/gh/xaoxuu/cdn-wallpaper/landscape/298468D7-E388-44A8-8CC5-8213BDC33CED.jpeg"];
-        if ('true' == 'true') {
-          function shuffle(arr){
-            /*From countercurrent-time*/
-            var n = arr.length;
-            while(n--) {
-              var index = Math.floor(Math.random() * n);
-              var temp = arr[index];
-              arr[index] = arr[n];
-              arr[n] = temp;
-            }
-          }
-          shuffle(imgs);
-        }
-        if ('.cover') {
-          $('.cover').backstretch(
-            imgs,
-          {
-            duration: "20000",
-            fade: "1500"
-          });
-        } else {
-          $.backstretch(
-            imgs,
-          {
-            duration: "20000",
-            fade: "1500"
-          });
-        }
-      });
+        var disqus_shortname = 'rrblog-2';
+
+        (function(){
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+        }());
     </script>
-  
 
+<!-- utterances Comments -->
 
-
-  
-    
-<script src="https://cdn.jsdelivr.net/npm/aplayer@1.10/dist/APlayer.min.js"></script>
-
-  
-    
-<script src="https://cdn.jsdelivr.net/npm/meting@2.0/dist/Meting.min.js"></script>
-
-  
-
-
-
-
-
-
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.css">
-  <script src="https://cdn.jsdelivr.net/npm/gitalk@1/dist/gitalk.min.js"></script>
-  <script type="text/javascript">
-    var gitalk = new Gitalk({
-      clientID: "6dbe0fb891585031b176",
-      clientSecret: "4407fec5af8e37150b5a4cb82821318d91c07769",
-      repo: "comments",
-      owner: "schrodinger17",
-      admin: "schrodinger17",
-      
-        id: location.pathname,      // Ensure uniqueness and length less than 50
-      
-      distractionFreeMode: false  // Facebook-like distraction free mode
-    });
-    gitalk.render('gitalk-container');
-  </script>
-
-
-
-
-
-
-
-
-  
-<script src="/js/app.js"></script>
-
-
-
-  
-<script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2.6.5/js/search.js"></script>
-
-
-
-  
-<script src="https://cdn.jsdelivr.net/gh/xaoxuu/cdn-volantis@2/js/comment_typing.js"></script>
-
-
-
-
-  
-    
-<script src="https://cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.18.1/build/highlight.min.js"></script>
-
-    <script>hljs.initHighlightingOnLoad();</script>
-  
-
-
-
-<!-- 复制 -->
-
-  <script src="https://cdn.jsdelivr.net/npm/clipboard@2/dist/clipboard.min.js"></script>
-<script>
-  function wait(callback, seconds) {
-    var timelag = null;
-    timelag = window.setTimeout(callback, seconds);
-  }
-  !function (e, t, a) {
-    var initCopyCode = function(){
-      var copyHtml = '';
-      copyHtml += '<button class="btn-copy" data-clipboard-snippet="">';
-      copyHtml += '<i class="fas fa-copy"></i><span>COPY</span>';
-      copyHtml += '</button>';
-      $(".highlight .code pre").before(copyHtml);
-      $(".article pre code").before(copyHtml);
-      var clipboard = new ClipboardJS('.btn-copy', {
-        target: function(trigger) {
-          return trigger.nextElementSibling;
-        }
-      });
-      clipboard.on('success', function(e) {
-        let $btn = $(e.trigger);
-        $btn.addClass('copied');
-        let $icon = $($btn.find('i'));
-        $icon.removeClass('fa-copy');
-        $icon.addClass('fa-check-circle');
-        let $span = $($btn.find('span'));
-        $span[0].innerText = 'COPIED';
-        
-        wait(function () { // 等待两秒钟后恢复
-          $icon.removeClass('fa-check-circle');
-          $icon.addClass('fa-copy');
-          $span[0].innerText = 'COPY';
-        }, 2000);
-      });
-      clipboard.on('error', function(e) {
-        e.clearSelection();
-        let $btn = $(e.trigger);
-        $btn.addClass('copy-failed');
-        let $icon = $($btn.find('i'));
-        $icon.removeClass('fa-copy');
-        $icon.addClass('fa-times-circle');
-        let $span = $($btn.find('span'));
-        $span[0].innerText = 'COPY FAILED';
-        
-        wait(function () { // 等待两秒钟后恢复
-          $icon.removeClass('fa-times-circle');
-          $icon.addClass('fa-copy');
-          $span[0].innerText = 'COPY';
-        }, 2000);
-      });
-    }
-    initCopyCode();
-  }(window, document);
-</script>
-
-
-
-
-<!-- fancybox -->
-
-  <script src="https://cdn.jsdelivr.net/gh/fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js"></script>
-<script>
-  let LAZY_LOAD_IMAGE = "";
-  $(".article-entry").find("div.fancybox").find("img").each(function () {
-      var element = document.createElement("a");
-      $(element).attr("data-fancybox", "gallery");
-      $(element).attr("href", $(this).attr("src"));
-      /* 图片采用懒加载处理时,
-       * 一般图片标签内会有个属性名来存放图片的真实地址，比如 data-original,
-       * 那么此处将原本的属性名src替换为对应属性名data-original,
-       * 修改如下
-       */
-       if (LAZY_LOAD_IMAGE) {
-         $(element).attr("href", $(this).attr("data-original"));
-       }
-      $(this).wrap(element);
-  });
-</script>
-
-
-
-
-
-
-  <script>setLoadingBarProgress(100);</script>
 </body>
 </html>
