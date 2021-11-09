@@ -2,6 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://blog.rycbar.club/about/index.html</loc>
+    
+    <lastmod>2021-11-09</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://blog.rycbar.club/2020/04/01/CrackRTF-buuctf/</loc>
     
     <lastmod>2021-11-08</lastmod>
@@ -10,13 +17,6 @@
   
   <url>
     <loc>http://blog.rycbar.club/2021/11/04/ByteCTF-re-moderncpp-%E9%A2%98%E8%A7%A3/</loc>
-    
-    <lastmod>2021-11-04</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://blog.rycbar.club/about/index.html</loc>
     
     <lastmod>2021-11-04</lastmod>
     
