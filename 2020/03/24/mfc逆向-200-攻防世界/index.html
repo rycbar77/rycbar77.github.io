@@ -1,11 +1,19 @@
 <!DOCTYPE html>
-<html lang=en>
+<html class="has-navbar-fixed-top">
 <head>
-    <!-- so meta -->
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="HandheldFriendly" content="True">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+<title>mfc逆向-200_攻防世界 - rr&#39;s blog</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
+
+
+
+
+
+
+
+
     <meta name="description" content="这题就是一个脑洞题，但可以大概的了解一下windows编程">
 <meta property="og:type" content="article">
 <meta property="og:title" content="mfc逆向-200_攻防世界">
@@ -24,150 +32,155 @@
 <meta property="article:tag" content="mfc">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://s1.ax1x.com/2020/03/24/8b4mz4.png">
-    
-    
-      
-        
-          <link rel="shortcut icon" href="/images/favicon.ico">
-        
-      
-      
-        
-          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
-        
-      
-      
-        
-          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
-        
-      
-    
-    <!-- title -->
-    <title>mfc逆向-200_攻防世界</title>
-    <!-- styles -->
-    
+
+
+
+
+
+<link rel="icon" href="rust.png">
+
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ovo|Source+Code+Pro">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/css/lightgallery.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/css/justifiedGallery.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+
+
 <link rel="stylesheet" href="/css/style.css">
 
-    <!-- persian styles -->
-    
-    <!-- rss -->
-    
-    
-      <link rel="alternate" href="/true" title="rr&#39;s blog" type="application/atom+xml" />
-    
-	<!-- mathjax -->
-	
-<meta name="generator" content="Hexo 5.4.0"></head>
 
-<body class="max-width mx-auto px3 ltr">
-    
-      <div id="header-post">
-  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
-  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
-  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
-  <span id="menu">
-    <span id="nav">
-      <ul>
-        <!--
-       --><li><a href="/">Home</a></li><!--
-     --><!--
-       --><li><a href="/about/">About</a></li><!--
-     --><!--
-       --><li><a href="/archives/">Writing</a></li><!--
-     --><!--
-       --><li><a href="/atom.xml">RSS</a></li><!--
-     --><!--
-       --><li><a href="/search/">Search</a></li><!--
-     -->
-      </ul>
-    </span>
-    <br/>
-    <span id="actions">
-      <ul>
-        
-        <li><a class="icon" aria-label="Previous post" href="/2020/03/25/tar-tar-binks-%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
-        
-        
-        <li><a class="icon" aria-label="Next post" href="/2020/03/21/2020-36DCTF/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
-        
-        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
-        <li><a class="icon" aria-label="Share post" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
-      </ul>
-      <span id="i-prev" class="info" style="display:none;">Previous post</span>
-      <span id="i-next" class="info" style="display:none;">Next post</span>
-      <span id="i-top" class="info" style="display:none;">Back to top</span>
-      <span id="i-share" class="info" style="display:none;">Share post</span>
-    </span>
-    <br/>
-    <div id="share" style="display: none">
-      <ul>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://blog.rycbar.club/2020/03/24/mfc%E9%80%86%E5%90%91-200-%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://blog.rycbar.club/2020/03/24/mfc%E9%80%86%E5%90%91-200-%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C/&text=mfc逆向-200_攻防世界"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://blog.rycbar.club/2020/03/24/mfc%E9%80%86%E5%90%91-200-%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C/&title=mfc逆向-200_攻防世界"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://blog.rycbar.club/2020/03/24/mfc%E9%80%86%E5%90%91-200-%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C/&is_video=false&description=mfc逆向-200_攻防世界"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=mfc逆向-200_攻防世界&body=Check out this article: http://blog.rycbar.club/2020/03/24/mfc%E9%80%86%E5%90%91-200-%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://blog.rycbar.club/2020/03/24/mfc%E9%80%86%E5%90%91-200-%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C/&title=mfc逆向-200_攻防世界"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://blog.rycbar.club/2020/03/24/mfc%E9%80%86%E5%90%91-200-%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C/&title=mfc逆向-200_攻防世界"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://blog.rycbar.club/2020/03/24/mfc%E9%80%86%E5%90%91-200-%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C/&title=mfc逆向-200_攻防世界"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://blog.rycbar.club/2020/03/24/mfc%E9%80%86%E5%90%91-200-%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C/&title=mfc逆向-200_攻防世界"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://blog.rycbar.club/2020/03/24/mfc%E9%80%86%E5%90%91-200-%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C/&name=mfc逆向-200_攻防世界&description=&lt;p&gt;这题就是一个脑洞题，但可以大概的了解一下windows编程&lt;/p&gt;"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://blog.rycbar.club/2020/03/24/mfc%E9%80%86%E5%90%91-200-%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C/&t=mfc逆向-200_攻防世界"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
-</ul>
+<script defer src="//use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
 
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-128484503-1"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-128484503-1');
+</script>
+
+
+    
+
+
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="rr's blog" type="application/atom+xml">
+</head>
+<body>
+    
+<nav class="navbar is-transparent is-fixed-top navbar-main" role="navigation" aria-label="main navigation">
+    <div class="container">
+        <div class="navbar-brand">
+            <a class="navbar-item navbar-logo" href="/">
+                
+                <img src="/images/logo.png" alt="" height="28">
+                
+            </a>
+            <div class="navbar-burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        
+        <div class="navbar-menu navbar-start">
+            
+            <a class="navbar-item "
+               href="/archives">Archives</a>
+            
+            <a class="navbar-item "
+               href="/categories">Categories</a>
+            
+            <a class="navbar-item "
+               href="/tags">Tags</a>
+            
+            <a class="navbar-item "
+               href="/links">Links</a>
+            
+            <a class="navbar-item "
+               href="/about">About</a>
+            
+            <a class="navbar-item "
+               href="/atom.xml">RSS</a>
+            
+        </div>
+        
+        <div class="navbar-menu navbar-end">
+            
+            <a class="navbar-item search" title="Search" href="javascript:;">
+                <i class="fas fa-search"></i>
+            </a>
+            
+            
+            <div class="navbar-item is-hoverable has-dropdown is-hidden-mobile is-hidden-tablet-only toc">
+                <a class="navbar-item" title="Table of Contents">
+                    <i class="fa fa-list"></i>
+                </a>
+                <div class="navbar-dropdown is-right">
+                    
+                    
+                </div>
+            </div>
+            
+            
+            <a class="navbar-item" title="GitHub" target="_blank" rel="noopener" href="https://github.com/rycbar77">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+               
+            
+        </div>
     </div>
-    <div id="toc">
-      
-    </div>
-  </span>
-</div>
+</nav>
 
-    
-    <div class="content index py4">
+    <section class="section">
+    <div class="container">
+    <article class="article content gallery" itemscope itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
-        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
-  <header>
-    
-    <h1 class="posttitle" itemprop="name headline">
-        mfc逆向-200_攻防世界
+            mfc逆向-200_攻防世界
+        
     </h1>
-
-
-
-    <div class="meta">
-      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
-        <span itemprop="name">Aorui Zhang</span>
-      </span>
-      
-    <div class="postdate">
-      
-        <time datetime="2020-03-24T02:44:54.000Z" itemprop="datePublished">2020-03-24</time>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            
+                <time datetime="2020-03-24T02:44:54.000Z" itemprop="datePublished">Mar 24 2020</time>
+            
+        </span>
         
-        (Updated: <time datetime="2020-03-25T06:32:10.283Z" itemprop="dateModified">2020-03-25</time>)
+        <span class="column is-narrow article-category">
+            <i class="far fa-folder"></i>
+            <a class="article-category-link" href="/categories/ctf/">ctf</a>
+        </span>
         
-      
+        
+        <span class="column is-narrow">
+            
+            
+            4 minutes read (About 600 words)
+        </span>
+        
     </div>
-
-
-      
-    <div class="article-category">
-        <i class="fas fa-archive"></i>
-        <a class="category-link" href="/categories/ctf/">ctf</a>
-    </div>
-
-
-      
-    <div class="article-tag">
-        <i class="fas fa-tag"></i>
-        <a class="tag-link-link" href="/tags/ctf/" rel="tag">ctf</a>, <a class="tag-link-link" href="/tags/mfc/" rel="tag">mfc</a>, <a class="tag-link-link" href="/tags/re/" rel="tag">re</a>, <a class="tag-link-link" href="/tags/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C/" rel="tag">攻防世界</a>
-    </div>
-
-
-    </div>
-  </header>
-  
-
-  <div class="content" itemprop="articleBody">
-    <p>这题就是一个脑洞题，但可以大概的了解一下windows编程</p>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <html><head></head><body><p>这题就是一个脑洞题，但可以大概的了解一下windows编程</p>
 <span id="more"></span>
 
 <p>查壳发现是虚拟机<br><img src="https://s1.ax1x.com/2020/03/24/8b4mz4.png" alt="8b4mz4.png"></p>
@@ -176,202 +189,309 @@
 <p>因为<strong>Flag就在控件里</strong>，干脆spy++查看一下</p>
 <p><img src="https://s1.ax1x.com/2020/03/24/8b4uQJ.png" alt="8b4uQJ.png"></p>
 <p>找到句柄，用xspy查一查</p>
-<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">OnMsg</span>:<span class="number">0464</span>,func= <span class="number">0</span>x<span class="number">00402170</span>(mfc逆向-<span class="number">200</span>.exe+ <span class="number">0</span>x<span class="number">002170</span> )</span><br></pre></td></tr></table></figure>
+<figure class="highlight apache hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-attribute">OnMsg</span>:<span class="hljs-number">0464</span>,func= <span class="hljs-number">0</span>x<span class="hljs-number">00402170</span>(mfc逆向-<span class="hljs-number">200</span>.exe+ <span class="hljs-number">0</span>x<span class="hljs-number">002170</span> )</span><br></pre></td></tr></tbody></table></figure>
 
 <p>找到了一个奇怪的东西，但是接下来不知道该怎么做了</p>
 <p><del>然后偷瞄大佬博客</del></p>
 <p>大佬掐指一算应该发个消息，vs启动</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;Windows.h&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	HWND h = <span class="built_in">FindWindowA</span>(<span class="literal">NULL</span>, <span class="string">&quot;Flag就在控件里&quot;</span>);</span><br><span class="line">	<span class="keyword">if</span> (h)</span><br><span class="line">	&#123;</span><br><span class="line">		<span class="built_in">SendMessage</span>(h, <span class="number">0x464</span>, <span class="literal">NULL</span>, <span class="literal">NULL</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++ hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span><span class="hljs-meta-string">&lt;Windows.h&gt;</span></span></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span></span><br><span class="line"><span class="hljs-function"></span>{</span><br><span class="line">	HWND h = <span class="hljs-built_in">FindWindowA</span>(<span class="hljs-literal">NULL</span>, <span class="hljs-string">"Flag就在控件里"</span>);</span><br><span class="line">	<span class="hljs-keyword">if</span> (h)</span><br><span class="line">	{</span><br><span class="line">		<span class="hljs-built_in">SendMessage</span>(h, <span class="hljs-number">0x464</span>, <span class="hljs-literal">NULL</span>, <span class="hljs-literal">NULL</span>);</span><br><span class="line">	}</span><br><span class="line">	<span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 
 <p>这里只是简单的用到了两个函数</p>
 <p>第一个<code>FindWindowA</code>，定义如下</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">HWND <span class="title">FindWindowA</span><span class="params">(</span></span></span><br><span class="line"><span class="params"><span class="function">  LPCSTR lpClassName,  &#123;窗口的类名，可为空&#125;</span></span></span><br><span class="line"><span class="params"><span class="function">  LPCSTR lpWindowName  &#123;窗口的标题名&#125;</span></span></span><br><span class="line"><span class="params"><span class="function">)</span></span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++ hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function">HWND <span class="hljs-title">FindWindowA</span><span class="hljs-params">(</span></span></span><br><span class="line"><span class="hljs-params"><span class="hljs-function">  LPCSTR lpClassName,  {窗口的类名，可为空}</span></span></span><br><span class="line"><span class="hljs-params"><span class="hljs-function">  LPCSTR lpWindowName  {窗口的标题名}</span></span></span><br><span class="line"><span class="hljs-params"><span class="hljs-function">)</span></span>;</span><br></pre></td></tr></tbody></table></figure>
 
 <p>这个函数不查找子窗口（<code>FindWindowEx</code>），返回的是这个窗口的句柄，其实就是我们之前用spy++查询到的句柄，也可以用下面的代码</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">auto</span> h = <span class="built_in">HWND</span>(<span class="number">0xa505f4</span>);</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++ hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">auto</span> h = <span class="hljs-built_in">HWND</span>(<span class="hljs-number">0xa505f4</span>);</span><br></pre></td></tr></tbody></table></figure>
 
 <p>作用是一样的，找到句柄之后就可以发消息，用到了<code>SendMessage</code></p>
 <p>定义如下</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">LRESULT SendMessage（HWND hWnd，UINT Msg，WPARAM wParam，LPARAM IParam）</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++ hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">LRESULT SendMessage（HWND hWnd，UINT Msg，WPARAM wParam，LPARAM IParam）</span><br></pre></td></tr></tbody></table></figure>
 
 <blockquote>
 <p>参数<br>hWnd：指定要接收消息的窗口的句柄。如果此参数为HWND_BROADCAST，则消息将被发送到系统中所有顶层窗口，包括无效或不可见的非自身拥有的窗口、被覆盖的窗口和弹出式窗口，但消息不被发送到子窗口。<br>Msg：指定被发送的消息。<br>wParam：指定附加的消息特定信息。<br>IParam：指定附加的消息特定信息。<br>返回值：返回值指定消息处理的结果，依赖于所发送的消息。</p>
 </blockquote>
-<p>所以给这个控件发个<code>0x464</code>，然后窗体里面的内容变了，变成了<code>&#123;I am a Des key&#125;</code></p>
+<p>所以给这个控件发个<code>0x464</code>，然后窗体里面的内容变了，变成了<code>{I am a Des key}</code></p>
 <p>有了key，但是密文是什么……</p>
 <p>大佬掐指一算，之前这个控件有个奇怪的类名<code>944c8d100f82f0c18b682f63e4dbaa207a2f1e72581c2f1b</code></p>
 <p>解密得到flag</p>
-<figure class="highlight ebnf"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">thIs_Is_real_kEy_hahaaa</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight ebnf hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-attribute">thIs_Is_real_kEy_hahaaa</span></span><br></pre></td></tr></tbody></table></figure>
 
 <hr>
 <p><del>不仅懂得比大佬少，脑洞也比不过大佬</del></p>
-
-  </div>
+</body></html>
+    
+    </div>
+    
+    <div class="columns is-variable is-1 is-multiline is-mobile">
+    
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/ctf/">#ctf</a></span>
+    
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/re/">#re</a></span>
+    
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C/">#攻防世界</a></span>
+    
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/mfc/">#mfc</a></span>
+    
+    </div>
+    
+    
+    <div class="columns is-mobile is-multiline article-nav">
+        <span class="column is-12-mobile is-half-desktop  article-nav-prev">
+            
+            <a href="/2020/03/25/tar-tar-binks-%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C/">tar-tar-binks-攻防世界</a>
+            
+        </span>
+        <span class="column is-12-mobile is-half-desktop  article-nav-next">
+            
+            <a href="/2020/03/21/2020-36DCTF/">36DCTF-wp</a>
+            
+        </span>
+    </div>
+    
 </article>
 
-    <div class="blog-post-comments">
-        <div id="disqus_thread">
-            <noscript>Please enable JavaScript to view the comments.</noscript>
-        </div>
-    </div>
 
+<div class="sharebox">
+    
+<div class="sharethis-inline-share-buttons"></div>
+<script type='text/javascript' src='https://platform-api.sharethis.com/js/sharethis.js#property=618a5a31fe4ac40012aea77e&amp;product=inline-share-buttons' async='async'></script>
 
-
-        
-          <div id="footer-post-container">
-  <div id="footer-post">
-
-    <div id="nav-footer" style="display: none">
-      <ul>
-         
-          <li><a href="/">Home</a></li>
-         
-          <li><a href="/about/">About</a></li>
-         
-          <li><a href="/archives/">Writing</a></li>
-         
-          <li><a href="/atom.xml">RSS</a></li>
-         
-          <li><a href="/search/">Search</a></li>
-        
-      </ul>
-    </div>
-
-    <div id="toc-footer" style="display: none">
-      
-    </div>
-
-    <div id="share-footer" style="display: none">
-      <ul>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://blog.rycbar.club/2020/03/24/mfc%E9%80%86%E5%90%91-200-%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://blog.rycbar.club/2020/03/24/mfc%E9%80%86%E5%90%91-200-%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C/&text=mfc逆向-200_攻防世界"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://blog.rycbar.club/2020/03/24/mfc%E9%80%86%E5%90%91-200-%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C/&title=mfc逆向-200_攻防世界"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://blog.rycbar.club/2020/03/24/mfc%E9%80%86%E5%90%91-200-%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C/&is_video=false&description=mfc逆向-200_攻防世界"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=mfc逆向-200_攻防世界&body=Check out this article: http://blog.rycbar.club/2020/03/24/mfc%E9%80%86%E5%90%91-200-%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://blog.rycbar.club/2020/03/24/mfc%E9%80%86%E5%90%91-200-%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C/&title=mfc逆向-200_攻防世界"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://blog.rycbar.club/2020/03/24/mfc%E9%80%86%E5%90%91-200-%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C/&title=mfc逆向-200_攻防世界"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://blog.rycbar.club/2020/03/24/mfc%E9%80%86%E5%90%91-200-%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C/&title=mfc逆向-200_攻防世界"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://blog.rycbar.club/2020/03/24/mfc%E9%80%86%E5%90%91-200-%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C/&title=mfc逆向-200_攻防世界"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://blog.rycbar.club/2020/03/24/mfc%E9%80%86%E5%90%91-200-%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C/&name=mfc逆向-200_攻防世界&description=&lt;p&gt;这题就是一个脑洞题，但可以大概的了解一下windows编程&lt;/p&gt;"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://blog.rycbar.club/2020/03/24/mfc%E9%80%86%E5%90%91-200-%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C/&t=mfc逆向-200_攻防世界"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
-</ul>
-
-    </div>
-
-    <div id="actions-footer">
-        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
-        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
-        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
-        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
-    </div>
-
-  </div>
 </div>
 
+
+
+<div class="comments">
+    <h3 class="title is-4">Comments</h3>
+    
+<script>
+    var disqus_config = function () {
+        this.page.url = 'http://blog.rycbar.club/2020/03/24/mfc%E9%80%86%E5%90%91-200-%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C/';
+        this.page.identifier = '2020/03/24/mfc逆向-200-攻防世界/';
         
-        <footer id="footer">
-  <div class="footer-left">
-    Copyright &copy;
+        this.language = 'en';
+        
+    };
+    (function() {
+        var d = document, s = d.createElement('script');  
+        s.src = '//' + 'rrblog-2' + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+<div id="disqus_thread">
     
-    
-    2018-2021
-    Aorui Zhang
-  </div>
-  <div class="footer-right">
-    <nav>
-      <ul>
-        <!--
-       --><li><a href="/">Home</a></li><!--
-     --><!--
-       --><li><a href="/about/">About</a></li><!--
-     --><!--
-       --><li><a href="/archives/">Writing</a></li><!--
-     --><!--
-       --><li><a href="/atom.xml">RSS</a></li><!--
-     --><!--
-       --><li><a href="/search/">Search</a></li><!--
-     -->
-      </ul>
-    </nav>
-  </div>
-</footer>
+    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</div>
 
     </div>
-    <!-- styles -->
+</section>
+    <footer class="footer">
+    <div class="container">
+        <div class="columns content">
+            <div class="column is-narrow has-text-centered">
+                &copy; 2021 Aorui Zhang&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a
+                        target="_blank" rel="noopener" href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
+            </div>
+            <div class="column is-hidden-mobile"></div>
 
+            
+            <div class="column is-narrow">
+                <div class="columns is-mobile is-multiline is-centered">
+                
+                    
+                <a class="column is-narrow has-text-black" title="GitHub" target="_blank" rel="noopener" href="https://github.com/rycbar77">
+                    
+                    GitHub
+                    
+                </a>
+                
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</footer>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment-with-locales.min.js"></script>
 
-
-  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
-
-
-    <!-- jquery -->
- 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script> 
-
-
-
-
-<!-- clipboard -->
-
-  
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
-  
-  <script type="text/javascript">
-  $(function() {
-    // copy-btn HTML
-    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
-    btn += '<i class="far fa-clone"></i>';
-    btn += '</span>'; 
-    // mount it!
-    $(".highlight table").before(btn);
-    var clip = new ClipboardJS('.btn-copy', {
-      text: function(trigger) {
-        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
-      }
+<!-- test if the browser is outdated -->
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" target="_blank" rel="noopener" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // plugin function, place inside DOM ready function
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        })
     });
-    clip.on('success', function(e) {
-      e.trigger.setAttribute('aria-label', "Copied!");
-      e.clearSelection();
-    })
-  })
-  </script>
+</script>
+
+<script>
+    window.FontAwesomeConfig = {
+        searchPseudoElements: true
+    }
+    moment.locale("en-AU");
+</script>
 
 
-<script src="/js/main.js"></script>
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script>
+    MathJax.Hub.Config({
+        "HTML-CSS": {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+</script>
 
-<!-- search -->
+    
+    
+    
+    
+<script src="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/js/lightgallery-all.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/js/jquery.justifiedGallery.min.js"></script>
+<script>
+    (function ($) {
+        $(document).ready(function () {
+            if (typeof($.fn.lightGallery) === 'function') {
+                $('.article.gallery').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof($.fn.justifiedGallery) === 'function') {
+                $('.justified-gallery').justifiedGallery();
+            }
+        });
+    })(jQuery);
+</script>
 
-<!-- Google Analytics -->
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+    <style>
+        .hljs {
+            position: relative;
+        }
 
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128484503-1"></script>
+        .hljs .clipboard-btn {
+            float: right;
+            color: #9a9a9a;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .hljs .clipboard-btn:hover {
+          color: #8a8a8a;
+        }
+
+        .hljs > .clipboard-btn {
+            display: none;
+            position: absolute;
+            right: 4px;
+            top: 4px;
+        }
+
+        .hljs:hover > .clipboard-btn {
+            display: inline;
+        }
+
+        .hljs > figcaption > .clipboard-btn {
+            margin-right: 4px;
+        }
+    </style>
     <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'UA-128484503-1');
+      $(document).ready(function () {
+        $('figure.hljs').each(function(i, figure) {
+          var codeId = 'code-' + i;
+          var code = figure.querySelector('.code');
+          var copyButton = $('<button>Copy <i class="far fa-clipboard"></i></button>');
+          code.id = codeId;
+          copyButton.addClass('clipboard-btn');
+          copyButton.attr('data-clipboard-target-id', codeId);
+
+          var figcaption = figure.querySelector('figcaption');
+
+          if (figcaption) {
+            figcaption.append(copyButton[0]);
+          } else {
+            figure.prepend(copyButton[0]);
+          }
+        })
+
+        var clipboard = new ClipboardJS('.clipboard-btn', {
+          target: function(trigger) {
+            return document.getElementById(trigger.getAttribute('data-clipboard-target-id'));
+          }
+        });
+        clipboard.on('success', function(e) {
+          e.clearSelection();
+        })
+      })
     </script>
 
-<!-- Baidu Analytics -->
+    
+    
 
-<!-- Cloudflare Analytics -->
+    
 
-<!-- Umami Analytics -->
 
-<!-- Disqus Comments -->
 
-    <script type="text/javascript">
-        var disqus_shortname = 'rrblog-2';
+<script src="/js/script.js"></script>
 
-        (function(){
-            var dsq = document.createElement('script');
-            dsq.type = 'text/javascript';
-            dsq.async = true;
-            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-        }());
-    </script>
 
-<!-- utterances Comments -->
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-mask"></div>
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something..." />
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Posts',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
 
+<script src="/js/insight.js"></script>
+
+    
 </body>
 </html>

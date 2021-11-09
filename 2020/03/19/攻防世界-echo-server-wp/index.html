@@ -1,11 +1,19 @@
 <!DOCTYPE html>
-<html lang=en>
+<html class="has-navbar-fixed-top">
 <head>
-    <!-- so meta -->
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="HandheldFriendly" content="True">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+<title>攻防世界_echo-server_wp - rr&#39;s blog</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
+
+
+
+
+
+
+
+
     <meta name="description" content="这题涉及到去花和patch，难度不是很大">
 <meta property="og:type" content="article">
 <meta property="og:title" content="攻防世界_echo-server_wp">
@@ -20,386 +28,496 @@
 <meta property="article:tag" content="re">
 <meta property="article:tag" content="花指令">
 <meta name="twitter:card" content="summary">
-    
-    
-      
-        
-          <link rel="shortcut icon" href="/images/favicon.ico">
-        
-      
-      
-        
-          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
-        
-      
-      
-        
-          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
-        
-      
-    
-    <!-- title -->
-    <title>攻防世界_echo-server_wp</title>
-    <!-- styles -->
-    
+
+
+
+
+
+<link rel="icon" href="rust.png">
+
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ovo|Source+Code+Pro">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/css/lightgallery.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/css/justifiedGallery.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+
+
 <link rel="stylesheet" href="/css/style.css">
 
-    <!-- persian styles -->
-    
-    <!-- rss -->
-    
-    
-      <link rel="alternate" href="/true" title="rr&#39;s blog" type="application/atom+xml" />
-    
-	<!-- mathjax -->
-	
-<meta name="generator" content="Hexo 5.4.0"></head>
 
-<body class="max-width mx-auto px3 ltr">
-    
-      <div id="header-post">
-  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
-  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
-  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
-  <span id="menu">
-    <span id="nav">
-      <ul>
-        <!--
-       --><li><a href="/">Home</a></li><!--
-     --><!--
-       --><li><a href="/about/">About</a></li><!--
-     --><!--
-       --><li><a href="/archives/">Writing</a></li><!--
-     --><!--
-       --><li><a href="/atom.xml">RSS</a></li><!--
-     --><!--
-       --><li><a href="/search/">Search</a></li><!--
-     -->
-      </ul>
-    </span>
-    <br/>
-    <span id="actions">
-      <ul>
-        
-        <li><a class="icon" aria-label="Previous post" href="/2020/03/21/BJDCTF-re-wp/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
-        
-        
-        <li><a class="icon" aria-label="Next post" href="/2020/03/16/handcrafted-pyc-%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
-        
-        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
-        <li><a class="icon" aria-label="Share post" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
-      </ul>
-      <span id="i-prev" class="info" style="display:none;">Previous post</span>
-      <span id="i-next" class="info" style="display:none;">Next post</span>
-      <span id="i-top" class="info" style="display:none;">Back to top</span>
-      <span id="i-share" class="info" style="display:none;">Share post</span>
-    </span>
-    <br/>
-    <div id="share" style="display: none">
-      <ul>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://blog.rycbar.club/2020/03/19/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-echo-server-wp/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://blog.rycbar.club/2020/03/19/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-echo-server-wp/&text=攻防世界_echo-server_wp"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://blog.rycbar.club/2020/03/19/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-echo-server-wp/&title=攻防世界_echo-server_wp"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://blog.rycbar.club/2020/03/19/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-echo-server-wp/&is_video=false&description=攻防世界_echo-server_wp"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=攻防世界_echo-server_wp&body=Check out this article: http://blog.rycbar.club/2020/03/19/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-echo-server-wp/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://blog.rycbar.club/2020/03/19/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-echo-server-wp/&title=攻防世界_echo-server_wp"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://blog.rycbar.club/2020/03/19/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-echo-server-wp/&title=攻防世界_echo-server_wp"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://blog.rycbar.club/2020/03/19/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-echo-server-wp/&title=攻防世界_echo-server_wp"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://blog.rycbar.club/2020/03/19/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-echo-server-wp/&title=攻防世界_echo-server_wp"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://blog.rycbar.club/2020/03/19/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-echo-server-wp/&name=攻防世界_echo-server_wp&description=&lt;p&gt;这题涉及到去花和patch，难度不是很大&lt;/p&gt;"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://blog.rycbar.club/2020/03/19/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-echo-server-wp/&t=攻防世界_echo-server_wp"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
-</ul>
+<script defer src="//use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
 
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-128484503-1"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-128484503-1');
+</script>
+
+
+    
+
+
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="rr's blog" type="application/atom+xml">
+</head>
+<body>
+    
+<nav class="navbar is-transparent is-fixed-top navbar-main" role="navigation" aria-label="main navigation">
+    <div class="container">
+        <div class="navbar-brand">
+            <a class="navbar-item navbar-logo" href="/">
+                
+                <img src="/images/logo.png" alt="" height="28">
+                
+            </a>
+            <div class="navbar-burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        
+        <div class="navbar-menu navbar-start">
+            
+            <a class="navbar-item "
+               href="/archives">Archives</a>
+            
+            <a class="navbar-item "
+               href="/categories">Categories</a>
+            
+            <a class="navbar-item "
+               href="/tags">Tags</a>
+            
+            <a class="navbar-item "
+               href="/links">Links</a>
+            
+            <a class="navbar-item "
+               href="/about">About</a>
+            
+            <a class="navbar-item "
+               href="/atom.xml">RSS</a>
+            
+        </div>
+        
+        <div class="navbar-menu navbar-end">
+            
+            <a class="navbar-item search" title="Search" href="javascript:;">
+                <i class="fas fa-search"></i>
+            </a>
+            
+            
+            <div class="navbar-item is-hoverable has-dropdown is-hidden-mobile is-hidden-tablet-only toc">
+                <a class="navbar-item" title="Table of Contents">
+                    <i class="fa fa-list"></i>
+                </a>
+                <div class="navbar-dropdown is-right">
+                    
+                    
+                </div>
+            </div>
+            
+            
+            <a class="navbar-item" title="GitHub" target="_blank" rel="noopener" href="https://github.com/rycbar77">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+               
+            
+        </div>
     </div>
-    <div id="toc">
-      
-    </div>
-  </span>
-</div>
+</nav>
 
-    
-    <div class="content index py4">
+    <section class="section">
+    <div class="container">
+    <article class="article content gallery" itemscope itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
-        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
-  <header>
-    
-    <h1 class="posttitle" itemprop="name headline">
-        攻防世界_echo-server_wp
+            攻防世界_echo-server_wp
+        
     </h1>
-
-
-
-    <div class="meta">
-      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
-        <span itemprop="name">Aorui Zhang</span>
-      </span>
-      
-    <div class="postdate">
-      
-        <time datetime="2020-03-19T06:19:13.000Z" itemprop="datePublished">2020-03-19</time>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            
+                <time datetime="2020-03-19T06:19:13.000Z" itemprop="datePublished">Mar 19 2020</time>
+            
+        </span>
         
-        (Updated: <time datetime="2020-03-24T02:50:29.910Z" itemprop="dateModified">2020-03-24</time>)
+        <span class="column is-narrow article-category">
+            <i class="far fa-folder"></i>
+            <a class="article-category-link" href="/categories/ctf/">ctf</a>
+        </span>
         
-      
+        
+        <span class="column is-narrow">
+            
+            
+            15 minutes read (About 2285 words)
+        </span>
+        
     </div>
-
-
-      
-    <div class="article-category">
-        <i class="fas fa-archive"></i>
-        <a class="category-link" href="/categories/ctf/">ctf</a>
-    </div>
-
-
-      
-    <div class="article-tag">
-        <i class="fas fa-tag"></i>
-        <a class="tag-link-link" href="/tags/ctf/" rel="tag">ctf</a>, <a class="tag-link-link" href="/tags/re/" rel="tag">re</a>, <a class="tag-link-link" href="/tags/%E8%8A%B1%E6%8C%87%E4%BB%A4/" rel="tag">花指令</a>
-    </div>
-
-
-    </div>
-  </header>
-  
-
-  <div class="content" itemprop="articleBody">
-    <p>这题涉及到去花和patch，难度不是很大</p>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <html><head></head><body><p>这题涉及到去花和patch，难度不是很大</p>
 <span id="more"></span>
 
 <p>先file查看一下文件，32位ELF，运行一下</p>
-<figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">**************</span><br><span class="line">Echo Server 0.3 ALPHA</span><br><span class="line">**************</span><br></pre></td></tr></table></figure>
+<figure class="highlight asciidoc hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">**************</span><br><span class="line">Echo Server 0.3 ALPHA</span><br><span class="line">**************</span><br></pre></td></tr></tbody></table></figure>
 
 <p>等待输入，随便输入一句</p>
-<figure class="highlight nginx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">hhh</span></span><br><span class="line"><span class="number">686868</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight nginx hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-attribute">hhh</span></span><br><span class="line"><span class="hljs-number">686868</span></span><br></pre></td></tr></tbody></table></figure>
 
 <p>直接返回了ASCII码值</p>
 <p>用IDA打开看看</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> __cdecl <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="built_in">setbuf</span>(stdin, <span class="number">0</span>);</span><br><span class="line">  <span class="built_in">setbuf</span>(stdout, <span class="number">0</span>);</span><br><span class="line">  dword_804A088 = <span class="number">1</span>;</span><br><span class="line">  <span class="built_in">puts</span>(<span class="string">&quot;               **************\n               Echo Server 0.3 ALPHA\n               **************&quot;</span>);</span><br><span class="line">  ((<span class="built_in"><span class="keyword">void</span></span> (*)(<span class="keyword">void</span>))((<span class="keyword">char</span> *)&amp;loc_80487C1 + <span class="number">3</span>))();</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++ hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">int</span> __cdecl <span class="hljs-title">main</span><span class="hljs-params">()</span></span></span><br><span class="line"><span class="hljs-function"></span>{</span><br><span class="line">  <span class="hljs-built_in">setbuf</span>(stdin, <span class="hljs-number">0</span>);</span><br><span class="line">  <span class="hljs-built_in">setbuf</span>(stdout, <span class="hljs-number">0</span>);</span><br><span class="line">  dword_804A088 = <span class="hljs-number">1</span>;</span><br><span class="line">  <span class="hljs-built_in">puts</span>(<span class="hljs-string">"               **************\n               Echo Server 0.3 ALPHA\n               **************"</span>);</span><br><span class="line">  ((<span class="hljs-built_in"><span class="hljs-keyword">void</span></span> (*)(<span class="hljs-keyword">void</span>))((<span class="hljs-keyword">char</span> *)&amp;loc_80487C1 + <span class="hljs-number">3</span>))();</span><br><span class="line">  <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 
 <p><code>main</code>函数没什么特别的，就是最后这个函数调用很古怪，所以进去看看</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> __cdecl <span class="title">sub_804875D</span><span class="params">(<span class="keyword">unsigned</span> __int8 *a1, <span class="keyword">unsigned</span> <span class="keyword">int</span> a2)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">unsigned</span> __int8 *v2; <span class="comment">// eax</span></span><br><span class="line">  <span class="keyword">char</span> v3; <span class="comment">// zf</span></span><br><span class="line">  <span class="keyword">unsigned</span> __int8 *v4; <span class="comment">// [esp+18h] [ebp-10h]</span></span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">int</span> i; <span class="comment">// [esp+1Ch] [ebp-Ch]</span></span><br><span class="line"></span><br><span class="line">  v4 = a1;</span><br><span class="line">  <span class="keyword">if</span> ( a1 )</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">for</span> ( i = <span class="number">0</span>; i &lt; a2; ++i )</span><br><span class="line">    &#123;</span><br><span class="line">      v2 = v4++;</span><br><span class="line">      <span class="built_in">printf</span>(<span class="string">&quot;%02X&quot;</span>, *v2);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">else</span></span><br><span class="line">  &#123;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">&quot;NULL&quot;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">putchar</span>(<span class="number">10</span>);</span><br><span class="line">  <span class="built_in">JUMPOUT</span>(v3, (<span class="keyword">char</span> *)&amp;loc_80487C1 + <span class="number">1</span>);</span><br><span class="line">  <span class="built_in">JUMPOUT</span>(!v3, (<span class="keyword">char</span> *)&amp;loc_80487C1 + <span class="number">1</span>);</span><br><span class="line">  MEMORY[<span class="number">0x915A4B8F</span>]();</span><br><span class="line">  <span class="built_in">JUMPOUT</span>(loc_80487C6);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++ hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">void</span> __cdecl <span class="hljs-title">sub_804875D</span><span class="hljs-params">(<span class="hljs-keyword">unsigned</span> __int8 *a1, <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span> a2)</span></span></span><br><span class="line"><span class="hljs-function"></span>{</span><br><span class="line">  <span class="hljs-keyword">unsigned</span> __int8 *v2; <span class="hljs-comment">// eax</span></span><br><span class="line">  <span class="hljs-keyword">char</span> v3; <span class="hljs-comment">// zf</span></span><br><span class="line">  <span class="hljs-keyword">unsigned</span> __int8 *v4; <span class="hljs-comment">// [esp+18h] [ebp-10h]</span></span><br><span class="line">  <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span> i; <span class="hljs-comment">// [esp+1Ch] [ebp-Ch]</span></span><br><span class="line"></span><br><span class="line">  v4 = a1;</span><br><span class="line">  <span class="hljs-keyword">if</span> ( a1 )</span><br><span class="line">  {</span><br><span class="line">    <span class="hljs-keyword">for</span> ( i = <span class="hljs-number">0</span>; i &lt; a2; ++i )</span><br><span class="line">    {</span><br><span class="line">      v2 = v4++;</span><br><span class="line">      <span class="hljs-built_in">printf</span>(<span class="hljs-string">"%02X"</span>, *v2);</span><br><span class="line">    }</span><br><span class="line">  }</span><br><span class="line">  <span class="hljs-keyword">else</span></span><br><span class="line">  {</span><br><span class="line">    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"NULL"</span>);</span><br><span class="line">  }</span><br><span class="line">  <span class="hljs-built_in">putchar</span>(<span class="hljs-number">10</span>);</span><br><span class="line">  <span class="hljs-built_in">JUMPOUT</span>(v3, (<span class="hljs-keyword">char</span> *)&amp;loc_80487C1 + <span class="hljs-number">1</span>);</span><br><span class="line">  <span class="hljs-built_in">JUMPOUT</span>(!v3, (<span class="hljs-keyword">char</span> *)&amp;loc_80487C1 + <span class="hljs-number">1</span>);</span><br><span class="line">  MEMORY[<span class="hljs-number">0x915A4B8F</span>]();</span><br><span class="line">  <span class="hljs-built_in">JUMPOUT</span>(loc_80487C6);</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 
 <p>出现了访问内存越界的情况<code>MEMORY[0x915A4B8F]()</code>，看到上面两句更加古怪</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">JUMPOUT</span>(v3, (<span class="keyword">char</span> *)&amp;loc_80487C1 + <span class="number">1</span>);</span><br><span class="line"><span class="built_in">JUMPOUT</span>(!v3, (<span class="keyword">char</span> *)&amp;loc_80487C1 + <span class="number">1</span>);</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++ hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-built_in">JUMPOUT</span>(v3, (<span class="hljs-keyword">char</span> *)&amp;loc_80487C1 + <span class="hljs-number">1</span>);</span><br><span class="line"><span class="hljs-built_in">JUMPOUT</span>(!v3, (<span class="hljs-keyword">char</span> *)&amp;loc_80487C1 + <span class="hljs-number">1</span>);</span><br></pre></td></tr></tbody></table></figure>
 
 <p>这里很明显是强行创造多条分支，IDA使用递归行进算法，就会默认这条路径接这两个函数执行过后的指令是有效的而去扫描分析后面的指令，但实际上，后面是永远不会到达的指令，不管v3的值是多少，都会跳转到<code>(char *)&amp;loc_80487C1 + 1</code>这显然是一条花指令，所以查看一下汇编代码准备去花</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line">.text:0804875D ; Attributes: bp-based frame</span><br><span class="line">.text:0804875D</span><br><span class="line">.text:0804875D sub_804875D     proc near</span><br><span class="line">.text:0804875D</span><br><span class="line">.text:0804875D var_10          = dword ptr -10h</span><br><span class="line">.text:0804875D var_C           = dword ptr -0Ch</span><br><span class="line">.text:0804875D arg_0           = dword ptr  8</span><br><span class="line">.text:0804875D arg_4           = dword ptr  0Ch</span><br><span class="line">.text:0804875D</span><br><span class="line">.text:0804875D ; __unwind &#123;</span><br><span class="line">.text:0804875D                 push    ebp</span><br><span class="line">.text:0804875E                 mov     ebp, esp</span><br><span class="line">.text:08048760                 sub     esp, 28h</span><br><span class="line">.text:08048763                 mov     eax, [ebp+arg_0]</span><br><span class="line">.text:08048766                 mov     [ebp+var_10], eax</span><br><span class="line">.text:08048769                 cmp     [ebp+arg_0], 0</span><br><span class="line">.text:0804876D                 jnz     short loc_804877D</span><br><span class="line">.text:0804876F                 mov     dword ptr [esp], offset format ; &quot;NULL&quot;</span><br><span class="line">.text:08048776                 call    _printf</span><br><span class="line">.text:0804877B                 jmp     short loc_80487B1</span><br><span class="line">.text:0804877D ; ---------------------------------------------------------------------------</span><br><span class="line">.text:0804877D</span><br><span class="line">.text:0804877D loc_804877D:                            ; CODE XREF: sub_804875D+10↑j</span><br><span class="line">.text:0804877D                 mov     [ebp+var_C], 0</span><br><span class="line">.text:08048784                 jmp     short loc_80487A9</span><br><span class="line">.text:08048786 ; ---------------------------------------------------------------------------</span><br><span class="line">.text:08048786</span><br><span class="line">.text:08048786 loc_8048786:                            ; CODE XREF: sub_804875D+52↓j</span><br><span class="line">.text:08048786                 mov     eax, [ebp+var_10]</span><br><span class="line">.text:08048789                 lea     edx, [eax+1]</span><br><span class="line">.text:0804878C                 mov     [ebp+var_10], edx</span><br><span class="line">.text:0804878F                 movzx   eax, byte ptr [eax]</span><br><span class="line">.text:08048792                 movzx   eax, al</span><br><span class="line">.text:08048795                 mov     [esp+4], eax</span><br><span class="line">.text:08048799                 mov     dword ptr [esp], offset a02x ; &quot;%02X&quot;</span><br><span class="line">.text:080487A0                 call    _printf</span><br><span class="line">.text:080487A5                 add     [ebp+var_C], 1</span><br><span class="line">.text:080487A9</span><br><span class="line">.text:080487A9 loc_80487A9:                            ; CODE XREF: sub_804875D+27↑j</span><br><span class="line">.text:080487A9                 mov     eax, [ebp+var_C]</span><br><span class="line">.text:080487AC                 cmp     eax, [ebp+arg_4]</span><br><span class="line">.text:080487AF                 jb      short loc_8048786</span><br><span class="line">.text:080487B1</span><br><span class="line">.text:080487B1 loc_80487B1:                            ; CODE XREF: sub_804875D+1E↑j</span><br><span class="line">.text:080487B1                 mov     dword ptr [esp], 0Ah ; c</span><br><span class="line">.text:080487B8                 call    _putchar</span><br><span class="line">.text:080487BD                 jz      short near ptr loc_80487C1+1</span><br><span class="line">.text:080487BF                 jnz     short near ptr loc_80487C1+1</span><br><span class="line">.text:080487C1</span><br><span class="line">.text:080487C1 loc_80487C1:                            ; CODE XREF: sub_804875D+60↑j</span><br><span class="line">.text:080487C1                                         ; sub_804875D+62↑j ...</span><br><span class="line">.text:080487C1                 call    near ptr 915A4B8Fh</span><br><span class="line">.text:080487C1 sub_804875D     endp ; sp-analysis failed</span><br><span class="line">.text:080487C1</span><br><span class="line">.text:080487C6</span><br><span class="line">.text:080487C6 loc_80487C6:                            ; DMA page register 74LS612:</span><br><span class="line">.text:080487C6                 in      eax, 81h        ; Channel 2 (diskette DMA)  (address bits 16-23)</span><br><span class="line">.text:080487C8                 in      al, dx</span><br><span class="line">.text:080487C9                 mov     [eax], al</span><br><span class="line">.text:080487C9 ; ---------------------------------------------------------------------------</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line">.text:0804875D ; Attributes: bp-based frame</span><br><span class="line">.text:0804875D</span><br><span class="line">.text:0804875D sub_804875D     proc near</span><br><span class="line">.text:0804875D</span><br><span class="line">.text:0804875D var_10          = dword ptr -10h</span><br><span class="line">.text:0804875D var_C           = dword ptr -0Ch</span><br><span class="line">.text:0804875D arg_0           = dword ptr  8</span><br><span class="line">.text:0804875D arg_4           = dword ptr  0Ch</span><br><span class="line">.text:0804875D</span><br><span class="line">.text:0804875D ; __unwind {</span><br><span class="line">.text:0804875D                 push    ebp</span><br><span class="line">.text:0804875E                 mov     ebp, esp</span><br><span class="line">.text:08048760                 sub     esp, 28h</span><br><span class="line">.text:08048763                 mov     eax, [ebp+arg_0]</span><br><span class="line">.text:08048766                 mov     [ebp+var_10], eax</span><br><span class="line">.text:08048769                 cmp     [ebp+arg_0], 0</span><br><span class="line">.text:0804876D                 jnz     short loc_804877D</span><br><span class="line">.text:0804876F                 mov     dword ptr [esp], offset format ; "NULL"</span><br><span class="line">.text:08048776                 call    _printf</span><br><span class="line">.text:0804877B                 jmp     short loc_80487B1</span><br><span class="line">.text:0804877D ; ---------------------------------------------------------------------------</span><br><span class="line">.text:0804877D</span><br><span class="line">.text:0804877D loc_804877D:                            ; CODE XREF: sub_804875D+10↑j</span><br><span class="line">.text:0804877D                 mov     [ebp+var_C], 0</span><br><span class="line">.text:08048784                 jmp     short loc_80487A9</span><br><span class="line">.text:08048786 ; ---------------------------------------------------------------------------</span><br><span class="line">.text:08048786</span><br><span class="line">.text:08048786 loc_8048786:                            ; CODE XREF: sub_804875D+52↓j</span><br><span class="line">.text:08048786                 mov     eax, [ebp+var_10]</span><br><span class="line">.text:08048789                 lea     edx, [eax+1]</span><br><span class="line">.text:0804878C                 mov     [ebp+var_10], edx</span><br><span class="line">.text:0804878F                 movzx   eax, byte ptr [eax]</span><br><span class="line">.text:08048792                 movzx   eax, al</span><br><span class="line">.text:08048795                 mov     [esp+4], eax</span><br><span class="line">.text:08048799                 mov     dword ptr [esp], offset a02x ; "%02X"</span><br><span class="line">.text:080487A0                 call    _printf</span><br><span class="line">.text:080487A5                 add     [ebp+var_C], 1</span><br><span class="line">.text:080487A9</span><br><span class="line">.text:080487A9 loc_80487A9:                            ; CODE XREF: sub_804875D+27↑j</span><br><span class="line">.text:080487A9                 mov     eax, [ebp+var_C]</span><br><span class="line">.text:080487AC                 cmp     eax, [ebp+arg_4]</span><br><span class="line">.text:080487AF                 jb      short loc_8048786</span><br><span class="line">.text:080487B1</span><br><span class="line">.text:080487B1 loc_80487B1:                            ; CODE XREF: sub_804875D+1E↑j</span><br><span class="line">.text:080487B1                 mov     dword ptr [esp], 0Ah ; c</span><br><span class="line">.text:080487B8                 call    _putchar</span><br><span class="line">.text:080487BD                 jz      short near ptr loc_80487C1+1</span><br><span class="line">.text:080487BF                 jnz     short near ptr loc_80487C1+1</span><br><span class="line">.text:080487C1</span><br><span class="line">.text:080487C1 loc_80487C1:                            ; CODE XREF: sub_804875D+60↑j</span><br><span class="line">.text:080487C1                                         ; sub_804875D+62↑j ...</span><br><span class="line">.text:080487C1                 call    near ptr 915A4B8Fh</span><br><span class="line">.text:080487C1 sub_804875D     endp ; sp-analysis failed</span><br><span class="line">.text:080487C1</span><br><span class="line">.text:080487C6</span><br><span class="line">.text:080487C6 loc_80487C6:                            ; DMA page register 74LS612:</span><br><span class="line">.text:080487C6                 in      eax, 81h        ; Channel 2 (diskette DMA)  (address bits 16-23)</span><br><span class="line">.text:080487C8                 in      al, dx</span><br><span class="line">.text:080487C9                 mov     [eax], al</span><br><span class="line">.text:080487C9 ; ---------------------------------------------------------------------------</span><br></pre></td></tr></tbody></table></figure>
 
 <p>这个函数显然是不对的，堆栈本身并没有平衡，<code>main</code>函数里跳到的地方是<code>0x080487C4</code>已经被其它指令占了，这里去花一下，多余的指令码干脆用<code>nop</code>patch掉</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line">sub_804875D     proc near</span><br><span class="line">.text:0804875D</span><br><span class="line">.text:0804875D var_10          = dword ptr -10h</span><br><span class="line">.text:0804875D var_C           = dword ptr -0Ch</span><br><span class="line">.text:0804875D arg_0           = dword ptr  8</span><br><span class="line">.text:0804875D arg_4           = dword ptr  0Ch</span><br><span class="line">.text:0804875D</span><br><span class="line">.text:0804875D ; __unwind &#123;</span><br><span class="line">.text:0804875D                 push    ebp</span><br><span class="line">.text:0804875E                 mov     ebp, esp</span><br><span class="line">.text:08048760                 sub     esp, 28h</span><br><span class="line">.text:08048763                 mov     eax, [ebp+arg_0]</span><br><span class="line">.text:08048766                 mov     [ebp+var_10], eax</span><br><span class="line">.text:08048769                 cmp     [ebp+arg_0], 0</span><br><span class="line">.text:0804876D                 jnz     short loc_804877D</span><br><span class="line">.text:0804876F                 mov     dword ptr [esp], offset format ; &quot;NULL&quot;</span><br><span class="line">.text:08048776                 call    _printf</span><br><span class="line">.text:0804877B                 jmp     short loc_80487B1</span><br><span class="line">.text:0804877D ; ---------------------------------------------------------------------------</span><br><span class="line">.text:0804877D</span><br><span class="line">.text:0804877D loc_804877D:                            ; CODE XREF: sub_804875D+10↑j</span><br><span class="line">.text:0804877D                 mov     [ebp+var_C], 0</span><br><span class="line">.text:08048784                 jmp     short loc_80487A9</span><br><span class="line">.text:08048786 ; ---------------------------------------------------------------------------</span><br><span class="line">.text:08048786</span><br><span class="line">.text:08048786 loc_8048786:                            ; CODE XREF: sub_804875D+52↓j</span><br><span class="line">.text:08048786                 mov     eax, [ebp+var_10]</span><br><span class="line">.text:08048789                 lea     edx, [eax+1]</span><br><span class="line">.text:0804878C                 mov     [ebp+var_10], edx</span><br><span class="line">.text:0804878F                 movzx   eax, byte ptr [eax]</span><br><span class="line">.text:08048792                 movzx   eax, al</span><br><span class="line">.text:08048795                 mov     [esp+4], eax</span><br><span class="line">.text:08048799                 mov     dword ptr [esp], offset a02x ; &quot;%02X&quot;</span><br><span class="line">.text:080487A0                 call    _printf</span><br><span class="line">.text:080487A5                 add     [ebp+var_C], 1</span><br><span class="line">.text:080487A9</span><br><span class="line">.text:080487A9 loc_80487A9:                            ; CODE XREF: sub_804875D+27↑j</span><br><span class="line">.text:080487A9                 mov     eax, [ebp+var_C]</span><br><span class="line">.text:080487AC                 cmp     eax, [ebp+arg_4]</span><br><span class="line">.text:080487AF                 jb      short loc_8048786</span><br><span class="line">.text:080487B1</span><br><span class="line">.text:080487B1 loc_80487B1:                            ; CODE XREF: sub_804875D+1E↑j</span><br><span class="line">.text:080487B1                 mov     dword ptr [esp], 0Ah ; c</span><br><span class="line">.text:080487B8                 call    _putchar</span><br><span class="line">.text:080487BD                 jz      short locret_80487C2</span><br><span class="line">.text:080487BF                 jnz     short locret_80487C2</span><br><span class="line">.text:080487C1                 nop                     ; Keypatch modified this from:</span><br><span class="line">.text:080487C1                                         ;   db 0E8h</span><br><span class="line">.text:080487C2</span><br><span class="line">.text:080487C2 locret_80487C2:                         ; CODE XREF: sub_804875D+60↑j</span><br><span class="line">.text:080487C2                                         ; sub_804875D+62↑j</span><br><span class="line">.text:080487C2                 leave</span><br><span class="line">.text:080487C3                 retn</span><br><span class="line">.text:080487C3 ; &#125; // starts at 804875D</span><br><span class="line">.text:080487C3 sub_804875D     endp</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line">sub_804875D     proc near</span><br><span class="line">.text:0804875D</span><br><span class="line">.text:0804875D var_10          = dword ptr -10h</span><br><span class="line">.text:0804875D var_C           = dword ptr -0Ch</span><br><span class="line">.text:0804875D arg_0           = dword ptr  8</span><br><span class="line">.text:0804875D arg_4           = dword ptr  0Ch</span><br><span class="line">.text:0804875D</span><br><span class="line">.text:0804875D ; __unwind {</span><br><span class="line">.text:0804875D                 push    ebp</span><br><span class="line">.text:0804875E                 mov     ebp, esp</span><br><span class="line">.text:08048760                 sub     esp, 28h</span><br><span class="line">.text:08048763                 mov     eax, [ebp+arg_0]</span><br><span class="line">.text:08048766                 mov     [ebp+var_10], eax</span><br><span class="line">.text:08048769                 cmp     [ebp+arg_0], 0</span><br><span class="line">.text:0804876D                 jnz     short loc_804877D</span><br><span class="line">.text:0804876F                 mov     dword ptr [esp], offset format ; "NULL"</span><br><span class="line">.text:08048776                 call    _printf</span><br><span class="line">.text:0804877B                 jmp     short loc_80487B1</span><br><span class="line">.text:0804877D ; ---------------------------------------------------------------------------</span><br><span class="line">.text:0804877D</span><br><span class="line">.text:0804877D loc_804877D:                            ; CODE XREF: sub_804875D+10↑j</span><br><span class="line">.text:0804877D                 mov     [ebp+var_C], 0</span><br><span class="line">.text:08048784                 jmp     short loc_80487A9</span><br><span class="line">.text:08048786 ; ---------------------------------------------------------------------------</span><br><span class="line">.text:08048786</span><br><span class="line">.text:08048786 loc_8048786:                            ; CODE XREF: sub_804875D+52↓j</span><br><span class="line">.text:08048786                 mov     eax, [ebp+var_10]</span><br><span class="line">.text:08048789                 lea     edx, [eax+1]</span><br><span class="line">.text:0804878C                 mov     [ebp+var_10], edx</span><br><span class="line">.text:0804878F                 movzx   eax, byte ptr [eax]</span><br><span class="line">.text:08048792                 movzx   eax, al</span><br><span class="line">.text:08048795                 mov     [esp+4], eax</span><br><span class="line">.text:08048799                 mov     dword ptr [esp], offset a02x ; "%02X"</span><br><span class="line">.text:080487A0                 call    _printf</span><br><span class="line">.text:080487A5                 add     [ebp+var_C], 1</span><br><span class="line">.text:080487A9</span><br><span class="line">.text:080487A9 loc_80487A9:                            ; CODE XREF: sub_804875D+27↑j</span><br><span class="line">.text:080487A9                 mov     eax, [ebp+var_C]</span><br><span class="line">.text:080487AC                 cmp     eax, [ebp+arg_4]</span><br><span class="line">.text:080487AF                 jb      short loc_8048786</span><br><span class="line">.text:080487B1</span><br><span class="line">.text:080487B1 loc_80487B1:                            ; CODE XREF: sub_804875D+1E↑j</span><br><span class="line">.text:080487B1                 mov     dword ptr [esp], 0Ah ; c</span><br><span class="line">.text:080487B8                 call    _putchar</span><br><span class="line">.text:080487BD                 jz      short locret_80487C2</span><br><span class="line">.text:080487BF                 jnz     short locret_80487C2</span><br><span class="line">.text:080487C1                 nop                     ; Keypatch modified this from:</span><br><span class="line">.text:080487C1                                         ;   db 0E8h</span><br><span class="line">.text:080487C2</span><br><span class="line">.text:080487C2 locret_80487C2:                         ; CODE XREF: sub_804875D+60↑j</span><br><span class="line">.text:080487C2                                         ; sub_804875D+62↑j</span><br><span class="line">.text:080487C2                 leave</span><br><span class="line">.text:080487C3                 retn</span><br><span class="line">.text:080487C3 ; } // starts at 804875D</span><br><span class="line">.text:080487C3 sub_804875D     endp</span><br></pre></td></tr></tbody></table></figure>
 
 <p>这是这个函数本来的样子，而<code>main</code>函数里面调用的根本就不是这个函数，而是下面</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">.text:080487C4 ; ---------------------------------------------------------------------------</span><br><span class="line">.text:080487C4 ; __unwind &#123;</span><br><span class="line">.text:080487C4                 push    ebp             ; CODE XREF: main+49↓p</span><br><span class="line">.text:080487C5                 mov     ebp, esp</span><br><span class="line">.text:080487C7                 sub     esp, 88h</span><br><span class="line">.text:080487CD                 mov     eax, large gs:14h</span><br><span class="line">.text:080487D3                 mov     [ebp-0Ch], eax</span><br><span class="line">.text:080487D6                 xor     eax, eax</span><br><span class="line">.text:080487D8                 mov     dword ptr [esp+8], 14h</span><br><span class="line">.text:080487E0                 mov     dword ptr [esp+4], 0</span><br><span class="line">.text:080487E8                 lea     eax, [ebp-70h]</span><br><span class="line">.text:080487EB                 mov     [esp], eax</span><br><span class="line">.text:080487EE                 call    _memset</span><br><span class="line">.text:080487F3</span><br><span class="line">.text:080487F3 loc_80487F3:                            ; CODE XREF: .text:loc_80487F3↑j</span><br><span class="line">.text:080487F3                 jmp     short near ptr loc_80487F3+1</span><br><span class="line">.text:080487F3 ; ---------------------------------------------------------------------------</span><br><span class="line">.text:080487F5                 db 0C0h</span><br><span class="line">.text:080487F6                 db  48h ; H</span><br><span class="line">.text:080487F7                 db 0C7h</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">.text:080487C4 ; ---------------------------------------------------------------------------</span><br><span class="line">.text:080487C4 ; __unwind {</span><br><span class="line">.text:080487C4                 push    ebp             ; CODE XREF: main+49↓p</span><br><span class="line">.text:080487C5                 mov     ebp, esp</span><br><span class="line">.text:080487C7                 sub     esp, 88h</span><br><span class="line">.text:080487CD                 mov     eax, large gs:14h</span><br><span class="line">.text:080487D3                 mov     [ebp-0Ch], eax</span><br><span class="line">.text:080487D6                 xor     eax, eax</span><br><span class="line">.text:080487D8                 mov     dword ptr [esp+8], 14h</span><br><span class="line">.text:080487E0                 mov     dword ptr [esp+4], 0</span><br><span class="line">.text:080487E8                 lea     eax, [ebp-70h]</span><br><span class="line">.text:080487EB                 mov     [esp], eax</span><br><span class="line">.text:080487EE                 call    _memset</span><br><span class="line">.text:080487F3</span><br><span class="line">.text:080487F3 loc_80487F3:                            ; CODE XREF: .text:loc_80487F3↑j</span><br><span class="line">.text:080487F3                 jmp     short near ptr loc_80487F3+1</span><br><span class="line">.text:080487F3 ; ---------------------------------------------------------------------------</span><br><span class="line">.text:080487F5                 db 0C0h</span><br><span class="line">.text:080487F6                 db  48h ; H</span><br><span class="line">.text:080487F7                 db 0C7h</span><br></pre></td></tr></tbody></table></figure>
 
 <p>下面并没有分析，因为又遇到了一个花指令</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.text:080487F3                 jmp     short near ptr loc_80487F3+1</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.text:080487F3                 jmp     short near ptr loc_80487F3+1</span><br></pre></td></tr></tbody></table></figure>
 
 <p>代码重叠，分析一下本来的指令是什么</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">text:080487F4 ; ---------------------------------------------------------------------------</span><br><span class="line">.text:080487F4                 inc     eax</span><br><span class="line">.text:080487F6                 dec     eax</span><br><span class="line">.text:080487F7                 mov     dword ptr [esp+8], 14h</span><br><span class="line">.text:080487FF                 lea     eax, [ebp-70h]</span><br><span class="line">.text:08048802                 mov     [esp+4], eax</span><br><span class="line">.text:08048806                 mov     dword ptr [esp], 0</span><br><span class="line">.text:0804880D                 call    _read</span><br><span class="line">.text:08048812                 xor     eax, eax</span><br><span class="line">.text:08048814                 jz      short loc_804881D</span><br><span class="line">.text:08048816                 jmp     near ptr 6F44B961h</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">text:080487F4 ; ---------------------------------------------------------------------------</span><br><span class="line">.text:080487F4                 inc     eax</span><br><span class="line">.text:080487F6                 dec     eax</span><br><span class="line">.text:080487F7                 mov     dword ptr [esp+8], 14h</span><br><span class="line">.text:080487FF                 lea     eax, [ebp-70h]</span><br><span class="line">.text:08048802                 mov     [esp+4], eax</span><br><span class="line">.text:08048806                 mov     dword ptr [esp], 0</span><br><span class="line">.text:0804880D                 call    _read</span><br><span class="line">.text:08048812                 xor     eax, eax</span><br><span class="line">.text:08048814                 jz      short loc_804881D</span><br><span class="line">.text:08048816                 jmp     near ptr 6F44B961h</span><br></pre></td></tr></tbody></table></figure>
 
 <p>又来</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">.text:08048812                 xor     eax, eax</span><br><span class="line">.text:08048814                 jz      short loc_804881D</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">.text:08048812                 xor     eax, eax</span><br><span class="line">.text:08048814                 jz      short loc_804881D</span><br></pre></td></tr></tbody></table></figure>
 
 <p>自己和自己异或肯定是0，这个跳转是一定会实现的，后面的语句并没有什么用但是IDA还是进行了分析然后出错，patch掉继续看</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">.text:08048816                 nop                     ; Keypatch modified this from:</span><br><span class="line">.text:08048816                                         ;   db 0E9h</span><br><span class="line">.text:08048816 ; ---------------------------------------------------------------------------</span><br><span class="line">.text:08048817 aF1Ga           db &#x27;F1@gA&#x27;,0</span><br><span class="line">.text:0804881D ; ---------------------------------------------------------------------------</span><br><span class="line">.text:0804881D</span><br><span class="line">.text:0804881D loc_804881D:                            ; CODE XREF: .text:08048814↑j</span><br><span class="line">.text:0804881D                 mov     dword ptr [esp+8], 5</span><br><span class="line">.text:08048825                 mov     dword ptr [esp+4], 8048817h</span><br><span class="line">.text:0804882D                 lea     eax, [ebp-70h]</span><br><span class="line">.text:08048830                 mov     [esp], eax</span><br><span class="line">.text:08048833                 call    _strncmp</span><br><span class="line">.text:08048838                 test    eax, eax</span><br><span class="line">.text:0804883A                 jnz     short loc_80488A3</span><br><span class="line">.text:0804883C                 mov     dword ptr [esp], offset aYouAreVeryClos ; &quot;You are very close! Now patch me~&quot;</span><br><span class="line">.text:08048843                 call    _puts</span><br><span class="line">.text:08048848                 mov     eax, ds:dword_804A088</span><br><span class="line">.text:0804884D                 test    eax, eax</span><br><span class="line">.text:0804884F                 jz      short loc_8048866</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">.text:08048816                 nop                     ; Keypatch modified this from:</span><br><span class="line">.text:08048816                                         ;   db 0E9h</span><br><span class="line">.text:08048816 ; ---------------------------------------------------------------------------</span><br><span class="line">.text:08048817 aF1Ga           db 'F1@gA',0</span><br><span class="line">.text:0804881D ; ---------------------------------------------------------------------------</span><br><span class="line">.text:0804881D</span><br><span class="line">.text:0804881D loc_804881D:                            ; CODE XREF: .text:08048814↑j</span><br><span class="line">.text:0804881D                 mov     dword ptr [esp+8], 5</span><br><span class="line">.text:08048825                 mov     dword ptr [esp+4], 8048817h</span><br><span class="line">.text:0804882D                 lea     eax, [ebp-70h]</span><br><span class="line">.text:08048830                 mov     [esp], eax</span><br><span class="line">.text:08048833                 call    _strncmp</span><br><span class="line">.text:08048838                 test    eax, eax</span><br><span class="line">.text:0804883A                 jnz     short loc_80488A3</span><br><span class="line">.text:0804883C                 mov     dword ptr [esp], offset aYouAreVeryClos ; "You are very close! Now patch me~"</span><br><span class="line">.text:08048843                 call    _puts</span><br><span class="line">.text:08048848                 mov     eax, ds:dword_804A088</span><br><span class="line">.text:0804884D                 test    eax, eax</span><br><span class="line">.text:0804884F                 jz      short loc_8048866</span><br></pre></td></tr></tbody></table></figure>
 
 <p>去花之后变成了一个字符串，后面还有一个比较操作，如果输入这个字符串，就会输出<code>You are very close! Now patch me~</code></p>
 <p>后面肯定还有操作，往后面看</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.text:08048848                 mov     eax, ds:dword_804A088</span><br><span class="line">.text:0804884D                 test    eax, eax</span><br><span class="line">.text:0804884F                 jz      short loc_8048866</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.text:08048848                 mov     eax, ds:dword_804A088</span><br><span class="line">.text:0804884D                 test    eax, eax</span><br><span class="line">.text:0804884F                 jz      short loc_8048866</span><br></pre></td></tr></tbody></table></figure>
 
 <p>这三句很关键，如果<code>eax</code>是0，就会进行后面的跳转，所以查找一下<code>ds:dword_804A088</code>交叉引用，在<code>main</code>里面发现</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.text:08048913                 mov     ds:dword_804A088, 1</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.text:08048913                 mov     ds:dword_804A088, 1</span><br></pre></td></tr></tbody></table></figure>
 
 <p>所以这个跳转是永远不会实现的，先看看不跳转后面会执行什么</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">.text:08048851 loc_8048851:                            ; CODE XREF: .text:08048857↓j</span><br><span class="line">.text:08048851                 mov     ax, 5EBh</span><br><span class="line">.text:08048855                 xor     eax, eax</span><br><span class="line">.text:08048857                 jz      short near ptr loc_8048851+1</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">.text:08048851 loc_8048851:                            ; CODE XREF: .text:08048857↓j</span><br><span class="line">.text:08048851                 mov     ax, 5EBh</span><br><span class="line">.text:08048855                 xor     eax, eax</span><br><span class="line">.text:08048857                 jz      short near ptr loc_8048851+1</span><br></pre></td></tr></tbody></table></figure>
 
 <p>又是一个花指令，重新分析这几句</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.text:08048852 loc_8048852:                            ; CODE XREF: .text:08048857↓j</span><br><span class="line">.text:08048852                 mov     eax, 0C03105EBh</span><br><span class="line">.text:08048857                 jz      short loc_8048852</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.text:08048852 loc_8048852:                            ; CODE XREF: .text:08048857↓j</span><br><span class="line">.text:08048852                 mov     eax, 0C03105EBh</span><br><span class="line">.text:08048857                 jz      short loc_8048852</span><br></pre></td></tr></tbody></table></figure>
 
 <p>发现进入了一个死循环，所以题目让我们patch的意思是不走这个循环，也就是真正应该执行的是前面没走的那个分支</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">loc_8048866:                            ; CODE XREF: .text:0804884F↑j</span><br><span class="line">.text:08048866                 lea     eax, [ebp-70h]</span><br><span class="line">.text:08048869                 mov     [esp], eax</span><br><span class="line">.text:0804886C                 call    _strlen</span><br><span class="line">.text:08048871                 mov     dword ptr [esp+8], 0</span><br><span class="line">.text:08048879                 mov     [esp+4], eax</span><br><span class="line">.text:0804887D                 lea     eax, [ebp-70h]</span><br><span class="line">.text:08048880                 add     eax, 1</span><br><span class="line">.text:08048883                 mov     [esp], eax</span><br><span class="line">.text:08048886                 call    _MD5</span><br><span class="line">.text:0804888B                 mov     [ebp-74h], eax</span><br><span class="line">.text:0804888E                 mov     dword ptr [esp+4], 10h</span><br><span class="line">.text:08048896                 mov     eax, [ebp-74h]</span><br><span class="line">.text:08048899                 mov     [esp], eax</span><br><span class="line">.text:0804889C                 call    sub_804875D</span><br><span class="line">.text:080488A1                 jmp     short loc_80488C0</span><br><span class="line">.text:080488A3 ; ---------------------------------------------------------------------------</span><br><span class="line">.text:080488A3</span><br><span class="line">.text:080488A3 loc_80488A3:                            ; CODE XREF: .text:0804883A↑j</span><br><span class="line">.text:080488A3                 lea     eax, [ebp-70h]</span><br><span class="line">.text:080488A6                 mov     [esp], eax</span><br><span class="line">.text:080488A9                 call    _strlen</span><br><span class="line">.text:080488AE                 sub     eax, 1</span><br><span class="line">.text:080488B1                 mov     [esp+4], eax</span><br><span class="line">.text:080488B5                 lea     eax, [ebp-70h]</span><br><span class="line">.text:080488B8                 mov     [esp], eax</span><br><span class="line">.text:080488BB                 call    sub_804875D</span><br><span class="line">.text:080488C0</span><br><span class="line">.text:080488C0 loc_80488C0:                            ; CODE XREF: .text:080488A1↑j</span><br><span class="line">.text:080488C0                 mov     eax, ds:stdout</span><br><span class="line">.text:080488C5                 mov     [esp], eax</span><br><span class="line">.text:080488C8                 call    _fflush</span><br><span class="line">.text:080488CD                 mov     eax, [ebp-0Ch]</span><br><span class="line">.text:080488D0                 xor     eax, large gs:14h</span><br><span class="line">.text:080488D7                 jz      short locret_80488DE</span><br><span class="line">.text:080488D9                 call    ___stack_chk_fail</span><br><span class="line">.text:080488DE ; ---------------------------------------------------------------------------</span><br><span class="line">.text:080488DE</span><br><span class="line">.text:080488DE locret_80488DE:                         ; CODE XREF: .text:080488D7↑j</span><br><span class="line">.text:080488DE                 leave</span><br><span class="line">.text:080488DF                 retn</span><br><span class="line">.text:080488DF ; &#125; // starts at 80487C4</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">loc_8048866:                            ; CODE XREF: .text:0804884F↑j</span><br><span class="line">.text:08048866                 lea     eax, [ebp-70h]</span><br><span class="line">.text:08048869                 mov     [esp], eax</span><br><span class="line">.text:0804886C                 call    _strlen</span><br><span class="line">.text:08048871                 mov     dword ptr [esp+8], 0</span><br><span class="line">.text:08048879                 mov     [esp+4], eax</span><br><span class="line">.text:0804887D                 lea     eax, [ebp-70h]</span><br><span class="line">.text:08048880                 add     eax, 1</span><br><span class="line">.text:08048883                 mov     [esp], eax</span><br><span class="line">.text:08048886                 call    _MD5</span><br><span class="line">.text:0804888B                 mov     [ebp-74h], eax</span><br><span class="line">.text:0804888E                 mov     dword ptr [esp+4], 10h</span><br><span class="line">.text:08048896                 mov     eax, [ebp-74h]</span><br><span class="line">.text:08048899                 mov     [esp], eax</span><br><span class="line">.text:0804889C                 call    sub_804875D</span><br><span class="line">.text:080488A1                 jmp     short loc_80488C0</span><br><span class="line">.text:080488A3 ; ---------------------------------------------------------------------------</span><br><span class="line">.text:080488A3</span><br><span class="line">.text:080488A3 loc_80488A3:                            ; CODE XREF: .text:0804883A↑j</span><br><span class="line">.text:080488A3                 lea     eax, [ebp-70h]</span><br><span class="line">.text:080488A6                 mov     [esp], eax</span><br><span class="line">.text:080488A9                 call    _strlen</span><br><span class="line">.text:080488AE                 sub     eax, 1</span><br><span class="line">.text:080488B1                 mov     [esp+4], eax</span><br><span class="line">.text:080488B5                 lea     eax, [ebp-70h]</span><br><span class="line">.text:080488B8                 mov     [esp], eax</span><br><span class="line">.text:080488BB                 call    sub_804875D</span><br><span class="line">.text:080488C0</span><br><span class="line">.text:080488C0 loc_80488C0:                            ; CODE XREF: .text:080488A1↑j</span><br><span class="line">.text:080488C0                 mov     eax, ds:stdout</span><br><span class="line">.text:080488C5                 mov     [esp], eax</span><br><span class="line">.text:080488C8                 call    _fflush</span><br><span class="line">.text:080488CD                 mov     eax, [ebp-0Ch]</span><br><span class="line">.text:080488D0                 xor     eax, large gs:14h</span><br><span class="line">.text:080488D7                 jz      short locret_80488DE</span><br><span class="line">.text:080488D9                 call    ___stack_chk_fail</span><br><span class="line">.text:080488DE ; ---------------------------------------------------------------------------</span><br><span class="line">.text:080488DE</span><br><span class="line">.text:080488DE locret_80488DE:                         ; CODE XREF: .text:080488D7↑j</span><br><span class="line">.text:080488DE                 leave</span><br><span class="line">.text:080488DF                 retn</span><br><span class="line">.text:080488DF ; } // starts at 80487C4</span><br></pre></td></tr></tbody></table></figure>
 
 <p>执行到结束，计算了一个<code>md5</code>然后调用最开始分析的<code>sub_804875D</code>函数以16进制的形式输出，所以这里有两个选择，有linux环境可以直接patch跳转语句然后执行得到flag</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">-&gt;./echo-server </span><br><span class="line">               **************</span><br><span class="line">               Echo Server 0.3 ALPHA</span><br><span class="line">               **************</span><br><span class="line">F1@gA</span><br><span class="line">You are very close! Now patch me~</span><br><span class="line">F8C60EB40BF66919A77C4BD88D45DEF4</span><br></pre></td></tr></table></figure>
+<figure class="highlight bash hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">-&gt;./echo-server </span><br><span class="line">               **************</span><br><span class="line">               Echo Server 0.3 ALPHA</span><br><span class="line">               **************</span><br><span class="line">F1@gA</span><br><span class="line">You are very close! Now patch me~</span><br><span class="line">F8C60EB40BF66919A77C4BD88D45DEF4</span><br></pre></td></tr></tbody></table></figure>
 
 <p>当然也可以自己算<code>md5</code>，看看关键函数</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">.text:08048866                 lea     eax, [ebp-70h]</span><br><span class="line">.text:08048869                 mov     [esp], eax</span><br><span class="line">.text:0804886C                 call    _strlen</span><br><span class="line">.text:08048871                 mov     dword ptr [esp+8], 0</span><br><span class="line">.text:08048879                 mov     [esp+4], eax</span><br><span class="line">.text:0804887D                 lea     eax, [ebp-70h]</span><br><span class="line">.text:08048880                 add     eax, 1</span><br><span class="line">.text:08048883                 mov     [esp], eax</span><br><span class="line">.text:08048886                 call    _MD5</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">.text:08048866                 lea     eax, [ebp-70h]</span><br><span class="line">.text:08048869                 mov     [esp], eax</span><br><span class="line">.text:0804886C                 call    _strlen</span><br><span class="line">.text:08048871                 mov     dword ptr [esp+8], 0</span><br><span class="line">.text:08048879                 mov     [esp+4], eax</span><br><span class="line">.text:0804887D                 lea     eax, [ebp-70h]</span><br><span class="line">.text:08048880                 add     eax, 1</span><br><span class="line">.text:08048883                 mov     [esp], eax</span><br><span class="line">.text:08048886                 call    _MD5</span><br></pre></td></tr></tbody></table></figure>
 
-<p>首先是把我们输入的字符串的地址拷贝到<code>eax</code>中，把该地址写到栈顶，调用<code>_strlen</code>，求的就是我们输入的字符串的长度，我们输入的是<code>&#39;F1@gA\n&#39;</code>，返回的值是<code>0x06</code>，储存在eax中，写到了栈顶的第二个位置（第三个位置的0并不知道什么意思，或许是第三个参数，没查到函数原型，暂时先不管了），但是栈顶元素并不是我们输入的字符串，而是首地址加1的位置，长度还是6，所以要用<code>md5</code>加密的字符串应该是<code>&#39;1@gA\x0a\x00&#39;</code>，<code>python</code>调用<code>hashlib</code>算一下</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> hashlib</span><br><span class="line">m=hashlib.md5()</span><br><span class="line">m.update(<span class="string">b&#x27;1@gA\x0a\x00&#x27;</span>)</span><br><span class="line">m.hexdigest().upper()</span><br><span class="line"><span class="comment">#&#x27;F8C60EB40BF66919A77C4BD88D45DEF4&#x27;</span></span><br></pre></td></tr></table></figure>
+<p>首先是把我们输入的字符串的地址拷贝到<code>eax</code>中，把该地址写到栈顶，调用<code>_strlen</code>，求的就是我们输入的字符串的长度，我们输入的是<code>'F1@gA\n'</code>，返回的值是<code>0x06</code>，储存在eax中，写到了栈顶的第二个位置（第三个位置的0并不知道什么意思，或许是第三个参数，没查到函数原型，暂时先不管了），但是栈顶元素并不是我们输入的字符串，而是首地址加1的位置，长度还是6，所以要用<code>md5</code>加密的字符串应该是<code>'1@gA\x0a\x00'</code>，<code>python</code>调用<code>hashlib</code>算一下</p>
+<figure class="highlight python hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">import</span> hashlib</span><br><span class="line">m=hashlib.md5()</span><br><span class="line">m.update(<span class="hljs-string">b'1@gA\x0a\x00'</span>)</span><br><span class="line">m.hexdigest().upper()</span><br><span class="line"><span class="hljs-comment">#'F8C60EB40BF66919A77C4BD88D45DEF4'</span></span><br></pre></td></tr></tbody></table></figure>
 
 <p>两种方法都可以得到flag</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">F8C60EB40BF66919A77C4BD88D45DEF4</span><br></pre></td></tr></table></figure>
+<figure class="highlight hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">F8C60EB40BF66919A77C4BD88D45DEF4</span><br></pre></td></tr></tbody></table></figure>
 
 <p>其实这题并没有什么难度，为什么写这么长呢？</p>
 <p><del>(实在不想写数据结构作业)</del></p>
-
-  </div>
+</body></html>
+    
+    </div>
+    
+    <div class="columns is-variable is-1 is-multiline is-mobile">
+    
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/ctf/">#ctf</a></span>
+    
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/re/">#re</a></span>
+    
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/%E8%8A%B1%E6%8C%87%E4%BB%A4/">#花指令</a></span>
+    
+    </div>
+    
+    
+    <div class="columns is-mobile is-multiline article-nav">
+        <span class="column is-12-mobile is-half-desktop  article-nav-prev">
+            
+            <a href="/2020/03/21/BJDCTF-re-wp/">BJDCTF-re-wp</a>
+            
+        </span>
+        <span class="column is-12-mobile is-half-desktop  article-nav-next">
+            
+            <a href="/2020/03/16/handcrafted-pyc-%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C/">handcrafted-pyc-攻防世界</a>
+            
+        </span>
+    </div>
+    
 </article>
 
-    <div class="blog-post-comments">
-        <div id="disqus_thread">
-            <noscript>Please enable JavaScript to view the comments.</noscript>
-        </div>
-    </div>
 
+<div class="sharebox">
+    
+<div class="sharethis-inline-share-buttons"></div>
+<script type='text/javascript' src='https://platform-api.sharethis.com/js/sharethis.js#property=618a5a31fe4ac40012aea77e&amp;product=inline-share-buttons' async='async'></script>
 
-
-        
-          <div id="footer-post-container">
-  <div id="footer-post">
-
-    <div id="nav-footer" style="display: none">
-      <ul>
-         
-          <li><a href="/">Home</a></li>
-         
-          <li><a href="/about/">About</a></li>
-         
-          <li><a href="/archives/">Writing</a></li>
-         
-          <li><a href="/atom.xml">RSS</a></li>
-         
-          <li><a href="/search/">Search</a></li>
-        
-      </ul>
-    </div>
-
-    <div id="toc-footer" style="display: none">
-      
-    </div>
-
-    <div id="share-footer" style="display: none">
-      <ul>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://blog.rycbar.club/2020/03/19/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-echo-server-wp/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://blog.rycbar.club/2020/03/19/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-echo-server-wp/&text=攻防世界_echo-server_wp"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://blog.rycbar.club/2020/03/19/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-echo-server-wp/&title=攻防世界_echo-server_wp"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://blog.rycbar.club/2020/03/19/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-echo-server-wp/&is_video=false&description=攻防世界_echo-server_wp"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=攻防世界_echo-server_wp&body=Check out this article: http://blog.rycbar.club/2020/03/19/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-echo-server-wp/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://blog.rycbar.club/2020/03/19/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-echo-server-wp/&title=攻防世界_echo-server_wp"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://blog.rycbar.club/2020/03/19/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-echo-server-wp/&title=攻防世界_echo-server_wp"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://blog.rycbar.club/2020/03/19/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-echo-server-wp/&title=攻防世界_echo-server_wp"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://blog.rycbar.club/2020/03/19/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-echo-server-wp/&title=攻防世界_echo-server_wp"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://blog.rycbar.club/2020/03/19/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-echo-server-wp/&name=攻防世界_echo-server_wp&description=&lt;p&gt;这题涉及到去花和patch，难度不是很大&lt;/p&gt;"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://blog.rycbar.club/2020/03/19/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-echo-server-wp/&t=攻防世界_echo-server_wp"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
-</ul>
-
-    </div>
-
-    <div id="actions-footer">
-        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
-        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
-        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
-        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
-    </div>
-
-  </div>
 </div>
 
+
+
+<div class="comments">
+    <h3 class="title is-4">Comments</h3>
+    
+<script>
+    var disqus_config = function () {
+        this.page.url = 'http://blog.rycbar.club/2020/03/19/%E6%94%BB%E9%98%B2%E4%B8%96%E7%95%8C-echo-server-wp/';
+        this.page.identifier = '2020/03/19/攻防世界-echo-server-wp/';
         
-        <footer id="footer">
-  <div class="footer-left">
-    Copyright &copy;
+        this.language = 'en';
+        
+    };
+    (function() {
+        var d = document, s = d.createElement('script');  
+        s.src = '//' + 'rrblog-2' + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+<div id="disqus_thread">
     
-    
-    2018-2021
-    Aorui Zhang
-  </div>
-  <div class="footer-right">
-    <nav>
-      <ul>
-        <!--
-       --><li><a href="/">Home</a></li><!--
-     --><!--
-       --><li><a href="/about/">About</a></li><!--
-     --><!--
-       --><li><a href="/archives/">Writing</a></li><!--
-     --><!--
-       --><li><a href="/atom.xml">RSS</a></li><!--
-     --><!--
-       --><li><a href="/search/">Search</a></li><!--
-     -->
-      </ul>
-    </nav>
-  </div>
-</footer>
+    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</div>
 
     </div>
-    <!-- styles -->
+</section>
+    <footer class="footer">
+    <div class="container">
+        <div class="columns content">
+            <div class="column is-narrow has-text-centered">
+                &copy; 2021 Aorui Zhang&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a
+                        target="_blank" rel="noopener" href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
+            </div>
+            <div class="column is-hidden-mobile"></div>
 
+            
+            <div class="column is-narrow">
+                <div class="columns is-mobile is-multiline is-centered">
+                
+                    
+                <a class="column is-narrow has-text-black" title="GitHub" target="_blank" rel="noopener" href="https://github.com/rycbar77">
+                    
+                    GitHub
+                    
+                </a>
+                
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</footer>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment-with-locales.min.js"></script>
 
-
-  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
-
-
-    <!-- jquery -->
- 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script> 
-
-
-
-
-<!-- clipboard -->
-
-  
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
-  
-  <script type="text/javascript">
-  $(function() {
-    // copy-btn HTML
-    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
-    btn += '<i class="far fa-clone"></i>';
-    btn += '</span>'; 
-    // mount it!
-    $(".highlight table").before(btn);
-    var clip = new ClipboardJS('.btn-copy', {
-      text: function(trigger) {
-        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
-      }
+<!-- test if the browser is outdated -->
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" target="_blank" rel="noopener" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // plugin function, place inside DOM ready function
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        })
     });
-    clip.on('success', function(e) {
-      e.trigger.setAttribute('aria-label', "Copied!");
-      e.clearSelection();
-    })
-  })
-  </script>
+</script>
+
+<script>
+    window.FontAwesomeConfig = {
+        searchPseudoElements: true
+    }
+    moment.locale("en-AU");
+</script>
 
 
-<script src="/js/main.js"></script>
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script>
+    MathJax.Hub.Config({
+        "HTML-CSS": {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+</script>
 
-<!-- search -->
+    
+    
+    
+    
+<script src="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/js/lightgallery-all.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/js/jquery.justifiedGallery.min.js"></script>
+<script>
+    (function ($) {
+        $(document).ready(function () {
+            if (typeof($.fn.lightGallery) === 'function') {
+                $('.article.gallery').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof($.fn.justifiedGallery) === 'function') {
+                $('.justified-gallery').justifiedGallery();
+            }
+        });
+    })(jQuery);
+</script>
 
-<!-- Google Analytics -->
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+    <style>
+        .hljs {
+            position: relative;
+        }
 
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128484503-1"></script>
+        .hljs .clipboard-btn {
+            float: right;
+            color: #9a9a9a;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .hljs .clipboard-btn:hover {
+          color: #8a8a8a;
+        }
+
+        .hljs > .clipboard-btn {
+            display: none;
+            position: absolute;
+            right: 4px;
+            top: 4px;
+        }
+
+        .hljs:hover > .clipboard-btn {
+            display: inline;
+        }
+
+        .hljs > figcaption > .clipboard-btn {
+            margin-right: 4px;
+        }
+    </style>
     <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'UA-128484503-1');
+      $(document).ready(function () {
+        $('figure.hljs').each(function(i, figure) {
+          var codeId = 'code-' + i;
+          var code = figure.querySelector('.code');
+          var copyButton = $('<button>Copy <i class="far fa-clipboard"></i></button>');
+          code.id = codeId;
+          copyButton.addClass('clipboard-btn');
+          copyButton.attr('data-clipboard-target-id', codeId);
+
+          var figcaption = figure.querySelector('figcaption');
+
+          if (figcaption) {
+            figcaption.append(copyButton[0]);
+          } else {
+            figure.prepend(copyButton[0]);
+          }
+        })
+
+        var clipboard = new ClipboardJS('.clipboard-btn', {
+          target: function(trigger) {
+            return document.getElementById(trigger.getAttribute('data-clipboard-target-id'));
+          }
+        });
+        clipboard.on('success', function(e) {
+          e.clearSelection();
+        })
+      })
     </script>
 
-<!-- Baidu Analytics -->
+    
+    
 
-<!-- Cloudflare Analytics -->
+    
 
-<!-- Umami Analytics -->
 
-<!-- Disqus Comments -->
 
-    <script type="text/javascript">
-        var disqus_shortname = 'rrblog-2';
+<script src="/js/script.js"></script>
 
-        (function(){
-            var dsq = document.createElement('script');
-            dsq.type = 'text/javascript';
-            dsq.async = true;
-            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-        }());
-    </script>
 
-<!-- utterances Comments -->
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-mask"></div>
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something..." />
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Posts',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
 
+<script src="/js/insight.js"></script>
+
+    
 </body>
 </html>

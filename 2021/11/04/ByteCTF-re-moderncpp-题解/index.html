@@ -1,11 +1,19 @@
 <!DOCTYPE html>
-<html lang=en>
+<html class="has-navbar-fixed-top">
 <head>
-    <!-- so meta -->
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="HandheldFriendly" content="True">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+<title>ByteCTF re moderncpp 题解 - rr&#39;s blog</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
+
+
+
+
+
+
+
+
     <meta name="description" content="首发于先知">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ByteCTF re moderncpp 题解">
@@ -30,162 +38,179 @@
 <meta property="article:tag" content="ByteCTF">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://blog.rycbar.club/2021/11/04/ByteCTF-re-moderncpp-%E9%A2%98%E8%A7%A3/moderncpp-1.png">
-    
-    
-      
-        
-          <link rel="shortcut icon" href="/images/favicon.ico">
-        
-      
-      
-        
-          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
-        
-      
-      
-        
-          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
-        
-      
-    
-    <!-- title -->
-    <title>ByteCTF re moderncpp 题解</title>
-    <!-- styles -->
-    
+
+
+
+
+
+<link rel="icon" href="rust.png">
+
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ovo|Source+Code+Pro">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/css/lightgallery.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/css/justifiedGallery.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+
+
 <link rel="stylesheet" href="/css/style.css">
 
-    <!-- persian styles -->
-    
-    <!-- rss -->
-    
-    
-      <link rel="alternate" href="/true" title="rr&#39;s blog" type="application/atom+xml" />
-    
-	<!-- mathjax -->
-	
-<meta name="generator" content="Hexo 5.4.0"></head>
 
-<body class="max-width mx-auto px3 ltr">
-    
-      <div id="header-post">
-  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
-  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
-  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
-  <span id="menu">
-    <span id="nav">
-      <ul>
-        <!--
-       --><li><a href="/">Home</a></li><!--
-     --><!--
-       --><li><a href="/about/">About</a></li><!--
-     --><!--
-       --><li><a href="/archives/">Writing</a></li><!--
-     --><!--
-       --><li><a href="/atom.xml">RSS</a></li><!--
-     --><!--
-       --><li><a href="/search/">Search</a></li><!--
-     -->
-      </ul>
-    </span>
-    <br/>
-    <span id="actions">
-      <ul>
-        
-        
-        <li><a class="icon" aria-label="Next post" href="/2021/10/05/wp-5space-2021/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
-        
-        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
-        <li><a class="icon" aria-label="Share post" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
-      </ul>
-      <span id="i-prev" class="info" style="display:none;">Previous post</span>
-      <span id="i-next" class="info" style="display:none;">Next post</span>
-      <span id="i-top" class="info" style="display:none;">Back to top</span>
-      <span id="i-share" class="info" style="display:none;">Share post</span>
-    </span>
-    <br/>
-    <div id="share" style="display: none">
-      <ul>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://blog.rycbar.club/2021/11/04/ByteCTF-re-moderncpp-%E9%A2%98%E8%A7%A3/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://blog.rycbar.club/2021/11/04/ByteCTF-re-moderncpp-%E9%A2%98%E8%A7%A3/&text=ByteCTF re moderncpp 题解"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://blog.rycbar.club/2021/11/04/ByteCTF-re-moderncpp-%E9%A2%98%E8%A7%A3/&title=ByteCTF re moderncpp 题解"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://blog.rycbar.club/2021/11/04/ByteCTF-re-moderncpp-%E9%A2%98%E8%A7%A3/&is_video=false&description=ByteCTF re moderncpp 题解"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=ByteCTF re moderncpp 题解&body=Check out this article: http://blog.rycbar.club/2021/11/04/ByteCTF-re-moderncpp-%E9%A2%98%E8%A7%A3/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://blog.rycbar.club/2021/11/04/ByteCTF-re-moderncpp-%E9%A2%98%E8%A7%A3/&title=ByteCTF re moderncpp 题解"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://blog.rycbar.club/2021/11/04/ByteCTF-re-moderncpp-%E9%A2%98%E8%A7%A3/&title=ByteCTF re moderncpp 题解"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://blog.rycbar.club/2021/11/04/ByteCTF-re-moderncpp-%E9%A2%98%E8%A7%A3/&title=ByteCTF re moderncpp 题解"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://blog.rycbar.club/2021/11/04/ByteCTF-re-moderncpp-%E9%A2%98%E8%A7%A3/&title=ByteCTF re moderncpp 题解"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://blog.rycbar.club/2021/11/04/ByteCTF-re-moderncpp-%E9%A2%98%E8%A7%A3/&name=ByteCTF re moderncpp 题解&description=&lt;p&gt;首发于&lt;a href=&#34;https://xz.aliyun.com/t/10426&#34;&gt;先知&lt;/a&gt;&lt;/p&gt;"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://blog.rycbar.club/2021/11/04/ByteCTF-re-moderncpp-%E9%A2%98%E8%A7%A3/&t=ByteCTF re moderncpp 题解"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
-</ul>
+<script defer src="//use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
 
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-128484503-1"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-128484503-1');
+</script>
+
+
+    
+
+
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="rr's blog" type="application/atom+xml">
+</head>
+<body>
+    
+<nav class="navbar is-transparent is-fixed-top navbar-main" role="navigation" aria-label="main navigation">
+    <div class="container">
+        <div class="navbar-brand">
+            <a class="navbar-item navbar-logo" href="/">
+                
+                <img src="/images/logo.png" alt="" height="28">
+                
+            </a>
+            <div class="navbar-burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        
+        <div class="navbar-menu navbar-start">
+            
+            <a class="navbar-item "
+               href="/archives">Archives</a>
+            
+            <a class="navbar-item "
+               href="/categories">Categories</a>
+            
+            <a class="navbar-item "
+               href="/tags">Tags</a>
+            
+            <a class="navbar-item "
+               href="/links">Links</a>
+            
+            <a class="navbar-item "
+               href="/about">About</a>
+            
+            <a class="navbar-item "
+               href="/atom.xml">RSS</a>
+            
+        </div>
+        
+        <div class="navbar-menu navbar-end">
+            
+            <a class="navbar-item search" title="Search" href="javascript:;">
+                <i class="fas fa-search"></i>
+            </a>
+            
+            
+            <div class="navbar-item is-hoverable has-dropdown is-hidden-mobile is-hidden-tablet-only toc">
+                <a class="navbar-item" title="Table of Contents">
+                    <i class="fa fa-list"></i>
+                </a>
+                <div class="navbar-dropdown is-right">
+                    
+                    
+                    
+                    
+                    <a class="navbar-item" href="#Analysis">1&nbsp;&nbsp;<b>Analysis</b></a>
+                    
+                    
+                    <hr class="navbar-divider">
+                    
+                    
+                    <a class="navbar-item" href="#Solution">2&nbsp;&nbsp;<b>Solution</b></a>
+                    
+                </div>
+            </div>
+            
+            
+            <a class="navbar-item" title="GitHub" target="_blank" rel="noopener" href="https://github.com/rycbar77">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+               
+            
+        </div>
     </div>
-    <div id="toc">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Analysis"><span class="toc-number">1.</span> <span class="toc-text">Analysis</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Solution"><span class="toc-number">2.</span> <span class="toc-text">Solution</span></a></li></ol>
-    </div>
-  </span>
-</div>
+</nav>
 
-    
-    <div class="content index py4">
+    <section class="section">
+    <div class="container">
+    <article class="article content gallery" itemscope itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
-        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
-  <header>
-    
-    <h1 class="posttitle" itemprop="name headline">
-        ByteCTF re moderncpp 题解
+            ByteCTF re moderncpp 题解
+        
     </h1>
-
-
-
-    <div class="meta">
-      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
-        <span itemprop="name">Aorui Zhang</span>
-      </span>
-      
-    <div class="postdate">
-      
-        <time datetime="2021-11-04T02:13:49.000Z" itemprop="datePublished">2021-11-04</time>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            
+                <time datetime="2021-11-04T02:13:49.000Z" itemprop="datePublished">Nov 4 2021</time>
+            
+        </span>
         
-        (Updated: <time datetime="2021-11-04T02:20:57.757Z" itemprop="dateModified">2021-11-04</time>)
+        <span class="column is-narrow article-category">
+            <i class="far fa-folder"></i>
+            <a class="article-category-link" href="/categories/ctf/">ctf</a>
+        </span>
         
-      
+        
+        <span class="column is-narrow">
+            
+            
+            10 minutes read (About 1527 words)
+        </span>
+        
     </div>
-
-
-      
-    <div class="article-category">
-        <i class="fas fa-archive"></i>
-        <a class="category-link" href="/categories/ctf/">ctf</a>
-    </div>
-
-
-      
-    <div class="article-tag">
-        <i class="fas fa-tag"></i>
-        <a class="tag-link-link" href="/tags/ByteCTF/" rel="tag">ByteCTF</a>, <a class="tag-link-link" href="/tags/ctf/" rel="tag">ctf</a>, <a class="tag-link-link" href="/tags/re/" rel="tag">re</a>
-    </div>
-
-
-    </div>
-  </header>
-  
-
-  <div class="content" itemprop="articleBody">
-    <p>首发于<a target="_blank" rel="noopener" href="https://xz.aliyun.com/t/10426">先知</a></p>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <html><head></head><body><p>首发于<a target="_blank" rel="noopener" href="https://xz.aliyun.com/t/10426">先知</a></p>
 <span id="more"></span>
 
 <p>题目本身并不难，最大的难点在于要逆C++的数据结构，导致程序的逻辑难以理解。</p>
 <h2 id="Analysis"><a href="#Analysis" class="headerlink" title="Analysis"></a>Analysis</h2><p>main函数位于0x402954，主要的逻辑就是输入、进行检查、初始化、数据处理以及最后的对比。</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> __cdecl <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">const</span> <span class="keyword">char</span> **argv, <span class="keyword">const</span> <span class="keyword">char</span> **envp)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  __int64 v3; <span class="comment">// rax</span></span><br><span class="line">  __int64 v4; <span class="comment">// rbx</span></span><br><span class="line">  __int64 v5; <span class="comment">// rbx</span></span><br><span class="line">  <span class="built_in"><span class="keyword">void</span></span> (__fastcall *v6)(<span class="keyword">char</span> *, __int64, __int64); <span class="comment">// rbx</span></span><br><span class="line">  __int64 v7; <span class="comment">// rax</span></span><br><span class="line">  __int64 v8; <span class="comment">// rax</span></span><br><span class="line">  __int64 v9; <span class="comment">// rax</span></span><br><span class="line">  <span class="keyword">char</span> v11[<span class="number">16</span>]; <span class="comment">// [rsp+0h] [rbp-C0h] BYREF</span></span><br><span class="line">  <span class="keyword">char</span> v12[<span class="number">16</span>]; <span class="comment">// [rsp+10h] [rbp-B0h] BYREF</span></span><br><span class="line">  <span class="keyword">char</span> answer[<span class="number">32</span>]; <span class="comment">// [rsp+20h] [rbp-A0h] BYREF</span></span><br><span class="line">  <span class="keyword">char</span> input[<span class="number">47</span>]; <span class="comment">// [rsp+40h] [rbp-80h] BYREF</span></span><br><span class="line">  <span class="keyword">char</span> v15; <span class="comment">// [rsp+6Fh] [rbp-51h] BYREF</span></span><br><span class="line">  <span class="keyword">char</span> v16[<span class="number">16</span>]; <span class="comment">// [rsp+70h] [rbp-50h] BYREF</span></span><br><span class="line">  <span class="keyword">char</span> v17[<span class="number">16</span>]; <span class="comment">// [rsp+80h] [rbp-40h] BYREF</span></span><br><span class="line">  __int64 v18; <span class="comment">// [rsp+A0h] [rbp-20h]</span></span><br><span class="line">  __int64 v19; <span class="comment">// [rsp+A8h] [rbp-18h]</span></span><br><span class="line"></span><br><span class="line">  <span class="built_in">sub_4257A0</span>(input);</span><br><span class="line">  <span class="built_in">nullsub_7</span>(&amp;v15);</span><br><span class="line">  <span class="built_in">sub_427EC0</span>(answer, &amp;dword_536800, <span class="number">40LL</span>, &amp;v15); <span class="comment">//最终结果</span></span><br><span class="line">  <span class="built_in">nullsub_9</span>(&amp;v15);</span><br><span class="line">  v3 = <span class="built_in">sub_41F910</span>(&amp;stdout, <span class="string">&quot;input:&quot;</span>);</span><br><span class="line">  ((<span class="built_in"><span class="keyword">void</span></span> (__fastcall *)(__int64))sub_41F2C0)(v3);</span><br><span class="line">  <span class="built_in">sub_40BDC0</span>(&amp;stdin, input); <span class="comment">//输入</span></span><br><span class="line">  v4 = <span class="built_in">malloc</span>(<span class="number">64LL</span>);</span><br><span class="line">  <span class="built_in">sub_4010A0</span>(v4);</span><br><span class="line">  v18 = v4;</span><br><span class="line">  v5 = <span class="built_in">malloc</span>(<span class="number">64LL</span>);</span><br><span class="line">  <span class="built_in">sub_4010A0</span>(v5);</span><br><span class="line">  v19 = v5;</span><br><span class="line">  <span class="built_in">check_1</span>(input); <span class="comment">//检查以及初始化</span></span><br><span class="line">  (*(<span class="built_in"><span class="keyword">void</span></span> (__fastcall **)(<span class="keyword">char</span> *, __int64, <span class="keyword">char</span> *))(*(_QWORD *)v18 + <span class="number">8LL</span>))(v16, v18, input);</span><br><span class="line">  <span class="built_in">sub_404334</span>(v12, v16);</span><br><span class="line">  <span class="built_in">sub_403E24</span>(v16);</span><br><span class="line">  v6 = *(<span class="built_in"><span class="keyword">void</span></span> (__fastcall **)(<span class="keyword">char</span> *, __int64, __int64))(*(_QWORD *)v19 + <span class="number">8LL</span>);</span><br><span class="line">  v7 = <span class="built_in">sub_404EF6</span>(v12);</span><br><span class="line">  <span class="built_in">v6</span>(v17, v19, v7);</span><br><span class="line">  <span class="built_in">sub_404334</span>(v11, v17);</span><br><span class="line">  <span class="built_in">sub_403E24</span>(v17);</span><br><span class="line">  v8 = <span class="built_in">sub_404EF6</span>(v11);</span><br><span class="line">  <span class="keyword">if</span> ( (<span class="keyword">unsigned</span> __int8)<span class="built_in">sub_404F07</span>(v8, answer) ) <span class="comment">//比较</span></span><br><span class="line">    v9 = <span class="built_in">sub_41F910</span>(&amp;stdout, <span class="string">&quot;congrats!&quot;</span>);</span><br><span class="line">  <span class="keyword">else</span></span><br><span class="line">    v9 = <span class="built_in">sub_41F910</span>(&amp;stdout, <span class="string">&quot;try again.&quot;</span>);</span><br><span class="line">  ((<span class="built_in"><span class="keyword">void</span></span> (__fastcall *)(__int64))sub_41F2C0)(v9);</span><br><span class="line">  <span class="built_in">sub_403E24</span>(v11);</span><br><span class="line">  <span class="built_in">sub_403E24</span>(v12);</span><br><span class="line">  <span class="built_in">sub_4258C0</span>(answer);</span><br><span class="line">  <span class="built_in">sub_4258C0</span>(input);</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight cpp hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">int</span> __cdecl <span class="hljs-title">main</span><span class="hljs-params">(<span class="hljs-keyword">int</span> argc, <span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span> **argv, <span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span> **envp)</span></span></span><br><span class="line"><span class="hljs-function"></span>{</span><br><span class="line">  __int64 v3; <span class="hljs-comment">// rax</span></span><br><span class="line">  __int64 v4; <span class="hljs-comment">// rbx</span></span><br><span class="line">  __int64 v5; <span class="hljs-comment">// rbx</span></span><br><span class="line">  <span class="hljs-built_in"><span class="hljs-keyword">void</span></span> (__fastcall *v6)(<span class="hljs-keyword">char</span> *, __int64, __int64); <span class="hljs-comment">// rbx</span></span><br><span class="line">  __int64 v7; <span class="hljs-comment">// rax</span></span><br><span class="line">  __int64 v8; <span class="hljs-comment">// rax</span></span><br><span class="line">  __int64 v9; <span class="hljs-comment">// rax</span></span><br><span class="line">  <span class="hljs-keyword">char</span> v11[<span class="hljs-number">16</span>]; <span class="hljs-comment">// [rsp+0h] [rbp-C0h] BYREF</span></span><br><span class="line">  <span class="hljs-keyword">char</span> v12[<span class="hljs-number">16</span>]; <span class="hljs-comment">// [rsp+10h] [rbp-B0h] BYREF</span></span><br><span class="line">  <span class="hljs-keyword">char</span> answer[<span class="hljs-number">32</span>]; <span class="hljs-comment">// [rsp+20h] [rbp-A0h] BYREF</span></span><br><span class="line">  <span class="hljs-keyword">char</span> input[<span class="hljs-number">47</span>]; <span class="hljs-comment">// [rsp+40h] [rbp-80h] BYREF</span></span><br><span class="line">  <span class="hljs-keyword">char</span> v15; <span class="hljs-comment">// [rsp+6Fh] [rbp-51h] BYREF</span></span><br><span class="line">  <span class="hljs-keyword">char</span> v16[<span class="hljs-number">16</span>]; <span class="hljs-comment">// [rsp+70h] [rbp-50h] BYREF</span></span><br><span class="line">  <span class="hljs-keyword">char</span> v17[<span class="hljs-number">16</span>]; <span class="hljs-comment">// [rsp+80h] [rbp-40h] BYREF</span></span><br><span class="line">  __int64 v18; <span class="hljs-comment">// [rsp+A0h] [rbp-20h]</span></span><br><span class="line">  __int64 v19; <span class="hljs-comment">// [rsp+A8h] [rbp-18h]</span></span><br><span class="line"></span><br><span class="line">  <span class="hljs-built_in">sub_4257A0</span>(input);</span><br><span class="line">  <span class="hljs-built_in">nullsub_7</span>(&amp;v15);</span><br><span class="line">  <span class="hljs-built_in">sub_427EC0</span>(answer, &amp;dword_536800, <span class="hljs-number">40LL</span>, &amp;v15); <span class="hljs-comment">//最终结果</span></span><br><span class="line">  <span class="hljs-built_in">nullsub_9</span>(&amp;v15);</span><br><span class="line">  v3 = <span class="hljs-built_in">sub_41F910</span>(&amp;stdout, <span class="hljs-string">"input:"</span>);</span><br><span class="line">  ((<span class="hljs-built_in"><span class="hljs-keyword">void</span></span> (__fastcall *)(__int64))sub_41F2C0)(v3);</span><br><span class="line">  <span class="hljs-built_in">sub_40BDC0</span>(&amp;stdin, input); <span class="hljs-comment">//输入</span></span><br><span class="line">  v4 = <span class="hljs-built_in">malloc</span>(<span class="hljs-number">64LL</span>);</span><br><span class="line">  <span class="hljs-built_in">sub_4010A0</span>(v4);</span><br><span class="line">  v18 = v4;</span><br><span class="line">  v5 = <span class="hljs-built_in">malloc</span>(<span class="hljs-number">64LL</span>);</span><br><span class="line">  <span class="hljs-built_in">sub_4010A0</span>(v5);</span><br><span class="line">  v19 = v5;</span><br><span class="line">  <span class="hljs-built_in">check_1</span>(input); <span class="hljs-comment">//检查以及初始化</span></span><br><span class="line">  (*(<span class="hljs-built_in"><span class="hljs-keyword">void</span></span> (__fastcall **)(<span class="hljs-keyword">char</span> *, __int64, <span class="hljs-keyword">char</span> *))(*(_QWORD *)v18 + <span class="hljs-number">8LL</span>))(v16, v18, input);</span><br><span class="line">  <span class="hljs-built_in">sub_404334</span>(v12, v16);</span><br><span class="line">  <span class="hljs-built_in">sub_403E24</span>(v16);</span><br><span class="line">  v6 = *(<span class="hljs-built_in"><span class="hljs-keyword">void</span></span> (__fastcall **)(<span class="hljs-keyword">char</span> *, __int64, __int64))(*(_QWORD *)v19 + <span class="hljs-number">8LL</span>);</span><br><span class="line">  v7 = <span class="hljs-built_in">sub_404EF6</span>(v12);</span><br><span class="line">  <span class="hljs-built_in">v6</span>(v17, v19, v7);</span><br><span class="line">  <span class="hljs-built_in">sub_404334</span>(v11, v17);</span><br><span class="line">  <span class="hljs-built_in">sub_403E24</span>(v17);</span><br><span class="line">  v8 = <span class="hljs-built_in">sub_404EF6</span>(v11);</span><br><span class="line">  <span class="hljs-keyword">if</span> ( (<span class="hljs-keyword">unsigned</span> __int8)<span class="hljs-built_in">sub_404F07</span>(v8, answer) ) <span class="hljs-comment">//比较</span></span><br><span class="line">    v9 = <span class="hljs-built_in">sub_41F910</span>(&amp;stdout, <span class="hljs-string">"congrats!"</span>);</span><br><span class="line">  <span class="hljs-keyword">else</span></span><br><span class="line">    v9 = <span class="hljs-built_in">sub_41F910</span>(&amp;stdout, <span class="hljs-string">"try again."</span>);</span><br><span class="line">  ((<span class="hljs-built_in"><span class="hljs-keyword">void</span></span> (__fastcall *)(__int64))sub_41F2C0)(v9);</span><br><span class="line">  <span class="hljs-built_in">sub_403E24</span>(v11);</span><br><span class="line">  <span class="hljs-built_in">sub_403E24</span>(v12);</span><br><span class="line">  <span class="hljs-built_in">sub_4258C0</span>(answer);</span><br><span class="line">  <span class="hljs-built_in">sub_4258C0</span>(input);</span><br><span class="line">  <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 
-<p>0x4027D5处函数(check_1)先对输入进行了检查，要求长度为41且格式为<code>bytectf&#123;*****&#125;</code>。</p>
+<p>0x4027D5处函数(check_1)先对输入进行了检查，要求长度为41且格式为<code>bytectf{*****}</code>。</p>
 <img src="/2021/11/04/ByteCTF-re-moderncpp-%E9%A2%98%E8%A7%A3/moderncpp-1.png" alt="1" style="zoom:67%;">
 
 <p>接下来进行了部分初始化操作，输出了一句似乎没什么用的话，然后进行了编码操作。</p>
 <p>第一步是在0x401414函数处生成字母表</p>
 <img src="/2021/11/04/ByteCTF-re-moderncpp-%E9%A2%98%E8%A7%A3/moderncpp-2.png" style="zoom:67%;">
 
-<p>该处操作在内存中生成了一个字母表<code>abcdefghijklmnopqrstuvwxyz0123456789!@#%^&amp;*()_+-=[]&#123;&#125;;</code>，接着在该函数中调用0x4018D6处函数，生成与字母表长度相同的一个整数数组，生成的规则如下：</p>
+<p>该处操作在内存中生成了一个字母表<code>abcdefghijklmnopqrstuvwxyz0123456789!@#%^&amp;*()_+-=[]{};</code>，接着在该函数中调用0x4018D6处函数，生成与字母表长度相同的一个整数数组，生成的规则如下：</p>
 <img src="/2021/11/04/ByteCTF-re-moderncpp-%E9%A2%98%E8%A7%A3/moderncpp-3.png" style="zoom:67%;">
 
 <p>第二步在上述函数中调用0x401C86处函数，主要进行的操作就是将上面生成的两个进行一一对应的组合</p>
@@ -210,179 +235,282 @@
 
 <p>继续回到main函数，加密的结果与最开始拷贝的0x536800处的40个字节进行对比，相同则正确。</p>
 <h2 id="Solution"><a href="#Solution" class="headerlink" title="Solution"></a>Solution</h2><p>先解密tea得到编码后的结果</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdint.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">decrypt</span><span class="params">(<span class="keyword">uint32_t</span> *v, <span class="keyword">uint32_t</span> *k)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">uint32_t</span> v0 = v[<span class="number">0</span>], v1 = v[<span class="number">1</span>], sum = <span class="number">0xC6EF3720</span>, i;</span><br><span class="line">    <span class="keyword">uint32_t</span> delta = <span class="number">0x9e3779b9</span>;</span><br><span class="line">    <span class="keyword">uint32_t</span> k0 = k[<span class="number">0</span>], k1 = k[<span class="number">1</span>], k2 = k[<span class="number">2</span>], k3 = k[<span class="number">3</span>];</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; <span class="number">32</span>; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        v1 -= ((v0 &lt;&lt; <span class="number">4</span>) + k2) ^ (v0 + sum) ^ ((v0 &gt;&gt; <span class="number">5</span>) + k3);</span><br><span class="line">        v0 -= ((v1 &lt;&lt; <span class="number">4</span>) + k0) ^ (v1 + sum) ^ ((v1 &gt;&gt; <span class="number">5</span>) + k1);</span><br><span class="line">        sum -= delta;</span><br><span class="line">    &#125;</span><br><span class="line">    v[<span class="number">0</span>] = v0;</span><br><span class="line">    v[<span class="number">1</span>] = v1;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">uint32_t</span> v[<span class="number">10</span>] = &#123;<span class="number">0x0C5D3669F</span>, <span class="number">0x0B917171A</span>, <span class="number">0x0B4B37B19</span>, <span class="number">0x0AE80C5F</span>, <span class="number">0x8D80307F</span>, <span class="number">0x21522880</span>, <span class="number">0x34D80589</span>, <span class="number">0x0DE6C83D1</span>, <span class="number">0x59B73618</span>, <span class="number">0x0C6E65D35</span>&#125;, k[<span class="number">4</span>] = &#123;<span class="number">0x62797465</span>, <span class="number">0x2D637466</span>, <span class="number">0x77656C63</span>, <span class="number">0x6F6D657E</span>&#125;;</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">5</span>; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">uint32_t</span> tmp_v[]=&#123;v[<span class="number">2</span>*i],v[<span class="number">2</span>*i+<span class="number">1</span>]&#125;;</span><br><span class="line">        <span class="built_in">decrypt</span>(tmp_v, k);</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">&quot;%x,%x,&quot;</span>, tmp_v[<span class="number">0</span>], tmp_v[<span class="number">1</span>]);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// d869f00c,62fb324a,ccca48e,e56322c0,5e07fdb6,8dc6fee6,ad518dfd,14fa68e4,78</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight cpp hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="hljs-meta">#<span class="hljs-meta-keyword">include</span> <span class="hljs-meta-string">&lt;stdint.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">void</span> <span class="hljs-title">decrypt</span><span class="hljs-params">(<span class="hljs-keyword">uint32_t</span> *v, <span class="hljs-keyword">uint32_t</span> *k)</span></span></span><br><span class="line"><span class="hljs-function"></span>{</span><br><span class="line">    <span class="hljs-keyword">uint32_t</span> v0 = v[<span class="hljs-number">0</span>], v1 = v[<span class="hljs-number">1</span>], sum = <span class="hljs-number">0xC6EF3720</span>, i;</span><br><span class="line">    <span class="hljs-keyword">uint32_t</span> delta = <span class="hljs-number">0x9e3779b9</span>;</span><br><span class="line">    <span class="hljs-keyword">uint32_t</span> k0 = k[<span class="hljs-number">0</span>], k1 = k[<span class="hljs-number">1</span>], k2 = k[<span class="hljs-number">2</span>], k3 = k[<span class="hljs-number">3</span>];</span><br><span class="line">    <span class="hljs-keyword">for</span> (i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">32</span>; i++)</span><br><span class="line">    {</span><br><span class="line">        v1 -= ((v0 &lt;&lt; <span class="hljs-number">4</span>) + k2) ^ (v0 + sum) ^ ((v0 &gt;&gt; <span class="hljs-number">5</span>) + k3);</span><br><span class="line">        v0 -= ((v1 &lt;&lt; <span class="hljs-number">4</span>) + k0) ^ (v1 + sum) ^ ((v1 &gt;&gt; <span class="hljs-number">5</span>) + k1);</span><br><span class="line">        sum -= delta;</span><br><span class="line">    }</span><br><span class="line">    v[<span class="hljs-number">0</span>] = v0;</span><br><span class="line">    v[<span class="hljs-number">1</span>] = v1;</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">()</span></span></span><br><span class="line"><span class="hljs-function"></span>{</span><br><span class="line">    <span class="hljs-keyword">uint32_t</span> v[<span class="hljs-number">10</span>] = {<span class="hljs-number">0x0C5D3669F</span>, <span class="hljs-number">0x0B917171A</span>, <span class="hljs-number">0x0B4B37B19</span>, <span class="hljs-number">0x0AE80C5F</span>, <span class="hljs-number">0x8D80307F</span>, <span class="hljs-number">0x21522880</span>, <span class="hljs-number">0x34D80589</span>, <span class="hljs-number">0x0DE6C83D1</span>, <span class="hljs-number">0x59B73618</span>, <span class="hljs-number">0x0C6E65D35</span>}, k[<span class="hljs-number">4</span>] = {<span class="hljs-number">0x62797465</span>, <span class="hljs-number">0x2D637466</span>, <span class="hljs-number">0x77656C63</span>, <span class="hljs-number">0x6F6D657E</span>};</span><br><span class="line">    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">5</span>; i++)</span><br><span class="line">    {</span><br><span class="line">        <span class="hljs-keyword">uint32_t</span> tmp_v[]={v[<span class="hljs-number">2</span>*i],v[<span class="hljs-number">2</span>*i+<span class="hljs-number">1</span>]};</span><br><span class="line">        <span class="hljs-built_in">decrypt</span>(tmp_v, k);</span><br><span class="line">        <span class="hljs-built_in">printf</span>(<span class="hljs-string">"%x,%x,"</span>, tmp_v[<span class="hljs-number">0</span>], tmp_v[<span class="hljs-number">1</span>]);</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;</span><br><span class="line">}</span><br><span class="line"><span class="hljs-comment">// d869f00c,62fb324a,ccca48e,e56322c0,5e07fdb6,8dc6fee6,ad518dfd,14fa68e4,78</span></span><br></pre></td></tr></tbody></table></figure>
 
 <p>按照小端序转换为字节后，继续转换为8位二进制字符串拼接，从头开始向后遍历，在表中找到对应的字母后调整开头位置，继续向后遍历，Huffman编码保证了这样做结果的唯一性。字母表使用Huffman编码的方式生成会更快，但是手动调试出来对于程序分析的难度会较低，是个比较讨巧的办法。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Node</span>():</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, name=<span class="literal">None</span>, value=<span class="literal">None</span></span>):</span></span><br><span class="line">        self.name = name</span><br><span class="line">        self.value = value</span><br><span class="line">        self.right = <span class="literal">None</span></span><br><span class="line">        self.left = <span class="literal">None</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">HuffmanTree</span>():</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">__init__</span>(<span class="params">self, arr</span>):</span></span><br><span class="line">        self.charset = &#123;&#125;</span><br><span class="line">        self.nodes = [Node(values[<span class="number">0</span>], values[<span class="number">1</span>])</span><br><span class="line">                      <span class="keyword">for</span> values <span class="keyword">in</span> arr]</span><br><span class="line">        <span class="keyword">while</span> <span class="built_in">len</span>(self.nodes) != <span class="number">1</span>:</span><br><span class="line">            self.nodes.sort(key=<span class="keyword">lambda</span> node: node.value)</span><br><span class="line">            p = Node(value=(self.nodes[<span class="number">0</span>].value +</span><br><span class="line">                     self.nodes[<span class="number">1</span>].value))</span><br><span class="line">            p.left = self.nodes.pop(<span class="number">0</span>)</span><br><span class="line">            p.right = self.nodes.pop(<span class="number">0</span>)</span><br><span class="line">            self.nodes.append(p)</span><br><span class="line">        self.root = self.nodes[<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line">        self.Code = <span class="built_in">list</span>(<span class="built_in">range</span>(<span class="number">60</span>))</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">HuffmanCode</span>(<span class="params">self, tree, length</span>):</span></span><br><span class="line">        node = tree</span><br><span class="line">        <span class="keyword">if</span> (<span class="keyword">not</span> node):</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        <span class="keyword">elif</span> node.name:</span><br><span class="line">            result = <span class="string">&#x27;&#x27;</span></span><br><span class="line">            <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(length):</span><br><span class="line">                result += <span class="built_in">str</span>(self.Code[i])</span><br><span class="line">            self.charset[node.name] = result</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        self.Code[length] = <span class="number">0</span></span><br><span class="line">        self.HuffmanCode(tree.left, length + <span class="number">1</span>)</span><br><span class="line">        self.Code[length] = <span class="number">1</span></span><br><span class="line">        self.HuffmanCode(tree.right, length+<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">GenCode</span>(<span class="params">self</span>):</span></span><br><span class="line">        self.HuffmanCode(self.root, <span class="number">0</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">alphabet = <span class="string">&#x27;abcdefghijklmnopqrstuvwxyz0123456789!@#%^&amp;*()_+-=[]&#123;&#125;;&#x27;</span></span><br><span class="line">arr = []</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">54</span>):</span><br><span class="line">    arr.append((<span class="number">43</span>*(<span class="number">127</span>+i)) % <span class="number">233</span>)</span><br><span class="line">char_weights = <span class="built_in">list</span>(<span class="built_in">zip</span>(alphabet, arr))</span><br><span class="line">tree = HuffmanTree(char_weights)</span><br><span class="line">tree.GenCode()</span><br><span class="line"></span><br><span class="line"><span class="comment"># check</span></span><br><span class="line">charset = &#123;</span><br><span class="line">    <span class="string">&#x27;b&#x27;</span>: <span class="string">&#x27;00001&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;y&#x27;</span>: <span class="string">&#x27;10011&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;t&#x27;</span>: <span class="string">&#x27;11000&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;e&#x27;</span>: <span class="string">&#x27;0011010&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;c&#x27;</span>: <span class="string">&#x27;01110&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;f&#x27;</span>: <span class="string">&#x27;010010&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;&#123;&#x27;</span>: <span class="string">&#x27;10001&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;a&#x27;</span>: <span class="string">&#x27;100101&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;d&#x27;</span>: <span class="string">&#x27;11011&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;g&#x27;</span>: <span class="string">&#x27;111011&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;h&#x27;</span>: <span class="string">&#x27;01000&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;i&#x27;</span>: <span class="string">&#x27;10110&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;j&#x27;</span>: <span class="string">&#x27;00110111&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;k&#x27;</span>: <span class="string">&#x27;1111010&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;l&#x27;</span>: <span class="string">&#x27;110010&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;m&#x27;</span>: <span class="string">&#x27;00011&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;n&#x27;</span>: <span class="string">&#x27;10000&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;o&#x27;</span>: <span class="string">&#x27;10100011101&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;p&#x27;</span>: <span class="string">&#x27;0110011&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;q&#x27;</span>: <span class="string">&#x27;011000&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;r&#x27;</span>: <span class="string">&#x27;111110&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;s&#x27;</span>: <span class="string">&#x27;01011&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;u&#x27;</span>: <span class="string">&#x27;11110110&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;v&#x27;</span>: <span class="string">&#x27;000001&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;w&#x27;</span>: <span class="string">&#x27;111000&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;x&#x27;</span>: <span class="string">&#x27;00101&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;z&#x27;</span>: <span class="string">&#x27;101000110&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;0&#x27;</span>: <span class="string">&#x27;1110010&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;1&#x27;</span>: <span class="string">&#x27;100100&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;2&#x27;</span>: <span class="string">&#x27;111111&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;3&#x27;</span>: <span class="string">&#x27;01101&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;4&#x27;</span>: <span class="string">&#x27;11010&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;5&#x27;</span>: <span class="string">&#x27;11110111&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;&#125;&#x27;</span>: <span class="string">&#x27;1010001111&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;6&#x27;</span>: <span class="string">&#x27;001100&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;7&#x27;</span>: <span class="string">&#x27;111010&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;8&#x27;</span>: <span class="string">&#x27;00111&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;9&#x27;</span>: <span class="string">&#x27;10101&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;!&#x27;</span>: <span class="string">&#x27;00110110&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;@&#x27;</span>: <span class="string">&#x27;1110011&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;#&#x27;</span>: <span class="string">&#x27;101001&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;%&#x27;</span>: <span class="string">&#x27;00010&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;^&#x27;</span>: <span class="string">&#x27;01111&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;&amp;&#x27;</span>: <span class="string">&#x27;10100011100&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;*&#x27;</span>: <span class="string">&#x27;0110010&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;(&#x27;</span>: <span class="string">&#x27;010011&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;)&#x27;</span>: <span class="string">&#x27;111100&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;_&#x27;</span>: <span class="string">&#x27;01010&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;+&#x27;</span>: <span class="string">&#x27;10111&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;-&#x27;</span>: <span class="string">&#x27;10100010&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;=&#x27;</span>: <span class="string">&#x27;000000&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;[&#x27;</span>: <span class="string">&#x27;110011&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;]&#x27;</span>: <span class="string">&#x27;00100&#x27;</span>,</span><br><span class="line">    <span class="string">&#x27;;&#x27;</span>: <span class="string">&#x27;1010000&#x27;</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">assert</span>(charset == tree.charset)</span><br><span class="line"></span><br><span class="line">new_dic = <span class="built_in">dict</span>(<span class="built_in">zip</span>(tree.charset.values(), tree.charset.keys()))</span><br><span class="line"><span class="comment"># d869f00c,62fb324a,ccca48e,e56322c0,5e07fdb6,8dc6fee6,ad518dfd,14fa68e4,78</span></span><br><span class="line">target = [<span class="number">0x0c</span>, <span class="number">0xf0</span>, <span class="number">0x69</span>, <span class="number">0xd8</span>, <span class="number">0x4a</span>, <span class="number">0x32</span>, <span class="number">0xfb</span>, <span class="number">0x62</span>, <span class="number">0x8e</span>, <span class="number">0xa4</span>, <span class="number">0xcc</span>, <span class="number">0x0c</span>, <span class="number">0xc0</span>, <span class="number">0x22</span>, <span class="number">0x63</span>,</span><br><span class="line">          <span class="number">0xe5</span>, <span class="number">0xb6</span>, <span class="number">0xfd</span>, <span class="number">0x07</span>, <span class="number">0x5e</span>, <span class="number">0xe6</span>, <span class="number">0xfe</span>, <span class="number">0xc6</span>, <span class="number">0x8d</span>, <span class="number">0xfd</span>, <span class="number">0x8d</span>, <span class="number">0x51</span>, <span class="number">0xad</span>, <span class="number">0xe4</span>, <span class="number">0x68</span>,</span><br><span class="line">          <span class="number">0xfa</span>, <span class="number">0x14</span>, <span class="number">0x78</span>]</span><br><span class="line">f = <span class="string">&#x27;&#x27;</span>.join([<span class="built_in">bin</span>(i)[<span class="number">2</span>:].rjust(<span class="number">8</span>, <span class="string">&#x27;0&#x27;</span>) <span class="keyword">for</span> i <span class="keyword">in</span> target])</span><br><span class="line"></span><br><span class="line">i = <span class="number">0</span></span><br><span class="line">j = <span class="number">5</span></span><br><span class="line"><span class="keyword">while</span> j &lt; <span class="built_in">len</span>(f):</span><br><span class="line">    tmp = f[i:j]</span><br><span class="line">    <span class="keyword">if</span> new_dic.get(tmp):</span><br><span class="line">        <span class="built_in">print</span>(new_dic[tmp], end=<span class="string">&#x27;&#x27;</span>)</span><br><span class="line">        i = j</span><br><span class="line">        j += <span class="number">5</span></span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        j += <span class="number">1</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Node</span>():</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span>(<span class="hljs-params">self, name=<span class="hljs-literal">None</span>, value=<span class="hljs-literal">None</span></span>):</span></span><br><span class="line">        self.name = name</span><br><span class="line">        self.value = value</span><br><span class="line">        self.right = <span class="hljs-literal">None</span></span><br><span class="line">        self.left = <span class="hljs-literal">None</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">HuffmanTree</span>():</span></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">__init__</span>(<span class="hljs-params">self, arr</span>):</span></span><br><span class="line">        self.charset = {}</span><br><span class="line">        self.nodes = [Node(values[<span class="hljs-number">0</span>], values[<span class="hljs-number">1</span>])</span><br><span class="line">                      <span class="hljs-keyword">for</span> values <span class="hljs-keyword">in</span> arr]</span><br><span class="line">        <span class="hljs-keyword">while</span> <span class="hljs-built_in">len</span>(self.nodes) != <span class="hljs-number">1</span>:</span><br><span class="line">            self.nodes.sort(key=<span class="hljs-keyword">lambda</span> node: node.value)</span><br><span class="line">            p = Node(value=(self.nodes[<span class="hljs-number">0</span>].value +</span><br><span class="line">                     self.nodes[<span class="hljs-number">1</span>].value))</span><br><span class="line">            p.left = self.nodes.pop(<span class="hljs-number">0</span>)</span><br><span class="line">            p.right = self.nodes.pop(<span class="hljs-number">0</span>)</span><br><span class="line">            self.nodes.append(p)</span><br><span class="line">        self.root = self.nodes[<span class="hljs-number">0</span>]</span><br><span class="line"></span><br><span class="line">        self.Code = <span class="hljs-built_in">list</span>(<span class="hljs-built_in">range</span>(<span class="hljs-number">60</span>))</span><br><span class="line"></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">HuffmanCode</span>(<span class="hljs-params">self, tree, length</span>):</span></span><br><span class="line">        node = tree</span><br><span class="line">        <span class="hljs-keyword">if</span> (<span class="hljs-keyword">not</span> node):</span><br><span class="line">            <span class="hljs-keyword">return</span></span><br><span class="line">        <span class="hljs-keyword">elif</span> node.name:</span><br><span class="line">            result = <span class="hljs-string">''</span></span><br><span class="line">            <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(length):</span><br><span class="line">                result += <span class="hljs-built_in">str</span>(self.Code[i])</span><br><span class="line">            self.charset[node.name] = result</span><br><span class="line">            <span class="hljs-keyword">return</span></span><br><span class="line">        self.Code[length] = <span class="hljs-number">0</span></span><br><span class="line">        self.HuffmanCode(tree.left, length + <span class="hljs-number">1</span>)</span><br><span class="line">        self.Code[length] = <span class="hljs-number">1</span></span><br><span class="line">        self.HuffmanCode(tree.right, length+<span class="hljs-number">1</span>)</span><br><span class="line"></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">GenCode</span>(<span class="hljs-params">self</span>):</span></span><br><span class="line">        self.HuffmanCode(self.root, <span class="hljs-number">0</span>)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">alphabet = <span class="hljs-string">'abcdefghijklmnopqrstuvwxyz0123456789!@#%^&amp;*()_+-=[]{};'</span></span><br><span class="line">arr = []</span><br><span class="line"><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">54</span>):</span><br><span class="line">    arr.append((<span class="hljs-number">43</span>*(<span class="hljs-number">127</span>+i)) % <span class="hljs-number">233</span>)</span><br><span class="line">char_weights = <span class="hljs-built_in">list</span>(<span class="hljs-built_in">zip</span>(alphabet, arr))</span><br><span class="line">tree = HuffmanTree(char_weights)</span><br><span class="line">tree.GenCode()</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment"># check</span></span><br><span class="line">charset = {</span><br><span class="line">    <span class="hljs-string">'b'</span>: <span class="hljs-string">'00001'</span>,</span><br><span class="line">    <span class="hljs-string">'y'</span>: <span class="hljs-string">'10011'</span>,</span><br><span class="line">    <span class="hljs-string">'t'</span>: <span class="hljs-string">'11000'</span>,</span><br><span class="line">    <span class="hljs-string">'e'</span>: <span class="hljs-string">'0011010'</span>,</span><br><span class="line">    <span class="hljs-string">'c'</span>: <span class="hljs-string">'01110'</span>,</span><br><span class="line">    <span class="hljs-string">'f'</span>: <span class="hljs-string">'010010'</span>,</span><br><span class="line">    <span class="hljs-string">'{'</span>: <span class="hljs-string">'10001'</span>,</span><br><span class="line">    <span class="hljs-string">'a'</span>: <span class="hljs-string">'100101'</span>,</span><br><span class="line">    <span class="hljs-string">'d'</span>: <span class="hljs-string">'11011'</span>,</span><br><span class="line">    <span class="hljs-string">'g'</span>: <span class="hljs-string">'111011'</span>,</span><br><span class="line">    <span class="hljs-string">'h'</span>: <span class="hljs-string">'01000'</span>,</span><br><span class="line">    <span class="hljs-string">'i'</span>: <span class="hljs-string">'10110'</span>,</span><br><span class="line">    <span class="hljs-string">'j'</span>: <span class="hljs-string">'00110111'</span>,</span><br><span class="line">    <span class="hljs-string">'k'</span>: <span class="hljs-string">'1111010'</span>,</span><br><span class="line">    <span class="hljs-string">'l'</span>: <span class="hljs-string">'110010'</span>,</span><br><span class="line">    <span class="hljs-string">'m'</span>: <span class="hljs-string">'00011'</span>,</span><br><span class="line">    <span class="hljs-string">'n'</span>: <span class="hljs-string">'10000'</span>,</span><br><span class="line">    <span class="hljs-string">'o'</span>: <span class="hljs-string">'10100011101'</span>,</span><br><span class="line">    <span class="hljs-string">'p'</span>: <span class="hljs-string">'0110011'</span>,</span><br><span class="line">    <span class="hljs-string">'q'</span>: <span class="hljs-string">'011000'</span>,</span><br><span class="line">    <span class="hljs-string">'r'</span>: <span class="hljs-string">'111110'</span>,</span><br><span class="line">    <span class="hljs-string">'s'</span>: <span class="hljs-string">'01011'</span>,</span><br><span class="line">    <span class="hljs-string">'u'</span>: <span class="hljs-string">'11110110'</span>,</span><br><span class="line">    <span class="hljs-string">'v'</span>: <span class="hljs-string">'000001'</span>,</span><br><span class="line">    <span class="hljs-string">'w'</span>: <span class="hljs-string">'111000'</span>,</span><br><span class="line">    <span class="hljs-string">'x'</span>: <span class="hljs-string">'00101'</span>,</span><br><span class="line">    <span class="hljs-string">'z'</span>: <span class="hljs-string">'101000110'</span>,</span><br><span class="line">    <span class="hljs-string">'0'</span>: <span class="hljs-string">'1110010'</span>,</span><br><span class="line">    <span class="hljs-string">'1'</span>: <span class="hljs-string">'100100'</span>,</span><br><span class="line">    <span class="hljs-string">'2'</span>: <span class="hljs-string">'111111'</span>,</span><br><span class="line">    <span class="hljs-string">'3'</span>: <span class="hljs-string">'01101'</span>,</span><br><span class="line">    <span class="hljs-string">'4'</span>: <span class="hljs-string">'11010'</span>,</span><br><span class="line">    <span class="hljs-string">'5'</span>: <span class="hljs-string">'11110111'</span>,</span><br><span class="line">    <span class="hljs-string">'}'</span>: <span class="hljs-string">'1010001111'</span>,</span><br><span class="line">    <span class="hljs-string">'6'</span>: <span class="hljs-string">'001100'</span>,</span><br><span class="line">    <span class="hljs-string">'7'</span>: <span class="hljs-string">'111010'</span>,</span><br><span class="line">    <span class="hljs-string">'8'</span>: <span class="hljs-string">'00111'</span>,</span><br><span class="line">    <span class="hljs-string">'9'</span>: <span class="hljs-string">'10101'</span>,</span><br><span class="line">    <span class="hljs-string">'!'</span>: <span class="hljs-string">'00110110'</span>,</span><br><span class="line">    <span class="hljs-string">'@'</span>: <span class="hljs-string">'1110011'</span>,</span><br><span class="line">    <span class="hljs-string">'#'</span>: <span class="hljs-string">'101001'</span>,</span><br><span class="line">    <span class="hljs-string">'%'</span>: <span class="hljs-string">'00010'</span>,</span><br><span class="line">    <span class="hljs-string">'^'</span>: <span class="hljs-string">'01111'</span>,</span><br><span class="line">    <span class="hljs-string">'&amp;'</span>: <span class="hljs-string">'10100011100'</span>,</span><br><span class="line">    <span class="hljs-string">'*'</span>: <span class="hljs-string">'0110010'</span>,</span><br><span class="line">    <span class="hljs-string">'('</span>: <span class="hljs-string">'010011'</span>,</span><br><span class="line">    <span class="hljs-string">')'</span>: <span class="hljs-string">'111100'</span>,</span><br><span class="line">    <span class="hljs-string">'_'</span>: <span class="hljs-string">'01010'</span>,</span><br><span class="line">    <span class="hljs-string">'+'</span>: <span class="hljs-string">'10111'</span>,</span><br><span class="line">    <span class="hljs-string">'-'</span>: <span class="hljs-string">'10100010'</span>,</span><br><span class="line">    <span class="hljs-string">'='</span>: <span class="hljs-string">'000000'</span>,</span><br><span class="line">    <span class="hljs-string">'['</span>: <span class="hljs-string">'110011'</span>,</span><br><span class="line">    <span class="hljs-string">']'</span>: <span class="hljs-string">'00100'</span>,</span><br><span class="line">    <span class="hljs-string">';'</span>: <span class="hljs-string">'1010000'</span></span><br><span class="line"></span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">assert</span>(charset == tree.charset)</span><br><span class="line"></span><br><span class="line">new_dic = <span class="hljs-built_in">dict</span>(<span class="hljs-built_in">zip</span>(tree.charset.values(), tree.charset.keys()))</span><br><span class="line"><span class="hljs-comment"># d869f00c,62fb324a,ccca48e,e56322c0,5e07fdb6,8dc6fee6,ad518dfd,14fa68e4,78</span></span><br><span class="line">target = [<span class="hljs-number">0x0c</span>, <span class="hljs-number">0xf0</span>, <span class="hljs-number">0x69</span>, <span class="hljs-number">0xd8</span>, <span class="hljs-number">0x4a</span>, <span class="hljs-number">0x32</span>, <span class="hljs-number">0xfb</span>, <span class="hljs-number">0x62</span>, <span class="hljs-number">0x8e</span>, <span class="hljs-number">0xa4</span>, <span class="hljs-number">0xcc</span>, <span class="hljs-number">0x0c</span>, <span class="hljs-number">0xc0</span>, <span class="hljs-number">0x22</span>, <span class="hljs-number">0x63</span>,</span><br><span class="line">          <span class="hljs-number">0xe5</span>, <span class="hljs-number">0xb6</span>, <span class="hljs-number">0xfd</span>, <span class="hljs-number">0x07</span>, <span class="hljs-number">0x5e</span>, <span class="hljs-number">0xe6</span>, <span class="hljs-number">0xfe</span>, <span class="hljs-number">0xc6</span>, <span class="hljs-number">0x8d</span>, <span class="hljs-number">0xfd</span>, <span class="hljs-number">0x8d</span>, <span class="hljs-number">0x51</span>, <span class="hljs-number">0xad</span>, <span class="hljs-number">0xe4</span>, <span class="hljs-number">0x68</span>,</span><br><span class="line">          <span class="hljs-number">0xfa</span>, <span class="hljs-number">0x14</span>, <span class="hljs-number">0x78</span>]</span><br><span class="line">f = <span class="hljs-string">''</span>.join([<span class="hljs-built_in">bin</span>(i)[<span class="hljs-number">2</span>:].rjust(<span class="hljs-number">8</span>, <span class="hljs-string">'0'</span>) <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> target])</span><br><span class="line"></span><br><span class="line">i = <span class="hljs-number">0</span></span><br><span class="line">j = <span class="hljs-number">5</span></span><br><span class="line"><span class="hljs-keyword">while</span> j &lt; <span class="hljs-built_in">len</span>(f):</span><br><span class="line">    tmp = f[i:j]</span><br><span class="line">    <span class="hljs-keyword">if</span> new_dic.get(tmp):</span><br><span class="line">        <span class="hljs-built_in">print</span>(new_dic[tmp], end=<span class="hljs-string">''</span>)</span><br><span class="line">        i = j</span><br><span class="line">        j += <span class="hljs-number">5</span></span><br><span class="line">    <span class="hljs-keyword">else</span>:</span><br><span class="line">        j += <span class="hljs-number">1</span></span><br></pre></td></tr></tbody></table></figure>
 
 <p>需要注意的是这里生成Huffman编码的时候，相同数值使用不同的排序算法可能会有不同的顺序，例如使用python的sort算法时，倒序的方式生成的编码与题目中生成的不同，有可能需要多尝试几次。</p>
-
-  </div>
+</body></html>
+    
+    </div>
+    
+    <div class="columns is-variable is-1 is-multiline is-mobile">
+    
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/ctf/">#ctf</a></span>
+    
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/re/">#re</a></span>
+    
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/ByteCTF/">#ByteCTF</a></span>
+    
+    </div>
+    
+    
+    <div class="columns is-mobile is-multiline article-nav">
+        <span class="column is-12-mobile is-half-desktop is-hidden-mobile article-nav-prev">
+            
+        </span>
+        <span class="column is-12-mobile is-half-desktop  article-nav-next">
+            
+            <a href="/2021/10/05/wp-5space-2021/">wp-5space-2021</a>
+            
+        </span>
+    </div>
+    
 </article>
 
-    <div class="blog-post-comments">
-        <div id="disqus_thread">
-            <noscript>Please enable JavaScript to view the comments.</noscript>
-        </div>
-    </div>
 
+<div class="sharebox">
+    
+<div class="sharethis-inline-share-buttons"></div>
+<script type='text/javascript' src='https://platform-api.sharethis.com/js/sharethis.js#property=618a5a31fe4ac40012aea77e&amp;product=inline-share-buttons' async='async'></script>
 
-
-        
-          <div id="footer-post-container">
-  <div id="footer-post">
-
-    <div id="nav-footer" style="display: none">
-      <ul>
-         
-          <li><a href="/">Home</a></li>
-         
-          <li><a href="/about/">About</a></li>
-         
-          <li><a href="/archives/">Writing</a></li>
-         
-          <li><a href="/atom.xml">RSS</a></li>
-         
-          <li><a href="/search/">Search</a></li>
-        
-      </ul>
-    </div>
-
-    <div id="toc-footer" style="display: none">
-      <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Analysis"><span class="toc-number">1.</span> <span class="toc-text">Analysis</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Solution"><span class="toc-number">2.</span> <span class="toc-text">Solution</span></a></li></ol>
-    </div>
-
-    <div id="share-footer" style="display: none">
-      <ul>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://blog.rycbar.club/2021/11/04/ByteCTF-re-moderncpp-%E9%A2%98%E8%A7%A3/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://blog.rycbar.club/2021/11/04/ByteCTF-re-moderncpp-%E9%A2%98%E8%A7%A3/&text=ByteCTF re moderncpp 题解"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://blog.rycbar.club/2021/11/04/ByteCTF-re-moderncpp-%E9%A2%98%E8%A7%A3/&title=ByteCTF re moderncpp 题解"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://blog.rycbar.club/2021/11/04/ByteCTF-re-moderncpp-%E9%A2%98%E8%A7%A3/&is_video=false&description=ByteCTF re moderncpp 题解"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=ByteCTF re moderncpp 题解&body=Check out this article: http://blog.rycbar.club/2021/11/04/ByteCTF-re-moderncpp-%E9%A2%98%E8%A7%A3/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://blog.rycbar.club/2021/11/04/ByteCTF-re-moderncpp-%E9%A2%98%E8%A7%A3/&title=ByteCTF re moderncpp 题解"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://blog.rycbar.club/2021/11/04/ByteCTF-re-moderncpp-%E9%A2%98%E8%A7%A3/&title=ByteCTF re moderncpp 题解"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://blog.rycbar.club/2021/11/04/ByteCTF-re-moderncpp-%E9%A2%98%E8%A7%A3/&title=ByteCTF re moderncpp 题解"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://blog.rycbar.club/2021/11/04/ByteCTF-re-moderncpp-%E9%A2%98%E8%A7%A3/&title=ByteCTF re moderncpp 题解"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://blog.rycbar.club/2021/11/04/ByteCTF-re-moderncpp-%E9%A2%98%E8%A7%A3/&name=ByteCTF re moderncpp 题解&description=&lt;p&gt;首发于&lt;a href=&#34;https://xz.aliyun.com/t/10426&#34;&gt;先知&lt;/a&gt;&lt;/p&gt;"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://blog.rycbar.club/2021/11/04/ByteCTF-re-moderncpp-%E9%A2%98%E8%A7%A3/&t=ByteCTF re moderncpp 题解"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
-</ul>
-
-    </div>
-
-    <div id="actions-footer">
-        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
-        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
-        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
-        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
-    </div>
-
-  </div>
 </div>
 
+
+
+<div class="comments">
+    <h3 class="title is-4">Comments</h3>
+    
+<script>
+    var disqus_config = function () {
+        this.page.url = 'http://blog.rycbar.club/2021/11/04/ByteCTF-re-moderncpp-%E9%A2%98%E8%A7%A3/';
+        this.page.identifier = '2021/11/04/ByteCTF-re-moderncpp-题解/';
         
-        <footer id="footer">
-  <div class="footer-left">
-    Copyright &copy;
+        this.language = 'en';
+        
+    };
+    (function() {
+        var d = document, s = d.createElement('script');  
+        s.src = '//' + 'rrblog-2' + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+<div id="disqus_thread">
     
-    
-    2018-2021
-    Aorui Zhang
-  </div>
-  <div class="footer-right">
-    <nav>
-      <ul>
-        <!--
-       --><li><a href="/">Home</a></li><!--
-     --><!--
-       --><li><a href="/about/">About</a></li><!--
-     --><!--
-       --><li><a href="/archives/">Writing</a></li><!--
-     --><!--
-       --><li><a href="/atom.xml">RSS</a></li><!--
-     --><!--
-       --><li><a href="/search/">Search</a></li><!--
-     -->
-      </ul>
-    </nav>
-  </div>
-</footer>
+    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</div>
 
     </div>
-    <!-- styles -->
+</section>
+    <footer class="footer">
+    <div class="container">
+        <div class="columns content">
+            <div class="column is-narrow has-text-centered">
+                &copy; 2021 Aorui Zhang&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a
+                        target="_blank" rel="noopener" href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
+            </div>
+            <div class="column is-hidden-mobile"></div>
 
+            
+            <div class="column is-narrow">
+                <div class="columns is-mobile is-multiline is-centered">
+                
+                    
+                <a class="column is-narrow has-text-black" title="GitHub" target="_blank" rel="noopener" href="https://github.com/rycbar77">
+                    
+                    GitHub
+                    
+                </a>
+                
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</footer>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment-with-locales.min.js"></script>
 
-
-  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
-
-
-    <!-- jquery -->
- 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script> 
-
-
-
-
-<!-- clipboard -->
-
-  
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
-  
-  <script type="text/javascript">
-  $(function() {
-    // copy-btn HTML
-    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
-    btn += '<i class="far fa-clone"></i>';
-    btn += '</span>'; 
-    // mount it!
-    $(".highlight table").before(btn);
-    var clip = new ClipboardJS('.btn-copy', {
-      text: function(trigger) {
-        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
-      }
+<!-- test if the browser is outdated -->
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" target="_blank" rel="noopener" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // plugin function, place inside DOM ready function
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        })
     });
-    clip.on('success', function(e) {
-      e.trigger.setAttribute('aria-label', "Copied!");
-      e.clearSelection();
-    })
-  })
-  </script>
+</script>
+
+<script>
+    window.FontAwesomeConfig = {
+        searchPseudoElements: true
+    }
+    moment.locale("en-AU");
+</script>
 
 
-<script src="/js/main.js"></script>
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script>
+    MathJax.Hub.Config({
+        "HTML-CSS": {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+</script>
 
-<!-- search -->
+    
+    
+    
+    
+<script src="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/js/lightgallery-all.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/js/jquery.justifiedGallery.min.js"></script>
+<script>
+    (function ($) {
+        $(document).ready(function () {
+            if (typeof($.fn.lightGallery) === 'function') {
+                $('.article.gallery').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof($.fn.justifiedGallery) === 'function') {
+                $('.justified-gallery').justifiedGallery();
+            }
+        });
+    })(jQuery);
+</script>
 
-<!-- Google Analytics -->
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+    <style>
+        .hljs {
+            position: relative;
+        }
 
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128484503-1"></script>
+        .hljs .clipboard-btn {
+            float: right;
+            color: #9a9a9a;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .hljs .clipboard-btn:hover {
+          color: #8a8a8a;
+        }
+
+        .hljs > .clipboard-btn {
+            display: none;
+            position: absolute;
+            right: 4px;
+            top: 4px;
+        }
+
+        .hljs:hover > .clipboard-btn {
+            display: inline;
+        }
+
+        .hljs > figcaption > .clipboard-btn {
+            margin-right: 4px;
+        }
+    </style>
     <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'UA-128484503-1');
+      $(document).ready(function () {
+        $('figure.hljs').each(function(i, figure) {
+          var codeId = 'code-' + i;
+          var code = figure.querySelector('.code');
+          var copyButton = $('<button>Copy <i class="far fa-clipboard"></i></button>');
+          code.id = codeId;
+          copyButton.addClass('clipboard-btn');
+          copyButton.attr('data-clipboard-target-id', codeId);
+
+          var figcaption = figure.querySelector('figcaption');
+
+          if (figcaption) {
+            figcaption.append(copyButton[0]);
+          } else {
+            figure.prepend(copyButton[0]);
+          }
+        })
+
+        var clipboard = new ClipboardJS('.clipboard-btn', {
+          target: function(trigger) {
+            return document.getElementById(trigger.getAttribute('data-clipboard-target-id'));
+          }
+        });
+        clipboard.on('success', function(e) {
+          e.clearSelection();
+        })
+      })
     </script>
 
-<!-- Baidu Analytics -->
+    
+    
 
-<!-- Cloudflare Analytics -->
+    
 
-<!-- Umami Analytics -->
 
-<!-- Disqus Comments -->
 
-    <script type="text/javascript">
-        var disqus_shortname = 'rrblog-2';
+<script src="/js/script.js"></script>
 
-        (function(){
-            var dsq = document.createElement('script');
-            dsq.type = 'text/javascript';
-            dsq.async = true;
-            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-        }());
-    </script>
 
-<!-- utterances Comments -->
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-mask"></div>
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something..." />
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Posts',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
 
+<script src="/js/insight.js"></script>
+
+    
 </body>
 </html>

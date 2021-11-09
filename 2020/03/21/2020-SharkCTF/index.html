@@ -1,11 +1,19 @@
 <!DOCTYPE html>
-<html lang=en>
+<html class="has-navbar-fixed-top">
 <head>
-    <!-- so meta -->
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="HandheldFriendly" content="True">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+<title>SharkCTF-wp - rr&#39;s blog</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
+
+
+
+
+
+
+
+
     <meta name="description" content="SharkCTF-wp">
 <meta property="og:type" content="article">
 <meta property="og:title" content="SharkCTF-wp">
@@ -20,334 +28,464 @@
 <meta property="article:tag" content="ctf">
 <meta property="article:tag" content="SharkCTF">
 <meta name="twitter:card" content="summary">
-    
-    
-      
-        
-          <link rel="shortcut icon" href="/images/favicon.ico">
-        
-      
-      
-        
-          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
-        
-      
-      
-        
-          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
-        
-      
-    
-    <!-- title -->
-    <title>SharkCTF-wp</title>
-    <!-- styles -->
-    
+
+
+
+
+
+<link rel="icon" href="rust.png">
+
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ovo|Source+Code+Pro">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/css/lightgallery.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/css/justifiedGallery.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+
+
 <link rel="stylesheet" href="/css/style.css">
 
-    <!-- persian styles -->
-    
-    <!-- rss -->
-    
-    
-      <link rel="alternate" href="/true" title="rr&#39;s blog" type="application/atom+xml" />
-    
-	<!-- mathjax -->
-	
-<meta name="generator" content="Hexo 5.4.0"></head>
 
-<body class="max-width mx-auto px3 ltr">
-    
-      <div id="header-post">
-  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
-  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
-  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
-  <span id="menu">
-    <span id="nav">
-      <ul>
-        <!--
-       --><li><a href="/">Home</a></li><!--
-     --><!--
-       --><li><a href="/about/">About</a></li><!--
-     --><!--
-       --><li><a href="/archives/">Writing</a></li><!--
-     --><!--
-       --><li><a href="/atom.xml">RSS</a></li><!--
-     --><!--
-       --><li><a href="/search/">Search</a></li><!--
-     -->
-      </ul>
-    </span>
-    <br/>
-    <span id="actions">
-      <ul>
-        
-        <li><a class="icon" aria-label="Previous post" href="/2020/03/21/2020-NPUCTF/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
-        
-        
-        <li><a class="icon" aria-label="Next post" href="/2020/03/21/2020-%E7%BD%91%E9%BC%8E%E6%9D%AF/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
-        
-        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
-        <li><a class="icon" aria-label="Share post" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
-      </ul>
-      <span id="i-prev" class="info" style="display:none;">Previous post</span>
-      <span id="i-next" class="info" style="display:none;">Next post</span>
-      <span id="i-top" class="info" style="display:none;">Back to top</span>
-      <span id="i-share" class="info" style="display:none;">Share post</span>
-    </span>
-    <br/>
-    <div id="share" style="display: none">
-      <ul>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://blog.rycbar.club/2020/03/21/2020-SharkCTF/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://blog.rycbar.club/2020/03/21/2020-SharkCTF/&text=SharkCTF-wp"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://blog.rycbar.club/2020/03/21/2020-SharkCTF/&title=SharkCTF-wp"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://blog.rycbar.club/2020/03/21/2020-SharkCTF/&is_video=false&description=SharkCTF-wp"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=SharkCTF-wp&body=Check out this article: http://blog.rycbar.club/2020/03/21/2020-SharkCTF/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://blog.rycbar.club/2020/03/21/2020-SharkCTF/&title=SharkCTF-wp"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://blog.rycbar.club/2020/03/21/2020-SharkCTF/&title=SharkCTF-wp"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://blog.rycbar.club/2020/03/21/2020-SharkCTF/&title=SharkCTF-wp"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://blog.rycbar.club/2020/03/21/2020-SharkCTF/&title=SharkCTF-wp"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://blog.rycbar.club/2020/03/21/2020-SharkCTF/&name=SharkCTF-wp&description=&lt;p&gt;SharkCTF-wp&lt;/p&gt;"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://blog.rycbar.club/2020/03/21/2020-SharkCTF/&t=SharkCTF-wp"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
-</ul>
+<script defer src="//use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
 
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-128484503-1"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-128484503-1');
+</script>
+
+
+    
+
+
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="rr's blog" type="application/atom+xml">
+</head>
+<body>
+    
+<nav class="navbar is-transparent is-fixed-top navbar-main" role="navigation" aria-label="main navigation">
+    <div class="container">
+        <div class="navbar-brand">
+            <a class="navbar-item navbar-logo" href="/">
+                
+                <img src="/images/logo.png" alt="" height="28">
+                
+            </a>
+            <div class="navbar-burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        
+        <div class="navbar-menu navbar-start">
+            
+            <a class="navbar-item "
+               href="/archives">Archives</a>
+            
+            <a class="navbar-item "
+               href="/categories">Categories</a>
+            
+            <a class="navbar-item "
+               href="/tags">Tags</a>
+            
+            <a class="navbar-item "
+               href="/links">Links</a>
+            
+            <a class="navbar-item "
+               href="/about">About</a>
+            
+            <a class="navbar-item "
+               href="/atom.xml">RSS</a>
+            
+        </div>
+        
+        <div class="navbar-menu navbar-end">
+            
+            <a class="navbar-item search" title="Search" href="javascript:;">
+                <i class="fas fa-search"></i>
+            </a>
+            
+            
+            <div class="navbar-item is-hoverable has-dropdown is-hidden-mobile is-hidden-tablet-only toc">
+                <a class="navbar-item" title="Table of Contents">
+                    <i class="fa fa-list"></i>
+                </a>
+                <div class="navbar-dropdown is-right">
+                    
+                    
+                    
+                    
+                    <a class="navbar-item" href="#rev">1&nbsp;&nbsp;<b>rev</b></a>
+                    
+                    
+                    
+                    <a class="navbar-item" href="#easyre">1.1&nbsp;&nbsp;easyre</a>
+                    
+                    
+                    
+                    <a class="navbar-item" href="#z3-robot">1.2&nbsp;&nbsp;z3_robot</a>
+                    
+                    
+                    
+                    <a class="navbar-item" href="#secure-db">1.3&nbsp;&nbsp;secure_db</a>
+                    
+                    
+                    
+                    <a class="navbar-item" href="#miss-direction">1.4&nbsp;&nbsp;miss_direction</a>
+                    
+                </div>
+            </div>
+            
+            
+            <a class="navbar-item" title="GitHub" target="_blank" rel="noopener" href="https://github.com/rycbar77">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+               
+            
+        </div>
     </div>
-    <div id="toc">
-      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#rev"><span class="toc-number">1.</span> <span class="toc-text">rev</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#easyre"><span class="toc-number">1.1.</span> <span class="toc-text">easyre</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#z3-robot"><span class="toc-number">1.2.</span> <span class="toc-text">z3_robot</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#secure-db"><span class="toc-number">1.3.</span> <span class="toc-text">secure_db</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#miss-direction"><span class="toc-number">1.4.</span> <span class="toc-text">miss_direction</span></a></li></ol></li></ol>
-    </div>
-  </span>
-</div>
+</nav>
 
-    
-    <div class="content index py4">
+    <section class="section">
+    <div class="container">
+    <article class="article content gallery" itemscope itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
-        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
-  <header>
-    
-    <h1 class="posttitle" itemprop="name headline">
-        SharkCTF-wp
+            SharkCTF-wp
+        
     </h1>
-
-
-
-    <div class="meta">
-      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
-        <span itemprop="name">Aorui Zhang</span>
-      </span>
-      
-    <div class="postdate">
-      
-        <time datetime="2020-03-21T01:40:20.000Z" itemprop="datePublished">2020-03-21</time>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            
+                <time datetime="2020-03-21T01:40:20.000Z" itemprop="datePublished">Mar 21 2020</time>
+            
+        </span>
         
-        (Updated: <time datetime="2021-08-25T07:37:32.735Z" itemprop="dateModified">2021-08-25</time>)
+        <span class="column is-narrow article-category">
+            <i class="far fa-folder"></i>
+            <a class="article-category-link" href="/categories/ctf/">ctf</a>
+        </span>
         
-      
+        
+        <span class="column is-narrow">
+            
+            
+            6 minutes read (About 868 words)
+        </span>
+        
     </div>
-
-
-      
-    <div class="article-category">
-        <i class="fas fa-archive"></i>
-        <a class="category-link" href="/categories/ctf/">ctf</a>
-    </div>
-
-
-      
-    <div class="article-tag">
-        <i class="fas fa-tag"></i>
-        <a class="tag-link-link" href="/tags/SharkCTF/" rel="tag">SharkCTF</a>, <a class="tag-link-link" href="/tags/ctf/" rel="tag">ctf</a>, <a class="tag-link-link" href="/tags/writeup/" rel="tag">writeup</a>
-    </div>
-
-
-    </div>
-  </header>
-  
-
-  <div class="content" itemprop="articleBody">
-    <p>SharkCTF-wp</p>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <html><head></head><body><p>SharkCTF-wp</p>
 <span id="more"></span>
 
 <h4 id="rev"><a href="#rev" class="headerlink" title="rev"></a>rev</h4><h5 id="easyre"><a href="#easyre" class="headerlink" title="easyre"></a>easyre</h5><p>An easy asm, as we can see, every single <code>byte</code> in <code>the_second_array</code> is xored, and then plus the <code>byte</code> with the same index in <code>some_array</code></p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">BITS 64</span><br><span class="line"></span><br><span class="line">SECTION .rodata</span><br><span class="line">	some_array db 10,2,30,15,3,7,4,2,1,24,5,11,24,4,14,13,5,6,19,20,23,9,10,2,30,15,3,7,4,2,1,24</span><br><span class="line">	the_second_array db 0x57,0x40,0xa3,0x78,0x7d,0x67,0x55,0x40,0x1e,0xae,0x5b,0x11,0x5d,0x40,0xaa,0x17,0x58,0x4f,0x7e,0x4d,0x4e,0x42,0x5d,0x51,0x57,0x5f,0x5f,0x12,0x1d,0x5a,0x4f,0xbf</span><br><span class="line">	len_second_array equ $ - the_second_array</span><br><span class="line">SECTION .text</span><br><span class="line">    GLOBAL main</span><br><span class="line"></span><br><span class="line">main:</span><br><span class="line">	mov rdx, [rsp]</span><br><span class="line">	cmp rdx, 2</span><br><span class="line">	jne exit</span><br><span class="line">	mov rsi, [rsp+0x10]</span><br><span class="line">	mov rdx, rsi</span><br><span class="line">	mov rcx, 0</span><br><span class="line">l1:</span><br><span class="line">	cmp byte [rdx], 0</span><br><span class="line">	je follow_the_label</span><br><span class="line">	inc rcx</span><br><span class="line">	inc rdx</span><br><span class="line">	jmp l1</span><br><span class="line">follow_the_label:</span><br><span class="line">	mov al, byte [rsi+rcx-1]</span><br><span class="line">	mov rdi,  some_array</span><br><span class="line">	mov rdi, [rdi+rcx-1]</span><br><span class="line">	add al, dil</span><br><span class="line">	xor rax, 42</span><br><span class="line">	mov r10, the_second_array</span><br><span class="line">	add r10, rcx</span><br><span class="line">	dec r10</span><br><span class="line">	cmp al, byte [r10]</span><br><span class="line">	jne exit</span><br><span class="line">	dec rcx</span><br><span class="line">	cmp rcx, 0</span><br><span class="line">	jne follow_the_label</span><br><span class="line">win:</span><br><span class="line">	mov rdi, 1</span><br><span class="line">	mov rax, 60</span><br><span class="line">	syscall</span><br><span class="line">exit:</span><br><span class="line">	mov rdi, 0</span><br><span class="line">	mov rax, 60</span><br><span class="line">	syscall</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line">BITS 64</span><br><span class="line"></span><br><span class="line">SECTION .rodata</span><br><span class="line">	some_array db 10,2,30,15,3,7,4,2,1,24,5,11,24,4,14,13,5,6,19,20,23,9,10,2,30,15,3,7,4,2,1,24</span><br><span class="line">	the_second_array db 0x57,0x40,0xa3,0x78,0x7d,0x67,0x55,0x40,0x1e,0xae,0x5b,0x11,0x5d,0x40,0xaa,0x17,0x58,0x4f,0x7e,0x4d,0x4e,0x42,0x5d,0x51,0x57,0x5f,0x5f,0x12,0x1d,0x5a,0x4f,0xbf</span><br><span class="line">	len_second_array equ $ - the_second_array</span><br><span class="line">SECTION .text</span><br><span class="line">    GLOBAL main</span><br><span class="line"></span><br><span class="line">main:</span><br><span class="line">	mov rdx, [rsp]</span><br><span class="line">	cmp rdx, 2</span><br><span class="line">	jne exit</span><br><span class="line">	mov rsi, [rsp+0x10]</span><br><span class="line">	mov rdx, rsi</span><br><span class="line">	mov rcx, 0</span><br><span class="line">l1:</span><br><span class="line">	cmp byte [rdx], 0</span><br><span class="line">	je follow_the_label</span><br><span class="line">	inc rcx</span><br><span class="line">	inc rdx</span><br><span class="line">	jmp l1</span><br><span class="line">follow_the_label:</span><br><span class="line">	mov al, byte [rsi+rcx-1]</span><br><span class="line">	mov rdi,  some_array</span><br><span class="line">	mov rdi, [rdi+rcx-1]</span><br><span class="line">	add al, dil</span><br><span class="line">	xor rax, 42</span><br><span class="line">	mov r10, the_second_array</span><br><span class="line">	add r10, rcx</span><br><span class="line">	dec r10</span><br><span class="line">	cmp al, byte [r10]</span><br><span class="line">	jne exit</span><br><span class="line">	dec rcx</span><br><span class="line">	cmp rcx, 0</span><br><span class="line">	jne follow_the_label</span><br><span class="line">win:</span><br><span class="line">	mov rdi, 1</span><br><span class="line">	mov rax, 60</span><br><span class="line">	syscall</span><br><span class="line">exit:</span><br><span class="line">	mov rdi, 0</span><br><span class="line">	mov rax, 60</span><br><span class="line">	syscall</span><br></pre></td></tr></tbody></table></figure>
 
 <p>So it’s easy to solve it with python using simple script blow</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">target=[<span class="number">0x57</span>,<span class="number">0x40</span>,<span class="number">0xa3</span>,<span class="number">0x78</span>,<span class="number">0x7d</span>,<span class="number">0x67</span>,<span class="number">0x55</span>,<span class="number">0x40</span>,<span class="number">0x1e</span>,<span class="number">0xae</span>,<span class="number">0x5b</span>,<span class="number">0x11</span>,<span class="number">0x5d</span>,<span class="number">0x40</span>,<span class="number">0xaa</span>,<span class="number">0x17</span>,<span class="number">0x58</span>,<span class="number">0x4f</span>,<span class="number">0x7e</span>,<span class="number">0x4d</span>,<span class="number">0x4e</span>,<span class="number">0x42</span>,<span class="number">0x5d</span>,<span class="number">0x51</span>,<span class="number">0x57</span>,<span class="number">0x5f</span>,<span class="number">0x5f</span>,<span class="number">0x12</span>,<span class="number">0x1d</span>,<span class="number">0x5a</span>,<span class="number">0x4f</span>,<span class="number">0xbf</span>]</span><br><span class="line">some_array=[<span class="number">10</span>,<span class="number">2</span>,<span class="number">30</span>,<span class="number">15</span>,<span class="number">3</span>,<span class="number">7</span>,<span class="number">4</span>,<span class="number">2</span>,<span class="number">1</span>,<span class="number">24</span>,<span class="number">5</span>,<span class="number">11</span>,<span class="number">24</span>,<span class="number">4</span>,<span class="number">14</span>,<span class="number">13</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">19</span>,<span class="number">20</span>,<span class="number">23</span>,<span class="number">9</span>,<span class="number">10</span>,<span class="number">2</span>,<span class="number">30</span>,<span class="number">15</span>,<span class="number">3</span>,<span class="number">7</span>,<span class="number">4</span>,<span class="number">2</span>,<span class="number">1</span>,<span class="number">24</span>]</span><br><span class="line">flag=<span class="string">&quot;&quot;</span></span><br><span class="line"><span class="keyword">for</span> i,t <span class="keyword">in</span> <span class="built_in">enumerate</span>(target):</span><br><span class="line">    flag+=<span class="built_in">chr</span>((t^<span class="number">42</span>)-some_array[i])</span><br><span class="line"><span class="built_in">print</span>(flag)</span><br><span class="line"></span><br><span class="line"><span class="comment"># shkCTF&#123;h3ll0_fr0m_ASM_my_fr13nd&#125;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">target=[<span class="hljs-number">0x57</span>,<span class="hljs-number">0x40</span>,<span class="hljs-number">0xa3</span>,<span class="hljs-number">0x78</span>,<span class="hljs-number">0x7d</span>,<span class="hljs-number">0x67</span>,<span class="hljs-number">0x55</span>,<span class="hljs-number">0x40</span>,<span class="hljs-number">0x1e</span>,<span class="hljs-number">0xae</span>,<span class="hljs-number">0x5b</span>,<span class="hljs-number">0x11</span>,<span class="hljs-number">0x5d</span>,<span class="hljs-number">0x40</span>,<span class="hljs-number">0xaa</span>,<span class="hljs-number">0x17</span>,<span class="hljs-number">0x58</span>,<span class="hljs-number">0x4f</span>,<span class="hljs-number">0x7e</span>,<span class="hljs-number">0x4d</span>,<span class="hljs-number">0x4e</span>,<span class="hljs-number">0x42</span>,<span class="hljs-number">0x5d</span>,<span class="hljs-number">0x51</span>,<span class="hljs-number">0x57</span>,<span class="hljs-number">0x5f</span>,<span class="hljs-number">0x5f</span>,<span class="hljs-number">0x12</span>,<span class="hljs-number">0x1d</span>,<span class="hljs-number">0x5a</span>,<span class="hljs-number">0x4f</span>,<span class="hljs-number">0xbf</span>]</span><br><span class="line">some_array=[<span class="hljs-number">10</span>,<span class="hljs-number">2</span>,<span class="hljs-number">30</span>,<span class="hljs-number">15</span>,<span class="hljs-number">3</span>,<span class="hljs-number">7</span>,<span class="hljs-number">4</span>,<span class="hljs-number">2</span>,<span class="hljs-number">1</span>,<span class="hljs-number">24</span>,<span class="hljs-number">5</span>,<span class="hljs-number">11</span>,<span class="hljs-number">24</span>,<span class="hljs-number">4</span>,<span class="hljs-number">14</span>,<span class="hljs-number">13</span>,<span class="hljs-number">5</span>,<span class="hljs-number">6</span>,<span class="hljs-number">19</span>,<span class="hljs-number">20</span>,<span class="hljs-number">23</span>,<span class="hljs-number">9</span>,<span class="hljs-number">10</span>,<span class="hljs-number">2</span>,<span class="hljs-number">30</span>,<span class="hljs-number">15</span>,<span class="hljs-number">3</span>,<span class="hljs-number">7</span>,<span class="hljs-number">4</span>,<span class="hljs-number">2</span>,<span class="hljs-number">1</span>,<span class="hljs-number">24</span>]</span><br><span class="line">flag=<span class="hljs-string">""</span></span><br><span class="line"><span class="hljs-keyword">for</span> i,t <span class="hljs-keyword">in</span> <span class="hljs-built_in">enumerate</span>(target):</span><br><span class="line">    flag+=<span class="hljs-built_in">chr</span>((t^<span class="hljs-number">42</span>)-some_array[i])</span><br><span class="line"><span class="hljs-built_in">print</span>(flag)</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment"># shkCTF{h3ll0_fr0m_ASM_my_fr13nd}</span></span><br></pre></td></tr></tbody></table></figure>
 
 <h5 id="z3-robot"><a href="#z3-robot" class="headerlink" title="z3_robot"></a>z3_robot</h5><p>Just input and then pass a few equations, so it’s quite easy to solve it with z3 as the title says</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> z3 <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line">a1 = []</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">25</span>):</span><br><span class="line">    a1.append(BitVec(<span class="string">&quot;s%d&quot;</span> % i, <span class="number">32</span>))</span><br><span class="line"></span><br><span class="line">solver = Solver()</span><br><span class="line"></span><br><span class="line">solver.add((a1[<span class="number">20</span>] ^ <span class="number">0x2B</span>) == a1[<span class="number">7</span>])</span><br><span class="line">solver.add(a1[<span class="number">21</span>] - a1[<span class="number">3</span>] == -<span class="number">20</span>)</span><br><span class="line">solver.add((a1[<span class="number">2</span>] &gt;&gt; <span class="number">6</span>) == <span class="number">0</span>)</span><br><span class="line">solver.add(a1[<span class="number">13</span>] == <span class="number">116</span>)</span><br><span class="line">solver.add(<span class="number">4</span> * a1[<span class="number">11</span>] == <span class="number">380</span>)</span><br><span class="line">solver.add(a1[<span class="number">7</span>] &gt;&gt; a1[<span class="number">17</span>] % <span class="number">8</span> == <span class="number">5</span>)</span><br><span class="line">solver.add((a1[<span class="number">6</span>] ^ <span class="number">0x53</span>) == a1[<span class="number">14</span>])</span><br><span class="line">solver.add(a1[<span class="number">8</span>] == <span class="number">122</span>)</span><br><span class="line">solver.add(a1[<span class="number">5</span>] &lt;&lt; a1[<span class="number">9</span>] % <span class="number">8</span> == <span class="number">392</span>)</span><br><span class="line">solver.add(a1[<span class="number">16</span>] - a1[<span class="number">7</span>] == <span class="number">20</span>)</span><br><span class="line">solver.add(a1[<span class="number">7</span>] &lt;&lt; a1[<span class="number">23</span>] % <span class="number">8</span> == <span class="number">190</span>)</span><br><span class="line">solver.add(a1[<span class="number">2</span>] - a1[<span class="number">7</span>] == -<span class="number">43</span>)</span><br><span class="line">solver.add(a1[<span class="number">21</span>] == <span class="number">95</span>)</span><br><span class="line">solver.add((a1[<span class="number">2</span>] ^ <span class="number">0x47</span>) == a1[<span class="number">3</span>])</span><br><span class="line">solver.add(a1[<span class="number">0</span>] == <span class="number">99</span>)</span><br><span class="line">solver.add(a1[<span class="number">13</span>] == <span class="number">116</span>)</span><br><span class="line">solver.add((a1[<span class="number">20</span>] &amp; <span class="number">0x45</span>) == <span class="number">68</span>)</span><br><span class="line">solver.add((a1[<span class="number">8</span>] &amp; <span class="number">0x15</span>) == <span class="number">16</span>)</span><br><span class="line">solver.add(a1[<span class="number">12</span>] == <span class="number">95</span>)</span><br><span class="line">solver.add(a1[<span class="number">4</span>] &gt;&gt; <span class="number">4</span> == <span class="number">7</span>)</span><br><span class="line">solver.add(a1[<span class="number">13</span>] == <span class="number">116</span>)</span><br><span class="line">solver.add(a1[<span class="number">0</span>] &gt;&gt; a1[<span class="number">0</span>] % <span class="number">8</span> == <span class="number">12</span>)</span><br><span class="line">solver.add(a1[<span class="number">10</span>] == <span class="number">95</span>)</span><br><span class="line">solver.add((a1[<span class="number">8</span>] &amp; <span class="number">0xAC</span>) == <span class="number">40</span>)</span><br><span class="line">solver.add(a1[<span class="number">16</span>] == <span class="number">115</span>)</span><br><span class="line">solver.add((a1[<span class="number">22</span>] &amp; <span class="number">0x1D</span>) == <span class="number">24</span>)</span><br><span class="line">solver.add(a1[<span class="number">9</span>] == <span class="number">51</span>)</span><br><span class="line">solver.add(a1[<span class="number">5</span>] == <span class="number">49</span>)</span><br><span class="line">solver.add(<span class="number">4</span> * a1[<span class="number">19</span>] == <span class="number">456</span>)</span><br><span class="line">solver.add(a1[<span class="number">20</span>] &gt;&gt; <span class="number">6</span> == <span class="number">1</span>)</span><br><span class="line">solver.add(a1[<span class="number">7</span>] &gt;&gt; <span class="number">1</span> == <span class="number">47</span>)</span><br><span class="line">solver.add(a1[<span class="number">1</span>] == <span class="number">108</span>)</span><br><span class="line">solver.add(a1[<span class="number">3</span>] &gt;&gt; <span class="number">4</span> == <span class="number">7</span>)</span><br><span class="line">solver.add((a1[<span class="number">19</span>] &amp; <span class="number">0x49</span>) == <span class="number">64</span>)</span><br><span class="line">solver.add(a1[<span class="number">4</span>] == <span class="number">115</span>)</span><br><span class="line">solver.add((a1[<span class="number">2</span>] &amp; a1[<span class="number">11</span>]) == <span class="number">20</span>)</span><br><span class="line">solver.add(a1[<span class="number">0</span>] == <span class="number">99</span>)</span><br><span class="line">solver.add(a1[<span class="number">4</span>] + a1[<span class="number">5</span>] == <span class="number">164</span>)</span><br><span class="line">solver.add(a1[<span class="number">15</span>] &lt;&lt; <span class="number">6</span> == <span class="number">6080</span>)</span><br><span class="line">solver.add((a1[<span class="number">10</span>] ^ <span class="number">0x2B</span>) == a1[<span class="number">17</span>])</span><br><span class="line">solver.add((a1[<span class="number">12</span>] ^ <span class="number">0x2C</span>) == a1[<span class="number">4</span>])</span><br><span class="line">solver.add(a1[<span class="number">19</span>] - a1[<span class="number">21</span>] == <span class="number">19</span>)</span><br><span class="line">solver.add(a1[<span class="number">12</span>] == <span class="number">95</span>)</span><br><span class="line">solver.add(a1[<span class="number">15</span>] &gt;&gt; <span class="number">1</span> == <span class="number">47</span>)</span><br><span class="line">solver.add(a1[<span class="number">19</span>] == <span class="number">114</span>)</span><br><span class="line">solver.add(a1[<span class="number">17</span>] + a1[<span class="number">18</span>] == <span class="number">168</span>)</span><br><span class="line">solver.add(a1[<span class="number">22</span>] == <span class="number">58</span>)</span><br><span class="line">solver.add((a1[<span class="number">23</span>] &amp; a1[<span class="number">21</span>]) == <span class="number">9</span>)</span><br><span class="line">solver.add(a1[<span class="number">6</span>] &lt;&lt; a1[<span class="number">19</span>] % <span class="number">8</span> == <span class="number">396</span>)</span><br><span class="line">solver.add(a1[<span class="number">3</span>] + a1[<span class="number">7</span>] == <span class="number">210</span>)</span><br><span class="line">solver.add((a1[<span class="number">22</span>] &amp; <span class="number">0xED</span>) == <span class="number">40</span>)</span><br><span class="line">solver.add((a1[<span class="number">12</span>] &amp; <span class="number">0xAC</span>) == <span class="number">12</span>)</span><br><span class="line">solver.add((a1[<span class="number">18</span>] ^ <span class="number">0x6B</span>) == a1[<span class="number">15</span>])</span><br><span class="line">solver.add((a1[<span class="number">16</span>] &amp; <span class="number">0x7A</span>) == <span class="number">114</span>)</span><br><span class="line">solver.add((a1[<span class="number">0</span>] &amp; <span class="number">0x39</span>) == <span class="number">33</span>)</span><br><span class="line">solver.add((a1[<span class="number">6</span>] ^ <span class="number">0x3C</span>) == a1[<span class="number">21</span>])</span><br><span class="line">solver.add(a1[<span class="number">20</span>] == <span class="number">116</span>)</span><br><span class="line">solver.add(a1[<span class="number">19</span>] == <span class="number">114</span>)</span><br><span class="line">solver.add(a1[<span class="number">12</span>] == <span class="number">95</span>)</span><br><span class="line">solver.add(a1[<span class="number">2</span>] == <span class="number">52</span>)</span><br><span class="line">solver.add(a1[<span class="number">23</span>] == <span class="number">41</span>)</span><br><span class="line">solver.add(a1[<span class="number">10</span>] == <span class="number">95</span>)</span><br><span class="line">solver.add((a1[<span class="number">22</span>] &amp; a1[<span class="number">9</span>]) == <span class="number">50</span>)</span><br><span class="line">solver.add(a1[<span class="number">3</span>] + a1[<span class="number">2</span>] == <span class="number">167</span>)</span><br><span class="line">solver.add(a1[<span class="number">17</span>] - a1[<span class="number">14</span>] == <span class="number">68</span>)</span><br><span class="line">solver.add(a1[<span class="number">21</span>] == <span class="number">95</span>)</span><br><span class="line">solver.add((a1[<span class="number">19</span>] ^ <span class="number">0x2D</span>) == a1[<span class="number">10</span>])</span><br><span class="line">solver.add(<span class="number">4</span> * a1[<span class="number">12</span>] == <span class="number">380</span>)</span><br><span class="line">solver.add(a1[<span class="number">6</span>] &amp; <span class="number">0x40</span> != <span class="number">0</span>)</span><br><span class="line">solver.add((a1[<span class="number">12</span>] &amp; a1[<span class="number">22</span>]) == <span class="number">26</span>)</span><br><span class="line">solver.add(a1[<span class="number">7</span>] &lt;&lt; a1[<span class="number">19</span>] % <span class="number">8</span> == <span class="number">380</span>)</span><br><span class="line">solver.add((a1[<span class="number">20</span>] ^ <span class="number">0x4E</span>) == a1[<span class="number">22</span>])</span><br><span class="line">solver.add(a1[<span class="number">6</span>] == <span class="number">99</span>)</span><br><span class="line">solver.add(a1[<span class="number">12</span>] == a1[<span class="number">7</span>])</span><br><span class="line">solver.add(a1[<span class="number">19</span>] - a1[<span class="number">13</span>] == -<span class="number">2</span>)</span><br><span class="line">solver.add(a1[<span class="number">14</span>] &gt;&gt; <span class="number">4</span> == <span class="number">3</span>)</span><br><span class="line">solver.add((a1[<span class="number">12</span>] &amp; <span class="number">0x38</span>) == <span class="number">24</span>)</span><br><span class="line">solver.add(a1[<span class="number">8</span>] &lt;&lt; a1[<span class="number">10</span>] % <span class="number">8</span> == <span class="number">15616</span>)</span><br><span class="line">solver.add(a1[<span class="number">20</span>] == <span class="number">116</span>)</span><br><span class="line">solver.add(a1[<span class="number">6</span>] &gt;&gt; a1[<span class="number">22</span>] % <span class="number">8</span> == <span class="number">24</span>)</span><br><span class="line">solver.add(a1[<span class="number">22</span>] - a1[<span class="number">5</span>] == <span class="number">9</span>)</span><br><span class="line">solver.add(a1[<span class="number">7</span>] &lt;&lt; a1[<span class="number">22</span>] % <span class="number">8</span> == <span class="number">380</span>)</span><br><span class="line">solver.add(a1[<span class="number">22</span>] == <span class="number">58</span>)</span><br><span class="line">solver.add(a1[<span class="number">16</span>] == <span class="number">115</span>)</span><br><span class="line">solver.add((a1[<span class="number">23</span>] ^ <span class="number">0x1D</span>) == a1[<span class="number">18</span>])</span><br><span class="line">solver.add(a1[<span class="number">23</span>] + a1[<span class="number">14</span>] == <span class="number">89</span>)</span><br><span class="line">solver.add((a1[<span class="number">5</span>] &amp; a1[<span class="number">2</span>]) == <span class="number">48</span>)</span><br><span class="line">solver.add((a1[<span class="number">15</span>] &amp; <span class="number">0x9F</span>) == <span class="number">31</span>)</span><br><span class="line">solver.add(a1[<span class="number">4</span>] == <span class="number">115</span>)</span><br><span class="line">solver.add((a1[<span class="number">23</span>] ^ <span class="number">0x4A</span>) == a1[<span class="number">0</span>])</span><br><span class="line">solver.add((a1[<span class="number">6</span>] ^ <span class="number">0x3C</span>) == a1[<span class="number">11</span>])</span><br><span class="line">flag = <span class="string">&quot;&quot;</span></span><br><span class="line"><span class="keyword">if</span> solver.check() == sat:</span><br><span class="line">    r = solver.model()</span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">24</span>):</span><br><span class="line">        flag += <span class="built_in">chr</span>(r[a1[i]].as_long() &amp; <span class="number">0xff</span>)</span><br><span class="line"><span class="built_in">print</span>(flag)</span><br><span class="line"><span class="comment"># shkCTF&#123;cl4ss1c_z3___t0_st4rt_:)&#125;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">from</span> z3 <span class="hljs-keyword">import</span> *</span><br><span class="line"></span><br><span class="line">a1 = []</span><br><span class="line"><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">25</span>):</span><br><span class="line">    a1.append(BitVec(<span class="hljs-string">"s%d"</span> % i, <span class="hljs-number">32</span>))</span><br><span class="line"></span><br><span class="line">solver = Solver()</span><br><span class="line"></span><br><span class="line">solver.add((a1[<span class="hljs-number">20</span>] ^ <span class="hljs-number">0x2B</span>) == a1[<span class="hljs-number">7</span>])</span><br><span class="line">solver.add(a1[<span class="hljs-number">21</span>] - a1[<span class="hljs-number">3</span>] == -<span class="hljs-number">20</span>)</span><br><span class="line">solver.add((a1[<span class="hljs-number">2</span>] &gt;&gt; <span class="hljs-number">6</span>) == <span class="hljs-number">0</span>)</span><br><span class="line">solver.add(a1[<span class="hljs-number">13</span>] == <span class="hljs-number">116</span>)</span><br><span class="line">solver.add(<span class="hljs-number">4</span> * a1[<span class="hljs-number">11</span>] == <span class="hljs-number">380</span>)</span><br><span class="line">solver.add(a1[<span class="hljs-number">7</span>] &gt;&gt; a1[<span class="hljs-number">17</span>] % <span class="hljs-number">8</span> == <span class="hljs-number">5</span>)</span><br><span class="line">solver.add((a1[<span class="hljs-number">6</span>] ^ <span class="hljs-number">0x53</span>) == a1[<span class="hljs-number">14</span>])</span><br><span class="line">solver.add(a1[<span class="hljs-number">8</span>] == <span class="hljs-number">122</span>)</span><br><span class="line">solver.add(a1[<span class="hljs-number">5</span>] &lt;&lt; a1[<span class="hljs-number">9</span>] % <span class="hljs-number">8</span> == <span class="hljs-number">392</span>)</span><br><span class="line">solver.add(a1[<span class="hljs-number">16</span>] - a1[<span class="hljs-number">7</span>] == <span class="hljs-number">20</span>)</span><br><span class="line">solver.add(a1[<span class="hljs-number">7</span>] &lt;&lt; a1[<span class="hljs-number">23</span>] % <span class="hljs-number">8</span> == <span class="hljs-number">190</span>)</span><br><span class="line">solver.add(a1[<span class="hljs-number">2</span>] - a1[<span class="hljs-number">7</span>] == -<span class="hljs-number">43</span>)</span><br><span class="line">solver.add(a1[<span class="hljs-number">21</span>] == <span class="hljs-number">95</span>)</span><br><span class="line">solver.add((a1[<span class="hljs-number">2</span>] ^ <span class="hljs-number">0x47</span>) == a1[<span class="hljs-number">3</span>])</span><br><span class="line">solver.add(a1[<span class="hljs-number">0</span>] == <span class="hljs-number">99</span>)</span><br><span class="line">solver.add(a1[<span class="hljs-number">13</span>] == <span class="hljs-number">116</span>)</span><br><span class="line">solver.add((a1[<span class="hljs-number">20</span>] &amp; <span class="hljs-number">0x45</span>) == <span class="hljs-number">68</span>)</span><br><span class="line">solver.add((a1[<span class="hljs-number">8</span>] &amp; <span class="hljs-number">0x15</span>) == <span class="hljs-number">16</span>)</span><br><span class="line">solver.add(a1[<span class="hljs-number">12</span>] == <span class="hljs-number">95</span>)</span><br><span class="line">solver.add(a1[<span class="hljs-number">4</span>] &gt;&gt; <span class="hljs-number">4</span> == <span class="hljs-number">7</span>)</span><br><span class="line">solver.add(a1[<span class="hljs-number">13</span>] == <span class="hljs-number">116</span>)</span><br><span class="line">solver.add(a1[<span class="hljs-number">0</span>] &gt;&gt; a1[<span class="hljs-number">0</span>] % <span class="hljs-number">8</span> == <span class="hljs-number">12</span>)</span><br><span class="line">solver.add(a1[<span class="hljs-number">10</span>] == <span class="hljs-number">95</span>)</span><br><span class="line">solver.add((a1[<span class="hljs-number">8</span>] &amp; <span class="hljs-number">0xAC</span>) == <span class="hljs-number">40</span>)</span><br><span class="line">solver.add(a1[<span class="hljs-number">16</span>] == <span class="hljs-number">115</span>)</span><br><span class="line">solver.add((a1[<span class="hljs-number">22</span>] &amp; <span class="hljs-number">0x1D</span>) == <span class="hljs-number">24</span>)</span><br><span class="line">solver.add(a1[<span class="hljs-number">9</span>] == <span class="hljs-number">51</span>)</span><br><span class="line">solver.add(a1[<span class="hljs-number">5</span>] == <span class="hljs-number">49</span>)</span><br><span class="line">solver.add(<span class="hljs-number">4</span> * a1[<span class="hljs-number">19</span>] == <span class="hljs-number">456</span>)</span><br><span class="line">solver.add(a1[<span class="hljs-number">20</span>] &gt;&gt; <span class="hljs-number">6</span> == <span class="hljs-number">1</span>)</span><br><span class="line">solver.add(a1[<span class="hljs-number">7</span>] &gt;&gt; <span class="hljs-number">1</span> == <span class="hljs-number">47</span>)</span><br><span class="line">solver.add(a1[<span class="hljs-number">1</span>] == <span class="hljs-number">108</span>)</span><br><span class="line">solver.add(a1[<span class="hljs-number">3</span>] &gt;&gt; <span class="hljs-number">4</span> == <span class="hljs-number">7</span>)</span><br><span class="line">solver.add((a1[<span class="hljs-number">19</span>] &amp; <span class="hljs-number">0x49</span>) == <span class="hljs-number">64</span>)</span><br><span class="line">solver.add(a1[<span class="hljs-number">4</span>] == <span class="hljs-number">115</span>)</span><br><span class="line">solver.add((a1[<span class="hljs-number">2</span>] &amp; a1[<span class="hljs-number">11</span>]) == <span class="hljs-number">20</span>)</span><br><span class="line">solver.add(a1[<span class="hljs-number">0</span>] == <span class="hljs-number">99</span>)</span><br><span class="line">solver.add(a1[<span class="hljs-number">4</span>] + a1[<span class="hljs-number">5</span>] == <span class="hljs-number">164</span>)</span><br><span class="line">solver.add(a1[<span class="hljs-number">15</span>] &lt;&lt; <span class="hljs-number">6</span> == <span class="hljs-number">6080</span>)</span><br><span class="line">solver.add((a1[<span class="hljs-number">10</span>] ^ <span class="hljs-number">0x2B</span>) == a1[<span class="hljs-number">17</span>])</span><br><span class="line">solver.add((a1[<span class="hljs-number">12</span>] ^ <span class="hljs-number">0x2C</span>) == a1[<span class="hljs-number">4</span>])</span><br><span class="line">solver.add(a1[<span class="hljs-number">19</span>] - a1[<span class="hljs-number">21</span>] == <span class="hljs-number">19</span>)</span><br><span class="line">solver.add(a1[<span class="hljs-number">12</span>] == <span class="hljs-number">95</span>)</span><br><span class="line">solver.add(a1[<span class="hljs-number">15</span>] &gt;&gt; <span class="hljs-number">1</span> == <span class="hljs-number">47</span>)</span><br><span class="line">solver.add(a1[<span class="hljs-number">19</span>] == <span class="hljs-number">114</span>)</span><br><span class="line">solver.add(a1[<span class="hljs-number">17</span>] + a1[<span class="hljs-number">18</span>] == <span class="hljs-number">168</span>)</span><br><span class="line">solver.add(a1[<span class="hljs-number">22</span>] == <span class="hljs-number">58</span>)</span><br><span class="line">solver.add((a1[<span class="hljs-number">23</span>] &amp; a1[<span class="hljs-number">21</span>]) == <span class="hljs-number">9</span>)</span><br><span class="line">solver.add(a1[<span class="hljs-number">6</span>] &lt;&lt; a1[<span class="hljs-number">19</span>] % <span class="hljs-number">8</span> == <span class="hljs-number">396</span>)</span><br><span class="line">solver.add(a1[<span class="hljs-number">3</span>] + a1[<span class="hljs-number">7</span>] == <span class="hljs-number">210</span>)</span><br><span class="line">solver.add((a1[<span class="hljs-number">22</span>] &amp; <span class="hljs-number">0xED</span>) == <span class="hljs-number">40</span>)</span><br><span class="line">solver.add((a1[<span class="hljs-number">12</span>] &amp; <span class="hljs-number">0xAC</span>) == <span class="hljs-number">12</span>)</span><br><span class="line">solver.add((a1[<span class="hljs-number">18</span>] ^ <span class="hljs-number">0x6B</span>) == a1[<span class="hljs-number">15</span>])</span><br><span class="line">solver.add((a1[<span class="hljs-number">16</span>] &amp; <span class="hljs-number">0x7A</span>) == <span class="hljs-number">114</span>)</span><br><span class="line">solver.add((a1[<span class="hljs-number">0</span>] &amp; <span class="hljs-number">0x39</span>) == <span class="hljs-number">33</span>)</span><br><span class="line">solver.add((a1[<span class="hljs-number">6</span>] ^ <span class="hljs-number">0x3C</span>) == a1[<span class="hljs-number">21</span>])</span><br><span class="line">solver.add(a1[<span class="hljs-number">20</span>] == <span class="hljs-number">116</span>)</span><br><span class="line">solver.add(a1[<span class="hljs-number">19</span>] == <span class="hljs-number">114</span>)</span><br><span class="line">solver.add(a1[<span class="hljs-number">12</span>] == <span class="hljs-number">95</span>)</span><br><span class="line">solver.add(a1[<span class="hljs-number">2</span>] == <span class="hljs-number">52</span>)</span><br><span class="line">solver.add(a1[<span class="hljs-number">23</span>] == <span class="hljs-number">41</span>)</span><br><span class="line">solver.add(a1[<span class="hljs-number">10</span>] == <span class="hljs-number">95</span>)</span><br><span class="line">solver.add((a1[<span class="hljs-number">22</span>] &amp; a1[<span class="hljs-number">9</span>]) == <span class="hljs-number">50</span>)</span><br><span class="line">solver.add(a1[<span class="hljs-number">3</span>] + a1[<span class="hljs-number">2</span>] == <span class="hljs-number">167</span>)</span><br><span class="line">solver.add(a1[<span class="hljs-number">17</span>] - a1[<span class="hljs-number">14</span>] == <span class="hljs-number">68</span>)</span><br><span class="line">solver.add(a1[<span class="hljs-number">21</span>] == <span class="hljs-number">95</span>)</span><br><span class="line">solver.add((a1[<span class="hljs-number">19</span>] ^ <span class="hljs-number">0x2D</span>) == a1[<span class="hljs-number">10</span>])</span><br><span class="line">solver.add(<span class="hljs-number">4</span> * a1[<span class="hljs-number">12</span>] == <span class="hljs-number">380</span>)</span><br><span class="line">solver.add(a1[<span class="hljs-number">6</span>] &amp; <span class="hljs-number">0x40</span> != <span class="hljs-number">0</span>)</span><br><span class="line">solver.add((a1[<span class="hljs-number">12</span>] &amp; a1[<span class="hljs-number">22</span>]) == <span class="hljs-number">26</span>)</span><br><span class="line">solver.add(a1[<span class="hljs-number">7</span>] &lt;&lt; a1[<span class="hljs-number">19</span>] % <span class="hljs-number">8</span> == <span class="hljs-number">380</span>)</span><br><span class="line">solver.add((a1[<span class="hljs-number">20</span>] ^ <span class="hljs-number">0x4E</span>) == a1[<span class="hljs-number">22</span>])</span><br><span class="line">solver.add(a1[<span class="hljs-number">6</span>] == <span class="hljs-number">99</span>)</span><br><span class="line">solver.add(a1[<span class="hljs-number">12</span>] == a1[<span class="hljs-number">7</span>])</span><br><span class="line">solver.add(a1[<span class="hljs-number">19</span>] - a1[<span class="hljs-number">13</span>] == -<span class="hljs-number">2</span>)</span><br><span class="line">solver.add(a1[<span class="hljs-number">14</span>] &gt;&gt; <span class="hljs-number">4</span> == <span class="hljs-number">3</span>)</span><br><span class="line">solver.add((a1[<span class="hljs-number">12</span>] &amp; <span class="hljs-number">0x38</span>) == <span class="hljs-number">24</span>)</span><br><span class="line">solver.add(a1[<span class="hljs-number">8</span>] &lt;&lt; a1[<span class="hljs-number">10</span>] % <span class="hljs-number">8</span> == <span class="hljs-number">15616</span>)</span><br><span class="line">solver.add(a1[<span class="hljs-number">20</span>] == <span class="hljs-number">116</span>)</span><br><span class="line">solver.add(a1[<span class="hljs-number">6</span>] &gt;&gt; a1[<span class="hljs-number">22</span>] % <span class="hljs-number">8</span> == <span class="hljs-number">24</span>)</span><br><span class="line">solver.add(a1[<span class="hljs-number">22</span>] - a1[<span class="hljs-number">5</span>] == <span class="hljs-number">9</span>)</span><br><span class="line">solver.add(a1[<span class="hljs-number">7</span>] &lt;&lt; a1[<span class="hljs-number">22</span>] % <span class="hljs-number">8</span> == <span class="hljs-number">380</span>)</span><br><span class="line">solver.add(a1[<span class="hljs-number">22</span>] == <span class="hljs-number">58</span>)</span><br><span class="line">solver.add(a1[<span class="hljs-number">16</span>] == <span class="hljs-number">115</span>)</span><br><span class="line">solver.add((a1[<span class="hljs-number">23</span>] ^ <span class="hljs-number">0x1D</span>) == a1[<span class="hljs-number">18</span>])</span><br><span class="line">solver.add(a1[<span class="hljs-number">23</span>] + a1[<span class="hljs-number">14</span>] == <span class="hljs-number">89</span>)</span><br><span class="line">solver.add((a1[<span class="hljs-number">5</span>] &amp; a1[<span class="hljs-number">2</span>]) == <span class="hljs-number">48</span>)</span><br><span class="line">solver.add((a1[<span class="hljs-number">15</span>] &amp; <span class="hljs-number">0x9F</span>) == <span class="hljs-number">31</span>)</span><br><span class="line">solver.add(a1[<span class="hljs-number">4</span>] == <span class="hljs-number">115</span>)</span><br><span class="line">solver.add((a1[<span class="hljs-number">23</span>] ^ <span class="hljs-number">0x4A</span>) == a1[<span class="hljs-number">0</span>])</span><br><span class="line">solver.add((a1[<span class="hljs-number">6</span>] ^ <span class="hljs-number">0x3C</span>) == a1[<span class="hljs-number">11</span>])</span><br><span class="line">flag = <span class="hljs-string">""</span></span><br><span class="line"><span class="hljs-keyword">if</span> solver.check() == sat:</span><br><span class="line">    r = solver.model()</span><br><span class="line">    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">24</span>):</span><br><span class="line">        flag += <span class="hljs-built_in">chr</span>(r[a1[i]].as_long() &amp; <span class="hljs-number">0xff</span>)</span><br><span class="line"><span class="hljs-built_in">print</span>(flag)</span><br><span class="line"><span class="hljs-comment"># shkCTF{cl4ss1c_z3___t0_st4rt_:)}</span></span><br></pre></td></tr></tbody></table></figure>
 
 <h5 id="secure-db"><a href="#secure-db" class="headerlink" title="secure_db"></a>secure_db</h5><p>I can’t see anything using IDA so I debugged it and I found the input got processed and then compared with <code>N3kviX7-vXEqvlp</code> , I just input this string and got an interesting string <code>T4h7s_4ll_F0lks</code> which seems like to be the right one.</p>
 <p>So this reversing algorithm seems to be itself, and I tried to rewrite it with python and I got the same answer</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">target = <span class="string">&quot;N3kviX7-vXEqvlp&quot;</span></span><br><span class="line">x = [<span class="number">0x1a</span>, <span class="number">0x07</span>, <span class="number">0x03</span>, <span class="number">0x41</span>]</span><br><span class="line">key = <span class="string">&quot;&quot;</span></span><br><span class="line"><span class="keyword">for</span> i, c <span class="keyword">in</span> <span class="built_in">enumerate</span>(target):</span><br><span class="line">    key += <span class="built_in">chr</span>(<span class="built_in">ord</span>(c) ^ x[i % <span class="number">4</span>])</span><br><span class="line"><span class="built_in">print</span>(key)</span><br><span class="line"></span><br><span class="line"><span class="comment"># T4h7s_4ll_F0lks</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">target = <span class="hljs-string">"N3kviX7-vXEqvlp"</span></span><br><span class="line">x = [<span class="hljs-number">0x1a</span>, <span class="hljs-number">0x07</span>, <span class="hljs-number">0x03</span>, <span class="hljs-number">0x41</span>]</span><br><span class="line">key = <span class="hljs-string">""</span></span><br><span class="line"><span class="hljs-keyword">for</span> i, c <span class="hljs-keyword">in</span> <span class="hljs-built_in">enumerate</span>(target):</span><br><span class="line">    key += <span class="hljs-built_in">chr</span>(<span class="hljs-built_in">ord</span>(c) ^ x[i % <span class="hljs-number">4</span>])</span><br><span class="line"><span class="hljs-built_in">print</span>(key)</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment"># T4h7s_4ll_F0lks</span></span><br></pre></td></tr></tbody></table></figure>
 
 <p>Just input the key and we will get a database file from the server, and there is the flag.</p>
 <h5 id="miss-direction"><a href="#miss-direction" class="headerlink" title="miss_direction"></a>miss_direction</h5><p>Actually I haven’t solved it yet, I however managed to anti anti-debug (just remove tls table from PE headers will be fine), and then the exception handler really confused me,I can’t find anything to do with my input, I really got missed… </p>
-
-  </div>
+</body></html>
+    
+    </div>
+    
+    <div class="columns is-variable is-1 is-multiline is-mobile">
+    
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/writeup/">#writeup</a></span>
+    
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/ctf/">#ctf</a></span>
+    
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/SharkCTF/">#SharkCTF</a></span>
+    
+    </div>
+    
+    
+    <div class="columns is-mobile is-multiline article-nav">
+        <span class="column is-12-mobile is-half-desktop  article-nav-prev">
+            
+            <a href="/2020/03/21/2020-NPUCTF/">NPUCTF-wp</a>
+            
+        </span>
+        <span class="column is-12-mobile is-half-desktop  article-nav-next">
+            
+            <a href="/2020/03/21/2020-%E7%BD%91%E9%BC%8E%E6%9D%AF/">网鼎杯-wp</a>
+            
+        </span>
+    </div>
+    
 </article>
 
-    <div class="blog-post-comments">
-        <div id="disqus_thread">
-            <noscript>Please enable JavaScript to view the comments.</noscript>
-        </div>
-    </div>
 
+<div class="sharebox">
+    
+<div class="sharethis-inline-share-buttons"></div>
+<script type='text/javascript' src='https://platform-api.sharethis.com/js/sharethis.js#property=618a5a31fe4ac40012aea77e&amp;product=inline-share-buttons' async='async'></script>
 
-
-        
-          <div id="footer-post-container">
-  <div id="footer-post">
-
-    <div id="nav-footer" style="display: none">
-      <ul>
-         
-          <li><a href="/">Home</a></li>
-         
-          <li><a href="/about/">About</a></li>
-         
-          <li><a href="/archives/">Writing</a></li>
-         
-          <li><a href="/atom.xml">RSS</a></li>
-         
-          <li><a href="/search/">Search</a></li>
-        
-      </ul>
-    </div>
-
-    <div id="toc-footer" style="display: none">
-      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#rev"><span class="toc-number">1.</span> <span class="toc-text">rev</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#easyre"><span class="toc-number">1.1.</span> <span class="toc-text">easyre</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#z3-robot"><span class="toc-number">1.2.</span> <span class="toc-text">z3_robot</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#secure-db"><span class="toc-number">1.3.</span> <span class="toc-text">secure_db</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#miss-direction"><span class="toc-number">1.4.</span> <span class="toc-text">miss_direction</span></a></li></ol></li></ol>
-    </div>
-
-    <div id="share-footer" style="display: none">
-      <ul>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://blog.rycbar.club/2020/03/21/2020-SharkCTF/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://blog.rycbar.club/2020/03/21/2020-SharkCTF/&text=SharkCTF-wp"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://blog.rycbar.club/2020/03/21/2020-SharkCTF/&title=SharkCTF-wp"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://blog.rycbar.club/2020/03/21/2020-SharkCTF/&is_video=false&description=SharkCTF-wp"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=SharkCTF-wp&body=Check out this article: http://blog.rycbar.club/2020/03/21/2020-SharkCTF/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://blog.rycbar.club/2020/03/21/2020-SharkCTF/&title=SharkCTF-wp"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://blog.rycbar.club/2020/03/21/2020-SharkCTF/&title=SharkCTF-wp"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://blog.rycbar.club/2020/03/21/2020-SharkCTF/&title=SharkCTF-wp"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://blog.rycbar.club/2020/03/21/2020-SharkCTF/&title=SharkCTF-wp"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://blog.rycbar.club/2020/03/21/2020-SharkCTF/&name=SharkCTF-wp&description=&lt;p&gt;SharkCTF-wp&lt;/p&gt;"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://blog.rycbar.club/2020/03/21/2020-SharkCTF/&t=SharkCTF-wp"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
-</ul>
-
-    </div>
-
-    <div id="actions-footer">
-        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
-        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
-        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
-        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
-    </div>
-
-  </div>
 </div>
 
+
+
+<div class="comments">
+    <h3 class="title is-4">Comments</h3>
+    
+<script>
+    var disqus_config = function () {
+        this.page.url = 'http://blog.rycbar.club/2020/03/21/2020-SharkCTF/';
+        this.page.identifier = '2020/03/21/2020-SharkCTF/';
         
-        <footer id="footer">
-  <div class="footer-left">
-    Copyright &copy;
+        this.language = 'en';
+        
+    };
+    (function() {
+        var d = document, s = d.createElement('script');  
+        s.src = '//' + 'rrblog-2' + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+<div id="disqus_thread">
     
-    
-    2018-2021
-    Aorui Zhang
-  </div>
-  <div class="footer-right">
-    <nav>
-      <ul>
-        <!--
-       --><li><a href="/">Home</a></li><!--
-     --><!--
-       --><li><a href="/about/">About</a></li><!--
-     --><!--
-       --><li><a href="/archives/">Writing</a></li><!--
-     --><!--
-       --><li><a href="/atom.xml">RSS</a></li><!--
-     --><!--
-       --><li><a href="/search/">Search</a></li><!--
-     -->
-      </ul>
-    </nav>
-  </div>
-</footer>
+    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</div>
 
     </div>
-    <!-- styles -->
+</section>
+    <footer class="footer">
+    <div class="container">
+        <div class="columns content">
+            <div class="column is-narrow has-text-centered">
+                &copy; 2021 Aorui Zhang&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a
+                        target="_blank" rel="noopener" href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
+            </div>
+            <div class="column is-hidden-mobile"></div>
 
+            
+            <div class="column is-narrow">
+                <div class="columns is-mobile is-multiline is-centered">
+                
+                    
+                <a class="column is-narrow has-text-black" title="GitHub" target="_blank" rel="noopener" href="https://github.com/rycbar77">
+                    
+                    GitHub
+                    
+                </a>
+                
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</footer>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment-with-locales.min.js"></script>
 
-
-  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
-
-
-    <!-- jquery -->
- 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script> 
-
-
-
-
-<!-- clipboard -->
-
-  
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
-  
-  <script type="text/javascript">
-  $(function() {
-    // copy-btn HTML
-    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
-    btn += '<i class="far fa-clone"></i>';
-    btn += '</span>'; 
-    // mount it!
-    $(".highlight table").before(btn);
-    var clip = new ClipboardJS('.btn-copy', {
-      text: function(trigger) {
-        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
-      }
+<!-- test if the browser is outdated -->
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" target="_blank" rel="noopener" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // plugin function, place inside DOM ready function
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        })
     });
-    clip.on('success', function(e) {
-      e.trigger.setAttribute('aria-label', "Copied!");
-      e.clearSelection();
-    })
-  })
-  </script>
+</script>
+
+<script>
+    window.FontAwesomeConfig = {
+        searchPseudoElements: true
+    }
+    moment.locale("en-AU");
+</script>
 
 
-<script src="/js/main.js"></script>
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script>
+    MathJax.Hub.Config({
+        "HTML-CSS": {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+</script>
 
-<!-- search -->
+    
+    
+    
+    
+<script src="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/js/lightgallery-all.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/js/jquery.justifiedGallery.min.js"></script>
+<script>
+    (function ($) {
+        $(document).ready(function () {
+            if (typeof($.fn.lightGallery) === 'function') {
+                $('.article.gallery').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof($.fn.justifiedGallery) === 'function') {
+                $('.justified-gallery').justifiedGallery();
+            }
+        });
+    })(jQuery);
+</script>
 
-<!-- Google Analytics -->
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+    <style>
+        .hljs {
+            position: relative;
+        }
 
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128484503-1"></script>
+        .hljs .clipboard-btn {
+            float: right;
+            color: #9a9a9a;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .hljs .clipboard-btn:hover {
+          color: #8a8a8a;
+        }
+
+        .hljs > .clipboard-btn {
+            display: none;
+            position: absolute;
+            right: 4px;
+            top: 4px;
+        }
+
+        .hljs:hover > .clipboard-btn {
+            display: inline;
+        }
+
+        .hljs > figcaption > .clipboard-btn {
+            margin-right: 4px;
+        }
+    </style>
     <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'UA-128484503-1');
+      $(document).ready(function () {
+        $('figure.hljs').each(function(i, figure) {
+          var codeId = 'code-' + i;
+          var code = figure.querySelector('.code');
+          var copyButton = $('<button>Copy <i class="far fa-clipboard"></i></button>');
+          code.id = codeId;
+          copyButton.addClass('clipboard-btn');
+          copyButton.attr('data-clipboard-target-id', codeId);
+
+          var figcaption = figure.querySelector('figcaption');
+
+          if (figcaption) {
+            figcaption.append(copyButton[0]);
+          } else {
+            figure.prepend(copyButton[0]);
+          }
+        })
+
+        var clipboard = new ClipboardJS('.clipboard-btn', {
+          target: function(trigger) {
+            return document.getElementById(trigger.getAttribute('data-clipboard-target-id'));
+          }
+        });
+        clipboard.on('success', function(e) {
+          e.clearSelection();
+        })
+      })
     </script>
 
-<!-- Baidu Analytics -->
+    
+    
 
-<!-- Cloudflare Analytics -->
+    
 
-<!-- Umami Analytics -->
 
-<!-- Disqus Comments -->
 
-    <script type="text/javascript">
-        var disqus_shortname = 'rrblog-2';
+<script src="/js/script.js"></script>
 
-        (function(){
-            var dsq = document.createElement('script');
-            dsq.type = 'text/javascript';
-            dsq.async = true;
-            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-        }());
-    </script>
 
-<!-- utterances Comments -->
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-mask"></div>
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something..." />
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Posts',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
 
+<script src="/js/insight.js"></script>
+
+    
 </body>
 </html>

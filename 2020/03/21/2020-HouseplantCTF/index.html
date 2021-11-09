@@ -1,11 +1,19 @@
 <!DOCTYPE html>
-<html lang=en>
+<html class="has-navbar-fixed-top">
 <head>
-    <!-- so meta -->
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="HandheldFriendly" content="True">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+<title>HouseplantCTF-wp - rr&#39;s blog</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
+
+
+
+
+
+
+
+
     <meta name="description" content="最近没有太多时间，这个比赛又比较简单，就干脆直接放脚本了">
 <meta property="og:type" content="article">
 <meta property="og:title" content="HouseplantCTF-wp">
@@ -20,342 +28,506 @@
 <meta property="article:tag" content="ctf">
 <meta property="article:tag" content="HouseplantCTF">
 <meta name="twitter:card" content="summary">
-    
-    
-      
-        
-          <link rel="shortcut icon" href="/images/favicon.ico">
-        
-      
-      
-        
-          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
-        
-      
-      
-        
-          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
-        
-      
-    
-    <!-- title -->
-    <title>HouseplantCTF-wp</title>
-    <!-- styles -->
-    
+
+
+
+
+
+<link rel="icon" href="rust.png">
+
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ovo|Source+Code+Pro">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/css/lightgallery.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/css/justifiedGallery.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+
+
 <link rel="stylesheet" href="/css/style.css">
 
-    <!-- persian styles -->
-    
-    <!-- rss -->
-    
-    
-      <link rel="alternate" href="/true" title="rr&#39;s blog" type="application/atom+xml" />
-    
-	<!-- mathjax -->
-	
-<meta name="generator" content="Hexo 5.4.0"></head>
 
-<body class="max-width mx-auto px3 ltr">
-    
-      <div id="header-post">
-  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
-  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
-  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
-  <span id="menu">
-    <span id="nav">
-      <ul>
-        <!--
-       --><li><a href="/">Home</a></li><!--
-     --><!--
-       --><li><a href="/about/">About</a></li><!--
-     --><!--
-       --><li><a href="/archives/">Writing</a></li><!--
-     --><!--
-       --><li><a href="/atom.xml">RSS</a></li><!--
-     --><!--
-       --><li><a href="/search/">Search</a></li><!--
-     -->
-      </ul>
-    </span>
-    <br/>
-    <span id="actions">
-      <ul>
-        
-        <li><a class="icon" aria-label="Previous post" href="/2020/03/21/2020-36DCTF/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
-        
-        
-        <li><a class="icon" aria-label="Next post" href="/2020/03/21/2020-NPUCTF/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
-        
-        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
-        <li><a class="icon" aria-label="Share post" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
-      </ul>
-      <span id="i-prev" class="info" style="display:none;">Previous post</span>
-      <span id="i-next" class="info" style="display:none;">Next post</span>
-      <span id="i-top" class="info" style="display:none;">Back to top</span>
-      <span id="i-share" class="info" style="display:none;">Share post</span>
-    </span>
-    <br/>
-    <div id="share" style="display: none">
-      <ul>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://blog.rycbar.club/2020/03/21/2020-HouseplantCTF/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://blog.rycbar.club/2020/03/21/2020-HouseplantCTF/&text=HouseplantCTF-wp"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://blog.rycbar.club/2020/03/21/2020-HouseplantCTF/&title=HouseplantCTF-wp"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://blog.rycbar.club/2020/03/21/2020-HouseplantCTF/&is_video=false&description=HouseplantCTF-wp"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=HouseplantCTF-wp&body=Check out this article: http://blog.rycbar.club/2020/03/21/2020-HouseplantCTF/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://blog.rycbar.club/2020/03/21/2020-HouseplantCTF/&title=HouseplantCTF-wp"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://blog.rycbar.club/2020/03/21/2020-HouseplantCTF/&title=HouseplantCTF-wp"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://blog.rycbar.club/2020/03/21/2020-HouseplantCTF/&title=HouseplantCTF-wp"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://blog.rycbar.club/2020/03/21/2020-HouseplantCTF/&title=HouseplantCTF-wp"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://blog.rycbar.club/2020/03/21/2020-HouseplantCTF/&name=HouseplantCTF-wp&description=&lt;p&gt;最近没有太多时间，这个比赛又比较简单，就干脆直接放脚本了&lt;/p&gt;"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://blog.rycbar.club/2020/03/21/2020-HouseplantCTF/&t=HouseplantCTF-wp"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
-</ul>
+<script defer src="//use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
 
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-128484503-1"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-128484503-1');
+</script>
+
+
+    
+
+
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="rr's blog" type="application/atom+xml">
+</head>
+<body>
+    
+<nav class="navbar is-transparent is-fixed-top navbar-main" role="navigation" aria-label="main navigation">
+    <div class="container">
+        <div class="navbar-brand">
+            <a class="navbar-item navbar-logo" href="/">
+                
+                <img src="/images/logo.png" alt="" height="28">
+                
+            </a>
+            <div class="navbar-burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        
+        <div class="navbar-menu navbar-start">
+            
+            <a class="navbar-item "
+               href="/archives">Archives</a>
+            
+            <a class="navbar-item "
+               href="/categories">Categories</a>
+            
+            <a class="navbar-item "
+               href="/tags">Tags</a>
+            
+            <a class="navbar-item "
+               href="/links">Links</a>
+            
+            <a class="navbar-item "
+               href="/about">About</a>
+            
+            <a class="navbar-item "
+               href="/atom.xml">RSS</a>
+            
+        </div>
+        
+        <div class="navbar-menu navbar-end">
+            
+            <a class="navbar-item search" title="Search" href="javascript:;">
+                <i class="fas fa-search"></i>
+            </a>
+            
+            
+            <div class="navbar-item is-hoverable has-dropdown is-hidden-mobile is-hidden-tablet-only toc">
+                <a class="navbar-item" title="Table of Contents">
+                    <i class="fa fa-list"></i>
+                </a>
+                <div class="navbar-dropdown is-right">
+                    
+                    
+                    
+                    
+                    <a class="navbar-item" href="#beginners">1&nbsp;&nbsp;<b>beginners</b></a>
+                    
+                    
+                    
+                    <a class="navbar-item" href="#beginner-1">1.1&nbsp;&nbsp;beginner 1</a>
+                    
+                    
+                    
+                    <a class="navbar-item" href="#beginner-2">1.2&nbsp;&nbsp;beginner 2</a>
+                    
+                    
+                    <hr class="navbar-divider">
+                    
+                    
+                    <a class="navbar-item" href="#reverse-engineering">2&nbsp;&nbsp;<b>reverse-engineering</b></a>
+                    
+                    
+                    
+                    <a class="navbar-item" href="#Fragile">2.1&nbsp;&nbsp;Fragile</a>
+                    
+                    
+                    
+                    <a class="navbar-item" href="#EZ">2.2&nbsp;&nbsp;EZ</a>
+                    
+                    
+                    
+                    <a class="navbar-item" href="#PZ">2.3&nbsp;&nbsp;PZ</a>
+                    
+                    
+                    
+                    <a class="navbar-item" href="#LEMON">2.4&nbsp;&nbsp;LEMON</a>
+                    
+                    
+                    
+                    <a class="navbar-item" href="#SQUEEZY">2.5&nbsp;&nbsp;SQUEEZY</a>
+                    
+                    
+                    
+                    <a class="navbar-item" href="#thedanzman">2.6&nbsp;&nbsp;thedanzman</a>
+                    
+                    
+                    
+                    <a class="navbar-item" href="#Breakable">2.7&nbsp;&nbsp;Breakable</a>
+                    
+                    
+                    
+                    <a class="navbar-item" href="#Bendy">2.8&nbsp;&nbsp;Bendy</a>
+                    
+                    
+                    
+                    <a class="navbar-item" href="#Tough">2.9&nbsp;&nbsp;Tough</a>
+                    
+                </div>
+            </div>
+            
+            
+            <a class="navbar-item" title="GitHub" target="_blank" rel="noopener" href="https://github.com/rycbar77">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+               
+            
+        </div>
     </div>
-    <div id="toc">
-      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#beginners"><span class="toc-number">1.</span> <span class="toc-text">beginners</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#beginner-1"><span class="toc-number">1.1.</span> <span class="toc-text">beginner 1</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#beginner-2"><span class="toc-number">1.2.</span> <span class="toc-text">beginner 2</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#reverse-engineering"><span class="toc-number">2.</span> <span class="toc-text">reverse-engineering</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Fragile"><span class="toc-number">2.1.</span> <span class="toc-text">Fragile</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#EZ"><span class="toc-number">2.2.</span> <span class="toc-text">EZ</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#PZ"><span class="toc-number">2.3.</span> <span class="toc-text">PZ</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#LEMON"><span class="toc-number">2.4.</span> <span class="toc-text">LEMON</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#SQUEEZY"><span class="toc-number">2.5.</span> <span class="toc-text">SQUEEZY</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#thedanzman"><span class="toc-number">2.6.</span> <span class="toc-text">thedanzman</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Breakable"><span class="toc-number">2.7.</span> <span class="toc-text">Breakable</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Bendy"><span class="toc-number">2.8.</span> <span class="toc-text">Bendy</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Tough"><span class="toc-number">2.9.</span> <span class="toc-text">Tough</span></a></li></ol></li></ol>
-    </div>
-  </span>
-</div>
+</nav>
 
-    
-    <div class="content index py4">
+    <section class="section">
+    <div class="container">
+    <article class="article content gallery" itemscope itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
-        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
-  <header>
-    
-    <h1 class="posttitle" itemprop="name headline">
-        HouseplantCTF-wp
+            HouseplantCTF-wp
+        
     </h1>
-
-
-
-    <div class="meta">
-      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
-        <span itemprop="name">Aorui Zhang</span>
-      </span>
-      
-    <div class="postdate">
-      
-        <time datetime="2020-03-21T01:40:20.000Z" itemprop="datePublished">2020-03-21</time>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            
+                <time datetime="2020-03-21T01:40:20.000Z" itemprop="datePublished">Mar 21 2020</time>
+            
+        </span>
         
-        (Updated: <time datetime="2021-08-25T07:32:52.931Z" itemprop="dateModified">2021-08-25</time>)
+        <span class="column is-narrow article-category">
+            <i class="far fa-folder"></i>
+            <a class="article-category-link" href="/categories/ctf/">ctf</a>
+        </span>
         
-      
+        
+        <span class="column is-narrow">
+            
+            
+            5 minutes read (About 765 words)
+        </span>
+        
     </div>
-
-
-      
-    <div class="article-category">
-        <i class="fas fa-archive"></i>
-        <a class="category-link" href="/categories/ctf/">ctf</a>
-    </div>
-
-
-      
-    <div class="article-tag">
-        <i class="fas fa-tag"></i>
-        <a class="tag-link-link" href="/tags/HouseplantCTF/" rel="tag">HouseplantCTF</a>, <a class="tag-link-link" href="/tags/ctf/" rel="tag">ctf</a>, <a class="tag-link-link" href="/tags/writeup/" rel="tag">writeup</a>
-    </div>
-
-
-    </div>
-  </header>
-  
-
-  <div class="content" itemprop="articleBody">
-    <p>最近没有太多时间，这个比赛又比较简单，就干脆直接放脚本了</p>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <html><head></head><body><p>最近没有太多时间，这个比赛又比较简单，就干脆直接放脚本了</p>
 <span id="more"></span>
 
 <h3 id="beginners"><a href="#beginners" class="headerlink" title="beginners"></a>beginners</h3><h4 id="beginner-1"><a href="#beginner-1" class="headerlink" title="beginner 1"></a>beginner 1</h4><p>base64</p>
-<h4 id="beginner-2"><a href="#beginner-2" class="headerlink" title="beginner 2"></a>beginner 2</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">target = [<span class="number">0x72</span>, <span class="number">0x74</span>, <span class="number">0x63</span>, <span class="number">0x70</span>, <span class="number">0x7b</span>, <span class="number">0x62</span>, <span class="number">0x6f</span>, <span class="number">0x62</span>, <span class="number">0x5f</span>, <span class="number">0x79</span>, <span class="number">0x6f</span>, <span class="number">0x75</span>, <span class="number">0x5f</span>, <span class="number">0x73</span>, <span class="number">0x75</span>, <span class="number">0x63</span>, <span class="number">0x6b</span>, <span class="number">0x5f</span>,</span><br><span class="line">          <span class="number">0x61</span>, <span class="number">0x74</span>, <span class="number">0x5f</span>, <span class="number">0x62</span>, <span class="number">0x65</span>, <span class="number">0x69</span>, <span class="number">0x6e</span>, <span class="number">0x67</span>, <span class="number">0x5f</span>, <span class="number">0x65</span>, <span class="number">0x6e</span>, <span class="number">0x63</span>, <span class="number">0x6f</span>, <span class="number">0x75</span>, <span class="number">0x72</span>, <span class="number">0x61</span>, <span class="number">0x67</span>, <span class="number">0x69</span>,</span><br><span class="line">          <span class="number">0x6e</span>, <span class="number">0x67</span>, <span class="number">0x7d</span>]</span><br><span class="line">flag = <span class="string">&#x27;&#x27;</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> target:</span><br><span class="line">    flag += <span class="built_in">chr</span>(i)</span><br><span class="line"><span class="built_in">print</span>(flag)</span><br><span class="line"><span class="comment"># rtcp&#123;bob_you_suck_at_being_encouraging&#125;</span></span><br></pre></td></tr></table></figure>
+<h4 id="beginner-2"><a href="#beginner-2" class="headerlink" title="beginner 2"></a>beginner 2</h4><figure class="highlight python hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">target = [<span class="hljs-number">0x72</span>, <span class="hljs-number">0x74</span>, <span class="hljs-number">0x63</span>, <span class="hljs-number">0x70</span>, <span class="hljs-number">0x7b</span>, <span class="hljs-number">0x62</span>, <span class="hljs-number">0x6f</span>, <span class="hljs-number">0x62</span>, <span class="hljs-number">0x5f</span>, <span class="hljs-number">0x79</span>, <span class="hljs-number">0x6f</span>, <span class="hljs-number">0x75</span>, <span class="hljs-number">0x5f</span>, <span class="hljs-number">0x73</span>, <span class="hljs-number">0x75</span>, <span class="hljs-number">0x63</span>, <span class="hljs-number">0x6b</span>, <span class="hljs-number">0x5f</span>,</span><br><span class="line">          <span class="hljs-number">0x61</span>, <span class="hljs-number">0x74</span>, <span class="hljs-number">0x5f</span>, <span class="hljs-number">0x62</span>, <span class="hljs-number">0x65</span>, <span class="hljs-number">0x69</span>, <span class="hljs-number">0x6e</span>, <span class="hljs-number">0x67</span>, <span class="hljs-number">0x5f</span>, <span class="hljs-number">0x65</span>, <span class="hljs-number">0x6e</span>, <span class="hljs-number">0x63</span>, <span class="hljs-number">0x6f</span>, <span class="hljs-number">0x75</span>, <span class="hljs-number">0x72</span>, <span class="hljs-number">0x61</span>, <span class="hljs-number">0x67</span>, <span class="hljs-number">0x69</span>,</span><br><span class="line">          <span class="hljs-number">0x6e</span>, <span class="hljs-number">0x67</span>, <span class="hljs-number">0x7d</span>]</span><br><span class="line">flag = <span class="hljs-string">''</span></span><br><span class="line"><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> target:</span><br><span class="line">    flag += <span class="hljs-built_in">chr</span>(i)</span><br><span class="line"><span class="hljs-built_in">print</span>(flag)</span><br><span class="line"><span class="hljs-comment"># rtcp{bob_you_suck_at_being_encouraging}</span></span><br></pre></td></tr></tbody></table></figure>
 
-<h3 id="reverse-engineering"><a href="#reverse-engineering" class="headerlink" title="reverse-engineering"></a>reverse-engineering</h3><h4 id="Fragile"><a href="#Fragile" class="headerlink" title="Fragile"></a>Fragile</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.company;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> java.lang.System.exit;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"><span class="keyword">import</span> java.io.File;</span><br><span class="line"><span class="keyword">import</span> java.io.FileInputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.FileOutputStream;</span><br><span class="line"><span class="keyword">import</span> javax.crypto.Cipher;</span><br><span class="line"><span class="keyword">import</span> javax.crypto.SecretKey;</span><br><span class="line"><span class="keyword">import</span> javax.crypto.SecretKeyFactory;</span><br><span class="line"><span class="keyword">import</span> javax.crypto.spec.DESKeySpec;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] var0)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        String flag = <span class="string">&quot;h1_th3r3_1ts_m3&quot;</span>;</span><br><span class="line">        String theflag = <span class="string">&quot;ÐdØÓ§åÍaèÒÁ¡&quot;</span>;</span><br><span class="line">        String f=<span class="string">&quot;&quot;</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; flag.length(); i++) &#123;</span><br><span class="line">            f += (<span class="keyword">char</span>) ((<span class="keyword">int</span>) (theflag.charAt(i)) - (<span class="keyword">int</span>) (flag.charAt(i)));</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(f);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// rtcp&#123;h3y_1ts_n0t_b4d&#125;</span></span><br></pre></td></tr></table></figure>
+<h3 id="reverse-engineering"><a href="#reverse-engineering" class="headerlink" title="reverse-engineering"></a>reverse-engineering</h3><h4 id="Fragile"><a href="#Fragile" class="headerlink" title="Fragile"></a>Fragile</h4><figure class="highlight java hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">package</span> com.company;</span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">import</span> <span class="hljs-keyword">static</span> java.lang.System.exit;</span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">import</span> java.util.Scanner;</span><br><span class="line"><span class="hljs-keyword">import</span> java.io.File;</span><br><span class="line"><span class="hljs-keyword">import</span> java.io.FileInputStream;</span><br><span class="line"><span class="hljs-keyword">import</span> java.io.FileOutputStream;</span><br><span class="line"><span class="hljs-keyword">import</span> javax.crypto.Cipher;</span><br><span class="line"><span class="hljs-keyword">import</span> javax.crypto.SecretKey;</span><br><span class="line"><span class="hljs-keyword">import</span> javax.crypto.SecretKeyFactory;</span><br><span class="line"><span class="hljs-keyword">import</span> javax.crypto.spec.DESKeySpec;</span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Main</span> </span>{</span><br><span class="line"></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] var0)</span> <span class="hljs-keyword">throws</span> Exception </span>{</span><br><span class="line">        String flag = <span class="hljs-string">"h1_th3r3_1ts_m3"</span>;</span><br><span class="line">        String theflag = <span class="hljs-string">"ÐdØÓ§åÍaèÒÁ¡"</span>;</span><br><span class="line">        String f=<span class="hljs-string">""</span>;</span><br><span class="line">        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; flag.length(); i++) {</span><br><span class="line">            f += (<span class="hljs-keyword">char</span>) ((<span class="hljs-keyword">int</span>) (theflag.charAt(i)) - (<span class="hljs-keyword">int</span>) (flag.charAt(i)));</span><br><span class="line">        }</span><br><span class="line">        System.out.println(f);</span><br><span class="line">    }</span><br><span class="line">}</span><br><span class="line"><span class="hljs-comment">// rtcp{h3y_1ts_n0t_b4d}</span></span><br></pre></td></tr></tbody></table></figure>
 
-<h4 id="EZ"><a href="#EZ" class="headerlink" title="EZ"></a>EZ</h4><figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">rtcp</span>&#123;tH<span class="number">1</span>s_i<span class="number">5</span>_<span class="number">4</span>_r<span class="number">3</span>aL_fL<span class="number">4</span>g_s<span class="number">0</span>_Do_sUbm<span class="number">1</span>T_<span class="number">1</span>t!&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="EZ"><a href="#EZ" class="headerlink" title="EZ"></a>EZ</h4><figure class="highlight apache hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-attribute">rtcp</span>{tH<span class="hljs-number">1</span>s_i<span class="hljs-number">5</span>_<span class="hljs-number">4</span>_r<span class="hljs-number">3</span>aL_fL<span class="hljs-number">4</span>g_s<span class="hljs-number">0</span>_Do_sUbm<span class="hljs-number">1</span>T_<span class="hljs-number">1</span>t!}</span><br></pre></td></tr></tbody></table></figure>
 
-<h4 id="PZ"><a href="#PZ" class="headerlink" title="PZ"></a>PZ</h4><figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">rtcp</span>&#123;iT<span class="number">5</span>_s<span class="number">1</span>mPlY_<span class="number">1</span>n_tH<span class="number">3</span>_C<span class="number">0</span>d<span class="number">3</span>&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="PZ"><a href="#PZ" class="headerlink" title="PZ"></a>PZ</h4><figure class="highlight apache hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-attribute">rtcp</span>{iT<span class="hljs-number">5</span>_s<span class="hljs-number">1</span>mPlY_<span class="hljs-number">1</span>n_tH<span class="hljs-number">3</span>_C<span class="hljs-number">0</span>d<span class="hljs-number">3</span>}</span><br></pre></td></tr></tbody></table></figure>
 
-<h4 id="LEMON"><a href="#LEMON" class="headerlink" title="LEMON"></a>LEMON</h4><figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">rtcp</span>&#123;y<span class="number">34</span>H_tHiS_a<span class="number">1</span>nT_sEcuR<span class="number">3</span>&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="LEMON"><a href="#LEMON" class="headerlink" title="LEMON"></a>LEMON</h4><figure class="highlight apache hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-attribute">rtcp</span>{y<span class="hljs-number">34</span>H_tHiS_a<span class="hljs-number">1</span>nT_sEcuR<span class="hljs-number">3</span>}</span><br></pre></td></tr></tbody></table></figure>
 
-<h4 id="SQUEEZY"><a href="#SQUEEZY" class="headerlink" title="SQUEEZY"></a>SQUEEZY</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> base64</span><br><span class="line"></span><br><span class="line">en = <span class="string">&#x27;HxEMBxUAURg6I0QILT4UVRolMQFRHzokRBcmAygNXhkqWBw=&#x27;</span></span><br><span class="line">enc = base64.b64decode(en)</span><br><span class="line">key = <span class="string">&quot;meownyameownyameownyameownyameownya&quot;</span></span><br><span class="line">flag = <span class="string">&#x27;&#x27;</span>.join(<span class="built_in">chr</span>(<span class="built_in">ord</span>(a) ^b) <span class="keyword">for</span> a, b <span class="keyword">in</span> <span class="built_in">zip</span>(key, enc))</span><br><span class="line"><span class="built_in">print</span>(flag)</span><br><span class="line"><span class="comment"># rtcp&#123;y0u_L3fT_y0uR_x0r_K3y_bEh1nD!&#125;</span></span><br></pre></td></tr></table></figure>
+<h4 id="SQUEEZY"><a href="#SQUEEZY" class="headerlink" title="SQUEEZY"></a>SQUEEZY</h4><figure class="highlight python hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">import</span> base64</span><br><span class="line"></span><br><span class="line">en = <span class="hljs-string">'HxEMBxUAURg6I0QILT4UVRolMQFRHzokRBcmAygNXhkqWBw='</span></span><br><span class="line">enc = base64.b64decode(en)</span><br><span class="line">key = <span class="hljs-string">"meownyameownyameownyameownyameownya"</span></span><br><span class="line">flag = <span class="hljs-string">''</span>.join(<span class="hljs-built_in">chr</span>(<span class="hljs-built_in">ord</span>(a) ^b) <span class="hljs-keyword">for</span> a, b <span class="hljs-keyword">in</span> <span class="hljs-built_in">zip</span>(key, enc))</span><br><span class="line"><span class="hljs-built_in">print</span>(flag)</span><br><span class="line"><span class="hljs-comment"># rtcp{y0u_L3fT_y0uR_x0r_K3y_bEh1nD!}</span></span><br></pre></td></tr></tbody></table></figure>
 
-<h4 id="thedanzman"><a href="#thedanzman" class="headerlink" title="thedanzman"></a>thedanzman</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> base64</span><br><span class="line"><span class="keyword">import</span> codecs</span><br><span class="line"></span><br><span class="line">en = <span class="string">&quot;=ZkXipjPiLIXRpIYTpQHpjSQkxIIFbQCK1FR3DuJZxtPAtkR&quot;</span></span><br><span class="line">en = en[::-<span class="number">1</span>]</span><br><span class="line">key = <span class="string">&quot;nyameowpurrpurrnyanyapurrpurrnyanya&quot;</span></span><br><span class="line">key = codecs.encode(key, <span class="string">&quot;rot_13&quot;</span>)</span><br><span class="line">d = codecs.encode(en, <span class="string">&#x27;rot_13&#x27;</span>)</span><br><span class="line">e = base64.b64decode(d)</span><br><span class="line">f = <span class="string">&#x27;&#x27;</span>.join(<span class="built_in">chr</span>(<span class="built_in">ord</span>(a) ^ b) <span class="keyword">for</span> a, b <span class="keyword">in</span> <span class="built_in">zip</span>(key, e))</span><br><span class="line"><span class="built_in">print</span>(f)</span><br><span class="line"><span class="comment"># rtcp&#123;n0w_tH4T_w45_m0r3_cH4lL3NgiNG&#125;</span></span><br></pre></td></tr></table></figure>
+<h4 id="thedanzman"><a href="#thedanzman" class="headerlink" title="thedanzman"></a>thedanzman</h4><figure class="highlight python hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">import</span> base64</span><br><span class="line"><span class="hljs-keyword">import</span> codecs</span><br><span class="line"></span><br><span class="line">en = <span class="hljs-string">"=ZkXipjPiLIXRpIYTpQHpjSQkxIIFbQCK1FR3DuJZxtPAtkR"</span></span><br><span class="line">en = en[::-<span class="hljs-number">1</span>]</span><br><span class="line">key = <span class="hljs-string">"nyameowpurrpurrnyanyapurrpurrnyanya"</span></span><br><span class="line">key = codecs.encode(key, <span class="hljs-string">"rot_13"</span>)</span><br><span class="line">d = codecs.encode(en, <span class="hljs-string">'rot_13'</span>)</span><br><span class="line">e = base64.b64decode(d)</span><br><span class="line">f = <span class="hljs-string">''</span>.join(<span class="hljs-built_in">chr</span>(<span class="hljs-built_in">ord</span>(a) ^ b) <span class="hljs-keyword">for</span> a, b <span class="hljs-keyword">in</span> <span class="hljs-built_in">zip</span>(key, e))</span><br><span class="line"><span class="hljs-built_in">print</span>(f)</span><br><span class="line"><span class="hljs-comment"># rtcp{n0w_tH4T_w45_m0r3_cH4lL3NgiNG}</span></span><br></pre></td></tr></tbody></table></figure>
 
-<h4 id="Breakable"><a href="#Breakable" class="headerlink" title="Breakable"></a>Breakable</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.company;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="keyword">static</span> java.lang.System.exit;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.Scanner;</span><br><span class="line"><span class="keyword">import</span> java.io.File;</span><br><span class="line"><span class="keyword">import</span> java.io.FileInputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.FileOutputStream;</span><br><span class="line"><span class="keyword">import</span> javax.crypto.Cipher;</span><br><span class="line"><span class="keyword">import</span> javax.crypto.SecretKey;</span><br><span class="line"><span class="keyword">import</span> javax.crypto.SecretKeyFactory;</span><br><span class="line"><span class="keyword">import</span> javax.crypto.spec.DESKeySpec;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] var0)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        String flag = <span class="string">&quot;k33p_1t_in_pl41n&quot;</span>;</span><br><span class="line">        String theflag = <span class="string">&quot;ÒdÝ¾¤¤¾ÙàåÐcÝÆ¥ÌÈáÏÜ¦aã&quot;</span>;</span><br><span class="line">        String f1=<span class="string">&quot;&quot;</span>;</span><br><span class="line">        String f2=<span class="string">&quot;&quot;</span>;</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; flag.length()-<span class="number">2</span>; i++) &#123;</span><br><span class="line">            f1 += (<span class="keyword">char</span>) ((<span class="keyword">int</span>) (theflag.charAt(i+<span class="number">14</span>)) - (<span class="keyword">int</span>) (flag.charAt(i+<span class="number">2</span>)));</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(f1);</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; flag.length()-<span class="number">2</span>; i++) &#123;</span><br><span class="line">            f2 += (<span class="keyword">char</span>) ((<span class="keyword">int</span>) (theflag.charAt(i)) - (<span class="keyword">int</span>) (flag.charAt(i)));</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(f2);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// rtcp&#123;0mg_1m_s0_pr0ud_&#125;</span></span><br></pre></td></tr></table></figure>
-
-
-
-<h4 id="Bendy"><a href="#Bendy" class="headerlink" title="Bendy"></a>Bendy</h4><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">flag = <span class="string">&quot;r34l_g4m3rs_eXclus1v3&quot;</span></span><br><span class="line">theflag = <span class="string">&quot;ÄÑÓ¿ÂÒêáøz§è§ñy÷¦&quot;</span></span><br><span class="line">f1 = theflag[:<span class="number">9</span>]</span><br><span class="line">f2 = theflag[<span class="number">9</span>:]</span><br><span class="line">ff = <span class="string">&quot;&quot;</span></span><br><span class="line">f = <span class="string">&quot;&quot;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">9</span>):</span><br><span class="line">    ff += <span class="built_in">chr</span>(<span class="built_in">ord</span>(f2[i]) - <span class="number">20</span>)</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">9</span>):</span><br><span class="line">    ff += f1</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">10</span>, <span class="number">15</span>):</span><br><span class="line">    f += <span class="built_in">chr</span>(<span class="built_in">ord</span>(ff[i - <span class="number">3</span>]) - <span class="built_in">ord</span>(flag[i]))</span><br><span class="line">f += <span class="string">&quot; &quot;</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">7</span>):</span><br><span class="line">    f += <span class="built_in">chr</span>(<span class="built_in">ord</span>(ff[i]) - <span class="built_in">ord</span>(flag[i]))</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">15</span>, <span class="number">21</span>):</span><br><span class="line">    f += <span class="built_in">chr</span>(<span class="built_in">ord</span>(ff[i - <span class="number">3</span>]) - <span class="built_in">ord</span>(flag[i - <span class="number">3</span>]))</span><br><span class="line"><span class="built_in">print</span>(f)</span><br><span class="line"><span class="comment">#rtcp&#123;hop3_y0ur3_h4v1ng_fun&#125;</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="Tough"><a href="#Tough" class="headerlink" title="Tough"></a>Tough</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.company;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.util.HashMap;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span>[] realflag = &#123;<span class="number">9</span>, <span class="number">4</span>, <span class="number">23</span>, <span class="number">8</span>, <span class="number">17</span>, <span class="number">1</span>, <span class="number">18</span>, <span class="number">0</span>, <span class="number">13</span>, <span class="number">7</span>, <span class="number">2</span>, <span class="number">20</span>, <span class="number">16</span>, <span class="number">10</span>, <span class="number">22</span>, <span class="number">12</span>, <span class="number">19</span>, <span class="number">6</span>, <span class="number">15</span>, <span class="number">21</span>, <span class="number">3</span>, <span class="number">14</span>, <span class="number">5</span>, <span class="number">11</span>&#125;;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span>[] therealflag = &#123;<span class="number">20</span>, <span class="number">16</span>, <span class="number">12</span>, <span class="number">9</span>, <span class="number">6</span>, <span class="number">15</span>, <span class="number">21</span>, <span class="number">3</span>, <span class="number">18</span>, <span class="number">0</span>, <span class="number">13</span>, <span class="number">7</span>, <span class="number">1</span>, <span class="number">4</span>, <span class="number">23</span>, <span class="number">8</span>, <span class="number">17</span>, <span class="number">2</span>, <span class="number">10</span>, <span class="number">22</span>, <span class="number">19</span>, <span class="number">11</span>, <span class="number">14</span>, <span class="number">5</span>&#125;;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> HashMap&lt;Integer, Character&gt; theflags = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> HashMap&lt;Integer, Character&gt; theflags0 = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> HashMap&lt;Integer, Character&gt; theflags1 = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> HashMap&lt;Integer, Character&gt; theflags2 = <span class="keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">boolean</span> m = <span class="keyword">true</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">boolean</span> g = <span class="keyword">false</span>;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">createMap</span><span class="params">(HashMap owo, String input, <span class="keyword">boolean</span> uwu)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (uwu) &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; input.length(); i++) &#123;</span><br><span class="line">                owo.put(realflag[i], input.charAt(i));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; input.length(); i++) &#123;</span><br><span class="line">                owo.put(therealflag[i], input.charAt(i));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] var0)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        String flag = <span class="string">&quot;ow0_wh4t_4_h4ckr_y0u_4r3&quot;</span>;</span><br><span class="line">        createMap(theflags0, flag, g);</span><br><span class="line">        createMap(theflags2, flag, m);</span><br><span class="line">        <span class="keyword">int</span>[] thefinalflag = &#123;<span class="number">157</span>, <span class="number">157</span>, <span class="number">236</span>, <span class="number">168</span>, <span class="number">160</span>, <span class="number">162</span>, <span class="number">171</span>, <span class="number">162</span>, <span class="number">165</span>, <span class="number">199</span>, <span class="number">169</span>, <span class="number">169</span>, <span class="number">160</span>, <span class="number">194</span>, <span class="number">235</span>, <span class="number">207</span>, <span class="number">227</span>, <span class="number">210</span>, <span class="number">157</span>, <span class="number">203</span>, <span class="number">227</span>, <span class="number">104</span>, <span class="number">212</span>, <span class="number">202</span>&#125;;</span><br><span class="line">        String s=<span class="string">&quot;&quot;</span>;</span><br><span class="line">        <span class="keyword">char</span>[] f = <span class="keyword">new</span> <span class="keyword">char</span>[<span class="number">24</span>];</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> p = <span class="number">0</span>; p &lt; thefinalflag.length; p++) &#123;</span><br><span class="line">            <span class="keyword">if</span> (thefinalflag[p] &gt;= <span class="number">156</span> &amp;&amp; thefinalflag[p] &lt;= <span class="number">166</span>)</span><br><span class="line">                thefinalflag[p] -= <span class="number">10</span>;</span><br><span class="line">            thefinalflag[p] -= theflags0.get(p);</span><br><span class="line"><span class="comment">//            s+=(char)(thefinalflag[p]);</span></span><br><span class="line">        &#125;</span><br><span class="line"><span class="comment">//        System.out.println(s);</span></span><br><span class="line">        thefinalflag[<span class="number">8</span>]+=<span class="number">10</span>;</span><br><span class="line">        thefinalflag[<span class="number">5</span>]+=<span class="number">10</span>;</span><br><span class="line"><span class="comment">//        System.out.println((char)thefinalflag[8]);</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;thefinalflag.length-<span class="number">3</span>;i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">int</span> j=<span class="number">0</span>;</span><br><span class="line">            <span class="keyword">for</span>(;j&lt;realflag.length;j++)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span>(realflag[j]==i)</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            f[j]=(<span class="keyword">char</span>)thefinalflag[i];</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(f);</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=thefinalflag.length-<span class="number">3</span>;i&lt;thefinalflag.length;i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">int</span> j=<span class="number">0</span>;</span><br><span class="line">            <span class="keyword">for</span>(;j&lt;therealflag.length;j++)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">if</span>(therealflag[j]==i)</span><br><span class="line">                    <span class="keyword">break</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            f[j]=(<span class="keyword">char</span>)thefinalflag[i];</span><br><span class="line">        &#125;</span><br><span class="line">        System.out.println(f);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//rtcp&#123;h3r3s_4_c0stly_fl4g_4you&#125;</span></span><br></pre></td></tr></table></figure>
+<h4 id="Breakable"><a href="#Breakable" class="headerlink" title="Breakable"></a>Breakable</h4><figure class="highlight java hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">package</span> com.company;</span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">import</span> <span class="hljs-keyword">static</span> java.lang.System.exit;</span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">import</span> java.util.Scanner;</span><br><span class="line"><span class="hljs-keyword">import</span> java.io.File;</span><br><span class="line"><span class="hljs-keyword">import</span> java.io.FileInputStream;</span><br><span class="line"><span class="hljs-keyword">import</span> java.io.FileOutputStream;</span><br><span class="line"><span class="hljs-keyword">import</span> javax.crypto.Cipher;</span><br><span class="line"><span class="hljs-keyword">import</span> javax.crypto.SecretKey;</span><br><span class="line"><span class="hljs-keyword">import</span> javax.crypto.SecretKeyFactory;</span><br><span class="line"><span class="hljs-keyword">import</span> javax.crypto.spec.DESKeySpec;</span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Main</span> </span>{</span><br><span class="line"></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] var0)</span> <span class="hljs-keyword">throws</span> Exception </span>{</span><br><span class="line">        String flag = <span class="hljs-string">"k33p_1t_in_pl41n"</span>;</span><br><span class="line">        String theflag = <span class="hljs-string">"ÒdÝ¾¤¤¾ÙàåÐcÝÆ¥ÌÈáÏÜ¦aã"</span>;</span><br><span class="line">        String f1=<span class="hljs-string">""</span>;</span><br><span class="line">        String f2=<span class="hljs-string">""</span>;</span><br><span class="line">        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; flag.length()-<span class="hljs-number">2</span>; i++) {</span><br><span class="line">            f1 += (<span class="hljs-keyword">char</span>) ((<span class="hljs-keyword">int</span>) (theflag.charAt(i+<span class="hljs-number">14</span>)) - (<span class="hljs-keyword">int</span>) (flag.charAt(i+<span class="hljs-number">2</span>)));</span><br><span class="line">        }</span><br><span class="line">        System.out.println(f1);</span><br><span class="line">        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; flag.length()-<span class="hljs-number">2</span>; i++) {</span><br><span class="line">            f2 += (<span class="hljs-keyword">char</span>) ((<span class="hljs-keyword">int</span>) (theflag.charAt(i)) - (<span class="hljs-keyword">int</span>) (flag.charAt(i)));</span><br><span class="line">        }</span><br><span class="line">        System.out.println(f2);</span><br><span class="line">    }</span><br><span class="line">}</span><br><span class="line"><span class="hljs-comment">// rtcp{0mg_1m_s0_pr0ud_}</span></span><br></pre></td></tr></tbody></table></figure>
 
 
-  </div>
+
+<h4 id="Bendy"><a href="#Bendy" class="headerlink" title="Bendy"></a>Bendy</h4><figure class="highlight python hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">flag = <span class="hljs-string">"r34l_g4m3rs_eXclus1v3"</span></span><br><span class="line">theflag = <span class="hljs-string">"ÄÑÓ¿ÂÒêáøz§è§ñy÷¦"</span></span><br><span class="line">f1 = theflag[:<span class="hljs-number">9</span>]</span><br><span class="line">f2 = theflag[<span class="hljs-number">9</span>:]</span><br><span class="line">ff = <span class="hljs-string">""</span></span><br><span class="line">f = <span class="hljs-string">""</span></span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">9</span>):</span><br><span class="line">    ff += <span class="hljs-built_in">chr</span>(<span class="hljs-built_in">ord</span>(f2[i]) - <span class="hljs-number">20</span>)</span><br><span class="line"><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">9</span>):</span><br><span class="line">    ff += f1</span><br><span class="line"><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">10</span>, <span class="hljs-number">15</span>):</span><br><span class="line">    f += <span class="hljs-built_in">chr</span>(<span class="hljs-built_in">ord</span>(ff[i - <span class="hljs-number">3</span>]) - <span class="hljs-built_in">ord</span>(flag[i]))</span><br><span class="line">f += <span class="hljs-string">" "</span></span><br><span class="line"><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">7</span>):</span><br><span class="line">    f += <span class="hljs-built_in">chr</span>(<span class="hljs-built_in">ord</span>(ff[i]) - <span class="hljs-built_in">ord</span>(flag[i]))</span><br><span class="line"><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">15</span>, <span class="hljs-number">21</span>):</span><br><span class="line">    f += <span class="hljs-built_in">chr</span>(<span class="hljs-built_in">ord</span>(ff[i - <span class="hljs-number">3</span>]) - <span class="hljs-built_in">ord</span>(flag[i - <span class="hljs-number">3</span>]))</span><br><span class="line"><span class="hljs-built_in">print</span>(f)</span><br><span class="line"><span class="hljs-comment">#rtcp{hop3_y0ur3_h4v1ng_fun}</span></span><br></pre></td></tr></tbody></table></figure>
+
+<h4 id="Tough"><a href="#Tough" class="headerlink" title="Tough"></a>Tough</h4><figure class="highlight java hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">package</span> com.company;</span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">import</span> java.util.HashMap;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Main</span> </span>{</span><br><span class="line">    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span>[] realflag = {<span class="hljs-number">9</span>, <span class="hljs-number">4</span>, <span class="hljs-number">23</span>, <span class="hljs-number">8</span>, <span class="hljs-number">17</span>, <span class="hljs-number">1</span>, <span class="hljs-number">18</span>, <span class="hljs-number">0</span>, <span class="hljs-number">13</span>, <span class="hljs-number">7</span>, <span class="hljs-number">2</span>, <span class="hljs-number">20</span>, <span class="hljs-number">16</span>, <span class="hljs-number">10</span>, <span class="hljs-number">22</span>, <span class="hljs-number">12</span>, <span class="hljs-number">19</span>, <span class="hljs-number">6</span>, <span class="hljs-number">15</span>, <span class="hljs-number">21</span>, <span class="hljs-number">3</span>, <span class="hljs-number">14</span>, <span class="hljs-number">5</span>, <span class="hljs-number">11</span>};</span><br><span class="line">    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">int</span>[] therealflag = {<span class="hljs-number">20</span>, <span class="hljs-number">16</span>, <span class="hljs-number">12</span>, <span class="hljs-number">9</span>, <span class="hljs-number">6</span>, <span class="hljs-number">15</span>, <span class="hljs-number">21</span>, <span class="hljs-number">3</span>, <span class="hljs-number">18</span>, <span class="hljs-number">0</span>, <span class="hljs-number">13</span>, <span class="hljs-number">7</span>, <span class="hljs-number">1</span>, <span class="hljs-number">4</span>, <span class="hljs-number">23</span>, <span class="hljs-number">8</span>, <span class="hljs-number">17</span>, <span class="hljs-number">2</span>, <span class="hljs-number">10</span>, <span class="hljs-number">22</span>, <span class="hljs-number">19</span>, <span class="hljs-number">11</span>, <span class="hljs-number">14</span>, <span class="hljs-number">5</span>};</span><br><span class="line">    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> HashMap&lt;Integer, Character&gt; theflags = <span class="hljs-keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> HashMap&lt;Integer, Character&gt; theflags0 = <span class="hljs-keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> HashMap&lt;Integer, Character&gt; theflags1 = <span class="hljs-keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> HashMap&lt;Integer, Character&gt; theflags2 = <span class="hljs-keyword">new</span> HashMap&lt;&gt;();</span><br><span class="line">    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">boolean</span> m = <span class="hljs-keyword">true</span>;</span><br><span class="line">    <span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">boolean</span> g = <span class="hljs-keyword">false</span>;</span><br><span class="line"></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">createMap</span><span class="hljs-params">(HashMap owo, String input, <span class="hljs-keyword">boolean</span> uwu)</span> </span>{</span><br><span class="line">        <span class="hljs-keyword">if</span> (uwu) {</span><br><span class="line">            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; input.length(); i++) {</span><br><span class="line">                owo.put(realflag[i], input.charAt(i));</span><br><span class="line">            }</span><br><span class="line">        } <span class="hljs-keyword">else</span> {</span><br><span class="line">            <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> i = <span class="hljs-number">0</span>; i &lt; input.length(); i++) {</span><br><span class="line">                owo.put(therealflag[i], input.charAt(i));</span><br><span class="line">            }</span><br><span class="line">        }</span><br><span class="line">    }</span><br><span class="line"></span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">static</span> <span class="hljs-keyword">void</span> <span class="hljs-title">main</span><span class="hljs-params">(String[] var0)</span> <span class="hljs-keyword">throws</span> Exception </span>{</span><br><span class="line">        String flag = <span class="hljs-string">"ow0_wh4t_4_h4ckr_y0u_4r3"</span>;</span><br><span class="line">        createMap(theflags0, flag, g);</span><br><span class="line">        createMap(theflags2, flag, m);</span><br><span class="line">        <span class="hljs-keyword">int</span>[] thefinalflag = {<span class="hljs-number">157</span>, <span class="hljs-number">157</span>, <span class="hljs-number">236</span>, <span class="hljs-number">168</span>, <span class="hljs-number">160</span>, <span class="hljs-number">162</span>, <span class="hljs-number">171</span>, <span class="hljs-number">162</span>, <span class="hljs-number">165</span>, <span class="hljs-number">199</span>, <span class="hljs-number">169</span>, <span class="hljs-number">169</span>, <span class="hljs-number">160</span>, <span class="hljs-number">194</span>, <span class="hljs-number">235</span>, <span class="hljs-number">207</span>, <span class="hljs-number">227</span>, <span class="hljs-number">210</span>, <span class="hljs-number">157</span>, <span class="hljs-number">203</span>, <span class="hljs-number">227</span>, <span class="hljs-number">104</span>, <span class="hljs-number">212</span>, <span class="hljs-number">202</span>};</span><br><span class="line">        String s=<span class="hljs-string">""</span>;</span><br><span class="line">        <span class="hljs-keyword">char</span>[] f = <span class="hljs-keyword">new</span> <span class="hljs-keyword">char</span>[<span class="hljs-number">24</span>];</span><br><span class="line">        <span class="hljs-keyword">for</span> (<span class="hljs-keyword">int</span> p = <span class="hljs-number">0</span>; p &lt; thefinalflag.length; p++) {</span><br><span class="line">            <span class="hljs-keyword">if</span> (thefinalflag[p] &gt;= <span class="hljs-number">156</span> &amp;&amp; thefinalflag[p] &lt;= <span class="hljs-number">166</span>)</span><br><span class="line">                thefinalflag[p] -= <span class="hljs-number">10</span>;</span><br><span class="line">            thefinalflag[p] -= theflags0.get(p);</span><br><span class="line"><span class="hljs-comment">//            s+=(char)(thefinalflag[p]);</span></span><br><span class="line">        }</span><br><span class="line"><span class="hljs-comment">//        System.out.println(s);</span></span><br><span class="line">        thefinalflag[<span class="hljs-number">8</span>]+=<span class="hljs-number">10</span>;</span><br><span class="line">        thefinalflag[<span class="hljs-number">5</span>]+=<span class="hljs-number">10</span>;</span><br><span class="line"><span class="hljs-comment">//        System.out.println((char)thefinalflag[8]);</span></span><br><span class="line">        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=<span class="hljs-number">0</span>;i&lt;thefinalflag.length-<span class="hljs-number">3</span>;i++)</span><br><span class="line">        {</span><br><span class="line">            <span class="hljs-keyword">int</span> j=<span class="hljs-number">0</span>;</span><br><span class="line">            <span class="hljs-keyword">for</span>(;j&lt;realflag.length;j++)</span><br><span class="line">            {</span><br><span class="line">                <span class="hljs-keyword">if</span>(realflag[j]==i)</span><br><span class="line">                    <span class="hljs-keyword">break</span>;</span><br><span class="line">            }</span><br><span class="line">            f[j]=(<span class="hljs-keyword">char</span>)thefinalflag[i];</span><br><span class="line">        }</span><br><span class="line">        System.out.println(f);</span><br><span class="line">        <span class="hljs-keyword">for</span>(<span class="hljs-keyword">int</span> i=thefinalflag.length-<span class="hljs-number">3</span>;i&lt;thefinalflag.length;i++)</span><br><span class="line">        {</span><br><span class="line">            <span class="hljs-keyword">int</span> j=<span class="hljs-number">0</span>;</span><br><span class="line">            <span class="hljs-keyword">for</span>(;j&lt;therealflag.length;j++)</span><br><span class="line">            {</span><br><span class="line">                <span class="hljs-keyword">if</span>(therealflag[j]==i)</span><br><span class="line">                    <span class="hljs-keyword">break</span>;</span><br><span class="line">            }</span><br><span class="line">            f[j]=(<span class="hljs-keyword">char</span>)thefinalflag[i];</span><br><span class="line">        }</span><br><span class="line">        System.out.println(f);</span><br><span class="line">    }</span><br><span class="line">}</span><br><span class="line"><span class="hljs-comment">//rtcp{h3r3s_4_c0stly_fl4g_4you}</span></span><br></pre></td></tr></tbody></table></figure>
+
+</body></html>
+    
+    </div>
+    
+    <div class="columns is-variable is-1 is-multiline is-mobile">
+    
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/writeup/">#writeup</a></span>
+    
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/ctf/">#ctf</a></span>
+    
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/HouseplantCTF/">#HouseplantCTF</a></span>
+    
+    </div>
+    
+    
+    <div class="columns is-mobile is-multiline article-nav">
+        <span class="column is-12-mobile is-half-desktop  article-nav-prev">
+            
+            <a href="/2020/03/21/2020-36DCTF/">36DCTF-wp</a>
+            
+        </span>
+        <span class="column is-12-mobile is-half-desktop  article-nav-next">
+            
+            <a href="/2020/03/21/2020-NPUCTF/">NPUCTF-wp</a>
+            
+        </span>
+    </div>
+    
 </article>
 
-    <div class="blog-post-comments">
-        <div id="disqus_thread">
-            <noscript>Please enable JavaScript to view the comments.</noscript>
-        </div>
-    </div>
 
+<div class="sharebox">
+    
+<div class="sharethis-inline-share-buttons"></div>
+<script type='text/javascript' src='https://platform-api.sharethis.com/js/sharethis.js#property=618a5a31fe4ac40012aea77e&amp;product=inline-share-buttons' async='async'></script>
 
-
-        
-          <div id="footer-post-container">
-  <div id="footer-post">
-
-    <div id="nav-footer" style="display: none">
-      <ul>
-         
-          <li><a href="/">Home</a></li>
-         
-          <li><a href="/about/">About</a></li>
-         
-          <li><a href="/archives/">Writing</a></li>
-         
-          <li><a href="/atom.xml">RSS</a></li>
-         
-          <li><a href="/search/">Search</a></li>
-        
-      </ul>
-    </div>
-
-    <div id="toc-footer" style="display: none">
-      <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#beginners"><span class="toc-number">1.</span> <span class="toc-text">beginners</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#beginner-1"><span class="toc-number">1.1.</span> <span class="toc-text">beginner 1</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#beginner-2"><span class="toc-number">1.2.</span> <span class="toc-text">beginner 2</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#reverse-engineering"><span class="toc-number">2.</span> <span class="toc-text">reverse-engineering</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Fragile"><span class="toc-number">2.1.</span> <span class="toc-text">Fragile</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#EZ"><span class="toc-number">2.2.</span> <span class="toc-text">EZ</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#PZ"><span class="toc-number">2.3.</span> <span class="toc-text">PZ</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#LEMON"><span class="toc-number">2.4.</span> <span class="toc-text">LEMON</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#SQUEEZY"><span class="toc-number">2.5.</span> <span class="toc-text">SQUEEZY</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#thedanzman"><span class="toc-number">2.6.</span> <span class="toc-text">thedanzman</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Breakable"><span class="toc-number">2.7.</span> <span class="toc-text">Breakable</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Bendy"><span class="toc-number">2.8.</span> <span class="toc-text">Bendy</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Tough"><span class="toc-number">2.9.</span> <span class="toc-text">Tough</span></a></li></ol></li></ol>
-    </div>
-
-    <div id="share-footer" style="display: none">
-      <ul>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://blog.rycbar.club/2020/03/21/2020-HouseplantCTF/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://blog.rycbar.club/2020/03/21/2020-HouseplantCTF/&text=HouseplantCTF-wp"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://blog.rycbar.club/2020/03/21/2020-HouseplantCTF/&title=HouseplantCTF-wp"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://blog.rycbar.club/2020/03/21/2020-HouseplantCTF/&is_video=false&description=HouseplantCTF-wp"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=HouseplantCTF-wp&body=Check out this article: http://blog.rycbar.club/2020/03/21/2020-HouseplantCTF/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://blog.rycbar.club/2020/03/21/2020-HouseplantCTF/&title=HouseplantCTF-wp"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://blog.rycbar.club/2020/03/21/2020-HouseplantCTF/&title=HouseplantCTF-wp"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://blog.rycbar.club/2020/03/21/2020-HouseplantCTF/&title=HouseplantCTF-wp"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://blog.rycbar.club/2020/03/21/2020-HouseplantCTF/&title=HouseplantCTF-wp"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://blog.rycbar.club/2020/03/21/2020-HouseplantCTF/&name=HouseplantCTF-wp&description=&lt;p&gt;最近没有太多时间，这个比赛又比较简单，就干脆直接放脚本了&lt;/p&gt;"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://blog.rycbar.club/2020/03/21/2020-HouseplantCTF/&t=HouseplantCTF-wp"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
-</ul>
-
-    </div>
-
-    <div id="actions-footer">
-        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
-        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
-        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
-        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
-    </div>
-
-  </div>
 </div>
 
+
+
+<div class="comments">
+    <h3 class="title is-4">Comments</h3>
+    
+<script>
+    var disqus_config = function () {
+        this.page.url = 'http://blog.rycbar.club/2020/03/21/2020-HouseplantCTF/';
+        this.page.identifier = '2020/03/21/2020-HouseplantCTF/';
         
-        <footer id="footer">
-  <div class="footer-left">
-    Copyright &copy;
+        this.language = 'en';
+        
+    };
+    (function() {
+        var d = document, s = d.createElement('script');  
+        s.src = '//' + 'rrblog-2' + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+<div id="disqus_thread">
     
-    
-    2018-2021
-    Aorui Zhang
-  </div>
-  <div class="footer-right">
-    <nav>
-      <ul>
-        <!--
-       --><li><a href="/">Home</a></li><!--
-     --><!--
-       --><li><a href="/about/">About</a></li><!--
-     --><!--
-       --><li><a href="/archives/">Writing</a></li><!--
-     --><!--
-       --><li><a href="/atom.xml">RSS</a></li><!--
-     --><!--
-       --><li><a href="/search/">Search</a></li><!--
-     -->
-      </ul>
-    </nav>
-  </div>
-</footer>
+    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</div>
 
     </div>
-    <!-- styles -->
+</section>
+    <footer class="footer">
+    <div class="container">
+        <div class="columns content">
+            <div class="column is-narrow has-text-centered">
+                &copy; 2021 Aorui Zhang&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a
+                        target="_blank" rel="noopener" href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
+            </div>
+            <div class="column is-hidden-mobile"></div>
 
+            
+            <div class="column is-narrow">
+                <div class="columns is-mobile is-multiline is-centered">
+                
+                    
+                <a class="column is-narrow has-text-black" title="GitHub" target="_blank" rel="noopener" href="https://github.com/rycbar77">
+                    
+                    GitHub
+                    
+                </a>
+                
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</footer>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment-with-locales.min.js"></script>
 
-
-  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
-
-
-    <!-- jquery -->
- 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script> 
-
-
-
-
-<!-- clipboard -->
-
-  
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
-  
-  <script type="text/javascript">
-  $(function() {
-    // copy-btn HTML
-    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
-    btn += '<i class="far fa-clone"></i>';
-    btn += '</span>'; 
-    // mount it!
-    $(".highlight table").before(btn);
-    var clip = new ClipboardJS('.btn-copy', {
-      text: function(trigger) {
-        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
-      }
+<!-- test if the browser is outdated -->
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" target="_blank" rel="noopener" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // plugin function, place inside DOM ready function
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        })
     });
-    clip.on('success', function(e) {
-      e.trigger.setAttribute('aria-label', "Copied!");
-      e.clearSelection();
-    })
-  })
-  </script>
+</script>
+
+<script>
+    window.FontAwesomeConfig = {
+        searchPseudoElements: true
+    }
+    moment.locale("en-AU");
+</script>
 
 
-<script src="/js/main.js"></script>
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script>
+    MathJax.Hub.Config({
+        "HTML-CSS": {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+</script>
 
-<!-- search -->
+    
+    
+    
+    
+<script src="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/js/lightgallery-all.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/js/jquery.justifiedGallery.min.js"></script>
+<script>
+    (function ($) {
+        $(document).ready(function () {
+            if (typeof($.fn.lightGallery) === 'function') {
+                $('.article.gallery').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof($.fn.justifiedGallery) === 'function') {
+                $('.justified-gallery').justifiedGallery();
+            }
+        });
+    })(jQuery);
+</script>
 
-<!-- Google Analytics -->
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+    <style>
+        .hljs {
+            position: relative;
+        }
 
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128484503-1"></script>
+        .hljs .clipboard-btn {
+            float: right;
+            color: #9a9a9a;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .hljs .clipboard-btn:hover {
+          color: #8a8a8a;
+        }
+
+        .hljs > .clipboard-btn {
+            display: none;
+            position: absolute;
+            right: 4px;
+            top: 4px;
+        }
+
+        .hljs:hover > .clipboard-btn {
+            display: inline;
+        }
+
+        .hljs > figcaption > .clipboard-btn {
+            margin-right: 4px;
+        }
+    </style>
     <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'UA-128484503-1');
+      $(document).ready(function () {
+        $('figure.hljs').each(function(i, figure) {
+          var codeId = 'code-' + i;
+          var code = figure.querySelector('.code');
+          var copyButton = $('<button>Copy <i class="far fa-clipboard"></i></button>');
+          code.id = codeId;
+          copyButton.addClass('clipboard-btn');
+          copyButton.attr('data-clipboard-target-id', codeId);
+
+          var figcaption = figure.querySelector('figcaption');
+
+          if (figcaption) {
+            figcaption.append(copyButton[0]);
+          } else {
+            figure.prepend(copyButton[0]);
+          }
+        })
+
+        var clipboard = new ClipboardJS('.clipboard-btn', {
+          target: function(trigger) {
+            return document.getElementById(trigger.getAttribute('data-clipboard-target-id'));
+          }
+        });
+        clipboard.on('success', function(e) {
+          e.clearSelection();
+        })
+      })
     </script>
 
-<!-- Baidu Analytics -->
+    
+    
 
-<!-- Cloudflare Analytics -->
+    
 
-<!-- Umami Analytics -->
 
-<!-- Disqus Comments -->
 
-    <script type="text/javascript">
-        var disqus_shortname = 'rrblog-2';
+<script src="/js/script.js"></script>
 
-        (function(){
-            var dsq = document.createElement('script');
-            dsq.type = 'text/javascript';
-            dsq.async = true;
-            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-        }());
-    </script>
 
-<!-- utterances Comments -->
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-mask"></div>
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something..." />
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Posts',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
 
+<script src="/js/insight.js"></script>
+
+    
 </body>
 </html>

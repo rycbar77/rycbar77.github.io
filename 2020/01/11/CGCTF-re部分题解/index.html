@@ -1,11 +1,19 @@
 <!DOCTYPE html>
-<html lang=en>
+<html class="has-navbar-fixed-top">
 <head>
-    <!-- so meta -->
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="HandheldFriendly" content="True">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+<title>CGCTF-re部分题解 - rr&#39;s blog</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
+
+
+
+
+
+
+
+
     <meta name="description" content="CG-CTF是南邮的平台，题目都很不错，这里记录一下部分题解决题目的思路和方法">
 <meta property="og:type" content="article">
 <meta property="og:title" content="CGCTF-re部分题解">
@@ -22,379 +30,529 @@
 <meta property="article:tag" content="CG-CTF">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="https://s2.ax1x.com/2020/02/13/1qp7a4.png">
-    
-    
-      
-        
-          <link rel="shortcut icon" href="/images/favicon.ico">
-        
-      
-      
-        
-          <link rel="icon" type="image/png" href="/images/favicon-192x192.png" sizes="192x192">
-        
-      
-      
-        
-          <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
-        
-      
-    
-    <!-- title -->
-    <title>CGCTF-re部分题解</title>
-    <!-- styles -->
-    
+
+
+
+
+
+<link rel="icon" href="rust.png">
+
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ovo|Source+Code+Pro">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/css/lightgallery.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/css/justifiedGallery.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+
+
 <link rel="stylesheet" href="/css/style.css">
 
-    <!-- persian styles -->
-    
-    <!-- rss -->
-    
-    
-      <link rel="alternate" href="/true" title="rr&#39;s blog" type="application/atom+xml" />
-    
-	<!-- mathjax -->
-	
-<meta name="generator" content="Hexo 5.4.0"></head>
 
-<body class="max-width mx-auto px3 ltr">
-    
-      <div id="header-post">
-  <a id="menu-icon" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
-  <a id="menu-icon-tablet" href="#" aria-label="Menu"><i class="fas fa-bars fa-lg"></i></a>
-  <a id="top-icon-tablet" href="#" aria-label="Top" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');" style="display:none;"><i class="fas fa-chevron-up fa-lg"></i></a>
-  <span id="menu">
-    <span id="nav">
-      <ul>
-        <!--
-       --><li><a href="/">Home</a></li><!--
-     --><!--
-       --><li><a href="/about/">About</a></li><!--
-     --><!--
-       --><li><a href="/archives/">Writing</a></li><!--
-     --><!--
-       --><li><a href="/atom.xml">RSS</a></li><!--
-     --><!--
-       --><li><a href="/search/">Search</a></li><!--
-     -->
-      </ul>
-    </span>
-    <br/>
-    <span id="actions">
-      <ul>
-        
-        <li><a class="icon" aria-label="Previous post" href="/2020/01/11/BUUCTF-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3/"><i class="fas fa-chevron-left" aria-hidden="true" onmouseover="$('#i-prev').toggle();" onmouseout="$('#i-prev').toggle();"></i></a></li>
-        
-        
-        <li><a class="icon" aria-label="Next post" href="/2020/01/11/bugku-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3/"><i class="fas fa-chevron-right" aria-hidden="true" onmouseover="$('#i-next').toggle();" onmouseout="$('#i-next').toggle();"></i></a></li>
-        
-        <li><a class="icon" aria-label="Back to top" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up" aria-hidden="true" onmouseover="$('#i-top').toggle();" onmouseout="$('#i-top').toggle();"></i></a></li>
-        <li><a class="icon" aria-label="Share post" href="#"><i class="fas fa-share-alt" aria-hidden="true" onmouseover="$('#i-share').toggle();" onmouseout="$('#i-share').toggle();" onclick="$('#share').toggle();return false;"></i></a></li>
-      </ul>
-      <span id="i-prev" class="info" style="display:none;">Previous post</span>
-      <span id="i-next" class="info" style="display:none;">Next post</span>
-      <span id="i-top" class="info" style="display:none;">Back to top</span>
-      <span id="i-share" class="info" style="display:none;">Share post</span>
-    </span>
-    <br/>
-    <div id="share" style="display: none">
-      <ul>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://blog.rycbar.club/2020/01/11/CGCTF-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3/"><i class="fab fa-facebook " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://blog.rycbar.club/2020/01/11/CGCTF-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3/&text=CGCTF-re部分题解"><i class="fab fa-twitter " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://blog.rycbar.club/2020/01/11/CGCTF-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3/&title=CGCTF-re部分题解"><i class="fab fa-linkedin " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://blog.rycbar.club/2020/01/11/CGCTF-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3/&is_video=false&description=CGCTF-re部分题解"><i class="fab fa-pinterest " aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=CGCTF-re部分题解&body=Check out this article: http://blog.rycbar.club/2020/01/11/CGCTF-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3/"><i class="fas fa-envelope " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://blog.rycbar.club/2020/01/11/CGCTF-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3/&title=CGCTF-re部分题解"><i class="fab fa-get-pocket " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://blog.rycbar.club/2020/01/11/CGCTF-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3/&title=CGCTF-re部分题解"><i class="fab fa-reddit " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://blog.rycbar.club/2020/01/11/CGCTF-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3/&title=CGCTF-re部分题解"><i class="fab fa-stumbleupon " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://blog.rycbar.club/2020/01/11/CGCTF-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3/&title=CGCTF-re部分题解"><i class="fab fa-digg " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://blog.rycbar.club/2020/01/11/CGCTF-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3/&name=CGCTF-re部分题解&description=&lt;p&gt;CG-CTF是南邮的平台，题目都很不错，这里记录一下部分题解决题目的思路和方法&lt;/p&gt;"><i class="fab fa-tumblr " aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://blog.rycbar.club/2020/01/11/CGCTF-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3/&t=CGCTF-re部分题解"><i class="fab fa-hacker-news " aria-hidden="true"></i></a></li>
-</ul>
+<script defer src="//use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
 
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-128484503-1"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-128484503-1');
+</script>
+
+
+    
+
+
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="rr's blog" type="application/atom+xml">
+</head>
+<body>
+    
+<nav class="navbar is-transparent is-fixed-top navbar-main" role="navigation" aria-label="main navigation">
+    <div class="container">
+        <div class="navbar-brand">
+            <a class="navbar-item navbar-logo" href="/">
+                
+                <img src="/images/logo.png" alt="" height="28">
+                
+            </a>
+            <div class="navbar-burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        
+        <div class="navbar-menu navbar-start">
+            
+            <a class="navbar-item "
+               href="/archives">Archives</a>
+            
+            <a class="navbar-item "
+               href="/categories">Categories</a>
+            
+            <a class="navbar-item "
+               href="/tags">Tags</a>
+            
+            <a class="navbar-item "
+               href="/links">Links</a>
+            
+            <a class="navbar-item "
+               href="/about">About</a>
+            
+            <a class="navbar-item "
+               href="/atom.xml">RSS</a>
+            
+        </div>
+        
+        <div class="navbar-menu navbar-end">
+            
+            <a class="navbar-item search" title="Search" href="javascript:;">
+                <i class="fas fa-search"></i>
+            </a>
+            
+            
+            <div class="navbar-item is-hoverable has-dropdown is-hidden-mobile is-hidden-tablet-only toc">
+                <a class="navbar-item" title="Table of Contents">
+                    <i class="fa fa-list"></i>
+                </a>
+                <div class="navbar-dropdown is-right">
+                    
+                    
+                    
+                    
+                    <a class="navbar-item" href="#Hello-RE">1&nbsp;&nbsp;<b>Hello,RE!</b></a>
+                    
+                    
+                    <hr class="navbar-divider">
+                    
+                    
+                    <a class="navbar-item" href="#ReadAsm2">2&nbsp;&nbsp;<b>ReadAsm2</b></a>
+                    
+                    
+                    <hr class="navbar-divider">
+                    
+                    
+                    <a class="navbar-item" href="#Py交易">3&nbsp;&nbsp;<b>Py交易</b></a>
+                    
+                    
+                    <hr class="navbar-divider">
+                    
+                    
+                    <a class="navbar-item" href="#WxyVM">4&nbsp;&nbsp;<b>WxyVM</b></a>
+                    
+                    
+                    <hr class="navbar-divider">
+                    
+                    
+                    <a class="navbar-item" href="#maze">5&nbsp;&nbsp;<b>maze</b></a>
+                    
+                    
+                    <hr class="navbar-divider">
+                    
+                    
+                    <a class="navbar-item" href="#WxyVM2">6&nbsp;&nbsp;<b>WxyVM2</b></a>
+                    
+                    
+                    <hr class="navbar-divider">
+                    
+                    
+                    <a class="navbar-item" href="#你大概需要一个优秀的mac">7&nbsp;&nbsp;<b>你大概需要一个优秀的mac</b></a>
+                    
+                </div>
+            </div>
+            
+            
+            <a class="navbar-item" title="GitHub" target="_blank" rel="noopener" href="https://github.com/rycbar77">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+               
+            
+        </div>
     </div>
-    <div id="toc">
-      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#Hello-RE"><span class="toc-number">1.</span> <span class="toc-text">Hello,RE!</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ReadAsm2"><span class="toc-number">2.</span> <span class="toc-text">ReadAsm2</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Py%E4%BA%A4%E6%98%93"><span class="toc-number">3.</span> <span class="toc-text">Py交易</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#WxyVM"><span class="toc-number">4.</span> <span class="toc-text">WxyVM</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#maze"><span class="toc-number">5.</span> <span class="toc-text">maze</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#WxyVM2"><span class="toc-number">6.</span> <span class="toc-text">WxyVM2</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BD%A0%E5%A4%A7%E6%A6%82%E9%9C%80%E8%A6%81%E4%B8%80%E4%B8%AA%E4%BC%98%E7%A7%80%E7%9A%84mac"><span class="toc-number">7.</span> <span class="toc-text">你大概需要一个优秀的mac</span></a></li></ol>
-    </div>
-  </span>
-</div>
+</nav>
 
-    
-    <div class="content index py4">
+    <section class="section">
+    <div class="container">
+    <article class="article content gallery" itemscope itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
         
-        <article class="post" itemscope itemtype="http://schema.org/BlogPosting">
-  <header>
-    
-    <h1 class="posttitle" itemprop="name headline">
-        CGCTF-re部分题解
+            CGCTF-re部分题解
+        
     </h1>
-
-
-
-    <div class="meta">
-      <span class="author" itemprop="author" itemscope itemtype="http://schema.org/Person">
-        <span itemprop="name">Aorui Zhang</span>
-      </span>
-      
-    <div class="postdate">
-      
-        <time datetime="2020-01-11T07:31:43.000Z" itemprop="datePublished">2020-01-11</time>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            
+                <time datetime="2020-01-11T07:31:43.000Z" itemprop="datePublished">Jan 11 2020</time>
+            
+        </span>
         
-        (Updated: <time datetime="2020-03-16T08:07:11.965Z" itemprop="dateModified">2020-03-16</time>)
+        <span class="column is-narrow article-category">
+            <i class="far fa-folder"></i>
+            <a class="article-category-link" href="/categories/ctf/">ctf</a>
+        </span>
         
-      
+        
+        <span class="column is-narrow">
+            
+            
+            13 minutes read (About 2016 words)
+        </span>
+        
     </div>
-
-
-      
-    <div class="article-category">
-        <i class="fas fa-archive"></i>
-        <a class="category-link" href="/categories/ctf/">ctf</a>
-    </div>
-
-
-      
-    <div class="article-tag">
-        <i class="fas fa-tag"></i>
-        <a class="tag-link-link" href="/tags/CG-CTF/" rel="tag">CG-CTF</a>, <a class="tag-link-link" href="/tags/ctf/" rel="tag">ctf</a>, <a class="tag-link-link" href="/tags/re/" rel="tag">re</a>
-    </div>
-
-
-    </div>
-  </header>
-  
-
-  <div class="content" itemprop="articleBody">
-    <p>CG-CTF是南邮的平台，题目都很不错，这里记录一下部分题解决题目的思路和方法</p>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <html><head></head><body><p>CG-CTF是南邮的平台，题目都很不错，这里记录一下部分题解决题目的思路和方法</p>
 <span id="more"></span>
 
 <h4 id="Hello-RE"><a href="#Hello-RE" class="headerlink" title="Hello,RE!"></a>Hello,RE!</h4><p>打开程序，发现输入flag，用OD打开，注意到是将输入的字符串和flag直接进行比较，所以单步调试直接找到flag<br><img src="https://s2.ax1x.com/2020/02/13/1qp7a4.png" alt="Hello,RE!-1"></p>
 <h4 id="ReadAsm2"><a href="#ReadAsm2" class="headerlink" title="ReadAsm2"></a>ReadAsm2</h4><p>这题考的是直接读汇编的能力，代码贴在下面</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">int</span> argc, <span class="keyword">char</span> <span class="keyword">const</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">char</span> input[] = &#123;<span class="number">0x0</span>,  <span class="number">0x67</span>, <span class="number">0x6e</span>, <span class="number">0x62</span>, <span class="number">0x63</span>, <span class="number">0x7e</span>, <span class="number">0x74</span>, <span class="number">0x62</span>, <span class="number">0x69</span>, <span class="number">0x6d</span>,</span><br><span class="line">                  <span class="number">0x55</span>, <span class="number">0x6a</span>, <span class="number">0x7f</span>, <span class="number">0x60</span>, <span class="number">0x51</span>, <span class="number">0x66</span>, <span class="number">0x63</span>, <span class="number">0x4e</span>, <span class="number">0x66</span>, <span class="number">0x7b</span>,</span><br><span class="line">                  <span class="number">0x71</span>, <span class="number">0x4a</span>, <span class="number">0x74</span>, <span class="number">0x76</span>, <span class="number">0x6b</span>, <span class="number">0x70</span>, <span class="number">0x79</span>, <span class="number">0x66</span> , <span class="number">0x1c</span>&#125;;</span><br><span class="line">  <span class="built_in">func</span>(input, <span class="number">28</span>);</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">&quot;%s\n&quot;</span>,input+<span class="number">1</span>);</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++ hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">main</span><span class="hljs-params">(<span class="hljs-keyword">int</span> argc, <span class="hljs-keyword">char</span> <span class="hljs-keyword">const</span> *argv[])</span></span></span><br><span class="line"><span class="hljs-function"></span>{</span><br><span class="line">  <span class="hljs-keyword">char</span> input[] = {<span class="hljs-number">0x0</span>,  <span class="hljs-number">0x67</span>, <span class="hljs-number">0x6e</span>, <span class="hljs-number">0x62</span>, <span class="hljs-number">0x63</span>, <span class="hljs-number">0x7e</span>, <span class="hljs-number">0x74</span>, <span class="hljs-number">0x62</span>, <span class="hljs-number">0x69</span>, <span class="hljs-number">0x6d</span>,</span><br><span class="line">                  <span class="hljs-number">0x55</span>, <span class="hljs-number">0x6a</span>, <span class="hljs-number">0x7f</span>, <span class="hljs-number">0x60</span>, <span class="hljs-number">0x51</span>, <span class="hljs-number">0x66</span>, <span class="hljs-number">0x63</span>, <span class="hljs-number">0x4e</span>, <span class="hljs-number">0x66</span>, <span class="hljs-number">0x7b</span>,</span><br><span class="line">                  <span class="hljs-number">0x71</span>, <span class="hljs-number">0x4a</span>, <span class="hljs-number">0x74</span>, <span class="hljs-number">0x76</span>, <span class="hljs-number">0x6b</span>, <span class="hljs-number">0x70</span>, <span class="hljs-number">0x79</span>, <span class="hljs-number">0x66</span> , <span class="hljs-number">0x1c</span>};</span><br><span class="line">  <span class="hljs-built_in">func</span>(input, <span class="hljs-number">28</span>);</span><br><span class="line">  <span class="hljs-built_in">printf</span>(<span class="hljs-string">"%s\n"</span>,input+<span class="hljs-number">1</span>);</span><br><span class="line">  <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">00000000004004e6 &lt;func&gt;:</span><br><span class="line">  4004e6: 55                    push   rbp</span><br><span class="line">  4004e7: 48 89 e5              mov    rbp,rsp</span><br><span class="line">  4004ea: 48 89 7d e8           mov    QWORD PTR [rbp-0x18],rdi</span><br><span class="line">  4004ee: 89 75 e4              mov    DWORD PTR [rbp-0x1c],esi</span><br><span class="line">  4004f1: c7 45 fc 01 00 00 00  mov    DWORD PTR [rbp-0x4],0x1</span><br><span class="line">  4004f8: eb 28                 jmp    400522 &lt;func+0x3c&gt;</span><br><span class="line">  4004fa: 8b 45 fc              mov    eax,DWORD PTR [rbp-0x4]</span><br><span class="line">  4004fd: 48 63 d0              movsxd rdx,eax</span><br><span class="line">  400500: 48 8b 45 e8           mov    rax,QWORD PTR [rbp-0x18]</span><br><span class="line">  400504: 48 01 d0              add    rax,rdx</span><br><span class="line">  400507: 8b 55 fc              mov    edx,DWORD PTR [rbp-0x4]</span><br><span class="line">  40050a: 48 63 ca              movsxd rcx,edx</span><br><span class="line">  40050d: 48 8b 55 e8           mov    rdx,QWORD PTR [rbp-0x18]</span><br><span class="line">  400511: 48 01 ca              add    rdx,rcx</span><br><span class="line">  400514: 0f b6 0a              movzx  ecx,BYTE PTR [rdx]</span><br><span class="line">  400517: 8b 55 fc              mov    edx,DWORD PTR [rbp-0x4]</span><br><span class="line">  40051a: 31 ca                 xor    edx,ecx</span><br><span class="line">  40051c: 88 10                 mov    BYTE PTR [rax],dl</span><br><span class="line">  40051e: 83 45 fc 01           add    DWORD PTR [rbp-0x4],0x1</span><br><span class="line">  400522: 8b 45 fc              mov    eax,DWORD PTR [rbp-0x4]</span><br><span class="line">  400525: 3b 45 e4              cmp    eax,DWORD PTR [rbp-0x1c]</span><br><span class="line">  400528: 7e d0                 jle    4004fa &lt;func+0x14&gt;</span><br><span class="line">  40052a: 90                    nop</span><br><span class="line">  40052b: 5d                    pop    rbp</span><br><span class="line">  40052c: c3                    ret</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">00000000004004e6 &lt;func&gt;:</span><br><span class="line">  4004e6: 55                    push   rbp</span><br><span class="line">  4004e7: 48 89 e5              mov    rbp,rsp</span><br><span class="line">  4004ea: 48 89 7d e8           mov    QWORD PTR [rbp-0x18],rdi</span><br><span class="line">  4004ee: 89 75 e4              mov    DWORD PTR [rbp-0x1c],esi</span><br><span class="line">  4004f1: c7 45 fc 01 00 00 00  mov    DWORD PTR [rbp-0x4],0x1</span><br><span class="line">  4004f8: eb 28                 jmp    400522 &lt;func+0x3c&gt;</span><br><span class="line">  4004fa: 8b 45 fc              mov    eax,DWORD PTR [rbp-0x4]</span><br><span class="line">  4004fd: 48 63 d0              movsxd rdx,eax</span><br><span class="line">  400500: 48 8b 45 e8           mov    rax,QWORD PTR [rbp-0x18]</span><br><span class="line">  400504: 48 01 d0              add    rax,rdx</span><br><span class="line">  400507: 8b 55 fc              mov    edx,DWORD PTR [rbp-0x4]</span><br><span class="line">  40050a: 48 63 ca              movsxd rcx,edx</span><br><span class="line">  40050d: 48 8b 55 e8           mov    rdx,QWORD PTR [rbp-0x18]</span><br><span class="line">  400511: 48 01 ca              add    rdx,rcx</span><br><span class="line">  400514: 0f b6 0a              movzx  ecx,BYTE PTR [rdx]</span><br><span class="line">  400517: 8b 55 fc              mov    edx,DWORD PTR [rbp-0x4]</span><br><span class="line">  40051a: 31 ca                 xor    edx,ecx</span><br><span class="line">  40051c: 88 10                 mov    BYTE PTR [rax],dl</span><br><span class="line">  40051e: 83 45 fc 01           add    DWORD PTR [rbp-0x4],0x1</span><br><span class="line">  400522: 8b 45 fc              mov    eax,DWORD PTR [rbp-0x4]</span><br><span class="line">  400525: 3b 45 e4              cmp    eax,DWORD PTR [rbp-0x1c]</span><br><span class="line">  400528: 7e d0                 jle    4004fa &lt;func+0x14&gt;</span><br><span class="line">  40052a: 90                    nop</span><br><span class="line">  40052b: 5d                    pop    rbp</span><br><span class="line">  40052c: c3                    ret</span><br></pre></td></tr></tbody></table></figure>
 
 <p>发现这段汇编的作用就是实现input[i]^i，所以实现上面代码输出得到flag</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">s = [<span class="number">0x0</span>, <span class="number">0x67</span>, <span class="number">0x6e</span>, <span class="number">0x62</span>, <span class="number">0x63</span>, <span class="number">0x7e</span>, <span class="number">0x74</span>, <span class="number">0x62</span>, <span class="number">0x69</span>, <span class="number">0x6d</span>,</span><br><span class="line">     <span class="number">0x55</span>, <span class="number">0x6a</span>, <span class="number">0x7f</span>, <span class="number">0x60</span>, <span class="number">0x51</span>, <span class="number">0x66</span>, <span class="number">0x63</span>, <span class="number">0x4e</span>, <span class="number">0x66</span>, <span class="number">0x7b</span>,</span><br><span class="line">     <span class="number">0x71</span>, <span class="number">0x4a</span>, <span class="number">0x74</span>, <span class="number">0x76</span>, <span class="number">0x6b</span>, <span class="number">0x70</span>, <span class="number">0x79</span>, <span class="number">0x66</span>, <span class="number">0x1c</span>]</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(s)):</span><br><span class="line">    s[i] ^= i</span><br><span class="line"></span><br><span class="line">out = <span class="string">&#x27;&#x27;</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="built_in">len</span>(s)):</span><br><span class="line">    out += <span class="built_in">chr</span>(s[i])</span><br><span class="line"></span><br><span class="line"><span class="built_in">print</span>(out)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">s = [<span class="hljs-number">0x0</span>, <span class="hljs-number">0x67</span>, <span class="hljs-number">0x6e</span>, <span class="hljs-number">0x62</span>, <span class="hljs-number">0x63</span>, <span class="hljs-number">0x7e</span>, <span class="hljs-number">0x74</span>, <span class="hljs-number">0x62</span>, <span class="hljs-number">0x69</span>, <span class="hljs-number">0x6d</span>,</span><br><span class="line">     <span class="hljs-number">0x55</span>, <span class="hljs-number">0x6a</span>, <span class="hljs-number">0x7f</span>, <span class="hljs-number">0x60</span>, <span class="hljs-number">0x51</span>, <span class="hljs-number">0x66</span>, <span class="hljs-number">0x63</span>, <span class="hljs-number">0x4e</span>, <span class="hljs-number">0x66</span>, <span class="hljs-number">0x7b</span>,</span><br><span class="line">     <span class="hljs-number">0x71</span>, <span class="hljs-number">0x4a</span>, <span class="hljs-number">0x74</span>, <span class="hljs-number">0x76</span>, <span class="hljs-number">0x6b</span>, <span class="hljs-number">0x70</span>, <span class="hljs-number">0x79</span>, <span class="hljs-number">0x66</span>, <span class="hljs-number">0x1c</span>]</span><br><span class="line"><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(s)):</span><br><span class="line">    s[i] ^= i</span><br><span class="line"></span><br><span class="line">out = <span class="hljs-string">''</span></span><br><span class="line"><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-built_in">len</span>(s)):</span><br><span class="line">    out += <span class="hljs-built_in">chr</span>(s[i])</span><br><span class="line"></span><br><span class="line"><span class="hljs-built_in">print</span>(out)</span><br></pre></td></tr></tbody></table></figure>
 
 <p>输出flag为：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flag&#123;read_asm_is_the_basic&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flag{read_asm_is_the_basic}</span><br></pre></td></tr></tbody></table></figure>
 
 <h4 id="Py交易"><a href="#Py交易" class="headerlink" title="Py交易"></a>Py交易</h4><p>本题是python的反编译，使用在线工具或uncompyle6将pyc文件反编译，得到代码</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> base64</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">encode</span>(<span class="params">message</span>):</span></span><br><span class="line">    s = <span class="string">&#x27;&#x27;</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> message:</span><br><span class="line">        x = <span class="built_in">ord</span>(i) ^ <span class="number">32</span></span><br><span class="line">        x = x + <span class="number">16</span></span><br><span class="line">        s += <span class="built_in">chr</span>(x)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> base64.b64encode(s)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">correct = <span class="string">&#x27;XlNkVmtUI1MgXWBZXCFeKY+AaXNt&#x27;</span></span><br><span class="line">flag = <span class="string">&#x27;&#x27;</span></span><br><span class="line"><span class="built_in">print</span> <span class="string">&#x27;Input flag:&#x27;</span></span><br><span class="line">flag = raw_input()</span><br><span class="line"><span class="keyword">if</span> encode(flag) == correct:</span><br><span class="line">    <span class="built_in">print</span> <span class="string">&#x27;correct&#x27;</span></span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="built_in">print</span> <span class="string">&#x27;wrong&#x27;</span></span><br><span class="line"><span class="keyword">import</span> base64</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">encode</span>(<span class="params">message</span>):</span></span><br><span class="line">    s = <span class="string">&#x27;&#x27;</span></span><br><span class="line">    <span class="keyword">for</span> i <span class="keyword">in</span> message:</span><br><span class="line">        x = <span class="built_in">ord</span>(i) ^ <span class="number">32</span></span><br><span class="line">        x = x + <span class="number">16</span></span><br><span class="line">        s += <span class="built_in">chr</span>(x)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> base64.b64encode(s)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">correct = <span class="string">&#x27;XlNkVmtUI1MgXWBZXCFeKY+AaXNt&#x27;</span></span><br><span class="line">flag = <span class="string">&#x27;&#x27;</span></span><br><span class="line"><span class="built_in">print</span> <span class="string">&#x27;Input flag:&#x27;</span></span><br><span class="line">flag = raw_input()</span><br><span class="line"><span class="keyword">if</span> encode(flag) == correct:</span><br><span class="line">    <span class="built_in">print</span> <span class="string">&#x27;correct&#x27;</span></span><br><span class="line"><span class="keyword">else</span>:</span><br><span class="line">    <span class="built_in">print</span> <span class="string">&#x27;wrong&#x27;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight python hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">import</span> base64</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">encode</span>(<span class="hljs-params">message</span>):</span></span><br><span class="line">    s = <span class="hljs-string">''</span></span><br><span class="line">    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> message:</span><br><span class="line">        x = <span class="hljs-built_in">ord</span>(i) ^ <span class="hljs-number">32</span></span><br><span class="line">        x = x + <span class="hljs-number">16</span></span><br><span class="line">        s += <span class="hljs-built_in">chr</span>(x)</span><br><span class="line"></span><br><span class="line">    <span class="hljs-keyword">return</span> base64.b64encode(s)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">correct = <span class="hljs-string">'XlNkVmtUI1MgXWBZXCFeKY+AaXNt'</span></span><br><span class="line">flag = <span class="hljs-string">''</span></span><br><span class="line"><span class="hljs-built_in">print</span> <span class="hljs-string">'Input flag:'</span></span><br><span class="line">flag = raw_input()</span><br><span class="line"><span class="hljs-keyword">if</span> encode(flag) == correct:</span><br><span class="line">    <span class="hljs-built_in">print</span> <span class="hljs-string">'correct'</span></span><br><span class="line"><span class="hljs-keyword">else</span>:</span><br><span class="line">    <span class="hljs-built_in">print</span> <span class="hljs-string">'wrong'</span></span><br><span class="line"><span class="hljs-keyword">import</span> base64</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">def</span> <span class="hljs-title">encode</span>(<span class="hljs-params">message</span>):</span></span><br><span class="line">    s = <span class="hljs-string">''</span></span><br><span class="line">    <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> message:</span><br><span class="line">        x = <span class="hljs-built_in">ord</span>(i) ^ <span class="hljs-number">32</span></span><br><span class="line">        x = x + <span class="hljs-number">16</span></span><br><span class="line">        s += <span class="hljs-built_in">chr</span>(x)</span><br><span class="line"></span><br><span class="line">    <span class="hljs-keyword">return</span> base64.b64encode(s)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">correct = <span class="hljs-string">'XlNkVmtUI1MgXWBZXCFeKY+AaXNt'</span></span><br><span class="line">flag = <span class="hljs-string">''</span></span><br><span class="line"><span class="hljs-built_in">print</span> <span class="hljs-string">'Input flag:'</span></span><br><span class="line">flag = raw_input()</span><br><span class="line"><span class="hljs-keyword">if</span> encode(flag) == correct:</span><br><span class="line">    <span class="hljs-built_in">print</span> <span class="hljs-string">'correct'</span></span><br><span class="line"><span class="hljs-keyword">else</span>:</span><br><span class="line">    <span class="hljs-built_in">print</span> <span class="hljs-string">'wrong'</span></span><br></pre></td></tr></tbody></table></figure>
 
 <p>研究代码，发现我们只要将correct逆向解密，就可以得到正确的flag，所以得到如下exp：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> base64</span><br><span class="line"></span><br><span class="line">correct = <span class="string">&#x27;XlNkVmtUI1MgXWBZXCFeKY+AaXNt&#x27;</span></span><br><span class="line">correct = <span class="built_in">str</span>(base64.b64decode(correct))  <span class="comment"># ^SdVkT#S ]`Y\\!^)\x8f\x80ism</span></span><br><span class="line"><span class="comment"># print(correct)</span></span><br><span class="line">correct = <span class="string">&#x27;^SdVkT#S ]`Y\\!^)\x8f\x80ism&#x27;</span></span><br><span class="line">flag = <span class="string">&#x27;&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> s <span class="keyword">in</span> correct:</span><br><span class="line">    x = <span class="built_in">ord</span>(s)</span><br><span class="line">    x -= <span class="number">16</span></span><br><span class="line">    i = <span class="built_in">chr</span>(x ^ <span class="number">32</span>)</span><br><span class="line">    flag += i</span><br><span class="line"><span class="built_in">print</span>(flag)</span><br></pre></td></tr></table></figure>
+<figure class="highlight python hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">import</span> base64</span><br><span class="line"></span><br><span class="line">correct = <span class="hljs-string">'XlNkVmtUI1MgXWBZXCFeKY+AaXNt'</span></span><br><span class="line">correct = <span class="hljs-built_in">str</span>(base64.b64decode(correct))  <span class="hljs-comment"># ^SdVkT#S ]`Y\\!^)\x8f\x80ism</span></span><br><span class="line"><span class="hljs-comment"># print(correct)</span></span><br><span class="line">correct = <span class="hljs-string">'^SdVkT#S ]`Y\\!^)\x8f\x80ism'</span></span><br><span class="line">flag = <span class="hljs-string">''</span></span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">for</span> s <span class="hljs-keyword">in</span> correct:</span><br><span class="line">    x = <span class="hljs-built_in">ord</span>(s)</span><br><span class="line">    x -= <span class="hljs-number">16</span></span><br><span class="line">    i = <span class="hljs-built_in">chr</span>(x ^ <span class="hljs-number">32</span>)</span><br><span class="line">    flag += i</span><br><span class="line"><span class="hljs-built_in">print</span>(flag)</span><br></pre></td></tr></tbody></table></figure>
 
 <p>输出flag为：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nctf&#123;d3c0mpil1n9_PyC&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nctf{d3c0mpil1n9_PyC}</span><br></pre></td></tr></tbody></table></figure>
 
 <h4 id="WxyVM"><a href="#WxyVM" class="headerlink" title="WxyVM"></a>WxyVM</h4><p>下载下来不知道是什么文件，记事本打开，开头ELF，所以直接拖进IDA反编译，main函数如下：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">__int64 __fastcall <span class="title">main</span><span class="params">(__int64 a1, <span class="keyword">char</span> **a2, <span class="keyword">char</span> **a3)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">char</span> v4; <span class="comment">// [rsp+Bh] [rbp-5h]</span></span><br><span class="line">  <span class="keyword">signed</span> <span class="keyword">int</span> i; <span class="comment">// [rsp+Ch] [rbp-4h]</span></span><br><span class="line"></span><br><span class="line">  <span class="built_in">puts</span>(<span class="string">&quot;[WxyVM 0.0.1]&quot;</span>);</span><br><span class="line">  <span class="built_in">puts</span>(<span class="string">&quot;input your flag:&quot;</span>);</span><br><span class="line">  <span class="built_in">scanf</span>(<span class="string">&quot;%s&quot;</span>, &amp;byte_604B80);</span><br><span class="line">  v4 = <span class="number">1</span>;</span><br><span class="line">  <span class="built_in">sub_4005B6</span>();</span><br><span class="line">  <span class="keyword">if</span> ( <span class="built_in">strlen</span>(&amp;byte_604B80) != <span class="number">24</span> )</span><br><span class="line">    v4 = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span> ( i = <span class="number">0</span>; i &lt;= <span class="number">23</span>; ++i )</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">if</span> ( *(&amp;byte_604B80 + i) != dword_601060[i] )</span><br><span class="line">      v4 = <span class="number">0</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> ( v4 )</span><br><span class="line">    <span class="built_in">puts</span>(<span class="string">&quot;correct&quot;</span>);</span><br><span class="line">  <span class="keyword">else</span></span><br><span class="line">    <span class="built_in">puts</span>(<span class="string">&quot;wrong&quot;</span>);</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0LL</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++ hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function">__int64 __fastcall <span class="hljs-title">main</span><span class="hljs-params">(__int64 a1, <span class="hljs-keyword">char</span> **a2, <span class="hljs-keyword">char</span> **a3)</span></span></span><br><span class="line"><span class="hljs-function"></span>{</span><br><span class="line">  <span class="hljs-keyword">char</span> v4; <span class="hljs-comment">// [rsp+Bh] [rbp-5h]</span></span><br><span class="line">  <span class="hljs-keyword">signed</span> <span class="hljs-keyword">int</span> i; <span class="hljs-comment">// [rsp+Ch] [rbp-4h]</span></span><br><span class="line"></span><br><span class="line">  <span class="hljs-built_in">puts</span>(<span class="hljs-string">"[WxyVM 0.0.1]"</span>);</span><br><span class="line">  <span class="hljs-built_in">puts</span>(<span class="hljs-string">"input your flag:"</span>);</span><br><span class="line">  <span class="hljs-built_in">scanf</span>(<span class="hljs-string">"%s"</span>, &amp;byte_604B80);</span><br><span class="line">  v4 = <span class="hljs-number">1</span>;</span><br><span class="line">  <span class="hljs-built_in">sub_4005B6</span>();</span><br><span class="line">  <span class="hljs-keyword">if</span> ( <span class="hljs-built_in">strlen</span>(&amp;byte_604B80) != <span class="hljs-number">24</span> )</span><br><span class="line">    v4 = <span class="hljs-number">0</span>;</span><br><span class="line">  <span class="hljs-keyword">for</span> ( i = <span class="hljs-number">0</span>; i &lt;= <span class="hljs-number">23</span>; ++i )</span><br><span class="line">  {</span><br><span class="line">    <span class="hljs-keyword">if</span> ( *(&amp;byte_604B80 + i) != dword_601060[i] )</span><br><span class="line">      v4 = <span class="hljs-number">0</span>;</span><br><span class="line">  }</span><br><span class="line">  <span class="hljs-keyword">if</span> ( v4 )</span><br><span class="line">    <span class="hljs-built_in">puts</span>(<span class="hljs-string">"correct"</span>);</span><br><span class="line">  <span class="hljs-keyword">else</span></span><br><span class="line">    <span class="hljs-built_in">puts</span>(<span class="hljs-string">"wrong"</span>);</span><br><span class="line">  <span class="hljs-keyword">return</span> <span class="hljs-number">0LL</span>;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 
 <p>一开始认为需要输入一个24位的flag，然后和dword_601060每一位都相等即可，但是中间的sub_4005B6()函数对我们输入的flag还进行了一些变换，所以需要把dword_601060对应的进行反变换才能得到应该输入的正确的flag</p>
 <p>sub_4005B6()函数如下：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">__int64 <span class="title">sub_4005B6</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="keyword">unsigned</span> <span class="keyword">int</span> v0; <span class="comment">// ST04_4</span></span><br><span class="line">  __int64 result; <span class="comment">// rax</span></span><br><span class="line">  <span class="keyword">signed</span> <span class="keyword">int</span> i; <span class="comment">// [rsp+0h] [rbp-10h]</span></span><br><span class="line">  <span class="keyword">char</span> v3; <span class="comment">// [rsp+8h] [rbp-8h]</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">for</span> ( i = <span class="number">0</span>; i &lt;= <span class="number">14999</span>; i += <span class="number">3</span> )</span><br><span class="line">  &#123;</span><br><span class="line">    v0 = byte_6010C0[i];</span><br><span class="line">    v3 = byte_6010C0[i + <span class="number">2</span>];</span><br><span class="line">    result = v0;</span><br><span class="line">    <span class="built_in"><span class="keyword">switch</span></span> ( v0 )</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="keyword">case</span> <span class="number">1u</span>:</span><br><span class="line">        result = byte_6010C0[i + <span class="number">1</span>];</span><br><span class="line">        *(&amp;byte_604B80 + result) += v3;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      <span class="keyword">case</span> <span class="number">2u</span>:</span><br><span class="line">        result = byte_6010C0[i + <span class="number">1</span>];</span><br><span class="line">        *(&amp;byte_604B80 + result) -= v3;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      <span class="keyword">case</span> <span class="number">3u</span>:</span><br><span class="line">        result = byte_6010C0[i + <span class="number">1</span>];</span><br><span class="line">        *(&amp;byte_604B80 + result) ^= v3;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      <span class="keyword">case</span> <span class="number">4u</span>:</span><br><span class="line">        result = byte_6010C0[i + <span class="number">1</span>];</span><br><span class="line">        *(&amp;byte_604B80 + result) *= v3;</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      <span class="keyword">case</span> <span class="number">5u</span>:</span><br><span class="line">        result = byte_6010C0[i + <span class="number">1</span>];</span><br><span class="line">        *(&amp;byte_604B80 + result) ^= *(&amp;byte_604B80 + byte_6010C0[i + <span class="number">2</span>]);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">      <span class="keyword">default</span>:</span><br><span class="line">        <span class="keyword">continue</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++ hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function">__int64 <span class="hljs-title">sub_4005B6</span><span class="hljs-params">()</span></span></span><br><span class="line"><span class="hljs-function"></span>{</span><br><span class="line">  <span class="hljs-keyword">unsigned</span> <span class="hljs-keyword">int</span> v0; <span class="hljs-comment">// ST04_4</span></span><br><span class="line">  __int64 result; <span class="hljs-comment">// rax</span></span><br><span class="line">  <span class="hljs-keyword">signed</span> <span class="hljs-keyword">int</span> i; <span class="hljs-comment">// [rsp+0h] [rbp-10h]</span></span><br><span class="line">  <span class="hljs-keyword">char</span> v3; <span class="hljs-comment">// [rsp+8h] [rbp-8h]</span></span><br><span class="line"></span><br><span class="line">  <span class="hljs-keyword">for</span> ( i = <span class="hljs-number">0</span>; i &lt;= <span class="hljs-number">14999</span>; i += <span class="hljs-number">3</span> )</span><br><span class="line">  {</span><br><span class="line">    v0 = byte_6010C0[i];</span><br><span class="line">    v3 = byte_6010C0[i + <span class="hljs-number">2</span>];</span><br><span class="line">    result = v0;</span><br><span class="line">    <span class="hljs-built_in"><span class="hljs-keyword">switch</span></span> ( v0 )</span><br><span class="line">    {</span><br><span class="line">      <span class="hljs-keyword">case</span> <span class="hljs-number">1u</span>:</span><br><span class="line">        result = byte_6010C0[i + <span class="hljs-number">1</span>];</span><br><span class="line">        *(&amp;byte_604B80 + result) += v3;</span><br><span class="line">        <span class="hljs-keyword">break</span>;</span><br><span class="line">      <span class="hljs-keyword">case</span> <span class="hljs-number">2u</span>:</span><br><span class="line">        result = byte_6010C0[i + <span class="hljs-number">1</span>];</span><br><span class="line">        *(&amp;byte_604B80 + result) -= v3;</span><br><span class="line">        <span class="hljs-keyword">break</span>;</span><br><span class="line">      <span class="hljs-keyword">case</span> <span class="hljs-number">3u</span>:</span><br><span class="line">        result = byte_6010C0[i + <span class="hljs-number">1</span>];</span><br><span class="line">        *(&amp;byte_604B80 + result) ^= v3;</span><br><span class="line">        <span class="hljs-keyword">break</span>;</span><br><span class="line">      <span class="hljs-keyword">case</span> <span class="hljs-number">4u</span>:</span><br><span class="line">        result = byte_6010C0[i + <span class="hljs-number">1</span>];</span><br><span class="line">        *(&amp;byte_604B80 + result) *= v3;</span><br><span class="line">        <span class="hljs-keyword">break</span>;</span><br><span class="line">      <span class="hljs-keyword">case</span> <span class="hljs-number">5u</span>:</span><br><span class="line">        result = byte_6010C0[i + <span class="hljs-number">1</span>];</span><br><span class="line">        *(&amp;byte_604B80 + result) ^= *(&amp;byte_604B80 + byte_6010C0[i + <span class="hljs-number">2</span>]);</span><br><span class="line">        <span class="hljs-keyword">break</span>;</span><br><span class="line">      <span class="hljs-keyword">default</span>:</span><br><span class="line">        <span class="hljs-keyword">continue</span>;</span><br><span class="line">    }</span><br><span class="line">  }</span><br><span class="line">  <span class="hljs-keyword">return</span> result;</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
 
 <p>用IDA将byte_6010C0导出，用python进行逆向处理</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">s = [<span class="number">0xc4</span>, <span class="number">0x34</span>, <span class="number">0x22</span>, <span class="number">0xb1</span>, <span class="number">0xd3</span>, <span class="number">0x11</span>, <span class="number">0x97</span>, <span class="number">0x7</span>, <span class="number">0xdb</span>, <span class="number">0x37</span>, <span class="number">0xc4</span>, <span class="number">0x6</span>, <span class="number">0x1d</span>, <span class="number">0xfc</span>, <span class="number">0x5b</span>, <span class="number">0xed</span>, <span class="number">0x98</span>, <span class="number">0xdf</span>, <span class="number">0x94</span>,<span class="number">0xd8</span>, <span class="number">0xb3</span>, <span class="number">0x84</span>, <span class="number">0xcc</span>, <span class="number">0x8</span>]</span><br><span class="line"><span class="comment"># dword与char比较，只取最后一位一个字节</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;export_results.txt&#x27;</span>) <span class="keyword">as</span> f: <span class="comment">#文件里是导出的byte_6010C0</span></span><br><span class="line">    t = f.read().split(<span class="string">&#x27; &#x27;</span>)</span><br><span class="line"><span class="comment"># print(len(t))</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">5000</span>):</span><br><span class="line">    v0 = <span class="built_in">int</span>(t[<span class="number">3</span> * (<span class="number">4999</span> - i)], <span class="number">16</span>)</span><br><span class="line">    v3 = <span class="built_in">int</span>(t[<span class="number">3</span> * (<span class="number">4999</span> - i) + <span class="number">2</span>], <span class="number">16</span>)</span><br><span class="line">    result = <span class="built_in">int</span>(t[<span class="number">3</span> * (<span class="number">4999</span> - i) + <span class="number">1</span>], <span class="number">16</span>)</span><br><span class="line">    <span class="keyword">if</span> v0 == <span class="number">1</span>:</span><br><span class="line">        s[result] -= v3</span><br><span class="line">    <span class="keyword">elif</span> v0 == <span class="number">2</span>:</span><br><span class="line">        s[result] += v3</span><br><span class="line">    <span class="keyword">elif</span> v0 == <span class="number">3</span>:</span><br><span class="line">        s[result] ^= v3</span><br><span class="line">    <span class="keyword">elif</span> v0 == <span class="number">4</span>:</span><br><span class="line">        s[result] /= v3</span><br><span class="line">    <span class="keyword">elif</span> v0 == <span class="number">5</span>:</span><br><span class="line">        s[result] ^= s[v3]</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        <span class="keyword">continue</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;&#x27;</span>.join([<span class="built_in">str</span>(<span class="built_in">chr</span>(<span class="built_in">int</span>(i) % <span class="number">128</span>)) <span class="keyword">for</span> i <span class="keyword">in</span> s]))</span><br></pre></td></tr></table></figure>
+<figure class="highlight python hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">s = [<span class="hljs-number">0xc4</span>, <span class="hljs-number">0x34</span>, <span class="hljs-number">0x22</span>, <span class="hljs-number">0xb1</span>, <span class="hljs-number">0xd3</span>, <span class="hljs-number">0x11</span>, <span class="hljs-number">0x97</span>, <span class="hljs-number">0x7</span>, <span class="hljs-number">0xdb</span>, <span class="hljs-number">0x37</span>, <span class="hljs-number">0xc4</span>, <span class="hljs-number">0x6</span>, <span class="hljs-number">0x1d</span>, <span class="hljs-number">0xfc</span>, <span class="hljs-number">0x5b</span>, <span class="hljs-number">0xed</span>, <span class="hljs-number">0x98</span>, <span class="hljs-number">0xdf</span>, <span class="hljs-number">0x94</span>,<span class="hljs-number">0xd8</span>, <span class="hljs-number">0xb3</span>, <span class="hljs-number">0x84</span>, <span class="hljs-number">0xcc</span>, <span class="hljs-number">0x8</span>]</span><br><span class="line"><span class="hljs-comment"># dword与char比较，只取最后一位一个字节</span></span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">'export_results.txt'</span>) <span class="hljs-keyword">as</span> f: <span class="hljs-comment">#文件里是导出的byte_6010C0</span></span><br><span class="line">    t = f.read().split(<span class="hljs-string">' '</span>)</span><br><span class="line"><span class="hljs-comment"># print(len(t))</span></span><br><span class="line"><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">5000</span>):</span><br><span class="line">    v0 = <span class="hljs-built_in">int</span>(t[<span class="hljs-number">3</span> * (<span class="hljs-number">4999</span> - i)], <span class="hljs-number">16</span>)</span><br><span class="line">    v3 = <span class="hljs-built_in">int</span>(t[<span class="hljs-number">3</span> * (<span class="hljs-number">4999</span> - i) + <span class="hljs-number">2</span>], <span class="hljs-number">16</span>)</span><br><span class="line">    result = <span class="hljs-built_in">int</span>(t[<span class="hljs-number">3</span> * (<span class="hljs-number">4999</span> - i) + <span class="hljs-number">1</span>], <span class="hljs-number">16</span>)</span><br><span class="line">    <span class="hljs-keyword">if</span> v0 == <span class="hljs-number">1</span>:</span><br><span class="line">        s[result] -= v3</span><br><span class="line">    <span class="hljs-keyword">elif</span> v0 == <span class="hljs-number">2</span>:</span><br><span class="line">        s[result] += v3</span><br><span class="line">    <span class="hljs-keyword">elif</span> v0 == <span class="hljs-number">3</span>:</span><br><span class="line">        s[result] ^= v3</span><br><span class="line">    <span class="hljs-keyword">elif</span> v0 == <span class="hljs-number">4</span>:</span><br><span class="line">        s[result] /= v3</span><br><span class="line">    <span class="hljs-keyword">elif</span> v0 == <span class="hljs-number">5</span>:</span><br><span class="line">        s[result] ^= s[v3]</span><br><span class="line">    <span class="hljs-keyword">else</span>:</span><br><span class="line">        <span class="hljs-keyword">continue</span></span><br><span class="line"><span class="hljs-built_in">print</span>(<span class="hljs-string">''</span>.join([<span class="hljs-built_in">str</span>(<span class="hljs-built_in">chr</span>(<span class="hljs-built_in">int</span>(i) % <span class="hljs-number">128</span>)) <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> s]))</span><br></pre></td></tr></tbody></table></figure>
 
 <p>这里有两件事需要注意，第一是dword只需要取最后一个字节，第二是逆运算时要从最后三位向前计算，最后输出flag: </p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nctf&#123;Embr4ce_Vm_j0in_R3&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nctf{Embr4ce_Vm_j0in_R3}</span><br></pre></td></tr></tbody></table></figure>
 
 <h4 id="maze"><a href="#maze" class="headerlink" title="maze"></a>maze</h4><p>极其无聊的迷宫题……</p>
 <p>找到地图、起点终点和上下左右分别对应的键就可以了</p>
-<figure class="highlight apache"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attribute">nctf</span>&#123;o<span class="number">0</span>oo<span class="number">00</span>O<span class="number">000</span>oooo..OO&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight apache hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-attribute">nctf</span>{o<span class="hljs-number">0</span>oo<span class="hljs-number">00</span>O<span class="hljs-number">000</span>oooo..OO}</span><br></pre></td></tr></tbody></table></figure>
 
 
 
 <h4 id="WxyVM2"><a href="#WxyVM2" class="headerlink" title="WxyVM2"></a>WxyVM2</h4><p>拖进IDA反编译，发现函数非常大，操作特别多，但是仔细看发现最后要验证的都是byte类型，所有对dword的操作都是无效的，所以把所有操作拷贝到文件(export_results.txt)中，先进行过滤操作，过滤出需要的操作,最后的验证过程如下：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span> ( i = <span class="number">0</span>; i &lt;= <span class="number">24</span>; ++i )</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">if</span> ( *(&amp;byte_694100 + i) != dword_694060[i] )</span><br><span class="line">      v4 = <span class="number">0</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">if</span> ( v4 )</span><br><span class="line">    <span class="built_in">puts</span>(<span class="string">&quot;correct&quot;</span>);</span><br><span class="line">  <span class="keyword">else</span></span><br><span class="line">    <span class="built_in">puts</span>(<span class="string">&quot;wrong&quot;</span>);</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0LL</span>;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++ hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">for</span> ( i = <span class="hljs-number">0</span>; i &lt;= <span class="hljs-number">24</span>; ++i )</span><br><span class="line">  {</span><br><span class="line">    <span class="hljs-keyword">if</span> ( *(&amp;byte_694100 + i) != dword_694060[i] )</span><br><span class="line">      v4 = <span class="hljs-number">0</span>;</span><br><span class="line">  }</span><br><span class="line">  <span class="hljs-keyword">if</span> ( v4 )</span><br><span class="line">    <span class="hljs-built_in">puts</span>(<span class="hljs-string">"correct"</span>);</span><br><span class="line">  <span class="hljs-keyword">else</span></span><br><span class="line">    <span class="hljs-built_in">puts</span>(<span class="hljs-string">"wrong"</span>);</span><br><span class="line">  <span class="hljs-keyword">return</span> <span class="hljs-number">0LL</span>;</span><br></pre></td></tr></tbody></table></figure>
 
 <p>所以操作之后的数组和dword_694060数组的每个数的最后一位相同，将数组导出，进行逆运算得到原来输入的flag，python代码如下：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> re</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;export_results.txt&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">    s = <span class="string">&#x27;&#x27;</span></span><br><span class="line">    a = f.readline()</span><br><span class="line">    <span class="keyword">while</span> a:</span><br><span class="line">        <span class="keyword">if</span> re.match(<span class="string">r&#x27;(.*)byte_6941(.*);&#x27;</span>, a):</span><br><span class="line">            s += a</span><br><span class="line">        a = f.readline()</span><br><span class="line">    <span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;s.txt&#x27;</span>, <span class="string">&#x27;w+&#x27;</span>) <span class="keyword">as</span> ff:</span><br><span class="line">        s = s.split(<span class="string">&#x27;\n&#x27;</span>)</span><br><span class="line">        n = <span class="built_in">len</span>(s)</span><br><span class="line">        <span class="comment"># print(len(s))</span></span><br><span class="line">        <span class="comment"># print(s)</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(n):</span><br><span class="line">            ff.write(s[n - <span class="number">1</span> - i].strip() + <span class="string">&#x27;\n&#x27;</span>)</span><br><span class="line"></span><br><span class="line">ss = [<span class="number">0xC0</span>, <span class="number">0x85</span>, <span class="number">0xF9</span>, <span class="number">0x6C</span>, <span class="number">0xE2</span>, <span class="number">0x14</span>, <span class="number">0xBB</span>, <span class="number">0xe4</span>, <span class="number">0xd</span>, <span class="number">0x59</span>, <span class="number">0x1c</span>, <span class="number">0x23</span>, <span class="number">0x88</span>, <span class="number">0x6e</span>, <span class="number">0x9b</span>, <span class="number">0xca</span>, <span class="number">0xba</span>, <span class="number">0x5c</span>, <span class="number">0x37</span>,</span><br><span class="line">      <span class="number">0xfff</span>, <span class="number">0x48</span>, <span class="number">0xd8</span>, <span class="number">0x1f</span>, <span class="number">0xab</span>, <span class="number">0xa5</span>]</span><br><span class="line"></span><br><span class="line"><span class="keyword">with</span> <span class="built_in">open</span>(<span class="string">&#x27;s.txt&#x27;</span>) <span class="keyword">as</span> f:</span><br><span class="line">    a = f.readline()</span><br><span class="line">    <span class="keyword">while</span> a:</span><br><span class="line">        <span class="comment"># print(re.match(r&#x27;(.*)byte_6941(.*);&#x27;, a).groups())</span></span><br><span class="line">        <span class="keyword">if</span> <span class="keyword">not</span> re.match(<span class="string">r&#x27;(.*)byte_6941(.*);&#x27;</span>, a).group(<span class="number">1</span>).strip():</span><br><span class="line">            s = re.match(<span class="string">r&#x27;(.*)byte_6941(.*);&#x27;</span>, a).group(<span class="number">2</span>).split(<span class="string">&#x27; &#x27;</span>)</span><br><span class="line">            <span class="comment"># print(s)</span></span><br><span class="line">            i = <span class="built_in">int</span>(s[<span class="number">0</span>], <span class="number">16</span>)</span><br><span class="line">            <span class="comment"># print(i)</span></span><br><span class="line">            i1 = <span class="built_in">str</span>(ss[i])</span><br><span class="line">            <span class="keyword">if</span> s[<span class="number">1</span>] == <span class="string">&#x27;+=&#x27;</span>:</span><br><span class="line">                sub = <span class="string">&#x27;-&#x27;</span></span><br><span class="line">            <span class="keyword">elif</span> s[<span class="number">1</span>] == <span class="string">&#x27;-=&#x27;</span>:</span><br><span class="line">                sub = <span class="string">&#x27;+&#x27;</span></span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                sub = <span class="string">&#x27;^&#x27;</span></span><br><span class="line"></span><br><span class="line">            <span class="keyword">if</span> re.match(<span class="string">r&#x27;(.*)u&#x27;</span>, s[<span class="number">2</span>]):</span><br><span class="line">                s2 = re.match(<span class="string">r&#x27;(.*)u&#x27;</span>, s[<span class="number">2</span>]).group(<span class="number">1</span>)</span><br><span class="line">            <span class="keyword">else</span>:</span><br><span class="line">                s2 = s[<span class="number">2</span>]</span><br><span class="line">            exp = i1 + sub + s2</span><br><span class="line">            ss[i] = <span class="built_in">eval</span>(exp) % <span class="number">128</span></span><br><span class="line">        <span class="keyword">else</span>:</span><br><span class="line">            s = re.match(<span class="string">r&#x27;(.*)byte_6941(.*);&#x27;</span>, a).group(<span class="number">2</span>).split(<span class="string">&#x27; &#x27;</span>)</span><br><span class="line">            <span class="comment"># print(s)</span></span><br><span class="line">            i = <span class="built_in">int</span>(s[<span class="number">0</span>], <span class="number">16</span>)</span><br><span class="line">            <span class="comment"># print(i)</span></span><br><span class="line">            i1 = <span class="built_in">str</span>(ss[i])</span><br><span class="line">            <span class="keyword">if</span> re.match(<span class="string">r&#x27;(.*)byte_6941(.*);&#x27;</span>, a).group(<span class="number">1</span>).strip() == <span class="string">&#x27;++&#x27;</span>:</span><br><span class="line">                sub = <span class="string">&#x27;-&#x27;</span></span><br><span class="line">            <span class="keyword">if</span> re.match(<span class="string">r&#x27;(.*)byte_6941(.*);&#x27;</span>, a).group(<span class="number">1</span>).strip() == <span class="string">&#x27;--&#x27;</span>:</span><br><span class="line">                sub = <span class="string">&#x27;+&#x27;</span></span><br><span class="line">            exp = i1 + sub + <span class="string">&#x27;1&#x27;</span></span><br><span class="line">            ss[i] = <span class="built_in">eval</span>(exp) % <span class="number">128</span></span><br><span class="line">        a = f.readline()</span><br><span class="line">    <span class="comment"># print(ss)</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;&#x27;</span>.join([<span class="built_in">str</span>(<span class="built_in">chr</span>(i % <span class="number">128</span>)) <span class="keyword">for</span> i <span class="keyword">in</span> ss]))</span><br></pre></td></tr></table></figure>
+<figure class="highlight python hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">import</span> re</span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">'export_results.txt'</span>) <span class="hljs-keyword">as</span> f:</span><br><span class="line">    s = <span class="hljs-string">''</span></span><br><span class="line">    a = f.readline()</span><br><span class="line">    <span class="hljs-keyword">while</span> a:</span><br><span class="line">        <span class="hljs-keyword">if</span> re.match(<span class="hljs-string">r'(.*)byte_6941(.*);'</span>, a):</span><br><span class="line">            s += a</span><br><span class="line">        a = f.readline()</span><br><span class="line">    <span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">'s.txt'</span>, <span class="hljs-string">'w+'</span>) <span class="hljs-keyword">as</span> ff:</span><br><span class="line">        s = s.split(<span class="hljs-string">'\n'</span>)</span><br><span class="line">        n = <span class="hljs-built_in">len</span>(s)</span><br><span class="line">        <span class="hljs-comment"># print(len(s))</span></span><br><span class="line">        <span class="hljs-comment"># print(s)</span></span><br><span class="line">        <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(n):</span><br><span class="line">            ff.write(s[n - <span class="hljs-number">1</span> - i].strip() + <span class="hljs-string">'\n'</span>)</span><br><span class="line"></span><br><span class="line">ss = [<span class="hljs-number">0xC0</span>, <span class="hljs-number">0x85</span>, <span class="hljs-number">0xF9</span>, <span class="hljs-number">0x6C</span>, <span class="hljs-number">0xE2</span>, <span class="hljs-number">0x14</span>, <span class="hljs-number">0xBB</span>, <span class="hljs-number">0xe4</span>, <span class="hljs-number">0xd</span>, <span class="hljs-number">0x59</span>, <span class="hljs-number">0x1c</span>, <span class="hljs-number">0x23</span>, <span class="hljs-number">0x88</span>, <span class="hljs-number">0x6e</span>, <span class="hljs-number">0x9b</span>, <span class="hljs-number">0xca</span>, <span class="hljs-number">0xba</span>, <span class="hljs-number">0x5c</span>, <span class="hljs-number">0x37</span>,</span><br><span class="line">      <span class="hljs-number">0xfff</span>, <span class="hljs-number">0x48</span>, <span class="hljs-number">0xd8</span>, <span class="hljs-number">0x1f</span>, <span class="hljs-number">0xab</span>, <span class="hljs-number">0xa5</span>]</span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">with</span> <span class="hljs-built_in">open</span>(<span class="hljs-string">'s.txt'</span>) <span class="hljs-keyword">as</span> f:</span><br><span class="line">    a = f.readline()</span><br><span class="line">    <span class="hljs-keyword">while</span> a:</span><br><span class="line">        <span class="hljs-comment"># print(re.match(r'(.*)byte_6941(.*);', a).groups())</span></span><br><span class="line">        <span class="hljs-keyword">if</span> <span class="hljs-keyword">not</span> re.match(<span class="hljs-string">r'(.*)byte_6941(.*);'</span>, a).group(<span class="hljs-number">1</span>).strip():</span><br><span class="line">            s = re.match(<span class="hljs-string">r'(.*)byte_6941(.*);'</span>, a).group(<span class="hljs-number">2</span>).split(<span class="hljs-string">' '</span>)</span><br><span class="line">            <span class="hljs-comment"># print(s)</span></span><br><span class="line">            i = <span class="hljs-built_in">int</span>(s[<span class="hljs-number">0</span>], <span class="hljs-number">16</span>)</span><br><span class="line">            <span class="hljs-comment"># print(i)</span></span><br><span class="line">            i1 = <span class="hljs-built_in">str</span>(ss[i])</span><br><span class="line">            <span class="hljs-keyword">if</span> s[<span class="hljs-number">1</span>] == <span class="hljs-string">'+='</span>:</span><br><span class="line">                sub = <span class="hljs-string">'-'</span></span><br><span class="line">            <span class="hljs-keyword">elif</span> s[<span class="hljs-number">1</span>] == <span class="hljs-string">'-='</span>:</span><br><span class="line">                sub = <span class="hljs-string">'+'</span></span><br><span class="line">            <span class="hljs-keyword">else</span>:</span><br><span class="line">                sub = <span class="hljs-string">'^'</span></span><br><span class="line"></span><br><span class="line">            <span class="hljs-keyword">if</span> re.match(<span class="hljs-string">r'(.*)u'</span>, s[<span class="hljs-number">2</span>]):</span><br><span class="line">                s2 = re.match(<span class="hljs-string">r'(.*)u'</span>, s[<span class="hljs-number">2</span>]).group(<span class="hljs-number">1</span>)</span><br><span class="line">            <span class="hljs-keyword">else</span>:</span><br><span class="line">                s2 = s[<span class="hljs-number">2</span>]</span><br><span class="line">            exp = i1 + sub + s2</span><br><span class="line">            ss[i] = <span class="hljs-built_in">eval</span>(exp) % <span class="hljs-number">128</span></span><br><span class="line">        <span class="hljs-keyword">else</span>:</span><br><span class="line">            s = re.match(<span class="hljs-string">r'(.*)byte_6941(.*);'</span>, a).group(<span class="hljs-number">2</span>).split(<span class="hljs-string">' '</span>)</span><br><span class="line">            <span class="hljs-comment"># print(s)</span></span><br><span class="line">            i = <span class="hljs-built_in">int</span>(s[<span class="hljs-number">0</span>], <span class="hljs-number">16</span>)</span><br><span class="line">            <span class="hljs-comment"># print(i)</span></span><br><span class="line">            i1 = <span class="hljs-built_in">str</span>(ss[i])</span><br><span class="line">            <span class="hljs-keyword">if</span> re.match(<span class="hljs-string">r'(.*)byte_6941(.*);'</span>, a).group(<span class="hljs-number">1</span>).strip() == <span class="hljs-string">'++'</span>:</span><br><span class="line">                sub = <span class="hljs-string">'-'</span></span><br><span class="line">            <span class="hljs-keyword">if</span> re.match(<span class="hljs-string">r'(.*)byte_6941(.*);'</span>, a).group(<span class="hljs-number">1</span>).strip() == <span class="hljs-string">'--'</span>:</span><br><span class="line">                sub = <span class="hljs-string">'+'</span></span><br><span class="line">            exp = i1 + sub + <span class="hljs-string">'1'</span></span><br><span class="line">            ss[i] = <span class="hljs-built_in">eval</span>(exp) % <span class="hljs-number">128</span></span><br><span class="line">        a = f.readline()</span><br><span class="line">    <span class="hljs-comment"># print(ss)</span></span><br><span class="line"><span class="hljs-built_in">print</span>(<span class="hljs-string">''</span>.join([<span class="hljs-built_in">str</span>(<span class="hljs-built_in">chr</span>(i % <span class="hljs-number">128</span>)) <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> ss]))</span><br></pre></td></tr></tbody></table></figure>
 
 <p>这里要注意一点，python没有++和–操作，所以直接++和–的传唤算不出正确值，在这里卡了一会儿才发现问题。</p>
 <p>运行程序输出flag：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nctf&#123;th3_vM_w1th0ut_dAta&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nctf{th3_vM_w1th0ut_dAta}</span><br></pre></td></tr></tbody></table></figure>
 
 <h4 id="你大概需要一个优秀的mac"><a href="#你大概需要一个优秀的mac" class="headerlink" title="你大概需要一个优秀的mac"></a>你大概需要一个优秀的mac</h4><p>这是一个macos程序，没法直接打开，所以还是拖进IDA反编译，发现需要输入一个56位的flag，然后经过几个函数处理之后与一个数组进行比较，相同则输入的是正确的flag，所以还是一样进行一个逆运算</p>
 <p>反编译出来的代码如下：</p>
-<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line">  <span class="built_in">scanf</span>(<span class="string">&quot;%s&quot;</span>, &amp;v4);</span><br><span class="line">  <span class="keyword">if</span> ( <span class="built_in">strlen</span>(&amp;v4) != <span class="number">56</span> )</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="built_in">puts</span>((<span class="keyword">const</span> <span class="keyword">char</span> *)err);</span><br><span class="line">    <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">  &#125;</span><br><span class="line">  __strcpy_chk(input, &amp;v4, <span class="number">100LL</span>);</span><br><span class="line">  <span class="built_in">func1</span>((__int64)input);</span><br><span class="line">  <span class="built_in">xfun1</span>();</span><br><span class="line">  <span class="built_in">xfun2</span>();</span><br><span class="line">  <span class="built_in">xfun3</span>();</span><br><span class="line">  <span class="built_in">xfun4</span>();</span><br><span class="line">  <span class="built_in">xfun5</span>();</span><br><span class="line">  <span class="built_in">check</span>();</span><br><span class="line"><span class="comment">//func1</span></span><br><span class="line">  <span class="keyword">for</span> ( i = <span class="number">0</span>; i &lt; <span class="number">57</span>; ++i ) <span class="comment">//这里应该是56？</span></span><br><span class="line">  &#123;</span><br><span class="line">    *(_BYTE *)(a1 + i) ^= <span class="number">0xDE</span>u;</span><br><span class="line">  &#125;</span><br><span class="line"><span class="comment">//xfun1</span></span><br><span class="line">  <span class="keyword">for</span> ( i = <span class="number">0</span>; i &lt; <span class="number">10</span>; ++i )</span><br><span class="line">  &#123;</span><br><span class="line">    input[i] ^= <span class="number">0xAD</span>u;</span><br><span class="line">  &#125;</span><br><span class="line"><span class="comment">//xfun2</span></span><br><span class="line">  <span class="keyword">for</span> ( i = <span class="number">0</span>; i &lt; <span class="number">10</span>; ++i )</span><br><span class="line">  &#123;</span><br><span class="line">    input[i + <span class="number">10</span>] ^= <span class="number">0xBE</span>u;</span><br><span class="line">  &#125;</span><br><span class="line"><span class="comment">//xfun3</span></span><br><span class="line">  <span class="keyword">for</span> ( i = <span class="number">0</span>; i &lt; <span class="number">10</span>; ++i )</span><br><span class="line">  &#123;</span><br><span class="line">    input[i + <span class="number">20</span>] ^= <span class="number">0xEF</span>u;</span><br><span class="line">  &#125;</span><br><span class="line"><span class="comment">//xfun4</span></span><br><span class="line">  <span class="keyword">for</span> ( i = <span class="number">0</span>; i &lt; <span class="number">10</span>; ++i )</span><br><span class="line">  &#123;</span><br><span class="line">    input[i + <span class="number">30</span>] ^= <span class="number">0xAB</span>u;</span><br><span class="line">  &#125;</span><br><span class="line"><span class="comment">//xfun5</span></span><br><span class="line">  <span class="keyword">for</span> ( i = <span class="number">0</span>; i &lt; <span class="number">16</span>; ++i )</span><br><span class="line">  &#123;</span><br><span class="line">    input[i + <span class="number">40</span>] ^= <span class="number">0xEF</span>u;</span><br><span class="line">  &#125;</span><br><span class="line"><span class="comment">//check</span></span><br><span class="line">  <span class="built_in">memcpy</span>(v2, &amp;byte_100000ED0, <span class="number">0xE0</span>uLL);</span><br><span class="line">  <span class="keyword">for</span> ( i = <span class="number">0</span>; i &lt; <span class="number">56</span>; ++i )</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">if</span> ( (<span class="keyword">char</span>)input[i] != v2[i] )</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="built_in">puts</span>((<span class="keyword">const</span> <span class="keyword">char</span> *)err);</span><br><span class="line">      <span class="built_in">exit</span>(<span class="number">0</span>);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight c++ hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line">  <span class="hljs-built_in">scanf</span>(<span class="hljs-string">"%s"</span>, &amp;v4);</span><br><span class="line">  <span class="hljs-keyword">if</span> ( <span class="hljs-built_in">strlen</span>(&amp;v4) != <span class="hljs-number">56</span> )</span><br><span class="line">  {</span><br><span class="line">    <span class="hljs-built_in">puts</span>((<span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span> *)err);</span><br><span class="line">    <span class="hljs-built_in">exit</span>(<span class="hljs-number">0</span>);</span><br><span class="line">  }</span><br><span class="line">  __strcpy_chk(input, &amp;v4, <span class="hljs-number">100LL</span>);</span><br><span class="line">  <span class="hljs-built_in">func1</span>((__int64)input);</span><br><span class="line">  <span class="hljs-built_in">xfun1</span>();</span><br><span class="line">  <span class="hljs-built_in">xfun2</span>();</span><br><span class="line">  <span class="hljs-built_in">xfun3</span>();</span><br><span class="line">  <span class="hljs-built_in">xfun4</span>();</span><br><span class="line">  <span class="hljs-built_in">xfun5</span>();</span><br><span class="line">  <span class="hljs-built_in">check</span>();</span><br><span class="line"><span class="hljs-comment">//func1</span></span><br><span class="line">  <span class="hljs-keyword">for</span> ( i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">57</span>; ++i ) <span class="hljs-comment">//这里应该是56？</span></span><br><span class="line">  {</span><br><span class="line">    *(_BYTE *)(a1 + i) ^= <span class="hljs-number">0xDE</span>u;</span><br><span class="line">  }</span><br><span class="line"><span class="hljs-comment">//xfun1</span></span><br><span class="line">  <span class="hljs-keyword">for</span> ( i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">10</span>; ++i )</span><br><span class="line">  {</span><br><span class="line">    input[i] ^= <span class="hljs-number">0xAD</span>u;</span><br><span class="line">  }</span><br><span class="line"><span class="hljs-comment">//xfun2</span></span><br><span class="line">  <span class="hljs-keyword">for</span> ( i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">10</span>; ++i )</span><br><span class="line">  {</span><br><span class="line">    input[i + <span class="hljs-number">10</span>] ^= <span class="hljs-number">0xBE</span>u;</span><br><span class="line">  }</span><br><span class="line"><span class="hljs-comment">//xfun3</span></span><br><span class="line">  <span class="hljs-keyword">for</span> ( i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">10</span>; ++i )</span><br><span class="line">  {</span><br><span class="line">    input[i + <span class="hljs-number">20</span>] ^= <span class="hljs-number">0xEF</span>u;</span><br><span class="line">  }</span><br><span class="line"><span class="hljs-comment">//xfun4</span></span><br><span class="line">  <span class="hljs-keyword">for</span> ( i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">10</span>; ++i )</span><br><span class="line">  {</span><br><span class="line">    input[i + <span class="hljs-number">30</span>] ^= <span class="hljs-number">0xAB</span>u;</span><br><span class="line">  }</span><br><span class="line"><span class="hljs-comment">//xfun5</span></span><br><span class="line">  <span class="hljs-keyword">for</span> ( i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">16</span>; ++i )</span><br><span class="line">  {</span><br><span class="line">    input[i + <span class="hljs-number">40</span>] ^= <span class="hljs-number">0xEF</span>u;</span><br><span class="line">  }</span><br><span class="line"><span class="hljs-comment">//check</span></span><br><span class="line">  <span class="hljs-built_in">memcpy</span>(v2, &amp;byte_100000ED0, <span class="hljs-number">0xE0</span>uLL);</span><br><span class="line">  <span class="hljs-keyword">for</span> ( i = <span class="hljs-number">0</span>; i &lt; <span class="hljs-number">56</span>; ++i )</span><br><span class="line">  {</span><br><span class="line">    <span class="hljs-keyword">if</span> ( (<span class="hljs-keyword">char</span>)input[i] != v2[i] )</span><br><span class="line">    {</span><br><span class="line">      <span class="hljs-built_in">puts</span>((<span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span> *)err);</span><br><span class="line">      <span class="hljs-built_in">exit</span>(<span class="hljs-number">0</span>);</span><br><span class="line">    }</span><br><span class="line">  }</span><br></pre></td></tr></tbody></table></figure>
 
 <p>所以将byte_100000ED0处的数组导出，进行逆运算，代码如下：</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">s = [<span class="number">0x15</span>, <span class="number">0x1F</span>, <span class="number">0x12</span>, <span class="number">0x14</span>, <span class="number">0x08</span>, <span class="number">0x3A</span>, <span class="number">0x46</span>, <span class="number">0x2C</span>, <span class="number">0x07</span>, <span class="number">0x1B</span>, <span class="number">0x51</span>, <span class="number">0x13</span>, <span class="number">0x3F</span>, <span class="number">0x57</span>, <span class="number">0x08</span>, <span class="number">0x05</span>, <span class="number">0x3F</span>, <span class="number">0x30</span>, <span class="number">0x32</span>,</span><br><span class="line">     <span class="number">0x51</span>, <span class="number">0x52</span>, <span class="number">0x02</span>, <span class="number">0x6E</span>, <span class="number">0x78</span>, <span class="number">0x16</span>, <span class="number">0x7C</span>, <span class="number">0x6E</span>, <span class="number">0x61</span>, <span class="number">0x70</span>, <span class="number">0x48</span>, <span class="number">0x1C</span>, <span class="number">0x3B</span>, <span class="number">0x32</span>, <span class="number">0x2A</span>, <span class="number">0x13</span>, <span class="number">0x45</span>, <span class="number">0x07</span>, <span class="number">0x2A</span>,</span><br><span class="line">     <span class="number">0x18</span>, <span class="number">0x0C</span>, <span class="number">0x6E</span>, <span class="number">0x41</span>, <span class="number">0x70</span>, <span class="number">0x04</span>, <span class="number">0x06</span>, <span class="number">0x6E</span>, <span class="number">0x5C</span>, <span class="number">0x00</span>, <span class="number">0x42</span>, <span class="number">0x45</span>, <span class="number">0x70</span>, <span class="number">0x5A</span>, <span class="number">0x02</span>, <span class="number">0x04</span>, <span class="number">0x0E</span>, <span class="number">0x4C</span>]</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">10</span>):</span><br><span class="line">    s[i]^=<span class="number">0xAD</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">10</span>,<span class="number">20</span>):</span><br><span class="line">    s[i]^=<span class="number">0xBE</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">20</span>,<span class="number">30</span>):</span><br><span class="line">    s[i]^=<span class="number">0xEF</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">30</span>,<span class="number">40</span>):</span><br><span class="line">    s[i]^=<span class="number">0xAB</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">40</span>,<span class="number">56</span>):</span><br><span class="line">    s[i]^=<span class="number">0xEF</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">56</span>):</span><br><span class="line">    s[i]^=<span class="number">0xDE</span></span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;&#x27;</span>.join([<span class="built_in">str</span>(<span class="built_in">chr</span>(i%<span class="number">128</span>)) <span class="keyword">for</span> i <span class="keyword">in</span> s]))</span><br></pre></td></tr></table></figure>
+<figure class="highlight python hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">s = [<span class="hljs-number">0x15</span>, <span class="hljs-number">0x1F</span>, <span class="hljs-number">0x12</span>, <span class="hljs-number">0x14</span>, <span class="hljs-number">0x08</span>, <span class="hljs-number">0x3A</span>, <span class="hljs-number">0x46</span>, <span class="hljs-number">0x2C</span>, <span class="hljs-number">0x07</span>, <span class="hljs-number">0x1B</span>, <span class="hljs-number">0x51</span>, <span class="hljs-number">0x13</span>, <span class="hljs-number">0x3F</span>, <span class="hljs-number">0x57</span>, <span class="hljs-number">0x08</span>, <span class="hljs-number">0x05</span>, <span class="hljs-number">0x3F</span>, <span class="hljs-number">0x30</span>, <span class="hljs-number">0x32</span>,</span><br><span class="line">     <span class="hljs-number">0x51</span>, <span class="hljs-number">0x52</span>, <span class="hljs-number">0x02</span>, <span class="hljs-number">0x6E</span>, <span class="hljs-number">0x78</span>, <span class="hljs-number">0x16</span>, <span class="hljs-number">0x7C</span>, <span class="hljs-number">0x6E</span>, <span class="hljs-number">0x61</span>, <span class="hljs-number">0x70</span>, <span class="hljs-number">0x48</span>, <span class="hljs-number">0x1C</span>, <span class="hljs-number">0x3B</span>, <span class="hljs-number">0x32</span>, <span class="hljs-number">0x2A</span>, <span class="hljs-number">0x13</span>, <span class="hljs-number">0x45</span>, <span class="hljs-number">0x07</span>, <span class="hljs-number">0x2A</span>,</span><br><span class="line">     <span class="hljs-number">0x18</span>, <span class="hljs-number">0x0C</span>, <span class="hljs-number">0x6E</span>, <span class="hljs-number">0x41</span>, <span class="hljs-number">0x70</span>, <span class="hljs-number">0x04</span>, <span class="hljs-number">0x06</span>, <span class="hljs-number">0x6E</span>, <span class="hljs-number">0x5C</span>, <span class="hljs-number">0x00</span>, <span class="hljs-number">0x42</span>, <span class="hljs-number">0x45</span>, <span class="hljs-number">0x70</span>, <span class="hljs-number">0x5A</span>, <span class="hljs-number">0x02</span>, <span class="hljs-number">0x04</span>, <span class="hljs-number">0x0E</span>, <span class="hljs-number">0x4C</span>]</span><br><span class="line"><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">10</span>):</span><br><span class="line">    s[i]^=<span class="hljs-number">0xAD</span></span><br><span class="line"><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">10</span>,<span class="hljs-number">20</span>):</span><br><span class="line">    s[i]^=<span class="hljs-number">0xBE</span></span><br><span class="line"><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">20</span>,<span class="hljs-number">30</span>):</span><br><span class="line">    s[i]^=<span class="hljs-number">0xEF</span></span><br><span class="line"><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">30</span>,<span class="hljs-number">40</span>):</span><br><span class="line">    s[i]^=<span class="hljs-number">0xAB</span></span><br><span class="line"><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">40</span>,<span class="hljs-number">56</span>):</span><br><span class="line">    s[i]^=<span class="hljs-number">0xEF</span></span><br><span class="line"><span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> <span class="hljs-built_in">range</span>(<span class="hljs-number">56</span>):</span><br><span class="line">    s[i]^=<span class="hljs-number">0xDE</span></span><br><span class="line"><span class="hljs-built_in">print</span>(<span class="hljs-string">''</span>.join([<span class="hljs-built_in">str</span>(<span class="hljs-built_in">chr</span>(i%<span class="hljs-number">128</span>)) <span class="hljs-keyword">for</span> i <span class="hljs-keyword">in</span> s]))</span><br></pre></td></tr></tbody></table></figure>
 
 <p>运行程序输出flag：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flag&#123;I5_th1s_7he_PR1c3_I&#x27;M_PAyiNG_f0r_my_pA57_m1stAk35?&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">flag{I5_th1s_7he_PR1c3_I'M_PAyiNG_f0r_my_pA57_m1stAk35?}</span><br></pre></td></tr></tbody></table></figure>
 
-
-  </div>
+</body></html>
+    
+    </div>
+    
+    <div class="columns is-variable is-1 is-multiline is-mobile">
+    
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/ctf/">#ctf</a></span>
+    
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/re/">#re</a></span>
+    
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/CG-CTF/">#CG-CTF</a></span>
+    
+    </div>
+    
+    
+    <div class="columns is-mobile is-multiline article-nav">
+        <span class="column is-12-mobile is-half-desktop  article-nav-prev">
+            
+            <a href="/2020/01/11/BUUCTF-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3/">BUUCTF-re部分题解</a>
+            
+        </span>
+        <span class="column is-12-mobile is-half-desktop  article-nav-next">
+            
+            <a href="/2020/01/11/bugku-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3/">bugku-re部分题解</a>
+            
+        </span>
+    </div>
+    
 </article>
 
-    <div class="blog-post-comments">
-        <div id="disqus_thread">
-            <noscript>Please enable JavaScript to view the comments.</noscript>
-        </div>
-    </div>
 
+<div class="sharebox">
+    
+<div class="sharethis-inline-share-buttons"></div>
+<script type='text/javascript' src='https://platform-api.sharethis.com/js/sharethis.js#property=618a5a31fe4ac40012aea77e&amp;product=inline-share-buttons' async='async'></script>
 
-
-        
-          <div id="footer-post-container">
-  <div id="footer-post">
-
-    <div id="nav-footer" style="display: none">
-      <ul>
-         
-          <li><a href="/">Home</a></li>
-         
-          <li><a href="/about/">About</a></li>
-         
-          <li><a href="/archives/">Writing</a></li>
-         
-          <li><a href="/atom.xml">RSS</a></li>
-         
-          <li><a href="/search/">Search</a></li>
-        
-      </ul>
-    </div>
-
-    <div id="toc-footer" style="display: none">
-      <ol class="toc"><li class="toc-item toc-level-4"><a class="toc-link" href="#Hello-RE"><span class="toc-number">1.</span> <span class="toc-text">Hello,RE!</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ReadAsm2"><span class="toc-number">2.</span> <span class="toc-text">ReadAsm2</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Py%E4%BA%A4%E6%98%93"><span class="toc-number">3.</span> <span class="toc-text">Py交易</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#WxyVM"><span class="toc-number">4.</span> <span class="toc-text">WxyVM</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#maze"><span class="toc-number">5.</span> <span class="toc-text">maze</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#WxyVM2"><span class="toc-number">6.</span> <span class="toc-text">WxyVM2</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%BD%A0%E5%A4%A7%E6%A6%82%E9%9C%80%E8%A6%81%E4%B8%80%E4%B8%AA%E4%BC%98%E7%A7%80%E7%9A%84mac"><span class="toc-number">7.</span> <span class="toc-text">你大概需要一个优秀的mac</span></a></li></ol>
-    </div>
-
-    <div id="share-footer" style="display: none">
-      <ul>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.facebook.com/sharer.php?u=http://blog.rycbar.club/2020/01/11/CGCTF-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3/"><i class="fab fa-facebook fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://twitter.com/share?url=http://blog.rycbar.club/2020/01/11/CGCTF-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3/&text=CGCTF-re部分题解"><i class="fab fa-twitter fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.linkedin.com/shareArticle?url=http://blog.rycbar.club/2020/01/11/CGCTF-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3/&title=CGCTF-re部分题解"><i class="fab fa-linkedin fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://pinterest.com/pin/create/bookmarklet/?url=http://blog.rycbar.club/2020/01/11/CGCTF-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3/&is_video=false&description=CGCTF-re部分题解"><i class="fab fa-pinterest fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" href="mailto:?subject=CGCTF-re部分题解&body=Check out this article: http://blog.rycbar.club/2020/01/11/CGCTF-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3/"><i class="fas fa-envelope fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://getpocket.com/save?url=http://blog.rycbar.club/2020/01/11/CGCTF-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3/&title=CGCTF-re部分题解"><i class="fab fa-get-pocket fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://reddit.com/submit?url=http://blog.rycbar.club/2020/01/11/CGCTF-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3/&title=CGCTF-re部分题解"><i class="fab fa-reddit fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.stumbleupon.com/submit?url=http://blog.rycbar.club/2020/01/11/CGCTF-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3/&title=CGCTF-re部分题解"><i class="fab fa-stumbleupon fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://digg.com/submit?url=http://blog.rycbar.club/2020/01/11/CGCTF-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3/&title=CGCTF-re部分题解"><i class="fab fa-digg fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="http://www.tumblr.com/share/link?url=http://blog.rycbar.club/2020/01/11/CGCTF-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3/&name=CGCTF-re部分题解&description=&lt;p&gt;CG-CTF是南邮的平台，题目都很不错，这里记录一下部分题解决题目的思路和方法&lt;/p&gt;"><i class="fab fa-tumblr fa-lg" aria-hidden="true"></i></a></li>
-  <li><a class="icon" target="_blank" rel="noopener" href="https://news.ycombinator.com/submitlink?u=http://blog.rycbar.club/2020/01/11/CGCTF-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3/&t=CGCTF-re部分题解"><i class="fab fa-hacker-news fa-lg" aria-hidden="true"></i></a></li>
-</ul>
-
-    </div>
-
-    <div id="actions-footer">
-        <a id="menu" class="icon" href="#" onclick="$('#nav-footer').toggle();return false;"><i class="fas fa-bars fa-lg" aria-hidden="true"></i> Menu</a>
-        <a id="toc" class="icon" href="#" onclick="$('#toc-footer').toggle();return false;"><i class="fas fa-list fa-lg" aria-hidden="true"></i> TOC</a>
-        <a id="share" class="icon" href="#" onclick="$('#share-footer').toggle();return false;"><i class="fas fa-share-alt fa-lg" aria-hidden="true"></i> Share</a>
-        <a id="top" style="display:none" class="icon" href="#" onclick="$('html, body').animate({ scrollTop: 0 }, 'fast');"><i class="fas fa-chevron-up fa-lg" aria-hidden="true"></i> Top</a>
-    </div>
-
-  </div>
 </div>
 
+
+
+<div class="comments">
+    <h3 class="title is-4">Comments</h3>
+    
+<script>
+    var disqus_config = function () {
+        this.page.url = 'http://blog.rycbar.club/2020/01/11/CGCTF-re%E9%83%A8%E5%88%86%E9%A2%98%E8%A7%A3/';
+        this.page.identifier = '2020/01/11/CGCTF-re部分题解/';
         
-        <footer id="footer">
-  <div class="footer-left">
-    Copyright &copy;
+        this.language = 'en';
+        
+    };
+    (function() {
+        var d = document, s = d.createElement('script');  
+        s.src = '//' + 'rrblog-2' + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+<div id="disqus_thread">
     
-    
-    2018-2021
-    Aorui Zhang
-  </div>
-  <div class="footer-right">
-    <nav>
-      <ul>
-        <!--
-       --><li><a href="/">Home</a></li><!--
-     --><!--
-       --><li><a href="/about/">About</a></li><!--
-     --><!--
-       --><li><a href="/archives/">Writing</a></li><!--
-     --><!--
-       --><li><a href="/atom.xml">RSS</a></li><!--
-     --><!--
-       --><li><a href="/search/">Search</a></li><!--
-     -->
-      </ul>
-    </nav>
-  </div>
-</footer>
+    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</div>
 
     </div>
-    <!-- styles -->
+</section>
+    <footer class="footer">
+    <div class="container">
+        <div class="columns content">
+            <div class="column is-narrow has-text-centered">
+                &copy; 2021 Aorui Zhang&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a
+                        target="_blank" rel="noopener" href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
+            </div>
+            <div class="column is-hidden-mobile"></div>
 
+            
+            <div class="column is-narrow">
+                <div class="columns is-mobile is-multiline is-centered">
+                
+                    
+                <a class="column is-narrow has-text-black" title="GitHub" target="_blank" rel="noopener" href="https://github.com/rycbar77">
+                    
+                    GitHub
+                    
+                </a>
+                
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</footer>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment-with-locales.min.js"></script>
 
-
-  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" crossorigin="anonymous" onload="this.onload=null;this.rel='stylesheet'"/>
-
-
-    <!-- jquery -->
- 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" crossorigin="anonymous"></script> 
-
-
-
-
-<!-- clipboard -->
-
-  
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.7/clipboard.min.js" crossorigin="anonymous"></script> 
-  
-  <script type="text/javascript">
-  $(function() {
-    // copy-btn HTML
-    var btn = "<span class=\"btn-copy tooltipped tooltipped-sw\" aria-label=\"Copy to clipboard!\">";
-    btn += '<i class="far fa-clone"></i>';
-    btn += '</span>'; 
-    // mount it!
-    $(".highlight table").before(btn);
-    var clip = new ClipboardJS('.btn-copy', {
-      text: function(trigger) {
-        return Array.from(trigger.nextElementSibling.querySelectorAll('.code')).reduce((str,it)=>str+it.innerText+'\n','')
-      }
+<!-- test if the browser is outdated -->
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" target="_blank" rel="noopener" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // plugin function, place inside DOM ready function
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        })
     });
-    clip.on('success', function(e) {
-      e.trigger.setAttribute('aria-label', "Copied!");
-      e.clearSelection();
-    })
-  })
-  </script>
+</script>
+
+<script>
+    window.FontAwesomeConfig = {
+        searchPseudoElements: true
+    }
+    moment.locale("en-AU");
+</script>
 
 
-<script src="/js/main.js"></script>
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script>
+    MathJax.Hub.Config({
+        "HTML-CSS": {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+</script>
 
-<!-- search -->
+    
+    
+    
+    
+<script src="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/js/lightgallery-all.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/js/jquery.justifiedGallery.min.js"></script>
+<script>
+    (function ($) {
+        $(document).ready(function () {
+            if (typeof($.fn.lightGallery) === 'function') {
+                $('.article.gallery').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof($.fn.justifiedGallery) === 'function') {
+                $('.justified-gallery').justifiedGallery();
+            }
+        });
+    })(jQuery);
+</script>
 
-<!-- Google Analytics -->
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+    <style>
+        .hljs {
+            position: relative;
+        }
 
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-128484503-1"></script>
+        .hljs .clipboard-btn {
+            float: right;
+            color: #9a9a9a;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .hljs .clipboard-btn:hover {
+          color: #8a8a8a;
+        }
+
+        .hljs > .clipboard-btn {
+            display: none;
+            position: absolute;
+            right: 4px;
+            top: 4px;
+        }
+
+        .hljs:hover > .clipboard-btn {
+            display: inline;
+        }
+
+        .hljs > figcaption > .clipboard-btn {
+            margin-right: 4px;
+        }
+    </style>
     <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'UA-128484503-1');
+      $(document).ready(function () {
+        $('figure.hljs').each(function(i, figure) {
+          var codeId = 'code-' + i;
+          var code = figure.querySelector('.code');
+          var copyButton = $('<button>Copy <i class="far fa-clipboard"></i></button>');
+          code.id = codeId;
+          copyButton.addClass('clipboard-btn');
+          copyButton.attr('data-clipboard-target-id', codeId);
+
+          var figcaption = figure.querySelector('figcaption');
+
+          if (figcaption) {
+            figcaption.append(copyButton[0]);
+          } else {
+            figure.prepend(copyButton[0]);
+          }
+        })
+
+        var clipboard = new ClipboardJS('.clipboard-btn', {
+          target: function(trigger) {
+            return document.getElementById(trigger.getAttribute('data-clipboard-target-id'));
+          }
+        });
+        clipboard.on('success', function(e) {
+          e.clearSelection();
+        })
+      })
     </script>
 
-<!-- Baidu Analytics -->
+    
+    
 
-<!-- Cloudflare Analytics -->
+    
 
-<!-- Umami Analytics -->
 
-<!-- Disqus Comments -->
 
-    <script type="text/javascript">
-        var disqus_shortname = 'rrblog-2';
+<script src="/js/script.js"></script>
 
-        (function(){
-            var dsq = document.createElement('script');
-            dsq.type = 'text/javascript';
-            dsq.async = true;
-            dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
-            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-        }());
-    </script>
 
-<!-- utterances Comments -->
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-mask"></div>
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something..." />
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Posts',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
 
+<script src="/js/insight.js"></script>
+
+    
 </body>
 </html>
