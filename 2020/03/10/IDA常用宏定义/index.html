@@ -252,7 +252,7 @@
     <div class="container">
         <div class="columns content">
             <div class="column is-narrow has-text-centered">
-                &copy; 2022 Aorui Zhang&nbsp;
+                &copy; 2023 Aorui Zhang&nbsp;
                 Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a
                         target="_blank" rel="noopener" href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
             </div>
@@ -341,6 +341,7 @@
                 $('.article.gallery').lightGallery({ selector: '.gallery-item' });
             }
             if (typeof($.fn.justifiedGallery) === 'function') {
+                $('.justified-gallery > p > .gallery-item').unwrap();
                 $('.justified-gallery').justifiedGallery();
             }
         });
