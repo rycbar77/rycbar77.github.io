@@ -107,13 +107,6 @@
   </url>
   
   <url>
-    <loc>http://blog.rycbar.club/links/index.html</loc>
-    
-    <lastmod>2021-11-03</lastmod>
-    
-  </url>
-  
-  <url>
     <loc>http://blog.rycbar.club/repository/index.html</loc>
     
     <lastmod>2021-11-03</lastmod>
@@ -122,6 +115,13 @@
   
   <url>
     <loc>http://blog.rycbar.club/tags/index.html</loc>
+    
+    <lastmod>2021-11-03</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://blog.rycbar.club/links/index.html</loc>
     
     <lastmod>2021-11-03</lastmod>
     
@@ -452,13 +452,6 @@
   </url>
   
   <url>
-    <loc>http://blog.rycbar.club/tags/36DCTF/</loc>
-    <lastmod>2023-08-29</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>http://blog.rycbar.club/tags/HouseplantCTF/</loc>
     <lastmod>2023-08-29</lastmod>
     <changefreq>daily</changefreq>
@@ -466,7 +459,7 @@
   </url>
   
   <url>
-    <loc>http://blog.rycbar.club/tags/NPUCTF/</loc>
+    <loc>http://blog.rycbar.club/tags/36DCTF/</loc>
     <lastmod>2023-08-29</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -480,14 +473,14 @@
   </url>
   
   <url>
-    <loc>http://blog.rycbar.club/tags/SharkCTF/</loc>
+    <loc>http://blog.rycbar.club/tags/NPUCTF/</loc>
     <lastmod>2023-08-29</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>http://blog.rycbar.club/tags/BJDCTF/</loc>
+    <loc>http://blog.rycbar.club/tags/SharkCTF/</loc>
     <lastmod>2023-08-29</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -501,14 +494,21 @@
   </url>
   
   <url>
-    <loc>http://blog.rycbar.club/tags/BUUCTF/</loc>
+    <loc>http://blog.rycbar.club/tags/ByteCTF/</loc>
     <lastmod>2023-08-29</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>http://blog.rycbar.club/tags/ByteCTF/</loc>
+    <loc>http://blog.rycbar.club/tags/BJDCTF/</loc>
+    <lastmod>2023-08-29</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.rycbar.club/tags/BUUCTF/</loc>
     <lastmod>2023-08-29</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -522,14 +522,14 @@
   </url>
   
   <url>
-    <loc>http://blog.rycbar.club/tags/buuctf/</loc>
+    <loc>http://blog.rycbar.club/tags/Javis-OJ/</loc>
     <lastmod>2023-08-29</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>http://blog.rycbar.club/tags/Javis-OJ/</loc>
+    <loc>http://blog.rycbar.club/tags/buuctf/</loc>
     <lastmod>2023-08-29</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -564,13 +564,6 @@
   </url>
   
   <url>
-    <loc>http://blog.rycbar.club/tags/WPICTF/</loc>
-    <lastmod>2023-08-29</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
     <loc>http://blog.rycbar.club/tags/b01lersCTF/</loc>
     <lastmod>2023-08-29</lastmod>
     <changefreq>daily</changefreq>
@@ -578,7 +571,7 @@
   </url>
   
   <url>
-    <loc>http://blog.rycbar.club/tags/bugku/</loc>
+    <loc>http://blog.rycbar.club/tags/WPICTF/</loc>
     <lastmod>2023-08-29</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -606,7 +599,21 @@
   </url>
   
   <url>
+    <loc>http://blog.rycbar.club/tags/bugku/</loc>
+    <lastmod>2023-08-29</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>http://blog.rycbar.club/tags/pocs/</loc>
+    <lastmod>2023-08-29</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.rycbar.club/tags/hgame/</loc>
     <lastmod>2023-08-29</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -621,13 +628,6 @@
   
   <url>
     <loc>http://blog.rycbar.club/tags/opcode/</loc>
-    <lastmod>2023-08-29</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://blog.rycbar.club/tags/hgame/</loc>
     <lastmod>2023-08-29</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -713,14 +713,14 @@
   </url>
   
   <url>
-    <loc>http://blog.rycbar.club/categories/python/</loc>
+    <loc>http://blog.rycbar.club/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</loc>
     <lastmod>2023-08-29</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>http://blog.rycbar.club/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/</loc>
+    <loc>http://blog.rycbar.club/categories/python/</loc>
     <lastmod>2023-08-29</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
