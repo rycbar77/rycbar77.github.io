@@ -17,13 +17,13 @@
     <meta name="description" content="这里写一下有关花指令的内容，自己的理解也很有限，只能以后再多学学再补充，现在只能把自己知道的写下来。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="花指令">
-<meta property="og:url" content="http://blog.rycbar.club/2020/02/19/%E8%8A%B1%E6%8C%87%E4%BB%A4/index.html">
+<meta property="og:url" content="https://rycbar77.github.io/2020/02/19/%E8%8A%B1%E6%8C%87%E4%BB%A4/index.html">
 <meta property="og:site_name" content="rr&#39;s blog">
 <meta property="og:description" content="这里写一下有关花指令的内容，自己的理解也很有限，只能以后再多学学再补充，现在只能把自己知道的写下来。">
 <meta property="og:locale" content="en_US">
 <meta property="article:published_time" content="2020-02-19T06:39:22.000Z">
 <meta property="article:modified_time" content="2023-09-03T09:18:14.912Z">
-<meta property="article:author" content="Aorui Zhang">
+<meta property="article:author" content="r4z77">
 <meta property="article:tag" content="ctf">
 <meta property="article:tag" content="re">
 <meta property="article:tag" content="花指令">
@@ -247,7 +247,7 @@
 <p>最下面这个<code>0c59748</code>的地址显然是无效的，这里肯定是出了问题，仔细观察一下代码，<code>xor  eax, eax</code>这句得到的是0，所以下一个跳转是一定可以实现的，但是IDA判断不出来，他会对所有可能的分支进行解析，所以会从<code>0x4009FB</code>出开始解析新的命令，然后这个跳转并不存在，就会提示地址不存在，但是真正让反汇编进行不下去的是接下来的操作，另一条可能的路径，即正常的执行流程，进入到<code>0x4009F5</code>之后跳转到了<code>0x4009FC</code>的位置，但是这里已经解析过了，被一条假的命令占用了，IDA就会停止反汇编，然后报错。</p>
 </li>
 <li><p><code>call</code>+一些巧妙的处理</p>
-<p>最近比赛的时候见到了一个很不错的花指令，可以学习一下，在<code>call</code>指令之后写入一些<code>junk code</code>，然后在调用的函数中对返回地址进行处理跳过<code>junk code</code>，详细的过程在<a target="_blank" rel="noopener" href="https://rycbar77.github.io/2020/03/30/MRCTF-wp/#junk">这里</a></p>
+<p>最近比赛的时候见到了一个很不错的花指令，可以学习一下，在<code>call</code>指令之后写入一些<code>junk code</code>，然后在调用的函数中对返回地址进行处理跳过<code>junk code</code>，详细的过程在<a href="https://rycbar77.github.io/2020/03/30/MRCTF-wp/#junk">这里</a></p>
 </li>
 </ul>
 <h4 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h4><p>写花指令的方式实在太多，也有很多很有创意的花指令，记录是记录不完的，但是只要掌握的原理，跟着程序的流程走，都不会有太大的难度，熟练了以后可以尝试使用脚本去除花指令。</p>
@@ -296,7 +296,7 @@
     
 <script>
     var disqus_config = function () {
-        this.page.url = 'http://blog.rycbar.club/2020/02/19/%E8%8A%B1%E6%8C%87%E4%BB%A4/';
+        this.page.url = 'https://rycbar77.github.io/2020/02/19/%E8%8A%B1%E6%8C%87%E4%BB%A4/';
         this.page.identifier = '2020/02/19/花指令/';
         
         this.language = 'en';
@@ -322,7 +322,7 @@
     <div class="container">
         <div class="columns content">
             <div class="column is-narrow has-text-centered">
-                &copy; 2023 Aorui Zhang&nbsp;
+                &copy; 2023 r4z77&nbsp;
                 Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a
                         target="_blank" rel="noopener" href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
             </div>

@@ -3,14 +3,14 @@
   <title>rr&#39;s blog</title>
   
   
-  <link href="http://blog.rycbar.club/atom.xml" rel="self"/>
+  <link href="https://rycbar77.github.io/atom.xml" rel="self"/>
   
-  <link href="http://blog.rycbar.club/"/>
+  <link href="https://rycbar77.github.io/"/>
   <updated>2023-09-03T09:24:05.183Z</updated>
-  <id>http://blog.rycbar.club/</id>
+  <id>https://rycbar77.github.io/</id>
   
   <author>
-    <name>Aorui Zhang</name>
+    <name>r4z77</name>
     
   </author>
   
@@ -18,8 +18,8 @@
   
   <entry>
     <title>2023-羊城杯-wp</title>
-    <link href="http://blog.rycbar.club/2023/09/03/2023-%E7%BE%8A%E5%9F%8E%E6%9D%AF-wp/"/>
-    <id>http://blog.rycbar.club/2023/09/03/2023-%E7%BE%8A%E5%9F%8E%E6%9D%AF-wp/</id>
+    <link href="https://rycbar77.github.io/2023/09/03/2023-%E7%BE%8A%E5%9F%8E%E6%9D%AF-wp/"/>
+    <id>https://rycbar77.github.io/2023/09/03/2023-%E7%BE%8A%E5%9F%8E%E6%9D%AF-wp/</id>
     <published>2023-09-03T09:18:50.000Z</published>
     <updated>2023-09-03T09:24:05.183Z</updated>
     
@@ -31,16 +31,16 @@
     
     
     
-    <category term="writeup" scheme="http://blog.rycbar.club/tags/writeup/"/>
+    <category term="writeup" scheme="https://rycbar77.github.io/tags/writeup/"/>
     
-    <category term="ctf" scheme="http://blog.rycbar.club/tags/ctf/"/>
+    <category term="ctf" scheme="https://rycbar77.github.io/tags/ctf/"/>
     
   </entry>
   
   <entry>
     <title>catdoc 0.95 nullptr dereference</title>
-    <link href="http://blog.rycbar.club/2023/08/29/catdoc-0-95-nullptr-dereference/"/>
-    <id>http://blog.rycbar.club/2023/08/29/catdoc-0-95-nullptr-dereference/</id>
+    <link href="https://rycbar77.github.io/2023/08/29/catdoc-0-95-nullptr-dereference/"/>
+    <id>https://rycbar77.github.io/2023/08/29/catdoc-0-95-nullptr-dereference/</id>
     <published>2023-08-29T06:36:28.000Z</published>
     <updated>2023-08-29T07:28:43.839Z</updated>
     
@@ -52,14 +52,14 @@
     
     
     
-    <category term="pocs" scheme="http://blog.rycbar.club/tags/pocs/"/>
+    <category term="pocs" scheme="https://rycbar77.github.io/tags/pocs/"/>
     
   </entry>
   
   <entry>
     <title>wmctf-2023</title>
-    <link href="http://blog.rycbar.club/2023/08/22/wmctf-2023/"/>
-    <id>http://blog.rycbar.club/2023/08/22/wmctf-2023/</id>
+    <link href="https://rycbar77.github.io/2023/08/22/wmctf-2023/"/>
+    <id>https://rycbar77.github.io/2023/08/22/wmctf-2023/</id>
     <published>2023-08-22T03:37:14.000Z</published>
     <updated>2023-08-22T03:39:43.515Z</updated>
     
@@ -71,18 +71,18 @@
     
     
     
-    <category term="writeup" scheme="http://blog.rycbar.club/tags/writeup/"/>
+    <category term="writeup" scheme="https://rycbar77.github.io/tags/writeup/"/>
     
-    <category term="ctf" scheme="http://blog.rycbar.club/tags/ctf/"/>
+    <category term="ctf" scheme="https://rycbar77.github.io/tags/ctf/"/>
     
-    <category term="wmctf" scheme="http://blog.rycbar.club/tags/wmctf/"/>
+    <category term="wmctf" scheme="https://rycbar77.github.io/tags/wmctf/"/>
     
   </entry>
   
   <entry>
     <title>nepctf-2023</title>
-    <link href="http://blog.rycbar.club/2023/08/14/nepctf-2023/"/>
-    <id>http://blog.rycbar.club/2023/08/14/nepctf-2023/</id>
+    <link href="https://rycbar77.github.io/2023/08/14/nepctf-2023/"/>
+    <id>https://rycbar77.github.io/2023/08/14/nepctf-2023/</id>
     <published>2023-08-14T01:48:32.000Z</published>
     <updated>2023-08-14T01:52:17.870Z</updated>
     
@@ -98,8 +98,8 @@
   
   <entry>
     <title>starctf-2023</title>
-    <link href="http://blog.rycbar.club/2023/07/31/starctf-2023/"/>
-    <id>http://blog.rycbar.club/2023/07/31/starctf-2023/</id>
+    <link href="https://rycbar77.github.io/2023/07/31/starctf-2023/"/>
+    <id>https://rycbar77.github.io/2023/07/31/starctf-2023/</id>
     <published>2023-07-31T02:18:45.000Z</published>
     <updated>2023-08-01T06:44:49.311Z</updated>
     
@@ -115,8 +115,8 @@
   
   <entry>
     <title>hws-2023</title>
-    <link href="http://blog.rycbar.club/2023/07/18/hws-2023/"/>
-    <id>http://blog.rycbar.club/2023/07/18/hws-2023/</id>
+    <link href="https://rycbar77.github.io/2023/07/18/hws-2023/"/>
+    <id>https://rycbar77.github.io/2023/07/18/hws-2023/</id>
     <published>2023-07-18T06:07:48.000Z</published>
     <updated>2023-07-18T06:13:52.987Z</updated>
     
@@ -132,8 +132,8 @@
   
   <entry>
     <title>Hello World</title>
-    <link href="http://blog.rycbar.club/2023/07/04/hello-world/"/>
-    <id>http://blog.rycbar.club/2023/07/04/hello-world/</id>
+    <link href="https://rycbar77.github.io/2023/07/04/hello-world/"/>
+    <id>https://rycbar77.github.io/2023/07/04/hello-world/</id>
     <published>2023-07-04T11:38:45.950Z</published>
     <updated>2020-01-15T10:08:30.000Z</updated>
     
@@ -153,8 +153,8 @@
   
   <entry>
     <title>corctf2022_wp</title>
-    <link href="http://blog.rycbar.club/2022/08/09/corctf2022-wp/"/>
-    <id>http://blog.rycbar.club/2022/08/09/corctf2022-wp/</id>
+    <link href="https://rycbar77.github.io/2022/08/09/corctf2022-wp/"/>
+    <id>https://rycbar77.github.io/2022/08/09/corctf2022-wp/</id>
     <published>2022-08-09T04:51:04.000Z</published>
     <updated>2022-08-09T04:56:06.000Z</updated>
     
@@ -166,14 +166,14 @@
     
     
     
-    <category term="ctf" scheme="http://blog.rycbar.club/tags/ctf/"/>
+    <category term="ctf" scheme="https://rycbar77.github.io/tags/ctf/"/>
     
   </entry>
   
   <entry>
     <title>VNCTF 2022 wp</title>
-    <link href="http://blog.rycbar.club/2022/02/18/VNCTF-2022-wp/"/>
-    <id>http://blog.rycbar.club/2022/02/18/VNCTF-2022-wp/</id>
+    <link href="https://rycbar77.github.io/2022/02/18/VNCTF-2022-wp/"/>
+    <id>https://rycbar77.github.io/2022/02/18/VNCTF-2022-wp/</id>
     <published>2022-02-18T03:07:19.000Z</published>
     <updated>2022-02-18T03:23:16.000Z</updated>
     
@@ -185,18 +185,18 @@
     
     
     
-    <category term="writeup" scheme="http://blog.rycbar.club/tags/writeup/"/>
+    <category term="writeup" scheme="https://rycbar77.github.io/tags/writeup/"/>
     
-    <category term="ctf" scheme="http://blog.rycbar.club/tags/ctf/"/>
+    <category term="ctf" scheme="https://rycbar77.github.io/tags/ctf/"/>
     
-    <category term="vnctf" scheme="http://blog.rycbar.club/tags/vnctf/"/>
+    <category term="vnctf" scheme="https://rycbar77.github.io/tags/vnctf/"/>
     
   </entry>
   
   <entry>
     <title>L3HCTF re double-joy 题解</title>
-    <link href="http://blog.rycbar.club/2021/11/25/L3HCTF-re-double-joy-%E9%A2%98%E8%A7%A3/"/>
-    <id>http://blog.rycbar.club/2021/11/25/L3HCTF-re-double-joy-%E9%A2%98%E8%A7%A3/</id>
+    <link href="https://rycbar77.github.io/2021/11/25/L3HCTF-re-double-joy-%E9%A2%98%E8%A7%A3/"/>
+    <id>https://rycbar77.github.io/2021/11/25/L3HCTF-re-double-joy-%E9%A2%98%E8%A7%A3/</id>
     <published>2021-11-25T06:40:50.000Z</published>
     <updated>2023-07-17T08:37:59.839Z</updated>
     
@@ -216,8 +216,8 @@
   
   <entry>
     <title>ByteCTF re moderncpp 题解</title>
-    <link href="http://blog.rycbar.club/2021/11/04/ByteCTF-re-moderncpp-%E9%A2%98%E8%A7%A3/"/>
-    <id>http://blog.rycbar.club/2021/11/04/ByteCTF-re-moderncpp-%E9%A2%98%E8%A7%A3/</id>
+    <link href="https://rycbar77.github.io/2021/11/04/ByteCTF-re-moderncpp-%E9%A2%98%E8%A7%A3/"/>
+    <id>https://rycbar77.github.io/2021/11/04/ByteCTF-re-moderncpp-%E9%A2%98%E8%A7%A3/</id>
     <published>2021-11-04T02:13:49.000Z</published>
     <updated>2021-11-04T02:20:58.000Z</updated>
     
@@ -228,21 +228,21 @@
     
     
     
-    <category term="ctf" scheme="http://blog.rycbar.club/categories/ctf/"/>
+    <category term="ctf" scheme="https://rycbar77.github.io/categories/ctf/"/>
     
     
-    <category term="ctf" scheme="http://blog.rycbar.club/tags/ctf/"/>
+    <category term="ctf" scheme="https://rycbar77.github.io/tags/ctf/"/>
     
-    <category term="re" scheme="http://blog.rycbar.club/tags/re/"/>
+    <category term="re" scheme="https://rycbar77.github.io/tags/re/"/>
     
-    <category term="ByteCTF" scheme="http://blog.rycbar.club/tags/ByteCTF/"/>
+    <category term="ByteCTF" scheme="https://rycbar77.github.io/tags/ByteCTF/"/>
     
   </entry>
   
   <entry>
     <title>wp-5space-2021</title>
-    <link href="http://blog.rycbar.club/2021/10/05/wp-5space-2021/"/>
-    <id>http://blog.rycbar.club/2021/10/05/wp-5space-2021/</id>
+    <link href="https://rycbar77.github.io/2021/10/05/wp-5space-2021/"/>
+    <id>https://rycbar77.github.io/2021/10/05/wp-5space-2021/</id>
     <published>2021-10-05T08:50:24.000Z</published>
     <updated>2021-11-04T01:38:48.000Z</updated>
     
@@ -254,18 +254,18 @@
     
     
     
-    <category term="writeup" scheme="http://blog.rycbar.club/tags/writeup/"/>
+    <category term="writeup" scheme="https://rycbar77.github.io/tags/writeup/"/>
     
-    <category term="ctf" scheme="http://blog.rycbar.club/tags/ctf/"/>
+    <category term="ctf" scheme="https://rycbar77.github.io/tags/ctf/"/>
     
-    <category term="5space" scheme="http://blog.rycbar.club/tags/5space/"/>
+    <category term="5space" scheme="https://rycbar77.github.io/tags/5space/"/>
     
   </entry>
   
   <entry>
     <title>2021 ciscn Re部分wp</title>
-    <link href="http://blog.rycbar.club/2021/05/16/2021-05-16-2021_ciscn_Re%E9%83%A8%E5%88%86wp/"/>
-    <id>http://blog.rycbar.club/2021/05/16/2021-05-16-2021_ciscn_Re%E9%83%A8%E5%88%86wp/</id>
+    <link href="https://rycbar77.github.io/2021/05/16/2021-05-16-2021_ciscn_Re%E9%83%A8%E5%88%86wp/"/>
+    <id>https://rycbar77.github.io/2021/05/16/2021-05-16-2021_ciscn_Re%E9%83%A8%E5%88%86wp/</id>
     <published>2021-05-16T11:31:11.000Z</published>
     <updated>2021-05-16T11:31:52.000Z</updated>
     
@@ -276,15 +276,15 @@
     
     
     
-    <category term="ctf" scheme="http://blog.rycbar.club/categories/ctf/"/>
+    <category term="ctf" scheme="https://rycbar77.github.io/categories/ctf/"/>
     
     
   </entry>
   
   <entry>
     <title>2021年“春秋杯”新年欢乐赛</title>
-    <link href="http://blog.rycbar.club/2021/01/31/2021-01-31-2021%E5%B9%B4%E2%80%9C%E6%98%A5%E7%A7%8B%E6%9D%AF%E2%80%9D%E6%96%B0%E5%B9%B4%E6%AC%A2%E4%B9%90%E8%B5%9B/"/>
-    <id>http://blog.rycbar.club/2021/01/31/2021-01-31-2021%E5%B9%B4%E2%80%9C%E6%98%A5%E7%A7%8B%E6%9D%AF%E2%80%9D%E6%96%B0%E5%B9%B4%E6%AC%A2%E4%B9%90%E8%B5%9B/</id>
+    <link href="https://rycbar77.github.io/2021/01/31/2021-01-31-2021%E5%B9%B4%E2%80%9C%E6%98%A5%E7%A7%8B%E6%9D%AF%E2%80%9D%E6%96%B0%E5%B9%B4%E6%AC%A2%E4%B9%90%E8%B5%9B/"/>
+    <id>https://rycbar77.github.io/2021/01/31/2021-01-31-2021%E5%B9%B4%E2%80%9C%E6%98%A5%E7%A7%8B%E6%9D%AF%E2%80%9D%E6%96%B0%E5%B9%B4%E6%AC%A2%E4%B9%90%E8%B5%9B/</id>
     <published>2021-01-31T04:00:00.000Z</published>
     <updated>2021-03-09T03:47:45.000Z</updated>
     
@@ -295,15 +295,15 @@
     
     
     
-    <category term="ctf" scheme="http://blog.rycbar.club/categories/ctf/"/>
+    <category term="ctf" scheme="https://rycbar77.github.io/categories/ctf/"/>
     
     
   </entry>
   
   <entry>
     <title>2020-全国工业互联网安全技术技能大赛</title>
-    <link href="http://blog.rycbar.club/2020/10/24/2020-10-24-2020-%E5%85%A8%E5%9B%BD%E5%B7%A5%E4%B8%9A%E4%BA%92%E8%81%94%E7%BD%91%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF%E6%8A%80%E8%83%BD%E5%A4%A7%E8%B5%9B/"/>
-    <id>http://blog.rycbar.club/2020/10/24/2020-10-24-2020-%E5%85%A8%E5%9B%BD%E5%B7%A5%E4%B8%9A%E4%BA%92%E8%81%94%E7%BD%91%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF%E6%8A%80%E8%83%BD%E5%A4%A7%E8%B5%9B/</id>
+    <link href="https://rycbar77.github.io/2020/10/24/2020-10-24-2020-%E5%85%A8%E5%9B%BD%E5%B7%A5%E4%B8%9A%E4%BA%92%E8%81%94%E7%BD%91%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF%E6%8A%80%E8%83%BD%E5%A4%A7%E8%B5%9B/"/>
+    <id>https://rycbar77.github.io/2020/10/24/2020-10-24-2020-%E5%85%A8%E5%9B%BD%E5%B7%A5%E4%B8%9A%E4%BA%92%E8%81%94%E7%BD%91%E5%AE%89%E5%85%A8%E6%8A%80%E6%9C%AF%E6%8A%80%E8%83%BD%E5%A4%A7%E8%B5%9B/</id>
     <published>2020-10-24T14:25:00.000Z</published>
     <updated>2021-05-16T11:34:32.000Z</updated>
     
@@ -314,15 +314,15 @@
     
     
     
-    <category term="ctf" scheme="http://blog.rycbar.club/categories/ctf/"/>
+    <category term="ctf" scheme="https://rycbar77.github.io/categories/ctf/"/>
     
     
   </entry>
   
   <entry>
     <title>2020-巅峰极客</title>
-    <link href="http://blog.rycbar.club/2020/09/26/2020-09-26-2020-%E5%B7%85%E5%B3%B0%E6%9E%81%E5%AE%A2/"/>
-    <id>http://blog.rycbar.club/2020/09/26/2020-09-26-2020-%E5%B7%85%E5%B3%B0%E6%9E%81%E5%AE%A2/</id>
+    <link href="https://rycbar77.github.io/2020/09/26/2020-09-26-2020-%E5%B7%85%E5%B3%B0%E6%9E%81%E5%AE%A2/"/>
+    <id>https://rycbar77.github.io/2020/09/26/2020-09-26-2020-%E5%B7%85%E5%B3%B0%E6%9E%81%E5%AE%A2/</id>
     <published>2020-09-26T14:41:00.000Z</published>
     <updated>2021-05-03T09:39:48.000Z</updated>
     
@@ -333,15 +333,15 @@
     
     
     
-    <category term="ctf" scheme="http://blog.rycbar.club/categories/ctf/"/>
+    <category term="ctf" scheme="https://rycbar77.github.io/categories/ctf/"/>
     
     
   </entry>
   
   <entry>
     <title>2020-ciscn 西北赛区分区赛</title>
-    <link href="http://blog.rycbar.club/2020/09/19/2020-09-19-2020-ciscn_%E8%A5%BF%E5%8C%97%E8%B5%9B%E5%8C%BA%E5%88%86%E5%8C%BA%E8%B5%9B/"/>
-    <id>http://blog.rycbar.club/2020/09/19/2020-09-19-2020-ciscn_%E8%A5%BF%E5%8C%97%E8%B5%9B%E5%8C%BA%E5%88%86%E5%8C%BA%E8%B5%9B/</id>
+    <link href="https://rycbar77.github.io/2020/09/19/2020-09-19-2020-ciscn_%E8%A5%BF%E5%8C%97%E8%B5%9B%E5%8C%BA%E5%88%86%E5%8C%BA%E8%B5%9B/"/>
+    <id>https://rycbar77.github.io/2020/09/19/2020-09-19-2020-ciscn_%E8%A5%BF%E5%8C%97%E8%B5%9B%E5%8C%BA%E5%88%86%E5%8C%BA%E8%B5%9B/</id>
     <published>2020-09-18T20:00:00.000Z</published>
     <updated>2021-05-03T09:30:15.000Z</updated>
     
@@ -352,15 +352,15 @@
     
     
     
-    <category term="ctf" scheme="http://blog.rycbar.club/categories/ctf/"/>
+    <category term="ctf" scheme="https://rycbar77.github.io/categories/ctf/"/>
     
     
   </entry>
   
   <entry>
     <title>2020-DDCTF</title>
-    <link href="http://blog.rycbar.club/2020/09/08/2020-09-08-2020-DDCTF/"/>
-    <id>http://blog.rycbar.club/2020/09/08/2020-09-08-2020-DDCTF/</id>
+    <link href="https://rycbar77.github.io/2020/09/08/2020-09-08-2020-DDCTF/"/>
+    <id>https://rycbar77.github.io/2020/09/08/2020-09-08-2020-DDCTF/</id>
     <published>2020-09-08T06:59:00.000Z</published>
     <updated>2021-05-03T11:15:10.000Z</updated>
     
@@ -371,15 +371,15 @@
     
     
     
-    <category term="ctf" scheme="http://blog.rycbar.club/categories/ctf/"/>
+    <category term="ctf" scheme="https://rycbar77.github.io/categories/ctf/"/>
     
     
   </entry>
   
   <entry>
     <title>2020-钓鱼城杯-wp</title>
-    <link href="http://blog.rycbar.club/2020/08/28/2020-08-28-2020-%E9%92%93%E9%B1%BC%E5%9F%8E%E6%9D%AF-wp/"/>
-    <id>http://blog.rycbar.club/2020/08/28/2020-08-28-2020-%E9%92%93%E9%B1%BC%E5%9F%8E%E6%9D%AF-wp/</id>
+    <link href="https://rycbar77.github.io/2020/08/28/2020-08-28-2020-%E9%92%93%E9%B1%BC%E5%9F%8E%E6%9D%AF-wp/"/>
+    <id>https://rycbar77.github.io/2020/08/28/2020-08-28-2020-%E9%92%93%E9%B1%BC%E5%9F%8E%E6%9D%AF-wp/</id>
     <published>2020-08-28T15:26:00.000Z</published>
     <updated>2021-05-03T11:18:54.000Z</updated>
     
@@ -390,17 +390,17 @@
     
     
     
-    <category term="ctf" scheme="http://blog.rycbar.club/categories/ctf/"/>
+    <category term="ctf" scheme="https://rycbar77.github.io/categories/ctf/"/>
     
     
-    <category term="writeup" scheme="http://blog.rycbar.club/tags/writeup/"/>
+    <category term="writeup" scheme="https://rycbar77.github.io/tags/writeup/"/>
     
   </entry>
   
   <entry>
     <title>2020-强网杯-wp</title>
-    <link href="http://blog.rycbar.club/2020/08/28/2020-08-28-2020-%E5%BC%BA%E7%BD%91%E6%9D%AF-wp/"/>
-    <id>http://blog.rycbar.club/2020/08/28/2020-08-28-2020-%E5%BC%BA%E7%BD%91%E6%9D%AF-wp/</id>
+    <link href="https://rycbar77.github.io/2020/08/28/2020-08-28-2020-%E5%BC%BA%E7%BD%91%E6%9D%AF-wp/"/>
+    <id>https://rycbar77.github.io/2020/08/28/2020-08-28-2020-%E5%BC%BA%E7%BD%91%E6%9D%AF-wp/</id>
     <published>2020-08-28T07:58:00.000Z</published>
     <updated>2021-05-03T11:51:08.000Z</updated>
     
@@ -411,10 +411,10 @@
     
     
     
-    <category term="ctf" scheme="http://blog.rycbar.club/categories/ctf/"/>
+    <category term="ctf" scheme="https://rycbar77.github.io/categories/ctf/"/>
     
     
-    <category term="writeup" scheme="http://blog.rycbar.club/tags/writeup/"/>
+    <category term="writeup" scheme="https://rycbar77.github.io/tags/writeup/"/>
     
   </entry>
   
