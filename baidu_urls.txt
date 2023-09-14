@@ -1,5 +1,5 @@
+https://rycbar77.github.io/2023/09/14/hitcon-quals-2023/
 https://rycbar77.github.io/2023/09/03/2023-%E7%BE%8A%E5%9F%8E%E6%9D%AF-wp/
 https://rycbar77.github.io/2023/08/29/catdoc-0-95-nullptr-dereference/
 https://rycbar77.github.io/2023/08/22/wmctf-2023/
 https://rycbar77.github.io/2023/08/14/nepctf-2023/
-https://rycbar77.github.io/2023/07/31/starctf-2023/
