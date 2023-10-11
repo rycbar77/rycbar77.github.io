@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html class="has-navbar-fixed-top">
+<head>
+    <meta charset="utf-8">
+<title>balsn-ctf-2023 - rr&#39;s blog</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.css">
+
+
+
+
+
+
+
+
+    <meta name="description" content="Played with Friendly Maltese Citizens and came first in this ctf. I just spent some time solve merger-2077 since last weekend were work days for me. Learning game hacks from scratch in such a short ti">
+<meta property="og:type" content="article">
+<meta property="og:title" content="balsn-ctf-2023">
+<meta property="og:url" content="https://rycbar77.github.io/2023/10/11/balsn-ctf-2023/index.html">
+<meta property="og:site_name" content="rr&#39;s blog">
+<meta property="og:description" content="Played with Friendly Maltese Citizens and came first in this ctf. I just spent some time solve merger-2077 since last weekend were work days for me. Learning game hacks from scratch in such a short ti">
+<meta property="og:locale" content="en_US">
+<meta property="og:image" content="https://rycbar77.github.io/2023/10/11/balsn-ctf-2023/Untitled.png">
+<meta property="og:image" content="https://rycbar77.github.io/2023/10/11/balsn-ctf-2023/Untitled1.png">
+<meta property="og:image" content="https://rycbar77.github.io/2023/10/11/balsn-ctf-2023/Untitled2.png">
+<meta property="og:image" content="https://rycbar77.github.io/2023/10/11/balsn-ctf-2023/Untitled3.png">
+<meta property="article:published_time" content="2023-10-11T10:54:41.000Z">
+<meta property="article:modified_time" content="2023-10-11T10:57:28.086Z">
+<meta property="article:author" content="r4z77">
+<meta property="article:tag" content="writeup">
+<meta property="article:tag" content="ctf">
+<meta property="article:tag" content="balsn">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://rycbar77.github.io/2023/10/11/balsn-ctf-2023/Untitled.png">
+
+
+
+
+
+<link rel="icon" href="rust.png">
+
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Ovo|Source+Code+Pro">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/css/lightgallery.min.css">
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/css/justifiedGallery.min.css">
+
+
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+
+
+<link rel="stylesheet" href="/css/style.css">
+
+
+<script defer src="//use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-128484503-1"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'UA-128484503-1');
+</script>
+
+
+    
+
+
+<meta name="generator" content="Hexo 5.4.0"><link rel="alternate" href="/atom.xml" title="rr's blog" type="application/atom+xml">
+</head>
+<body>
+    
+<nav class="navbar is-transparent is-fixed-top navbar-main" role="navigation" aria-label="main navigation">
+    <div class="container">
+        <div class="navbar-brand">
+            <a class="navbar-item navbar-logo" href="/">
+                
+                <img src="/images/logo.png" alt="" height="28">
+                
+            </a>
+            <div class="navbar-burger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        
+        <div class="navbar-menu navbar-start">
+            
+            <a class="navbar-item "
+               href="/archives">Archives</a>
+            
+            <a class="navbar-item "
+               href="/categories">Categories</a>
+            
+            <a class="navbar-item "
+               href="/tags">Tags</a>
+            
+            <a class="navbar-item "
+               href="/links">Links</a>
+            
+            <a class="navbar-item "
+               href="/about">About</a>
+            
+            <a class="navbar-item "
+               href="/atom.xml">RSS</a>
+            
+        </div>
+        
+        <div class="navbar-menu navbar-end">
+            
+            <a class="navbar-item search" title="Search" href="javascript:;">
+                <i class="fas fa-search"></i>
+            </a>
+            
+            
+            <div class="navbar-item is-hoverable has-dropdown is-hidden-mobile is-hidden-tablet-only toc">
+                <a class="navbar-item" title="Table of Contents">
+                    <i class="fa fa-list"></i>
+                </a>
+                <div class="navbar-dropdown is-right">
+                    
+                    
+                    
+                    
+                    <a class="navbar-item" href="#Scoreboard">1&nbsp;&nbsp;<b>Scoreboard</b></a>
+                    
+                    
+                    <hr class="navbar-divider">
+                    
+                    
+                    <a class="navbar-item" href="#Challenge-Info">2&nbsp;&nbsp;<b>Challenge Info</b></a>
+                    
+                    
+                    <hr class="navbar-divider">
+                    
+                    
+                    <a class="navbar-item" href="#First-Look">3&nbsp;&nbsp;<b>First Look</b></a>
+                    
+                    
+                    <hr class="navbar-divider">
+                    
+                    
+                    <a class="navbar-item" href="#A-Failed-Try">4&nbsp;&nbsp;<b>A Failed Try</b></a>
+                    
+                    
+                    <hr class="navbar-divider">
+                    
+                    
+                    <a class="navbar-item" href="#Final-Solution">5&nbsp;&nbsp;<b>Final Solution</b></a>
+                    
+                </div>
+            </div>
+            
+            
+            <a class="navbar-item" title="GitHub" target="_blank" rel="noopener" href="https://github.com/rycbar77">
+                
+                <i class="fab fa-github"></i>
+                
+            </a>
+               
+            
+        </div>
+    </div>
+</nav>
+
+    <section class="section">
+    <div class="container">
+    <article class="article content gallery" itemscope itemprop="blogPost">
+    <h1 class="article-title is-size-3 is-size-4-mobile" itemprop="name">
+        
+            balsn-ctf-2023
+        
+    </h1>
+    <div class="article-meta columns is-variable is-1 is-multiline is-mobile is-size-7-mobile">
+        <span class="column is-narrow">
+            
+                <time datetime="2023-10-11T10:54:41.000Z" itemprop="datePublished">Oct 11 2023</time>
+            
+        </span>
+        
+        
+        <span class="column is-narrow">
+            
+            
+            7 minutes read (About 1060 words)
+        </span>
+        
+    </div>
+    <div class="article-entry is-size-6-mobile" itemprop="articleBody">
+    
+        <html><head></head><body><p>Played with <code>Friendly Maltese Citizens</code> and came first in this ctf. I just spent some time solve <code>merger-2077</code> since last weekend were work days for me. Learning game hacks from scratch in such a short time is challenging. Glad that we managed to solve it.</p>
+<span id="more"></span>
+
+<h1 id="Scoreboard"><a href="#Scoreboard" class="headerlink" title="Scoreboard"></a>Scoreboard</h1><p><img src="/2023/10/11/balsn-ctf-2023/Untitled.png" alt="Untitled"></p>
+<h1 id="Challenge-Info"><a href="#Challenge-Info" class="headerlink" title="Challenge Info"></a>Challenge Info</h1><p><img src="/2023/10/11/balsn-ctf-2023/Untitled1.png" alt="Untitled"></p>
+<h1 id="First-Look"><a href="#First-Look" class="headerlink" title="First Look"></a>First Look</h1><p>Decompress the apk file and take a first look at the structure.</p>
+<figure class="highlight jsx hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br></pre></td><td class="code"><pre><span class="line">merger-<span class="hljs-number">2077</span></span><br><span class="line">├── AndroidManifest.xml</span><br><span class="line">├── assets</span><br><span class="line">│&nbsp;&nbsp; ├── bin</span><br><span class="line">│&nbsp;&nbsp; │&nbsp;&nbsp; └── Data</span><br><span class="line">│&nbsp;&nbsp; │&nbsp;&nbsp;     ├── boot.config</span><br><span class="line">│&nbsp;&nbsp; │&nbsp;&nbsp;     ├── data.unity3d</span><br><span class="line">│&nbsp;&nbsp; │&nbsp;&nbsp;     ├── Managed</span><br><span class="line">│&nbsp;&nbsp; │&nbsp;&nbsp;     │&nbsp;&nbsp; ├── Metadata</span><br><span class="line">│&nbsp;&nbsp; │&nbsp;&nbsp;     │&nbsp;&nbsp; │&nbsp;&nbsp; └── ばかみたい</span><br><span class="line">│&nbsp;&nbsp; │&nbsp;&nbsp;     │&nbsp;&nbsp; └── Resources</span><br><span class="line">│&nbsp;&nbsp; │&nbsp;&nbsp;     │&nbsp;&nbsp;     └── mscorlib.dll-resources.dat</span><br><span class="line">│&nbsp;&nbsp; │&nbsp;&nbsp;     ├── RuntimeInitializeOnLoads.json</span><br><span class="line">│&nbsp;&nbsp; │&nbsp;&nbsp;     ├── ScriptingAssemblies.json</span><br><span class="line">│&nbsp;&nbsp; │&nbsp;&nbsp;     ├── unity_app_guid</span><br><span class="line">│&nbsp;&nbsp; │&nbsp;&nbsp;     └── unity <span class="hljs-keyword">default</span> resources</span><br><span class="line">│&nbsp;&nbsp; └── UnityServicesProjectConfiguration.json</span><br><span class="line">├── classes.dex</span><br><span class="line">├── lib</span><br><span class="line">│&nbsp;&nbsp; ├── arm64-v8a</span><br><span class="line">│&nbsp;&nbsp; │&nbsp;&nbsp; ├── lib_burst_generated.so</span><br><span class="line">│&nbsp;&nbsp; │&nbsp;&nbsp; ├── libil2cpp.so</span><br><span class="line">│&nbsp;&nbsp; │&nbsp;&nbsp; ├── libmain.so</span><br><span class="line">│&nbsp;&nbsp; │&nbsp;&nbsp; └── libunity.so</span><br><span class="line">│&nbsp;&nbsp; └── armeabi-v7a</span><br><span class="line">│&nbsp;&nbsp;     ├── lib_burst_generated.so</span><br><span class="line">│&nbsp;&nbsp;     ├── libil2cpp.so</span><br><span class="line">│&nbsp;&nbsp;     ├── libmain.so</span><br><span class="line">│&nbsp;&nbsp;     └── libunity.so</span><br><span class="line">├── META-INF</span><br><span class="line">│&nbsp;&nbsp; ├── CERT.RSA</span><br><span class="line">│&nbsp;&nbsp; ├── CERT.SF</span><br><span class="line">│&nbsp;&nbsp; └── MANIFEST.MF</span><br><span class="line">├── res</span><br><span class="line">│&nbsp;&nbsp; ├── mipmap-hdpi-v4</span><br><span class="line">│&nbsp;&nbsp; │&nbsp;&nbsp; ├── app_icon.png</span><br><span class="line">│&nbsp;&nbsp; │&nbsp;&nbsp; └── app_icon_round.png</span><br><span class="line">│&nbsp;&nbsp; ├── mipmap-ldpi-v4</span><br><span class="line">│&nbsp;&nbsp; │&nbsp;&nbsp; ├── app_icon.png</span><br><span class="line">│&nbsp;&nbsp; │&nbsp;&nbsp; └── app_icon_round.png</span><br><span class="line">│&nbsp;&nbsp; ├── mipmap-mdpi-v4</span><br><span class="line">│&nbsp;&nbsp; │&nbsp;&nbsp; ├── app_icon.png</span><br><span class="line">│&nbsp;&nbsp; │&nbsp;&nbsp; └── app_icon_round.png</span><br><span class="line">│&nbsp;&nbsp; ├── mipmap-xhdpi-v4</span><br><span class="line">│&nbsp;&nbsp; │&nbsp;&nbsp; ├── app_icon.png</span><br><span class="line">│&nbsp;&nbsp; │&nbsp;&nbsp; └── app_icon_round.png</span><br><span class="line">│&nbsp;&nbsp; ├── mipmap-xxhdpi-v4</span><br><span class="line">│&nbsp;&nbsp; │&nbsp;&nbsp; ├── app_icon.png</span><br><span class="line">│&nbsp;&nbsp; │&nbsp;&nbsp; └── app_icon_round.png</span><br><span class="line">│&nbsp;&nbsp; └── mipmap-xxxhdpi-v4</span><br><span class="line">│&nbsp;&nbsp;     ├── app_icon.png</span><br><span class="line">│&nbsp;&nbsp;     └── app_icon_round.png</span><br><span class="line">└── resources.arsc</span><br><span class="line"></span><br><span class="line"><span class="hljs-number">18</span> directories, <span class="hljs-number">35</span> files</span><br></pre></td></tr></tbody></table></figure>
+
+<p>It’s a unity game and il2cpp reverse, with a japanese metadata file name.</p>
+<h1 id="A-Failed-Try"><a href="#A-Failed-Try" class="headerlink" title="A Failed Try"></a>A Failed Try</h1><p>A common way to solve an il2cpp reverse challenge is find where it load (and decrypt) the metadata.</p>
+<p>Since the name is in japanese and hard to identify in IDA, an easy way is to locate <code>ERROR: Could not open %s</code> . The function is long so i will put the code there instead of a pic.</p>
+<figure class="highlight cpp hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">v46 = *(_QWORD *)(_ReadStatusReg(<span class="hljs-built_in">ARM64_SYSREG</span>(<span class="hljs-number">3</span>, <span class="hljs-number">3</span>, <span class="hljs-number">13</span>, <span class="hljs-number">0</span>, <span class="hljs-number">2</span>)) + <span class="hljs-number">40</span>);</span><br><span class="line">*(_OWORD *)s = xmmword_10E00A7;</span><br><span class="line">result = <span class="hljs-built_in">sub_4A9420</span>(s, (<span class="hljs-keyword">int</span>)a2, a3, a4, a5, a6, a7, a8, (<span class="hljs-keyword">int</span>)v33, v34, v35, v37, ptr, v39, v41, v42);</span><br><span class="line">qword_1646A88 = result;</span><br><span class="line"><span class="hljs-keyword">if</span> ( result )</span><br><span class="line">{</span><br><span class="line">  v11 = <span class="hljs-built_in">blowfish_init</span>((<span class="hljs-keyword">int</span>)&amp;unk_163FC04, &amp;unk_1645A40);</span><br><span class="line">  <span class="hljs-built_in">sub_431938</span>(v11);</span><br><span class="line">  v33 = <span class="hljs-string">"Metadata"</span>;</span><br><span class="line">  v34 = <span class="hljs-number">8LL</span>;</span><br><span class="line">  v12 = (<span class="hljs-keyword">unsigned</span> __int64)v35 &gt;&gt; <span class="hljs-number">1</span>;</span><br><span class="line">  <span class="hljs-keyword">if</span> ( (v35 &amp; <span class="hljs-number">1</span>) != <span class="hljs-number">0</span> )</span><br><span class="line">    v13 = ptr;</span><br><span class="line">  <span class="hljs-keyword">else</span></span><br><span class="line">    v13 = v36;</span><br><span class="line">  <span class="hljs-keyword">if</span> ( (v35 &amp; <span class="hljs-number">1</span>) != <span class="hljs-number">0</span> )</span><br><span class="line">    v12 = v37;</span><br><span class="line">  v43 = v13;</span><br><span class="line">  v44 = v12;</span><br><span class="line">  <span class="hljs-built_in">sub_4332F8</span>(&amp;v43, &amp;v33);</span><br><span class="line">  <span class="hljs-keyword">if</span> ( (v35 &amp; <span class="hljs-number">1</span>) != <span class="hljs-number">0</span> )</span><br><span class="line">    <span class="hljs-function"><span class="hljs-keyword">operator</span> <span class="hljs-title">delete</span><span class="hljs-params">(ptr)</span></span>;</span><br><span class="line">  v14 = <span class="hljs-built_in">strlen</span>(s);</span><br><span class="line">  <span class="hljs-keyword">if</span> ( (v39 &amp; <span class="hljs-number">1</span>) != <span class="hljs-number">0</span> )</span><br><span class="line">    v15 = v42;</span><br><span class="line">  <span class="hljs-keyword">else</span></span><br><span class="line">    v15 = v40;</span><br><span class="line">  <span class="hljs-keyword">if</span> ( (v39 &amp; <span class="hljs-number">1</span>) != <span class="hljs-number">0</span> )</span><br><span class="line">    v16 = v41;</span><br><span class="line">  <span class="hljs-keyword">else</span></span><br><span class="line">    v16 = (<span class="hljs-keyword">unsigned</span> __int64)v39 &gt;&gt; <span class="hljs-number">1</span>;</span><br><span class="line">  v33 = s;</span><br><span class="line">  v34 = v14;</span><br><span class="line">  v43 = v15;</span><br><span class="line">  v44 = v16;</span><br><span class="line">  <span class="hljs-built_in">sub_4332F8</span>(&amp;v43, &amp;v33);</span><br><span class="line">  <span class="hljs-keyword">if</span> ( (v35 &amp; <span class="hljs-number">1</span>) != <span class="hljs-number">0</span> )</span><br><span class="line">    v17 = (<span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span> *)ptr;</span><br><span class="line">  <span class="hljs-keyword">else</span></span><br><span class="line">    v17 = v36;</span><br><span class="line">  v18 = <span class="hljs-built_in">fopen</span>(v17, <span class="hljs-string">"r"</span>);</span><br><span class="line">  <span class="hljs-built_in">fseek</span>(v18, <span class="hljs-number">0LL</span>, <span class="hljs-number">2</span>);</span><br><span class="line">  v19 = <span class="hljs-built_in">ftell</span>(v18);</span><br><span class="line">  <span class="hljs-built_in">fclose</span>(v18);</span><br><span class="line">  v20 = <span class="hljs-built_in">malloc</span>(v19);</span><br><span class="line">  v21 = qword_1646A88;</span><br><span class="line">  v22 = v20;</span><br><span class="line">  <span class="hljs-built_in">memcpy</span>(v20, (<span class="hljs-keyword">const</span> <span class="hljs-keyword">void</span> *)qword_1646A88, v19);</span><br><span class="line">  <span class="hljs-built_in">blowfish_decrypt</span>(v22, v19, v21);</span><br></pre></td></tr></tbody></table></figure>
+
+<p>It is easy to identify the decrypt function as blowfish since the constants are not modified. After a carefully analysis, we confirm that it is <em>the blowfish</em>. So we can easily decrypt the metadata and use <a target="_blank" rel="noopener" href="https://github.com/Perfare/Il2CppDumper">il2cppdumper</a> to fetch the function and struct information. But things didn’t go as expected. The decrypted metadata has <strong>obfuscated</strong> header.</p>
+<p><img src="/2023/10/11/balsn-ctf-2023/Untitled2.png" alt="Untitled"></p>
+<p>The <code>Sanity</code> and <code>version</code> do not appear at the right positions and we fail to recover the header since we got conflicts. So the static way failed.</p>
+<h1 id="Final-Solution"><a href="#Final-Solution" class="headerlink" title="Final Solution"></a>Final Solution</h1><p>Use the magisk version of <a target="_blank" rel="noopener" href="https://github.com/Perfare/Zygisk-Il2CppDumper">il2cppdumper</a> to dump dynamically. Search <code>dump.cs</code> for <code>Assembly-CSharp.dll</code> and find something interesting.</p>
+<figure class="highlight csharp hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">SuperSecretValueStorage</span> : <span class="hljs-title">MonoBehaviour</span></span><br><span class="line">{</span><br><span class="line">	<span class="hljs-comment">// Fields</span></span><br><span class="line">	<span class="hljs-keyword">private</span> <span class="hljs-keyword">const</span> Int32 TotalSz; <span class="hljs-comment">// 0x0</span></span><br><span class="line">	<span class="hljs-keyword">private</span> Byte[] superSecretBytes; <span class="hljs-comment">// 0x18</span></span><br><span class="line">	<span class="hljs-keyword">private</span> ICryptoTransform _enc; <span class="hljs-comment">// 0x20</span></span><br><span class="line">	<span class="hljs-keyword">private</span> ICryptoTransform _dec; <span class="hljs-comment">// 0x28</span></span><br><span class="line"></span><br><span class="line">	<span class="hljs-comment">// Properties</span></span><br><span class="line"></span><br><span class="line">	<span class="hljs-comment">// Methods</span></span><br><span class="line">	<span class="hljs-comment">// RVA: 0x550cc4 VA: 0x7ba5062cc4</span></span><br><span class="line">	<span class="hljs-keyword">private</span> Dictionary`<span class="hljs-number">2</span> DeserializeMapping() { }</span><br><span class="line">	<span class="hljs-comment">// RVA: 0x550f1c VA: 0x7ba5062f1c</span></span><br><span class="line">	<span class="hljs-function"><span class="hljs-keyword">private</span> Byte[] <span class="hljs-title">SerializeMapping</span>(<span class="hljs-params">Dictionary`<span class="hljs-number">2</span> mapping</span>)</span> { }</span><br><span class="line">	<span class="hljs-comment">// RVA: 0x54efcc VA: 0x7ba5060fcc</span></span><br><span class="line">	<span class="hljs-function"><span class="hljs-keyword">public</span> Object <span class="hljs-title">ReadSecretValue</span>(<span class="hljs-params">String val</span>)</span> { }</span><br><span class="line">	<span class="hljs-comment">// RVA: 0x54f1b4 VA: 0x7ba50611b4</span></span><br><span class="line">	<span class="hljs-function"><span class="hljs-keyword">public</span> Void <span class="hljs-title">WriteSecretValue</span>(<span class="hljs-params">String <span class="hljs-keyword">value</span>, Object o</span>)</span> { }</span><br><span class="line">	<span class="hljs-comment">// RVA: 0x5510a0 VA: 0x7ba50630a0</span></span><br><span class="line">	<span class="hljs-function"><span class="hljs-keyword">private</span> Void <span class="hljs-title">Start</span>(<span class="hljs-params"></span>)</span> { }</span><br><span class="line">	<span class="hljs-comment">// RVA: 0x551298 VA: 0x7ba5063298</span></span><br><span class="line">	<span class="hljs-keyword">public</span> Void .ctor() { }</span><br><span class="line">}</span><br></pre></td></tr></tbody></table></figure>
+
+<p>The class seems to be used to store something with encrypt, decrypt, read and write methods. After hooking and fetching the args of <code>ReadSecretValue</code> and <code>WriteSecretValue</code> with frida, I find that, everytime the score updates, the <code>ReadSecretValue</code> and <code>WriteSecretValue</code> are called with string <code>score</code> as argument, to look up an encrypted dictionary. </p>
+<p>After some reverse, I found where the dictionary is decrypted and the length of the it.</p>
+<p><img src="/2023/10/11/balsn-ctf-2023/Untitled3.png" alt="Untitled"></p>
+<p>So, I use frida to hook after the decryption and dump the memory of the dictionary.</p>
+<figure class="highlight jsx hljs"><table><tbody><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">writeFile</span>(<span class="hljs-params">content: <span class="hljs-built_in">ArrayBuffer</span></span>) </span>{</span><br><span class="line">  <span class="hljs-keyword">var</span> file = <span class="hljs-keyword">new</span> File(</span><br><span class="line">    <span class="hljs-string">"/data/user/0/com.DefaultCompany.balsnctf2023/files/decrypt.txt"</span>,</span><br><span class="line">    <span class="hljs-string">"wb"</span></span><br><span class="line">  );</span><br><span class="line">  file.write(content);</span><br><span class="line">  file.flush();</span><br><span class="line">  file.close();</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">hook_start</span>(<span class="hljs-params"></span>) </span>{</span><br><span class="line">  <span class="hljs-keyword">var</span> addr = Module.getBaseAddress(<span class="hljs-string">"libil2cpp.so"</span>);</span><br><span class="line">  <span class="hljs-keyword">var</span> key = addr.add(<span class="hljs-string">"0x54F10C"</span>);</span><br><span class="line">  Interceptor.attach(key, {</span><br><span class="line">    <span class="hljs-attr">onEnter</span>: <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">args</span>) </span>{</span><br><span class="line">      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"start hook"</span>);</span><br><span class="line">      <span class="hljs-keyword">var</span> x0 = <span class="hljs-built_in">this</span>.context.x0;</span><br><span class="line">      <span class="hljs-built_in">console</span>.log(<span class="hljs-string">"x0 is "</span>, x0.readByteArray(<span class="hljs-number">0x100</span>));</span><br><span class="line">      writeFile(x0.readByteArray(<span class="hljs-number">0x10010</span>));</span><br><span class="line">    },</span><br><span class="line">  });</span><br><span class="line">}</span><br><span class="line"></span><br><span class="line">hook_start();</span><br></pre></td></tr></tbody></table></figure>
+
+<p>Just search for <code>BALSN</code> to find the flag.</p>
+</body></html>
+    
+    </div>
+    
+    <div class="columns is-variable is-1 is-multiline is-mobile">
+    
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/writeup/">#writeup</a></span>
+    
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/ctf/">#ctf</a></span>
+    
+        <span class="column is-narrow"><a class="tag is-light article-tag" href="/tags/balsn/">#balsn</a></span>
+    
+    </div>
+    
+    
+    <div class="columns is-mobile is-multiline article-nav">
+        <span class="column is-12-mobile is-half-desktop is-hidden-mobile article-nav-prev">
+            
+        </span>
+        <span class="column is-12-mobile is-half-desktop  article-nav-next">
+            
+            <a href="/2023/09/17/seccon-quals-2023/">seccon-quals-2023</a>
+            
+        </span>
+    </div>
+    
+</article>
+
+
+<div class="sharebox">
+    
+<div class="sharethis-inline-share-buttons"></div>
+<script type='text/javascript' src='https://platform-api.sharethis.com/js/sharethis.js#property=618a5a31fe4ac40012aea77e&amp;product=inline-share-buttons' async='async'></script>
+
+</div>
+
+
+
+<div class="comments">
+    <h3 class="title is-4">Comments</h3>
+    
+<script>
+    var disqus_config = function () {
+        this.page.url = 'https://rycbar77.github.io/2023/10/11/balsn-ctf-2023/';
+        this.page.identifier = '2023/10/11/balsn-ctf-2023/';
+        
+        this.language = 'en';
+        
+    };
+    (function() {
+        var d = document, s = d.createElement('script');  
+        s.src = '//' + 'rrblog-2' + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+
+<div id="disqus_thread">
+    
+    <noscript>Please enable JavaScript to view the <a target="_blank" rel="noopener" href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+</div>
+
+    </div>
+</section>
+    <footer class="footer">
+    <div class="container">
+        <div class="columns content">
+            <div class="column is-narrow has-text-centered">
+                &copy; 2023 r4z77&nbsp;
+                Powered by <a href="http://hexo.io/" target="_blank">Hexo</a> & <a
+                        target="_blank" rel="noopener" href="http://github.com/ppoffice/hexo-theme-minos">Minos</a>
+            </div>
+            <div class="column is-hidden-mobile"></div>
+
+            
+            <div class="column is-narrow">
+                <div class="columns is-mobile is-multiline is-centered">
+                
+                    
+                <a class="column is-narrow has-text-black" title="GitHub" target="_blank" rel="noopener" href="https://github.com/rycbar77">
+                    
+                    GitHub
+                    
+                </a>
+                
+                </div>
+            </div>
+            
+            
+        </div>
+    </div>
+</footer>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/moment.js/2.22.2/moment-with-locales.min.js"></script>
+
+<!-- test if the browser is outdated -->
+<div id="outdated">
+    <h6>Your browser is out-of-date!</h6>
+    <p>Update your browser to view this website correctly. <a id="btnUpdateBrowser" target="_blank" rel="noopener" href="http://outdatedbrowser.com/">Update my browser now </a></p>
+    <p class="last"><a href="#" id="btnCloseUpdateBrowser" title="Close">&times;</a></p>
+</div>
+<script src="//cdnjs.cloudflare.com/ajax/libs/outdated-browser/1.1.5/outdatedbrowser.min.js"></script>
+<script>
+    $(document).ready(function () {
+        // plugin function, place inside DOM ready function
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'flex'
+        })
+    });
+</script>
+
+<script>
+    window.FontAwesomeConfig = {
+        searchPseudoElements: true
+    }
+    moment.locale("en-AU");
+</script>
+
+
+    
+    
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+<script>
+    MathJax.Hub.Config({
+        "HTML-CSS": {
+            matchFontHeight: false
+        },
+        SVG: {
+            matchFontHeight: false
+        },
+        CommonHTML: {
+            matchFontHeight: false
+        },
+        tex2jax: {
+            inlineMath: [
+                ['$','$'],
+                ['\\(','\\)']
+            ]
+        }
+    });
+</script>
+
+    
+    
+    
+    
+<script src="//cdnjs.cloudflare.com/ajax/libs/lightgallery/1.6.8/js/lightgallery-all.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/justifiedGallery/3.6.5/js/jquery.justifiedGallery.min.js"></script>
+<script>
+    (function ($) {
+        $(document).ready(function () {
+            if (typeof($.fn.lightGallery) === 'function') {
+                $('.article.gallery').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof($.fn.justifiedGallery) === 'function') {
+                $('.justified-gallery > p > .gallery-item').unwrap();
+                $('.justified-gallery').justifiedGallery();
+            }
+        });
+    })(jQuery);
+</script>
+
+    
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.0/clipboard.min.js"></script>
+    <style>
+        .hljs {
+            position: relative;
+        }
+
+        .hljs .clipboard-btn {
+            float: right;
+            color: #9a9a9a;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .hljs .clipboard-btn:hover {
+          color: #8a8a8a;
+        }
+
+        .hljs > .clipboard-btn {
+            display: none;
+            position: absolute;
+            right: 4px;
+            top: 4px;
+        }
+
+        .hljs:hover > .clipboard-btn {
+            display: inline;
+        }
+
+        .hljs > figcaption > .clipboard-btn {
+            margin-right: 4px;
+        }
+    </style>
+    <script>
+      $(document).ready(function () {
+        $('figure.hljs').each(function(i, figure) {
+          var codeId = 'code-' + i;
+          var code = figure.querySelector('.code');
+          var copyButton = $('<button>Copy <i class="far fa-clipboard"></i></button>');
+          code.id = codeId;
+          copyButton.addClass('clipboard-btn');
+          copyButton.attr('data-clipboard-target-id', codeId);
+
+          var figcaption = figure.querySelector('figcaption');
+
+          if (figcaption) {
+            figcaption.append(copyButton[0]);
+          } else {
+            figure.prepend(copyButton[0]);
+          }
+        })
+
+        var clipboard = new ClipboardJS('.clipboard-btn', {
+          target: function(trigger) {
+            return document.getElementById(trigger.getAttribute('data-clipboard-target-id'));
+          }
+        });
+        clipboard.on('success', function(e) {
+          e.clearSelection();
+        })
+      })
+    </script>
+
+    
+    
+
+    
+
+
+
+<script src="/js/script.js"></script>
+
+
+    
+    <div class="searchbox ins-search">
+    <div class="searchbox-mask"></div>
+    <div class="searchbox-container ins-search-container">
+        <div class="searchbox-input-wrapper">
+            <input type="text" class="searchbox-input ins-search-input" placeholder="Type something..." />
+            <span class="searchbox-close ins-close ins-selectable"><i class="fa fa-times-circle"></i></span>
+        </div>
+        <div class="searchbox-result-wrapper ins-section-wrapper">
+            <div class="ins-section-container"></div>
+        </div>
+    </div>
+</div>
+<script>
+    (function (window) {
+        var INSIGHT_CONFIG = {
+            TRANSLATION: {
+                POSTS: 'Posts',
+                PAGES: 'Pages',
+                CATEGORIES: 'Categories',
+                TAGS: 'Tags',
+                UNTITLED: '(Untitled)',
+            },
+            CONTENT_URL: '/content.json',
+        };
+        window.INSIGHT_CONFIG = INSIGHT_CONFIG;
+    })(window);
+</script>
+
+<script src="/js/insight.js"></script>
+
+    
+</body>
+</html>
